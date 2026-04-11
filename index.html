@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cascade Simulator — Systems Collapse Visualization 2026-2032</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0a0a0a;--panel:#111111;--panel2:#1a1a1a;--border:#222222;--border2:#333333;
+--amber:#f59e0b;--red:#ef4444;--green:#22c55e;--blue:#3b82f6;
+--text:#e0e0e0;--text2:#aaaaaa;--text3:#888888;
+--font:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+html{font-size:14px;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--font);overflow-x:hidden;min-height:100vh}
+a{color:var(--amber)}
+
+/* TABS */
+.tab-bar{display:flex;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.tab-btn{flex:1;padding:14px 20px;background:none;border:none;color:var(--text3);font:600 .95rem var(--font);cursor:pointer;transition:all .3s;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.05em}
+.tab-btn:hover{color:var(--text2);background:var(--panel2)}
+.tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);background:var(--panel2)}
+.tab-content{display:none;animation:fadeIn .4s}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* GLOBAL CASCADE */
+.gc-container{position:relative;padding:12px}
+.gc-header{text-align:center;padding:16px 12px 8px}
+.gc-header h1{font-size:1.4rem;font-weight:700;color:var(--text);letter-spacing:.02em}
+.gc-header p{color:var(--text3);font-size:.8rem;margin-top:4px}
+
+.pivot-badge{position:absolute;top:70px;right:16px;background:var(--panel2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;text-align:center;z-index:10;min-width:130px}
+.pivot-badge .label{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px}
+.pivot-badge .years{font-size:1.8rem;font-weight:800;font-variant-numeric:tabular-nums}
+.pivot-badge .sub{font-size:.7rem;color:var(--text3);margin-top:2px}
+
+.svg-wrap{width:100%;max-width:900px;margin:0 auto;position:relative}
+.svg-wrap svg{width:100%;height:auto;display:block}
+
+/* Callouts */
+.callout{position:absolute;background:rgba(17,17,17,.92);border:1px solid var(--border2);border-radius:6px;padding:10px 14px;max-width:260px;font-size:.75rem;line-height:1.5;opacity:0;transition:opacity .6s;pointer-events:none;z-index:5}
+.callout.visible{opacity:1;pointer-events:auto}
+.callout .callout-title{font-weight:700;color:var(--amber);margin-bottom:3px;font-size:.8rem}
+.callout-paradox{left:5%;top:30%}
+.callout-retrain{right:5%;top:55%}
+
+/* TIMELINE */
+.timeline-section{background:var(--panel);border-top:1px solid var(--border);padding:16px 20px 10px;margin-top:8px}
+.timeline-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text3);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.timeline-track{position:relative;width:100%;height:36px}
+input[type=range].timeline-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:var(--border2);border-radius:3px;outline:none;cursor:pointer;position:relative;z-index:2}
+input[type=range].timeline-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);cursor:grab;box-shadow:0 0 10px rgba(245,158,11,.4)}
+input[type=range].timeline-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);cursor:grab}
+.timeline-events{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;justify-content:center}
+.timeline-event{font-size:.65rem;padding:3px 8px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);color:var(--text3);transition:all .3s;white-space:nowrap}
+.timeline-event.active{color:var(--amber);border-color:var(--amber);background:rgba(245,158,11,.08)}
+.timeline-event.critical{color:var(--red);border-color:var(--red);background:rgba(239,68,68,.08)}
+
+/* DETAIL PANEL */
+.detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.detail-overlay.open{opacity:1;pointer-events:auto}
+.detail-panel{position:fixed;top:0;right:-400px;width:380px;max-width:92vw;height:100vh;background:var(--panel);border-left:1px solid var(--border2);z-index:201;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:24px 20px}
+.detail-panel.open{right:0}
+.detail-close{position:absolute;top:12px;right:12px;background:none;border:1px solid var(--border2);color:var(--text3);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.detail-close:hover{color:var(--text);border-color:var(--text3)}
+.detail-panel h2{font-size:1.1rem;color:var(--amber);margin-bottom:6px;padding-right:40px}
+.detail-panel .stat{font-size:.85rem;color:var(--text);margin:8px 0;padding:10px;background:var(--panel2);border-radius:6px;border-left:3px solid var(--amber)}
+.detail-panel .confidence{font-size:.75rem;color:var(--text3);margin:6px 0 14px}
+.detail-panel h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin:14px 0 6px}
+.detail-panel .conn-list{list-style:none}
+.detail-panel .conn-list li{font-size:.8rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)}
+.detail-panel .conn-list li:last-child{border:none}
+
+/* PERSONAL VIEW */
+.pv-container{padding:16px;max-width:900px;margin:0 auto}
+.pv-container h1{font-size:1.3rem;text-align:center;margin-bottom:4px}
+.pv-container .pv-sub{text-align:center;color:var(--text3);font-size:.8rem;margin-bottom:16px}
+
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.pv-grid{grid-template-columns:1fr}}
+
+.pv-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px}
+.pv-card h2{font-size:.9rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:12px}
+
+/* Risk Meters */
+.risk-meter{margin-bottom:10px}
+.risk-meter .rm-label{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px}
+.risk-meter .rm-label span:first-child{color:var(--text2)}
+.risk-meter .rm-label span:last-child{font-weight:600;font-variant-numeric:tabular-nums}
+.risk-meter .rm-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.risk-meter .rm-fill{height:100%;border-radius:4px;transition:width .5s,background .5s}
+
+/* Toggles */
+.toggle-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border:none}
+.toggle-switch{position:relative;width:40px;min-width:40px;height:22px;margin-top:1px}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-switch .slider{position:absolute;inset:0;background:var(--border2);border-radius:11px;cursor:pointer;transition:background .3s}
+.toggle-switch .slider::before{content:'';position:absolute;left:2px;top:2px;width:18px;height:18px;background:var(--text3);border-radius:50%;transition:all .3s}
+.toggle-switch input:checked+.slider{background:var(--amber)}
+.toggle-switch input:checked+.slider::before{transform:translateX(18px);background:#fff}
+.toggle-text{font-size:.78rem;color:var(--text2);line-height:1.4}
+.toggle-text strong{color:var(--text);font-weight:600}
+
+/* Relocation */
+.reloc-select{width:100%;padding:10px 12px;background:var(--panel2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font:inherit;font-size:.85rem;margin-bottom:10px;cursor:pointer}
+.reloc-select:focus{outline:none;border-color:var(--amber)}
+.reloc-desc{font-size:.78rem;color:var(--text2);line-height:1.5;padding:8px;background:var(--panel2);border-radius:6px}
+
+/* UK Risks / Actions */
+.alert-box{border-radius:8px;padding:14px;margin-top:12px}
+.alert-box.danger{border:1px solid var(--red);background:rgba(239,68,68,.04)}
+.alert-box.warning{border:1px solid var(--amber);background:rgba(245,158,11,.04)}
+.alert-box h3{font-size:.85rem;margin-bottom:8px}
+.alert-box.danger h3{color:var(--red)}
+.alert-box.warning h3{color:var(--amber)}
+.alert-box ul{list-style:none;padding:0}
+.alert-box li{font-size:.78rem;color:var(--text2);padding:4px 0;padding-left:16px;position:relative;line-height:1.45}
+.alert-box li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%}
+.alert-box.danger li::before{background:var(--red)}
+.alert-box.warning li::before{background:var(--amber)}
+
+/* PV Timeline */
+.pv-timeline{grid-column:1/-1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px}
+
+/* Footer */
+footer{text-align:center;padding:24px 16px;border-top:1px solid var(--border);margin-top:20px}
+footer p{font-size:.7rem;color:var(--text3);line-height:1.6;max-width:800px;margin:0 auto}
+footer .title{color:var(--amber);font-weight:700;font-size:.8rem;margin-bottom:6px}
+
+/* Mobile */
+@media(max-width:600px){
+  .tab-btn{padding:10px 8px;font-size:.8rem}
+  .gc-header h1{font-size:1.1rem}
+  .pivot-badge{top:60px;right:8px;padding:8px 10px;min-width:100px}
+  .pivot-badge .years{font-size:1.3rem}
+  .callout{max-width:180px;font-size:.68rem;padding:8px 10px}
+  .detail-panel{width:100%;max-width:100vw;padding:20px 16px}
+  .pv-container{padding:10px}
+}
+</style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="global">Global Cascade</button>
+  <button class="tab-btn" data-tab="personal">Personal View</button>
+</div>
+
+<!-- ============ GLOBAL CASCADE ============ -->
+<div class="tab-content active" id="tab-global">
+  <div class="gc-container">
+    <div class="gc-header">
+      <h1>Cascade Simulator: Interconnected Collapse 2026&ndash;2032</h1>
+      <p>How AI accelerates 14 converging global crises</p>
+    </div>
+
+    <div class="pivot-badge" id="pivotBadge">
+      <div class="label">Pivot Window</div>
+      <div class="years" id="pivotYears">2.5 yrs</div>
+      <div class="sub" id="pivotSub">Act now</div>
+    </div>
+
+    <div class="svg-wrap" id="svgWrap">
+      <svg id="graphSvg" viewBox="-50 -50 900 900" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="callout callout-paradox" id="calloutParadox">
+        <div class="callout-title">AI PARADOX</div>
+        AI destroys the consumers who fund AI. The system cannibalises itself.
+      </div>
+      <div class="callout callout-retrain" id="calloutRetrain">
+        <div class="callout-title">RETRAINING MYTH</div>
+        The escape valve fails: AI also learns whatever you'd retrain into.
+      </div>
+    </div>
+
+    <div class="timeline-section">
+      <div class="timeline-label"><span id="tlYear">2026.0</span><span>2032</span></div>
+      <div class="timeline-track">
+        <input type="range" class="timeline-slider" id="timelineSlider" min="2026" max="2032" step="0.05" value="2026">
+      </div>
+      <div class="timeline-events" id="timelineEvents"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PERSONAL VIEW ============ -->
+<div class="tab-content" id="tab-personal">
+  <div class="pv-container">
+    <h1>Personal View</h1>
+    <p class="pv-sub">UK-based independent consultant &mdash; risk exposure &amp; mitigation</p>
+
+    <div class="pv-timeline" style="margin-bottom:16px">
+      <div class="timeline-label"><span id="tlYear2">2026.0</span><span>2032</span></div>
+      <input type="range" class="timeline-slider" id="timelineSlider2" min="2026" max="2032" step="0.05" value="2026">
+    </div>
+
+    <div class="pv-grid">
+      <div class="pv-card">
+        <h2>Risk Exposure</h2>
+        <div id="riskMeters"></div>
+      </div>
+      <div class="pv-card">
+        <h2>Mitigation Decisions</h2>
+        <div id="toggles"></div>
+      </div>
+      <div class="pv-card">
+        <h2>Relocation Analysis</h2>
+        <select class="reloc-select" id="relocSelect">
+          <option value="UK">United Kingdom (current)</option>
+          <option value="PT">Portugal</option>
+          <option value="IE">Ireland</option>
+          <option value="SG">Singapore</option>
+          <option value="AE">UAE</option>
+        </select>
+        <div class="reloc-desc" id="relocDesc"></div>
+      </div>
+      <div class="pv-card">
+        <div class="alert-box danger">
+          <h3>UK-Specific Risks</h3>
+          <ul>
+            <li>NHS collapse &mdash; private health insurance essential</li>
+            <li>Sterling vulnerability to global shocks</li>
+            <li>Housing distorted by institutional investors</li>
+            <li>Post-Brexit friction compounds tariffs</li>
+            <li>Economy disproportionately SaaS-dependent</li>
+          </ul>
+        </div>
+        <div class="alert-box warning" style="margin-top:12px">
+          <h3>Recommended Actions</h3>
+          <ul id="actionsList"></ul>
+          <div id="pivotCountdown" style="margin-top:10px;font-size:.78rem;font-weight:600"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="detail-overlay" id="detailOverlay"></div>
+<div class="detail-panel" id="detailPanel">
+  <button class="detail-close" id="detailClose">&times;</button>
+  <h2 id="dpTitle"></h2>
+  <div class="stat" id="dpStat"></div>
+  <div class="confidence" id="dpConf"></div>
+  <p id="dpDesc" style="font-size:.82rem;color:var(--text2);line-height:1.5;margin-bottom:10px"></p>
+  <h3>Feeds into</h3>
+  <ul class="conn-list" id="dpOutbound"></ul>
+  <h3>Fed by</h3>
+  <ul class="conn-list" id="dpInbound"></ul>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="title">The Face of Humanity: April 2026</p>
+  <p>An honest assessment. Data sourced from ONS, CDC, NHS England, Yale Budget Lab, Oxfam, OECD, WHO, and 100+ additional sources.<br>Methodology: 14 specialist research agents, web-sourced April 2026 data, confidence levels marked throughout.</p>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* =================== DATA =================== */
+const NODES = [
+  {id:0, name:'AI ACCELERANT', short:'AI', desc:'Artificial intelligence as force multiplier across all crisis domains. Exponential capability growth outpacing institutional response.', stat:'GPT-4 to GPT-5 in 12 months. Coding agents replacing junior roles at scale.', conf:'Observed — HIGH', color0:'#f59e0b', isCenter:true},
+  {id:1, name:'SaaS Collapse', short:'SaaS', desc:'AI-native tools replacing established SaaS platforms. Revenue compression across the sector.', stat:'80K tech layoffs Q1 2026, 48% AI-attributed', conf:'HIGH (observed)'},
+  {id:2, name:'White-Collar Displacement', short:'Jobs', desc:'AI automates cognitive tasks faster than retraining cycles can compensate. Professional roles hollowed out.', stat:'502K projected AI cuts by end 2026', conf:'HIGH'},
+  {id:3, name:'Consumer Demand Collapse', short:'Demand', desc:'Job losses and tariff costs crush consumer spending power. Retail and services contract.', stat:'$1,500/yr household tariff cost (Yale Budget Lab)', conf:'HIGH (modelled)'},
+  {id:4, name:'Commercial RE Crash', short:'CRE', desc:'Remote work + business failures empty commercial property. Loan defaults threaten regional banks.', stat:'Office vacancy at 20-year highs', conf:'HIGH (observed)'},
+  {id:5, name:'Healthcare Failure', short:'Health', desc:'Underfunded systems buckling under demand. Preventable deaths rising.', stat:'6.13M NHS wait list. 66.5% US bankruptcies medical', conf:'HIGH'},
+  {id:6, name:'Housing Crisis', short:'Housing', desc:'Institutional investors + rising rates lock out buyers. Homelessness at emergency levels.', stat:'4 die homeless daily UK. 771K homeless US', conf:'HIGH (observed)'},
+  {id:7, name:'Mental Health Crisis', short:'Mental', desc:'Isolation, job loss, and system failure drive anxiety, depression, and suicide.', stat:'1.7M NHS mental health wait list. 49K US suicides/yr', conf:'HIGH'},
+  {id:8, name:'Birth Rate Collapse', short:'Births', desc:'Economic insecurity makes parenthood unviable. Population decline threatens pension systems.', stat:'136/237 countries below replacement. S.Korea 0.68', conf:'HIGH (structural)'},
+  {id:9, name:'Gov Revenue Collapse', short:'GovRev', desc:'Shrinking tax base + rising demand = austerity spiral. Public services gutted.', stat:'190K excess UK deaths linked to austerity (LSE)', conf:'MEDIUM-HIGH'},
+  {id:10, name:'Social Disintegration', short:'Social', desc:'Community bonds dissolving. Loneliness epidemic undermines collective resilience.', stat:'17% zero close friends (was 3% in 1990)', conf:'HIGH (observed)'},
+  {id:11, name:'Wealth Hyper-Concentration', short:'Wealth', desc:'AI profits concentrate in fewer hands. Middle class hollowed out. Oligarchic feedback loops.', stat:'Billionaires +$2T in 2024. Top 1% > bottom 95%', conf:'HIGH'},
+  {id:12, name:'Geopolitical Chaos', short:'Geo', desc:'Resource wars, trade disruption, and failed-state contagion. Supply chains fracture.', stat:'Hormuz closed. Brent >$100. Urea +46%/month', conf:'MEDIUM-HIGH'},
+  {id:13, name:'Cyber Threats', short:'Cyber', desc:'AI-powered attacks outpace defenses. Deepfakes erode trust. Critical infrastructure at risk.', stat:'Deepfake fraud $1.1B. 4.8M unfilled cyber roles', conf:'HIGH'},
+  {id:14, name:'Democratic Collapse', short:'Democracy', desc:'Institutional trust at all-time lows. Censorship rising. Democratic norms eroding.', stat:'9% govt trust (all-time low). 8K+ web pages removed', conf:'MEDIUM-HIGH'}
+];
+
+// Connections: [from, to, strength] — 1=strong, 0.6=medium
+const CONNECTIONS = [
+  [1,2,1],[1,3,1],[2,3,1],[2,7,1],[3,4,1],[3,9,1],[5,7,1],[6,7,1],[6,8,1],[7,10,1],[9,5,1],[9,14,1],[10,14,1],[11,6,1],[11,14,1],[12,3,1],
+  [2,6,.6],[3,1,.6],[3,10,.6],[4,9,.6],[5,8,.6],[7,8,.6],[8,9,.6],[11,3,.6],[11,9,.6],[12,9,.6],[13,3,.6],[13,14,.6],[14,9,.6],[14,10,.6]
+];
+
+const TIMELINE_EVENTS = [
+  {year:2026.5, text:'Tariff impacts land'},
+  {year:2026.75, text:'First SaaS failures'},
+  {year:2027, text:'500K+ AI layoffs'},
+  {year:2027.5, text:'Demand drops'},
+  {year:2028, text:'SaaS -40-60%'},
+  {year:2028.2, text:'PIVOT WINDOW CLOSES', critical:true},
+  {year:2029, text:'Demand collapse critical'},
+  {year:2030, text:'UBI or neo-feudalism'}
+];
+
+const RISK_KEYS = [
+  {key:'income', label:'Income Security'},
+  {key:'clients', label:'Client Stability'},
+  {key:'housing', label:'Housing Security'},
+  {key:'health', label:'Healthcare Access'},
+  {key:'digital', label:'Digital Security'},
+  {key:'retire', label:'Retirement Viability'},
+  {key:'safety', label:'Physical Safety'},
+  {key:'social', label:'Social Connection'}
+];
+
+// Base UK scores at 2026.0
+const BASE_SCORES = {income:62,clients:55,housing:50,health:40,digital:45,retire:35,safety:65,social:40};
+
+// Deterioration per year from cascade
+const DECAY_RATES = {income:8,clients:7,housing:5,health:6,digital:4,retire:6,safety:3,social:5};
+
+const TOGGLES_DATA = [
+  {id:'ltd', label:'Incorporate as Ltd Company', effects:{income:5,retire:8}},
+  {id:'diversify', label:'Diversify Income Streams', effects:{income:15,clients:10}},
+  {id:'multicurr', label:'Multi-currency Savings', effects:{retire:10}},
+  {id:'insurance', label:'Income Protection Insurance', effects:{income:20}},
+  {id:'network', label:'Accelerated Network Building', effects:{clients:18,social:20}},
+  {id:'ai_consult', label:'AI-augmented Consulting', effects:{income:12,clients:10}, diminishing:true},
+  {id:'cybersec', label:'Digital Security Hardening', effects:{digital:30}},
+  {id:'emergency', label:'Emergency Fund 12 months', effects:{income:8,housing:5,retire:10}}
+];
+
+const RELOC_DATA = {
+  UK:{desc:'Current base. Strong consulting market but high exposure to SaaS dependency, NHS strain, and sterling volatility. Post-Brexit friction amplifies tariff impacts.',adj:{income:0,clients:0,housing:0,health:0,digital:0,retire:0,safety:0,social:0}},
+  PT:{desc:'Lower cost of living. NHR tax regime (if still available). Growing tech scene in Lisbon. Weaker local consulting demand but strong quality of life. EU single market access.',adj:{income:-8,clients:-12,housing:15,health:10,digital:0,retire:12,safety:8,social:-5}},
+  IE:{desc:'English-speaking EU base. Strong tech sector presence (but also SaaS-exposed). Higher housing costs than UK in Dublin. Good healthcare access via HSE + VHI.',adj:{income:5,clients:5,housing:-8,health:8,digital:3,retire:5,safety:5,social:0}},
+  SG:{desc:'Asia-Pacific hub. Zero capital gains, low personal tax. Excellent infrastructure and safety. High cost of living. Strong consulting demand from APAC clients.',adj:{income:10,clients:8,housing:-15,health:15,digital:8,retire:8,safety:15,social:-10}},
+  AE:{desc:'Zero income tax. Growing consulting market. Very high heat/climate risk. Healthcare good but expensive. Limited worker protections. Social freedoms restricted.',adj:{income:15,clients:5,housing:-5,health:5,digital:5,retire:12,safety:10,social:-15}}
+};
+
+/* =================== STATE =================== */
+let currentYear = 2026;
+let activeTab = 'global';
+let toggleStates = {};
+TOGGLES_DATA.forEach(t => toggleStates[t.id] = false);
+let relocation = 'UK';
+
+/* =================== TABS =================== */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    this.classList.add('active');
+    const tab = this.dataset.tab;
+    document.getElementById('tab-'+tab).classList.add('active');
+    activeTab = tab;
+    if(tab==='personal') syncSlider2();
+  });
+});
+
+/* =================== SVG GRAPH =================== */
+const svg = document.getElementById('graphSvg');
+const CX=400, CY=400, R=300;
+
+function buildGraph(){
+  svg.innerHTML = '';
+
+  // Defs for glow + grid
+  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  const glow = document.createElementNS('http://www.w3.org/2000/svg','filter');
+  glow.id='glow';
+  glow.innerHTML='<feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>';
+  defs.appendChild(glow);
+  // Radial gradient for ambient glow
+  const radGrad = document.createElementNS('http://www.w3.org/2000/svg','radialGradient');
+  radGrad.id='ambientGlow';
+  radGrad.innerHTML='<stop offset="0%" stop-color="rgba(245,158,11,0.06)"/><stop offset="100%" stop-color="rgba(245,158,11,0)"/>';
+  defs.appendChild(radGrad);
+  svg.appendChild(defs);
+
+  // Background ambient glow
+  const bgGlow = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  bgGlow.setAttribute('cx',CX);bgGlow.setAttribute('cy',CY);bgGlow.setAttribute('r',350);
+  bgGlow.setAttribute('fill','url(#ambientGlow)');bgGlow.id='bgGlow';
+  svg.appendChild(bgGlow);
+
+  // Concentric guide rings
+  [150,300].forEach(r=>{
+    const ring=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    ring.setAttribute('cx',CX);ring.setAttribute('cy',CY);ring.setAttribute('r',r);
+    ring.setAttribute('fill','none');ring.setAttribute('stroke','rgba(255,255,255,.03)');ring.setAttribute('stroke-width','1');
+    svg.appendChild(ring);
+  });
+
+  // Connection lines group
+  const connG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  connG.id='connGroup';
+  svg.appendChild(connG);
+
+  // AI connection lines group
+  const aiConnG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  aiConnG.id='aiConnGroup';
+  svg.appendChild(aiConnG);
+
+  // Nodes group
+  const nodeG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  nodeG.id='nodeGroup';
+  svg.appendChild(nodeG);
+
+  // Calculate node positions
+  const positions = [{x:CX,y:CY}]; // center (AI)
+  for(let i=0;i<14;i++){
+    const angle = -Math.PI/2 + (2*Math.PI*i/14);
+    positions.push({x: CX + R*Math.cos(angle), y: CY + R*Math.sin(angle)});
+  }
+  window._nodePos = positions;
+
+  // Draw inter-node connections
+  CONNECTIONS.forEach(([from,to,strength]) => {
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', positions[from].x);
+    line.setAttribute('y1', positions[from].y);
+    line.setAttribute('x2', positions[to].x);
+    line.setAttribute('y2', positions[to].y);
+    line.dataset.from = from;
+    line.dataset.to = to;
+    line.dataset.strength = strength;
+    line.setAttribute('stroke', strength===1 ? 'rgba(245,158,11,0.15)' : 'rgba(245,158,11,0.08)');
+    line.setAttribute('stroke-width', strength===1 ? '1.5' : '1');
+    connG.appendChild(line);
+  });
+
+  // Draw AI connection lines
+  for(let i=1;i<=14;i++){
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', CX);
+    line.setAttribute('y1', CY);
+    line.setAttribute('x2', positions[i].x);
+    line.setAttribute('y2', positions[i].y);
+    line.dataset.target = i;
+    line.setAttribute('stroke', 'rgba(245,158,11,0.1)');
+    line.setAttribute('stroke-width', '1');
+    aiConnG.appendChild(line);
+  }
+
+  // Draw nodes
+  NODES.forEach((node,i) => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.style.cursor = 'pointer';
+    g.dataset.nodeId = i;
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx', positions[i].x);
+    circle.setAttribute('cy', positions[i].y);
+    circle.setAttribute('r', node.isCenter ? 40 : 24);
+    circle.setAttribute('fill', node.isCenter ? '#f59e0b' : '#b45309');
+    circle.setAttribute('stroke', node.isCenter ? '#fbbf24' : '#92400e');
+    circle.setAttribute('stroke-width', node.isCenter ? '3' : '1.5');
+    if(node.isCenter) circle.setAttribute('filter','url(#glow)');
+    circle.id = 'nodeCircle'+i;
+    g.appendChild(circle);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', positions[i].x);
+    label.setAttribute('y', positions[i].y + (node.isCenter ? 0 : 0));
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('dominant-baseline','central');
+    label.setAttribute('fill','#fff');
+    label.setAttribute('font-size', node.isCenter ? '11' : '8.5');
+    label.setAttribute('font-weight','700');
+    label.setAttribute('font-family','system-ui,-apple-system,sans-serif');
+    label.setAttribute('pointer-events','none');
+
+    if(node.isCenter){
+      label.textContent = 'AI';
+      const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
+      sub.setAttribute('x', positions[i].x);
+      sub.setAttribute('y', positions[i].y + 14);
+      sub.setAttribute('text-anchor','middle');
+      sub.setAttribute('fill','rgba(255,255,255,.7)');
+      sub.setAttribute('font-size','7');
+      sub.setAttribute('font-weight','600');
+      sub.setAttribute('font-family','system-ui');
+      sub.setAttribute('pointer-events','none');
+      sub.textContent = 'ACCELERANT';
+      g.appendChild(sub);
+    } else {
+      // Wrap short name
+      label.textContent = node.short;
+    }
+    g.appendChild(label);
+
+    // Outer label for non-center nodes
+    if(!node.isCenter){
+      const angle = -Math.PI/2 + (2*Math.PI*(i-1)/14);
+      const dist = R + 48;
+      const lx = CX + dist*Math.cos(angle);
+      const ly = CY + dist*Math.sin(angle);
+      const olabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+      olabel.setAttribute('x', lx);
+      olabel.setAttribute('y', ly);
+      // Adjust anchor based on position
+      const normAngle = ((angle % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
+      if(normAngle > Math.PI*0.4 && normAngle < Math.PI*1.6) olabel.setAttribute('text-anchor','end');
+      else if(normAngle > Math.PI*1.6 || normAngle < Math.PI*0.4) olabel.setAttribute('text-anchor','start');
+      else olabel.setAttribute('text-anchor','middle');
+      // Override: just use middle for simplicity and it looks cleaner in a circle
+      olabel.setAttribute('text-anchor','middle');
+      olabel.setAttribute('dominant-baseline','central');
+      olabel.setAttribute('fill','#777');
+      olabel.setAttribute('font-size','7');
+      olabel.setAttribute('font-family','system-ui,-apple-system,sans-serif');
+      olabel.setAttribute('pointer-events','none');
+      olabel.textContent = node.name;
+      g.appendChild(olabel);
+    }
+
+    // Hover effect
+    g.addEventListener('mouseenter', () => {
+      circle.setAttribute('stroke-width', node.isCenter ? '4' : '2.5');
+      circle.setAttribute('filter','url(#glow)');
+    });
+    g.addEventListener('mouseleave', () => {
+      circle.setAttribute('stroke-width', node.isCenter ? '3' : '1.5');
+      if(!node.isCenter) circle.removeAttribute('filter');
+    });
+    g.addEventListener('click', () => openDetail(i));
+    nodeG.appendChild(g);
+  });
+
+  // Pulsing animation for center
+  animateCenter();
+}
+
+let pulseDir = 1;
+let pulseVal = 0;
+function animateCenter(){
+  const circle = document.getElementById('nodeCircle0');
+  if(!circle) return;
+  pulseVal += 0.02 * pulseDir;
+  if(pulseVal > 1) pulseDir = -1;
+  if(pulseVal < 0) pulseDir = 1;
+  const extra = pulseVal * 4;
+  const baseR = getNodeRadius(0);
+  circle.setAttribute('r', baseR + extra);
+  requestAnimationFrame(animateCenter);
+}
+
+function getNodeRadius(i){
+  if(i===0){
+    const t = (currentYear - 2026) / 6;
+    return 40 + 35 * t * t; // exponential growth
+  }
+  const t = (currentYear - 2026) / 6;
+  return 24 + 14 * t;
+}
+
+function yearToColor(t){
+  // t: 0 to 1 — amber → orange → red → dark red
+  if(t < 0.33) return lerpColor('#f59e0b','#f97316', t/0.33);
+  if(t < 0.66) return lerpColor('#f97316','#ef4444', (t-0.33)/0.33);
+  return lerpColor('#ef4444','#991b1b', (t-0.66)/0.34);
+}
+
+function lerpColor(a,b,t){
+  t = Math.max(0,Math.min(1,t));
+  const ah=parseInt(a.slice(1),16), bh=parseInt(b.slice(1),16);
+  const ar=(ah>>16)&0xff, ag=(ah>>8)&0xff, ab2=ah&0xff;
+  const br=(bh>>16)&0xff, bg=(bh>>8)&0xff, bb=bh&0xff;
+  const rr=Math.round(ar+(br-ar)*t), rg=Math.round(ag+(bg-ag)*t), rb=Math.round(ab2+(bb-ab2)*t);
+  return '#'+((1<<24)+(rr<<16)+(rg<<8)+rb).toString(16).slice(1);
+}
+
+function updateGraph(){
+  const t = (currentYear - 2026) / 6;
+  const pos = window._nodePos;
+  if(!pos) return;
+
+  // Update nodes
+  NODES.forEach((node,i) => {
+    const circle = document.getElementById('nodeCircle'+i);
+    if(!circle) return;
+    const r = getNodeRadius(i);
+    circle.setAttribute('r', i===0 ? r : r);
+    const col = i===0 ? yearToColor(t*0.7) : yearToColor(t);
+    circle.setAttribute('fill', col);
+    const strokeCol = lerpColor(i===0?'#fbbf24':'#92400e', '#7f1d1d', t);
+    circle.setAttribute('stroke', strokeCol);
+  });
+
+  // Update inter-node connections
+  const connG = document.getElementById('connGroup');
+  if(connG){
+    Array.from(connG.children).forEach(line => {
+      const s = parseFloat(line.dataset.strength);
+      const baseW = s===1 ? 1.5 : 1;
+      const w = baseW + 3 * t * s;
+      const opacity = (s===1 ? 0.15 : 0.08) + 0.35 * t * s;
+      line.setAttribute('stroke-width', w);
+      const r = Math.round(245 - 100*t);
+      const g = Math.round(158 - 100*t);
+      line.setAttribute('stroke', `rgba(${r},${g},11,${opacity})`);
+    });
+  }
+
+  // Update AI connections (grow much faster)
+  const aiG = document.getElementById('aiConnGroup');
+  if(aiG){
+    Array.from(aiG.children).forEach(line => {
+      const w = 1 + 6 * t * t; // exponential
+      const opacity = 0.1 + 0.55 * t * t;
+      line.setAttribute('stroke-width', w);
+      line.setAttribute('stroke', `rgba(245,158,11,${opacity})`);
+    });
+  }
+
+  // Background glow grows
+  const bgG = document.getElementById('bgGlow');
+  if(bgG) bgG.setAttribute('r', 350 + 100*t);
+
+  // Callouts
+  const cp = document.getElementById('calloutParadox');
+  const cr = document.getElementById('calloutRetrain');
+  if(cp) cp.classList.toggle('visible', currentYear >= 2026.5);
+  if(cr) cr.classList.toggle('visible', currentYear >= 2027);
+
+  // Pivot badge
+  updatePivotBadge();
+}
+
+function updatePivotBadge(){
+  const remaining = Math.max(0, 2028.5 - currentYear);
+  const el = document.getElementById('pivotYears');
+  const sub = document.getElementById('pivotSub');
+  const badge = document.getElementById('pivotBadge');
+  if(remaining <= 0){
+    el.textContent = 'CLOSED';
+    el.style.color = 'var(--red)';
+    sub.textContent = 'Window passed';
+    badge.style.borderColor = 'var(--red)';
+  } else if(remaining < 1){
+    el.textContent = remaining.toFixed(1)+' yr';
+    el.style.color = 'var(--red)';
+    sub.textContent = 'Critical';
+    badge.style.borderColor = 'var(--red)';
+  } else if(remaining < 2){
+    el.textContent = remaining.toFixed(1)+' yrs';
+    el.style.color = 'var(--amber)';
+    sub.textContent = 'Narrowing';
+    badge.style.borderColor = 'var(--amber)';
+  } else {
+    el.textContent = remaining.toFixed(1)+' yrs';
+    el.style.color = 'var(--green)';
+    sub.textContent = 'Act now';
+    badge.style.borderColor = 'var(--green)';
+  }
+}
+
+/* =================== TIMELINE =================== */
+const slider1 = document.getElementById('timelineSlider');
+const slider2 = document.getElementById('timelineSlider2');
+const tlLabel1 = document.getElementById('tlYear');
+const tlLabel2 = document.getElementById('tlYear2');
+
+function onSliderChange(val){
+  currentYear = parseFloat(val);
+  tlLabel1.textContent = currentYear.toFixed(1);
+  tlLabel2.textContent = currentYear.toFixed(1);
+  slider1.value = val;
+  slider2.value = val;
+  updateGraph();
+  updateTimelineEvents();
+  if(activeTab==='personal') updatePersonalView();
+}
+
+slider1.addEventListener('input', e => onSliderChange(e.target.value));
+slider2.addEventListener('input', e => onSliderChange(e.target.value));
+function syncSlider2(){ slider2.value = slider1.value; }
+
+// Build timeline event pills
+function buildTimelineEvents(){
+  const container = document.getElementById('timelineEvents');
+  TIMELINE_EVENTS.forEach(ev => {
+    const pill = document.createElement('span');
+    pill.className = 'timeline-event' + (ev.critical?' critical':'');
+    pill.textContent = ev.text;
+    pill.dataset.year = ev.year;
+    container.appendChild(pill);
+  });
+}
+
+function updateTimelineEvents(){
+  document.querySelectorAll('.timeline-event').forEach(pill => {
+    const y = parseFloat(pill.dataset.year);
+    if(pill.classList.contains('critical')){
+      pill.classList.toggle('active', currentYear >= y);
+    } else {
+      pill.classList.toggle('active', currentYear >= y);
+    }
+  });
+}
+
+/* =================== DETAIL PANEL =================== */
+const overlay = document.getElementById('detailOverlay');
+const panel = document.getElementById('detailPanel');
+
+function openDetail(nodeId){
+  const node = NODES[nodeId];
+  document.getElementById('dpTitle').textContent = node.name;
+  document.getElementById('dpStat').textContent = node.stat;
+  document.getElementById('dpConf').textContent = 'Confidence: ' + node.conf;
+  document.getElementById('dpDesc').textContent = node.desc;
+
+  // Outbound connections
+  const outbound = CONNECTIONS.filter(c => c[0]===nodeId).map(c => NODES[c[1]].name + (c[2]===1?' (strong)':' (medium)'));
+  // AI connects to all
+  if(nodeId===0) for(let i=1;i<=14;i++) outbound.push(NODES[i].name + ' (accelerant)');
+  const outEl = document.getElementById('dpOutbound');
+  outEl.innerHTML = outbound.length ? outbound.map(n=>'<li>'+n+'</li>').join('') : '<li style="color:var(--text3)">None</li>';
+
+  // Inbound connections
+  const inbound = CONNECTIONS.filter(c => c[1]===nodeId).map(c => NODES[c[0]].name + (c[2]===1?' (strong)':' (medium)'));
+  if(nodeId!==0) inbound.push('AI ACCELERANT (accelerant)');
+  const inEl = document.getElementById('dpInbound');
+  inEl.innerHTML = inbound.length ? inbound.map(n=>'<li>'+n+'</li>').join('') : '<li style="color:var(--text3)">None</li>';
+
+  overlay.classList.add('open');
+  panel.classList.add('open');
+}
+
+function closeDetail(){
+  overlay.classList.remove('open');
+  panel.classList.remove('open');
+}
+document.getElementById('detailClose').addEventListener('click', closeDetail);
+overlay.addEventListener('click', closeDetail);
+
+/* =================== PERSONAL VIEW =================== */
+function buildRiskMeters(){
+  const container = document.getElementById('riskMeters');
+  RISK_KEYS.forEach(rk => {
+    const div = document.createElement('div');
+    div.className = 'risk-meter';
+    div.innerHTML = `<div class="rm-label"><span>${rk.label}</span><span id="rmVal_${rk.key}">--</span></div><div class="rm-bar"><div class="rm-fill" id="rmFill_${rk.key}"></div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function buildToggles(){
+  const container = document.getElementById('toggles');
+  TOGGLES_DATA.forEach(t => {
+    const row = document.createElement('div');
+    row.className = 'toggle-row';
+    const effectsStr = Object.entries(t.effects).map(([k,v])=>{
+      const label = RISK_KEYS.find(r=>r.key===k);
+      return '+'+ v +' '+(label?label.label:k);
+    }).join(', ');
+    row.innerHTML = `<label class="toggle-switch"><input type="checkbox" data-toggle="${t.id}"><span class="slider"></span></label><div class="toggle-text"><strong>${t.label}</strong>${t.diminishing?' <span style="color:var(--text3)">(diminishes over time)</span>':''}<br><span style="color:var(--text3);font-size:.7rem">${effectsStr}</span></div>`;
+    container.appendChild(row);
+  });
+  container.addEventListener('change', e => {
+    if(e.target.dataset.toggle){
+      toggleStates[e.target.dataset.toggle] = e.target.checked;
+      updatePersonalView();
+    }
+  });
+}
+
+function buildRelocation(){
+  const sel = document.getElementById('relocSelect');
+  sel.addEventListener('change', e => {
+    relocation = e.target.value;
+    updatePersonalView();
+  });
+}
+
+function calcScores(){
+  const t = (currentYear - 2026) / 6;
+  const yearsIn = currentYear - 2026;
+  const scores = {};
+
+  RISK_KEYS.forEach(rk => {
+    let base = BASE_SCORES[rk.key];
+    // Apply relocation adjustment
+    base += (RELOC_DATA[relocation].adj[rk.key] || 0);
+    // Apply decay
+    let val = base - DECAY_RATES[rk.key] * yearsIn * (1 + t*0.5); // accelerating decay
+
+    // Apply toggle boosts
+    TOGGLES_DATA.forEach(tog => {
+      if(toggleStates[tog.id] && tog.effects[rk.key]){
+        let boost = tog.effects[rk.key];
+        if(tog.diminishing){
+          boost = boost * Math.max(0.2, 1 - yearsIn * 0.15);
+        }
+        val += boost;
+      }
+    });
+
+    scores[rk.key] = Math.max(0, Math.min(100, Math.round(val)));
+  });
+  return scores;
+}
+
+function meterColor(val){
+  if(val >= 60) return 'var(--green)';
+  if(val >= 35) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+function updatePersonalView(){
+  const scores = calcScores();
+
+  RISK_KEYS.forEach(rk => {
+    const val = scores[rk.key];
+    const valEl = document.getElementById('rmVal_'+rk.key);
+    const fillEl = document.getElementById('rmFill_'+rk.key);
+    if(valEl) valEl.textContent = val;
+    if(valEl) valEl.style.color = meterColor(val);
+    if(fillEl){
+      fillEl.style.width = val+'%';
+      fillEl.style.background = meterColor(val);
+    }
+  });
+
+  // Relocation description
+  document.getElementById('relocDesc').textContent = RELOC_DATA[relocation].desc;
+
+  // Actions
+  updateActions();
+
+  // Pivot countdown in personal view
+  const remaining = Math.max(0, 2028.5 - currentYear);
+  const pcEl = document.getElementById('pivotCountdown');
+  if(remaining <= 0){
+    pcEl.innerHTML = '<span style="color:var(--red)">Pivot window CLOSED. Every decision is now urgent.</span>';
+  } else {
+    pcEl.innerHTML = '<span style="color:var(--amber)">Pivot window: '+remaining.toFixed(1)+' years remaining</span>';
+  }
+}
+
+function updateActions(){
+  const list = document.getElementById('actionsList');
+  const items = [];
+  TOGGLES_DATA.forEach(t => {
+    if(!toggleStates[t.id]){
+      items.push(t.label);
+    }
+  });
+  if(items.length === 0){
+    list.innerHTML = '<li style="color:var(--green)">All mitigations active. Monitor and adapt.</li>';
+  } else {
+    // Prioritize
+    list.innerHTML = items.map((item,i) => `<li><strong>Priority ${i+1}:</strong> ${item}</li>`).join('');
+  }
+}
+
+/* =================== INIT =================== */
+buildGraph();
+buildTimelineEvents();
+buildRiskMeters();
+buildToggles();
+buildRelocation();
+updateGraph();
+updateTimelineEvents();
+updatePersonalView();
+
+})();
+</script>
+</body>
+</html>
