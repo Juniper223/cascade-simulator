@@ -51,7 +51,7 @@ a{color:var(--amber)}
 .callout-paradox{left:5%;top:25%}
 .callout-retrain{right:5%;top:55%}
 
-/* ======= TIMELINE BAR (always visible at bottom) ======= */
+/* ======= TIMELINE BAR ======= */
 .timeline-bar{flex-shrink:0;background:var(--panel);border-top:1px solid var(--border);padding:10px 20px 8px}
 .timeline-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text3);margin-bottom:5px;font-variant-numeric:tabular-nums}
 .timeline-track{position:relative;width:100%;height:28px}
@@ -59,24 +59,39 @@ input[type=range].timeline-slider{-webkit-appearance:none;appearance:none;width:
 input[type=range].timeline-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);cursor:grab;box-shadow:0 0 10px rgba(245,158,11,.4)}
 input[type=range].timeline-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);cursor:grab}
 .timeline-events{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;justify-content:center}
-.timeline-event{font-size:.62rem;padding:2px 7px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);color:var(--text3);transition:all .3s;white-space:nowrap}
-.timeline-event.active{color:var(--amber);border-color:var(--amber);background:rgba(245,158,11,.08)}
-.timeline-event.critical{color:var(--red);border-color:var(--red);background:rgba(239,68,68,.08)}
+.timeline-event{font-size:.62rem;padding:2px 7px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);color:var(--text3);transition:all .35s ease;white-space:nowrap;opacity:0.45;transform:scale(0.96)}
+.timeline-event.active{color:var(--amber);border-color:var(--amber);background:rgba(245,158,11,.08);opacity:1;transform:scale(1)}
+.timeline-event.critical{color:var(--text3);border-color:var(--border)}
+.timeline-event.critical.active{color:var(--red);border-color:var(--red);background:rgba(239,68,68,.08);opacity:1;transform:scale(1)}
 
 /* ======= DETAIL PANEL ======= */
 .detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
 .detail-overlay.open{opacity:1;pointer-events:auto}
-.detail-panel{position:fixed;top:0;right:-400px;width:380px;max-width:92vw;height:100vh;background:var(--panel);border-left:1px solid var(--border2);z-index:201;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:24px 20px}
-.detail-panel.open{right:0}
+.detail-panel{position:fixed;top:0;right:0;width:380px;max-width:92vw;height:100vh;background:var(--panel);border-left:1px solid var(--border2);z-index:201;overflow-y:auto;padding:24px 20px;transform:translateX(100%);opacity:0;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
+.detail-panel.open{transform:translateX(0);opacity:1}
 .detail-close{position:absolute;top:12px;right:12px;background:none;border:1px solid var(--border2);color:var(--text3);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .detail-close:hover{color:var(--text);border-color:var(--text3)}
 .detail-panel h2{font-size:1.1rem;color:var(--amber);margin-bottom:6px;padding-right:40px}
-.detail-panel .stat{font-size:.85rem;color:var(--text);margin:8px 0;padding:10px;background:var(--panel2);border-radius:6px;border-left:3px solid var(--amber)}
+.detail-panel .stat{font-size:.85rem;color:var(--text);margin:8px 0;padding:10px;background:var(--panel2);border-radius:6px;border-left:3px solid var(--amber);line-height:1.55}
 .detail-panel .confidence{font-size:.75rem;color:var(--text3);margin:6px 0 14px}
 .detail-panel h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin:14px 0 6px}
 .detail-panel .conn-list{list-style:none}
 .detail-panel .conn-list li{font-size:.8rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)}
 .detail-panel .conn-list li:last-child{border:none}
+.detail-panel .conn-list li.clickable{color:var(--amber);cursor:pointer}
+.detail-panel .conn-list li.clickable:hover{color:#fcd34d;text-decoration:underline;text-underline-offset:2px}
+
+/* Updated badge */
+.updated-badge{display:inline-block;background:var(--amber);color:#000;font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:middle;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+
+/* SVG node color transitions */
+#graphSvg .node-circle{transition:fill .25s ease,stroke .25s ease}
+
+/* AI center node breathing animation */
+@keyframes aiBreath{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}
 
 /* ======= PERSONAL VIEW ======= */
 #tab-personal{overflow:hidden}
@@ -97,7 +112,7 @@ input[type=range].timeline-slider::-moz-range-thumb{width:22px;height:22px;borde
 .risk-meter .rm-label span:first-child{color:var(--text2)}
 .risk-meter .rm-label span:last-child{font-weight:600;font-variant-numeric:tabular-nums}
 .risk-meter .rm-bar{height:7px;background:var(--border);border-radius:4px;overflow:hidden}
-.risk-meter .rm-fill{height:100%;border-radius:4px;transition:width .5s,background .5s}
+.risk-meter .rm-fill{height:100%;border-radius:4px;transition:width .5s ease,background .5s ease}
 
 /* Toggles */
 .toggle-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
@@ -129,10 +144,11 @@ input[type=range].timeline-slider::-moz-range-thumb{width:22px;height:22px;borde
 .alert-box.danger li::before{background:var(--red)}
 .alert-box.warning li::before{background:var(--amber)}
 
-/* Footer (inside pv-scroll) */
+/* Footer */
 footer{text-align:center;padding:20px 16px 24px;border-top:1px solid var(--border);margin-top:16px}
 footer p{font-size:.7rem;color:var(--text3);line-height:1.6;max-width:800px;margin:0 auto}
 footer .title{color:var(--amber);font-weight:700;font-size:.78rem;margin-bottom:5px}
+footer .updated{font-size:.65rem;color:var(--text3);opacity:.5;margin-top:5px}
 
 /* Mobile */
 @media(max-width:600px){
@@ -143,6 +159,11 @@ footer .title{color:var(--amber);font-weight:700;font-size:.78rem;margin-bottom:
   .callout{max-width:170px;font-size:.66rem;padding:6px 8px}
   .detail-panel{width:100%;max-width:100vw;padding:20px 16px}
   .pv-container{padding:8px}
+  .toggle-row{min-height:44px;align-items:center;padding:9px 0}
+  .toggle-switch{width:48px;min-width:48px;height:26px}
+  .toggle-switch .slider{border-radius:13px}
+  .toggle-switch .slider::before{width:20px;height:20px}
+  .toggle-switch input:checked+.slider::before{transform:translateX(24px)}
 }
 </style>
 </head>
@@ -232,8 +253,9 @@ footer .title{color:var(--amber);font-weight:700;font-size:.78rem;margin-bottom:
     </div>
 
     <footer>
-      <p class="title">The Face of Humanity: April 2026</p>
+      <p class="title">The Face of Humanity: April 2026 | Updated weekly</p>
       <p>An honest assessment. Data sourced from ONS, CDC, NHS England, Yale Budget Lab, Oxfam, OECD, WHO, and 100+ additional sources.<br>Methodology: 14 specialist research agents, web-sourced April 2026 data, confidence levels marked throughout.</p>
+      <p class="updated">Last updated: 18 April 2026</p>
     </footer>
   </div>
 </div>
@@ -269,10 +291,10 @@ footer .title{color:var(--amber);font-weight:700;font-size:.78rem;margin-bottom:
 
 /* =================== DATA =================== */
 const NODES = [
-  {id:0, name:'AI ACCELERANT', short:'AI', desc:'Artificial intelligence as force multiplier across all crisis domains. Exponential capability growth outpacing institutional response.', stat:'GPT-4 to GPT-5 in 12 months. Coding agents replacing junior roles at scale.', conf:'Observed — HIGH', color0:'#f59e0b', isCenter:true},
-  {id:1, name:'SaaS Collapse', short:'SaaS', desc:'AI-native tools replacing established SaaS platforms. Revenue compression across the sector.', stat:'80K tech layoffs Q1 2026, 48% AI-attributed', conf:'HIGH (observed)'},
+  {id:0, name:'AI ACCELERANT', short:'AI', desc:'Artificial intelligence as force multiplier across all crisis domains. Exponential capability growth outpacing institutional response.', stat:'Anthropic withholds Mythos model from public release. Nearly 50% of Q1 2026 tech layoffs now AI-attributed. Capability doubling every 6-8 months.', conf:'Observed \u2014 HIGH', color0:'#f59e0b', isCenter:true, updated:true},
+  {id:1, name:'SaaS Collapse', short:'SaaS', desc:'AI-native tools replacing established SaaS platforms. Revenue compression across the sector.', stat:'80K tech layoffs Q1 2026, 48% AI-attributed. Snap cuts 16% workforce April 15, citing AI efficiency.', conf:'HIGH (observed)', updated:true},
   {id:2, name:'White-Collar Displacement', short:'Jobs', desc:'AI automates cognitive tasks faster than retraining cycles can compensate. Professional roles hollowed out.', stat:'502K projected AI cuts by end 2026', conf:'HIGH'},
-  {id:3, name:'Consumer Demand Collapse', short:'Demand', desc:'Job losses and tariff costs crush consumer spending power. Retail and services contract.', stat:'$1,500/yr household tariff cost (Yale Budget Lab)', conf:'HIGH (modelled)'},
+  {id:3, name:'Consumer Demand Collapse', short:'Demand', desc:'Job losses and tariff costs crush consumer spending power. Retail and services contract.', stat:'Consumer confidence hits 74-year low (Michigan, April 2026). $1,500/yr household tariff cost. Markets at all-time highs while consumers report worst outlook since 1952.', conf:'HIGH (modelled)', updated:true},
   {id:4, name:'Commercial RE Crash', short:'CRE', desc:'Remote work + business failures empty commercial property. Loan defaults threaten regional banks.', stat:'Office vacancy at 20-year highs', conf:'HIGH (observed)'},
   {id:5, name:'Healthcare Failure', short:'Health', desc:'Underfunded systems buckling under demand. Preventable deaths rising.', stat:'6.13M NHS wait list. 66.5% US bankruptcies medical', conf:'HIGH'},
   {id:6, name:'Housing Crisis', short:'Housing', desc:'Institutional investors + rising rates lock out buyers. Homelessness at emergency levels.', stat:'4 die homeless daily UK. 771K homeless US', conf:'HIGH (observed)'},
@@ -281,7 +303,7 @@ const NODES = [
   {id:9, name:'Gov Revenue Collapse', short:'GovRev', desc:'Shrinking tax base + rising demand = austerity spiral. Public services gutted.', stat:'190K excess UK deaths linked to austerity (LSE)', conf:'MEDIUM-HIGH'},
   {id:10, name:'Social Disintegration', short:'Social', desc:'Community bonds dissolving. Loneliness epidemic undermines collective resilience.', stat:'17% zero close friends (was 3% in 1990)', conf:'HIGH (observed)'},
   {id:11, name:'Wealth Hyper-Concentration', short:'Wealth', desc:'AI profits concentrate in fewer hands. Middle class hollowed out. Oligarchic feedback loops.', stat:'Billionaires +$2T in 2024. Top 1% > bottom 95%', conf:'HIGH'},
-  {id:12, name:'Geopolitical Chaos', short:'Geo', desc:'Resource wars, trade disruption, and failed-state contagion. Supply chains fracture.', stat:'Hormuz closed. Brent >$100. Urea +46%/month', conf:'MEDIUM-HIGH'},
+  {id:12, name:'Geopolitical Chaos', short:'Geo', desc:'Resource wars, trade disruption, and failed-state contagion. Supply chains fracture.', stat:'Iran briefly declared Hormuz open April 17, reversed within hours. Oil swung $100\u2192$83\u2192$97 in 48hrs. Trump threatens 50% China tariffs April 13. Nothing resolved.', conf:'MEDIUM-HIGH', updated:true},
   {id:13, name:'Cyber Threats', short:'Cyber', desc:'AI-powered attacks outpace defenses. Deepfakes erode trust. Critical infrastructure at risk.', stat:'Deepfake fraud $1.1B. 4.8M unfilled cyber roles', conf:'HIGH'},
   {id:14, name:'Democratic Collapse', short:'Democracy', desc:'Institutional trust at all-time lows. Censorship rising. Democratic norms eroding.', stat:'9% govt trust (all-time low). 8K+ web pages removed', conf:'MEDIUM-HIGH'}
 ];
@@ -292,12 +314,13 @@ const CONNECTIONS = [
 ];
 
 const TIMELINE_EVENTS = [
+  {year:2026.3, text:'Consumer confidence 74-yr low'},
   {year:2026.5, text:'Tariff impacts land'},
   {year:2026.75, text:'First SaaS failures'},
   {year:2027, text:'500K+ AI layoffs'},
   {year:2027.5, text:'Demand drops'},
   {year:2028, text:'SaaS -40-60%'},
-  {year:2028.2, text:'PIVOT WINDOW CLOSES', critical:true},
+  {year:2028.5, text:'PIVOT WINDOW CLOSES', critical:true},
   {year:2029, text:'Demand collapse critical'},
   {year:2030, text:'UBI or neo-feudalism'}
 ];
@@ -415,6 +438,31 @@ function buildGraph(){
     line.dataset.strength = strength;
     line.setAttribute('stroke', strength===1 ? 'rgba(245,158,11,0.15)' : 'rgba(245,158,11,0.08)');
     line.setAttribute('stroke-width', strength===1 ? '1.5' : '1');
+    line.style.cursor = 'pointer';
+    line.addEventListener('mouseenter', () => {
+      const s = parseFloat(line.dataset.strength);
+      line.setAttribute('stroke-width', s===1 ? '4' : '2.5');
+      line.setAttribute('stroke', s===1 ? 'rgba(245,158,11,0.7)' : 'rgba(245,158,11,0.45)');
+      [parseInt(line.dataset.from), parseInt(line.dataset.to)].forEach(nid => {
+        const c = document.getElementById('nodeCircle'+nid);
+        if(c) c.setAttribute('filter','url(#glow)');
+      });
+    });
+    line.addEventListener('mouseleave', () => {
+      const t2 = (currentYear - 2026) / 6;
+      const s = parseFloat(line.dataset.strength);
+      const baseW = s===1 ? 1.5 : 1;
+      line.setAttribute('stroke-width', baseW + 3 * t2 * s);
+      const rv = Math.round(245 - 100*t2);
+      const gv = Math.round(158 - 100*t2);
+      const opacity = (s===1 ? 0.15 : 0.08) + 0.35 * t2 * s;
+      line.setAttribute('stroke', `rgba(${rv},${gv},11,${opacity})`);
+      [parseInt(line.dataset.from), parseInt(line.dataset.to)].forEach(nid => {
+        const nd = NODES[nid];
+        const c = document.getElementById('nodeCircle'+nid);
+        if(c && !nd.isCenter) c.removeAttribute('filter');
+      });
+    });
     connG.appendChild(line);
   });
 
@@ -435,15 +483,22 @@ function buildGraph(){
     g.style.cursor = 'pointer';
     g.dataset.nodeId = i;
 
+    if(node.isCenter){
+      g.style.animation = 'aiBreath 2s ease-in-out infinite';
+      g.style.transformBox = 'fill-box';
+      g.style.transformOrigin = 'center';
+    }
+
     const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
     circle.setAttribute('cx', positions[i].x);
     circle.setAttribute('cy', positions[i].y);
     circle.setAttribute('r', node.isCenter ? 40 : 24);
-    circle.setAttribute('fill', node.isCenter ? '#f59e0b' : '#b45309');
-    circle.setAttribute('stroke', node.isCenter ? '#fbbf24' : '#92400e');
+    circle.style.fill = node.isCenter ? '#f59e0b' : '#b45309';
+    circle.style.stroke = node.isCenter ? '#fbbf24' : '#92400e';
     circle.setAttribute('stroke-width', node.isCenter ? '3' : '1.5');
     if(node.isCenter) circle.setAttribute('filter','url(#glow)');
     circle.id = 'nodeCircle'+i;
+    circle.classList.add('node-circle');
     g.appendChild(circle);
 
     const label = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -504,22 +559,6 @@ function buildGraph(){
     g.addEventListener('click', () => openDetail(i));
     nodeG.appendChild(g);
   });
-
-  animateCenter();
-}
-
-let pulseDir = 1;
-let pulseVal = 0;
-function animateCenter(){
-  const circle = document.getElementById('nodeCircle0');
-  if(!circle) return;
-  pulseVal += 0.02 * pulseDir;
-  if(pulseVal > 1) pulseDir = -1;
-  if(pulseVal < 0) pulseDir = 1;
-  const extra = pulseVal * 4;
-  const baseR = getNodeRadius(0);
-  circle.setAttribute('r', baseR + extra);
-  requestAnimationFrame(animateCenter);
 }
 
 function getNodeRadius(i){
@@ -557,9 +596,9 @@ function updateGraph(){
     const r = getNodeRadius(i);
     circle.setAttribute('r', r);
     const col = i===0 ? yearToColor(t*0.7) : yearToColor(t);
-    circle.setAttribute('fill', col);
+    circle.style.fill = col;
     const strokeCol = lerpColor(i===0?'#fbbf24':'#92400e', '#7f1d1d', t);
-    circle.setAttribute('stroke', strokeCol);
+    circle.style.stroke = strokeCol;
   });
 
   const connG = document.getElementById('connGroup');
@@ -665,19 +704,35 @@ const panel = document.getElementById('detailPanel');
 function openDetail(nodeId){
   const node = NODES[nodeId];
   document.getElementById('dpTitle').textContent = node.name;
-  document.getElementById('dpStat').textContent = node.stat;
+
+  const statEl = document.getElementById('dpStat');
+  if(node.updated){
+    statEl.innerHTML = node.stat + ' <span class="updated-badge">UPDATED</span>';
+  } else {
+    statEl.textContent = node.stat;
+  }
   document.getElementById('dpConf').textContent = 'Confidence: ' + node.conf;
   document.getElementById('dpDesc').textContent = node.desc;
 
-  const outbound = CONNECTIONS.filter(c => c[0]===nodeId).map(c => NODES[c[1]].name + (c[2]===1?' (strong)':' (medium)'));
-  if(nodeId===0) for(let i=1;i<=14;i++) outbound.push(NODES[i].name + ' (accelerant)');
+  const outbound = CONNECTIONS.filter(c => c[0]===nodeId).map(c => ({id:c[1], name:NODES[c[1]].name, strength:c[2]===1?' (strong)':' (medium)'}));
+  if(nodeId===0) for(let i=1;i<=14;i++) outbound.push({id:i, name:NODES[i].name, strength:' (accelerant)'});
   const outEl = document.getElementById('dpOutbound');
-  outEl.innerHTML = outbound.length ? outbound.map(n=>'<li>'+n+'</li>').join('') : '<li style="color:var(--text3)">None</li>';
+  if(outbound.length){
+    outEl.innerHTML = outbound.map(n=>`<li class="clickable" data-nid="${n.id}">${n.name}<span style="color:var(--text3);font-size:.72rem">${n.strength}</span></li>`).join('');
+    outEl.querySelectorAll('li.clickable').forEach(li => li.addEventListener('click', () => openDetail(parseInt(li.dataset.nid))));
+  } else {
+    outEl.innerHTML = '<li style="color:var(--text3)">None</li>';
+  }
 
-  const inbound = CONNECTIONS.filter(c => c[1]===nodeId).map(c => NODES[c[0]].name + (c[2]===1?' (strong)':' (medium)'));
-  if(nodeId!==0) inbound.push('AI ACCELERANT (accelerant)');
+  const inbound = CONNECTIONS.filter(c => c[1]===nodeId).map(c => ({id:c[0], name:NODES[c[0]].name, strength:c[2]===1?' (strong)':' (medium)'}));
+  if(nodeId!==0) inbound.push({id:0, name:'AI ACCELERANT', strength:' (accelerant)'});
   const inEl = document.getElementById('dpInbound');
-  inEl.innerHTML = inbound.length ? inbound.map(n=>'<li>'+n+'</li>').join('') : '<li style="color:var(--text3)">None</li>';
+  if(inbound.length){
+    inEl.innerHTML = inbound.map(n=>`<li class="clickable" data-nid="${n.id}">${n.name}<span style="color:var(--text3);font-size:.72rem">${n.strength}</span></li>`).join('');
+    inEl.querySelectorAll('li.clickable').forEach(li => li.addEventListener('click', () => openDetail(parseInt(li.dataset.nid))));
+  } else {
+    inEl.innerHTML = '<li style="color:var(--text3)">None</li>';
+  }
 
   overlay.classList.add('open');
   panel.classList.add('open');
