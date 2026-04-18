@@ -391,11 +391,10 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
   </div>
 </section>
 
-<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div style="max-width:1200px;margin:0 auto;padding:28px 24px">
-    <div id="trend-charts" style="display:flex;gap:12px;flex-wrap:wrap"></div>
-  </div>
-</div>
+<section id="trend-charts" style="padding:40px 20px;max-width:1200px;margin:0 auto">
+<h2 style="font-family:'JetBrains Mono',monospace;color:#f59e0b;font-size:14px;letter-spacing:2px;margin-bottom:24px">TREND ANALYSIS</h2>
+<div id="charts-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px"></div>
+</section>
 
 <!-- S2: DATA -->
 <section id="data" style="padding:0">
@@ -562,7 +561,7 @@ const DATA = {
       {id:"loc",  lbl:"Relocation Readiness",        sub:"Prepared to move if conditions worsen",        type:"select", opts:["No contingency","EU residency viable","Canada/NZ option","Remote-first lifestyle"],def:0}
     ],
     recs:[
-      {pri:"high",text:"Build 6-month emergency fund — consumer demand collapse and AI displacement are converging on independent consultant income. Top priority given no current buffer."},
+      {pri:"high",text:"Build 6-month emergency fund — consumer demand collapse and AI displacement are converging on income. Top priority given no current buffer."},
       {pri:"high",text:"Diversify client base across sectors. AI-exposed SaaS clients now represent elevated counterparty risk. Target public sector, healthcare, or AI-native clients."},
       {pri:"high",text:"Explore private health insurance options. NHS wait lists at 6.13M means 3-6 month delays for any non-emergency treatment — an unacceptable risk for a self-employed person."},
       {pri:"med", text:"Review pension contributions and increase if possible. Wealth concentration trends suggest public pension adequacy will decline. Self-funded retirement is the safer assumption."},
@@ -824,44 +823,8 @@ function updatePersonalScores(){
 // ================================================================
 // TREND CHARTS
 // ================================================================
-function buildChart(title,data){
-  const W=280,H=160,pad={top:28,right:12,bottom:22,left:36};
-  const iw=W-pad.left-pad.right,ih=H-pad.top-pad.bottom;
-  const xs=data.map(d=>d[0]),ys=data.map(d=>d[1]);
-  const xmin=Math.min(...xs),xmax=Math.max(...xs);
-  const ymin=Math.min(...ys),ymax=Math.max(...ys);
-  const yRange=ymax-ymin||1;
-  const px=x=>pad.left+((x-xmin)/(xmax-xmin||1))*iw;
-  const py=y=>pad.top+(1-(y-ymin)/yRange)*ih;
-  let grid='';
-  for(let i=0;i<=4;i++){
-    const gy=pad.top+(i/4)*ih;
-    grid+=`<line x1="${pad.left}" y1="${gy.toFixed(1)}" x2="${W-pad.right}" y2="${gy.toFixed(1)}" stroke="#1e1e1e" stroke-width="1"/>`;
-    grid+=`<text x="${pad.left-4}" y="${(gy+3).toFixed(1)}" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${(ymax-(i/4)*yRange).toFixed(0)}</text>`;
-  }
-  grid+=`<text x="${pad.left}" y="${H-4}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${xmin}</text>`;
-  grid+=`<text x="${W-pad.right}" y="${H-4}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${xmax}</text>`;
-  const pathD='M'+data.map(d=>`${px(d[0]).toFixed(1)},${py(d[1]).toFixed(1)}`).join(' L');
-  const lx=px(xs[xs.length-1]),ly=py(ys[ys.length-1]);
-  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#111;border:1px solid #222">
-    <text x="${pad.left}" y="16" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="#f59e0b" letter-spacing="0.12em">${title}</text>
-    ${grid}
-    <path d="${pathD}" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="#f59e0b"/>
-  </svg>`;
-}
-
-function initTrendCharts(){
-  const charts=[
-    {title:"CONSUMER SENTIMENT",data:[[2020,99.8],[2021,79],[2022,58.5],[2023,64.4],[2024,73.6],[2025,61.5],[2026,50.8]]},
-    {title:"AI LAYOFFS %",      data:[[2024.0,12],[2024.25,18],[2024.5,22],[2024.75,28],[2025.0,32],[2025.25,36],[2025.5,40],[2025.75,44],[2026.0,48]]},
-    {title:"NHS WAIT LIST (M)", data:[[2020,4.4],[2021,5.2],[2022,6.4],[2023,7.35],[2024,6.7],[2025,6.15],[2026,6.13]]},
-    {title:"BRENT CRUDE $",     data:[[2024,80],[2024.5,82],[2025,68],[2025.5,70],[2026,78],[2026.17,85],[2026.25,102],[2026.33,97]]}
-  ];
-  const el=document.getElementById('trend-charts');
-  if(!el) return;
-  el.innerHTML=charts.map(c=>`<div>${buildChart(c.title,c.data)}</div>`).join('');
-}
+function initCharts(){const g=document.getElementById('charts-grid');if(!g)return;const charts=[{t:'CONSUMER SENTIMENT',d:[[0,99.8],[1,79],[2,58.5],[3,64.4],[4,73.6],[5,61.5],[6,50.8]],labels:['20','21','22','23','24','25','26']},{t:'AI-ATTRIBUTED LAYOFFS %',d:[[0,12],[1,18],[2,22],[3,28],[4,32],[5,36],[6,40],[7,44],[8,48]],labels:['Q1','Q2','Q3','Q4','Q1','Q2','Q3','Q4','Q1']},{t:'NHS WAITING LIST (M)',d:[[0,4.4],[1,5.2],[2,6.4],[3,7.35],[4,6.7],[5,6.15],[6,6.13]],labels:['20','21','22','23','24','25','26']},{t:'BRENT CRUDE $',d:[[0,80],[1,82],[2,74],[3,68],[4,70],[5,78],[6,85],[7,102],[8,97]],labels:['J24','J24','D24','M25','J25','J26','F26','M26','A26']}];charts.forEach(c=>{const w=280,h=160,p=30;const vals=c.d.map(d=>d[1]);const mn=Math.min(...vals)*0.9,mx=Math.max(...vals)*1.1;const div=document.createElement('div');div.style.cssText='background:#111;border:1px solid #222;padding:12px';const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('width','100%');svg.setAttribute('height',h);let path='';c.d.forEach((pt,i)=>{const x=p+i*((w-p*2)/(c.d.length-1));const y=h-p-(pt[1]-mn)/(mx-mn)*(h-p*2);path+=(i===0?'M':'L')+x+','+y});let gridLines='';for(let i=0;i<4;i++){const y=p+i*((h-p*2)/3);gridLines+=`<line x1="${p}" y1="${y}" x2="${w-p}" y2="${y}" stroke="#1a1a1a" stroke-width="0.5"/>`}const lastPt=c.d[c.d.length-1];const lastX=p+(c.d.length-1)*((w-p*2)/(c.d.length-1));const lastY=h-p-(lastPt[1]-mn)/(mx-mn)*(h-p*2);svg.innerHTML=gridLines+`<path d="${path}" fill="none" stroke="#f59e0b" stroke-width="2"/><circle cx="${lastX}" cy="${lastY}" r="3" fill="#f59e0b"/>`;div.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;color:#f59e0b;font-size:11px;letter-spacing:1px;margin-bottom:8px">${c.t}</div>`;div.appendChild(svg);g.appendChild(div)})}
+document.addEventListener('DOMContentLoaded',initCharts);
 
 // ================================================================
 // BOOT
@@ -874,8 +837,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderFooter();
   initNav();
   initFade();
-  initTrendCharts();
 });
+
 </script>
 </body>
 </html>
