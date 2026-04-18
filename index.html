@@ -2,869 +2,791 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Cascade Simulator — Systems Collapse Visualization 2026-2032</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASCADE // Weekly Intelligence Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
---bg:#0a0a0a;--panel:#111111;--panel2:#1a1a1a;--border:#222222;--border2:#333333;
---amber:#f59e0b;--red:#ef4444;--green:#22c55e;--blue:#3b82f6;
---text:#e0e0e0;--text2:#aaaaaa;--text3:#888888;
---font:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --bg:#0a0a0a;
+  --panel:#111;
+  --panel2:#161616;
+  --border:#222;
+  --border2:#2a2a2a;
+  --amber:#f59e0b;
+  --red:#ef4444;
+  --green:#22c55e;
+  --muted:#666;
+  --muted2:#888;
+  --text:#d4d4d4;
+  --text2:#aaa;
+  --mono:'JetBrains Mono','Courier New',monospace;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 
-/* ======= LAYOUT SHELL ======= */
-html{font-size:14px;-webkit-text-size-adjust:100%;height:100vh;overflow:hidden}
-body{background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;height:100vh}
-a{color:var(--amber)}
-
-.app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
-
-/* TABS */
-.tab-bar{display:flex;flex-shrink:0;background:var(--panel);border-bottom:1px solid var(--border);z-index:100}
-.tab-btn{flex:1;padding:13px 20px;background:none;border:none;color:var(--text3);font:600 .95rem var(--font);cursor:pointer;transition:all .3s;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.05em}
-.tab-btn:hover{color:var(--text2);background:var(--panel2)}
-.tab-btn.active{color:var(--amber);border-bottom-color:var(--amber);background:var(--panel2)}
-
-.tab-content{display:none;flex:1;min-height:0;overflow:hidden}
-.tab-content.active{display:flex;flex-direction:column}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* ======= GLOBAL CASCADE ======= */
-#tab-global .gc-container{display:flex;flex-direction:column;flex:1;min-height:0;padding:6px 12px 2px;position:relative;overflow:hidden}
-.gc-header{flex-shrink:0;text-align:center;padding:6px 12px 2px}
-.gc-header h1{font-size:1.2rem;font-weight:700;color:var(--text);letter-spacing:.02em}
-.gc-header p{color:var(--text3);font-size:.75rem;margin-top:2px}
-
-.pivot-badge{position:absolute;top:54px;right:16px;background:var(--panel2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;text-align:center;z-index:10;min-width:120px}
-.pivot-badge .label{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px}
-.pivot-badge .years{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
-.pivot-badge .sub{font-size:.65rem;color:var(--text3);margin-top:2px}
-
-.svg-wrap{flex:1;min-height:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.svg-wrap svg{width:100%;height:100%;display:block}
-
-/* Callouts */
-.callout{position:absolute;background:rgba(17,17,17,.92);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;max-width:240px;font-size:.72rem;line-height:1.5;opacity:0;transition:opacity .6s;pointer-events:none;z-index:5}
-.callout.visible{opacity:1;pointer-events:auto}
-.callout .callout-title{font-weight:700;color:var(--amber);margin-bottom:2px;font-size:.75rem}
-.callout-paradox{left:5%;top:25%}
-.callout-retrain{right:5%;top:55%}
-
-/* ======= TIMELINE BAR ======= */
-.timeline-bar{flex-shrink:0;background:var(--panel);border-top:1px solid var(--border);padding:10px 20px 8px}
-.timeline-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text3);margin-bottom:5px;font-variant-numeric:tabular-nums}
-.timeline-track{position:relative;width:100%;height:28px}
-input[type=range].timeline-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:var(--border2);border-radius:3px;outline:none;cursor:pointer;position:relative;z-index:2}
-input[type=range].timeline-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);cursor:grab;box-shadow:0 0 10px rgba(245,158,11,.4)}
-input[type=range].timeline-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);cursor:grab}
-.timeline-events{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;justify-content:center}
-.timeline-event{font-size:.62rem;padding:2px 7px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);color:var(--text3);transition:all .35s ease;white-space:nowrap;opacity:0.45;transform:scale(0.96)}
-.timeline-event.active{color:var(--amber);border-color:var(--amber);background:rgba(245,158,11,.08);opacity:1;transform:scale(1)}
-.timeline-event.critical{color:var(--text3);border-color:var(--border)}
-.timeline-event.critical.active{color:var(--red);border-color:var(--red);background:rgba(239,68,68,.08);opacity:1;transform:scale(1)}
-
-/* ======= DETAIL PANEL ======= */
-.detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
-.detail-overlay.open{opacity:1;pointer-events:auto}
-.detail-panel{position:fixed;top:0;right:0;width:380px;max-width:92vw;height:100vh;background:var(--panel);border-left:1px solid var(--border2);z-index:201;overflow-y:auto;padding:24px 20px;transform:translateX(100%);opacity:0;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
-.detail-panel.open{transform:translateX(0);opacity:1}
-.detail-close{position:absolute;top:12px;right:12px;background:none;border:1px solid var(--border2);color:var(--text3);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.detail-close:hover{color:var(--text);border-color:var(--text3)}
-.detail-panel h2{font-size:1.1rem;color:var(--amber);margin-bottom:6px;padding-right:40px}
-.detail-panel .stat{font-size:.85rem;color:var(--text);margin:8px 0;padding:10px;background:var(--panel2);border-radius:6px;border-left:3px solid var(--amber);line-height:1.55}
-.detail-panel .confidence{font-size:.75rem;color:var(--text3);margin:6px 0 14px}
-.detail-panel h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin:14px 0 6px}
-.detail-panel .conn-list{list-style:none}
-.detail-panel .conn-list li{font-size:.8rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)}
-.detail-panel .conn-list li:last-child{border:none}
-.detail-panel .conn-list li.clickable{color:var(--amber);cursor:pointer}
-.detail-panel .conn-list li.clickable:hover{color:#fcd34d;text-decoration:underline;text-underline-offset:2px}
-
-/* Updated badge */
-.updated-badge{display:inline-block;background:var(--amber);color:#000;font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:middle;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-
-/* SVG node color transitions */
-#graphSvg .node-circle{transition:fill .25s ease,stroke .25s ease}
-
-/* AI center node breathing animation */
-@keyframes aiBreath{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.05)}
+html{font-size:14px;scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 59px,#111 59px,#111 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,#111 59px,#111 60px);
 }
 
-/* ======= PERSONAL VIEW ======= */
-#tab-personal{overflow:hidden}
-.pv-scroll{height:100%;overflow-y:auto;overflow-x:hidden}
-.pv-container{padding:12px;max-width:900px;margin:0 auto}
-.pv-container h1{font-size:1.2rem;text-align:center;margin-bottom:3px}
-.pv-container .pv-sub{text-align:center;color:var(--text3);font-size:.78rem;margin-bottom:14px}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted2)}
 
-.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:700px){.pv-grid{grid-template-columns:1fr}}
-
-.pv-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px}
-.pv-card h2{font-size:.88rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:10px}
-
-/* Risk Meters */
-.risk-meter{margin-bottom:9px}
-.risk-meter .rm-label{display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:3px}
-.risk-meter .rm-label span:first-child{color:var(--text2)}
-.risk-meter .rm-label span:last-child{font-weight:600;font-variant-numeric:tabular-nums}
-.risk-meter .rm-bar{height:7px;background:var(--border);border-radius:4px;overflow:hidden}
-.risk-meter .rm-fill{height:100%;border-radius:4px;transition:width .5s ease,background .5s ease}
-
-/* Toggles */
-.toggle-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
-.toggle-row:last-child{border:none}
-.toggle-switch{position:relative;width:40px;min-width:40px;height:22px;margin-top:1px}
-.toggle-switch input{opacity:0;width:0;height:0}
-.toggle-switch .slider{position:absolute;inset:0;background:var(--border2);border-radius:11px;cursor:pointer;transition:background .3s}
-.toggle-switch .slider::before{content:'';position:absolute;left:2px;top:2px;width:18px;height:18px;background:var(--text3);border-radius:50%;transition:all .3s}
-.toggle-switch input:checked+.slider{background:var(--amber)}
-.toggle-switch input:checked+.slider::before{transform:translateX(18px);background:#fff}
-.toggle-text{font-size:.76rem;color:var(--text2);line-height:1.4}
-.toggle-text strong{color:var(--text);font-weight:600}
-
-/* Relocation */
-.reloc-select{width:100%;padding:9px 12px;background:var(--panel2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font:inherit;font-size:.84rem;margin-bottom:8px;cursor:pointer}
-.reloc-select:focus{outline:none;border-color:var(--amber)}
-.reloc-desc{font-size:.76rem;color:var(--text2);line-height:1.5;padding:8px;background:var(--panel2);border-radius:6px}
-
-/* Alert boxes */
-.alert-box{border-radius:8px;padding:12px;margin-top:10px}
-.alert-box.danger{border:1px solid var(--red);background:rgba(239,68,68,.04)}
-.alert-box.warning{border:1px solid var(--amber);background:rgba(245,158,11,.04)}
-.alert-box h3{font-size:.83rem;margin-bottom:6px}
-.alert-box.danger h3{color:var(--red)}
-.alert-box.warning h3{color:var(--amber)}
-.alert-box ul{list-style:none;padding:0}
-.alert-box li{font-size:.76rem;color:var(--text2);padding:3px 0;padding-left:14px;position:relative;line-height:1.45}
-.alert-box li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%}
-.alert-box.danger li::before{background:var(--red)}
-.alert-box.warning li::before{background:var(--amber)}
-
-/* Footer */
-footer{text-align:center;padding:20px 16px 24px;border-top:1px solid var(--border);margin-top:16px}
-footer p{font-size:.7rem;color:var(--text3);line-height:1.6;max-width:800px;margin:0 auto}
-footer .title{color:var(--amber);font-weight:700;font-size:.78rem;margin-bottom:5px}
-footer .updated{font-size:.65rem;color:var(--text3);opacity:.5;margin-top:5px}
-
-/* Mobile */
-@media(max-width:600px){
-  .tab-btn{padding:10px 8px;font-size:.8rem}
-  .gc-header h1{font-size:1rem}
-  .pivot-badge{top:50px;right:8px;padding:6px 8px;min-width:90px}
-  .pivot-badge .years{font-size:1.2rem}
-  .callout{max-width:170px;font-size:.66rem;padding:6px 8px}
-  .detail-panel{width:100%;max-width:100vw;padding:20px 16px}
-  .pv-container{padding:8px}
-  .toggle-row{min-height:44px;align-items:center;padding:9px 0}
-  .toggle-switch{width:48px;min-width:48px;height:26px}
-  .toggle-switch .slider{border-radius:13px}
-  .toggle-switch .slider::before{width:20px;height:20px}
-  .toggle-switch input:checked+.slider::before{transform:translateX(24px)}
+/* ---- CLASSIFICATION BANNER ---- */
+.class-banner{
+  background:var(--amber);color:#0a0a0a;
+  font-family:var(--mono);font-size:.62rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  text-align:center;padding:5px 20px;
+  position:sticky;top:0;z-index:1000;
 }
+
+/* ---- NAV ---- */
+.site-nav{
+  position:sticky;top:28px;z-index:100;
+  background:rgba(10,10,10,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:44px;
+}
+.nav-brand{
+  font-family:var(--mono);font-size:.75rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);
+  text-decoration:none;
+}
+.nav-links{display:flex}
+.nav-link{
+  font-family:var(--mono);font-size:.6rem;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--muted2);text-decoration:none;
+  padding:0 14px;height:44px;display:flex;align-items:center;
+  border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
+}
+.nav-link:hover,.nav-link.active{color:var(--amber);border-bottom-color:var(--amber)}
+@media(max-width:560px){.nav-links{display:none}}
+
+/* ---- FADE IN ---- */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ---- SECTION HEADERS ---- */
+.section-hdr{margin-bottom:48px}
+.section-eyebrow{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.22em;color:var(--amber);margin-bottom:8px}
+.section-title{font-family:var(--mono);font-size:1.35rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.section-sub{font-family:var(--sans);font-size:.82rem;color:var(--muted2);margin-top:5px}
+
+/* ============================================================
+   SECTION 1 — BRIEFING
+   ============================================================ */
+#briefing{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.briefing-inner{max-width:1200px;margin:0 auto;padding:64px 24px;width:100%}
+
+.briefing-head{
+  padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:32px;
+  position:relative;
+}
+.briefing-head::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,transparent,transparent 3px,
+    rgba(245,158,11,.012) 3px,rgba(245,158,11,.012) 4px
+  );
+}
+
+.briefing-title{
+  font-family:var(--mono);font-size:clamp(1.6rem,4vw,2.8rem);
+  font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text);line-height:1.1;margin-bottom:8px;
+}
+.briefing-title em{color:var(--amber);font-style:normal}
+
+.briefing-subtitle{font-family:var(--sans);font-size:.88rem;color:var(--muted2);margin-bottom:18px}
+
+.briefing-week{
+  font-family:var(--mono);font-size:.95rem;font-weight:600;
+  color:var(--amber);letter-spacing:.16em;text-transform:uppercase;
+}
+
+.briefing-story{max-width:740px;margin-bottom:40px}
+.briefing-story p{
+  font-family:var(--sans);font-size:.93rem;line-height:1.78;
+  color:var(--text2);margin-bottom:16px;
+}
+.briefing-story p:last-child{margin-bottom:0}
+.briefing-story strong{color:var(--text);font-weight:600}
+
+/* KEY NUMBERS */
+.key-numbers{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+@media(max-width:680px){.key-numbers{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:360px){.key-numbers{grid-template-columns:1fr}}
+
+.kn{background:var(--panel);padding:18px 22px}
+.kn-val{
+  font-family:var(--mono);font-size:1.9rem;font-weight:700;
+  color:var(--text);line-height:1;margin-bottom:5px;
+}
+.kn-val.danger{color:var(--red)}
+.kn-lbl{font-family:var(--sans);font-size:.72rem;color:var(--muted2);margin-bottom:7px}
+.kn-chg{font-family:var(--mono);font-size:.68rem;font-weight:600;display:flex;align-items:center;gap:4px}
+.kn-chg.danger{color:var(--red)}
+
+/* ============================================================
+   SECTION 2 — DATA
+   ============================================================ */
+.data-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
+
+.crisis-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+@media(max-width:680px){.crisis-grid{grid-template-columns:1fr}}
+
+.ccard{
+  background:var(--panel);padding:20px 22px;
+  cursor:pointer;transition:background .18s;
+}
+.ccard:hover{background:var(--panel2)}
+
+.ccard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.ccard-name{
+  font-family:var(--mono);font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--amber);flex:1;padding-right:6px;
+}
+.ccard-badges{display:flex;gap:5px;align-items:center;flex-shrink:0}
+
+.badge-upd{
+  font-family:var(--mono);font-size:.54rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;
+  background:rgba(245,158,11,.12);color:var(--amber);
+  padding:2px 5px;border:1px solid rgba(245,158,11,.3);
+}
+.badge-trend{font-family:var(--mono);font-size:.88rem;line-height:1}
+.badge-trend.down{color:var(--red)}
+.badge-trend.up{color:var(--green)}
+.badge-trend.stable{color:var(--muted2)}
+
+.sev-bar{height:2px;background:var(--border2);margin-bottom:13px}
+.sev-fill{height:100%;transition:width .9s ease}
+
+.ccard-stat{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:7px}
+.ccard-val{font-family:var(--mono);font-size:1.55rem;font-weight:700;line-height:1}
+.ccard-val.danger{color:var(--red)}
+.ccard-val.warn{color:var(--amber)}
+.ccard-val.ok{color:var(--green)}
+
+.ccard-lbl{font-family:var(--sans);font-size:.7rem;color:var(--muted2);margin-bottom:5px}
+.ccard-chg{font-family:var(--mono);font-size:.63rem;font-weight:600}
+.ccard-chg.down{color:var(--red)}
+.ccard-chg.up{color:var(--green)}
+.ccard-chg.stable{color:var(--muted2)}
+
+/* ============================================================
+   SECTION 3 — CASCADE GRAPH
+   ============================================================ */
+.cascade-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
+
+.cascade-layout{display:flex;gap:20px;align-items:flex-start}
+@media(max-width:860px){.cascade-layout{flex-direction:column}}
+
+.graph-panel{
+  flex:1;min-width:0;
+  background:var(--panel);border:1px solid var(--border);
+  padding:10px;
+}
+.graph-panel svg{display:block;width:100%;height:auto}
+
+.detail-panel{
+  width:300px;flex-shrink:0;
+  background:var(--panel);border:1px solid var(--border);
+  font-size:.78rem;min-height:300px;
+}
+@media(max-width:860px){.detail-panel{width:100%}}
+
+.dp-empty{
+  padding:40px 24px;text-align:center;
+  font-family:var(--mono);font-size:.65rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.12em;line-height:2;
+}
+.dp-body{display:none;padding:18px 20px}
+.dp-body.on{display:block}
+
+.dp-name{
+  font-family:var(--mono);font-size:.7rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--amber);
+  padding-bottom:11px;border-bottom:1px solid var(--border);margin-bottom:13px;
+}
+.dp-bigval{font-family:var(--mono);font-size:1.75rem;font-weight:700;color:var(--red);line-height:1;margin-bottom:3px}
+.dp-vallbl{font-family:var(--sans);font-size:.7rem;color:var(--muted2)}
+.dp-chg{font-family:var(--mono);font-size:.62rem;color:var(--red);margin-top:3px;margin-bottom:12px}
+.dp-desc{
+  font-family:var(--sans);font-size:.76rem;line-height:1.6;
+  color:var(--text2);margin-bottom:12px;
+  padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.dp-lbl{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:5px}
+.dp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.dp-tag-out{
+  font-family:var(--mono);font-size:.58rem;text-transform:uppercase;
+  letter-spacing:.06em;padding:2px 5px;cursor:pointer;
+  background:rgba(245,158,11,.1);color:var(--amber);
+  border:1px solid rgba(245,158,11,.2);
+}
+.dp-tag-out:hover{background:rgba(245,158,11,.22)}
+.dp-tag-in{
+  font-family:var(--mono);font-size:.58rem;text-transform:uppercase;
+  letter-spacing:.06em;padding:2px 5px;cursor:pointer;
+  background:rgba(239,68,68,.1);color:var(--red);
+  border:1px solid rgba(239,68,68,.2);
+}
+.dp-proj{
+  background:var(--panel2);border:1px solid var(--border);
+  padding:10px 12px;margin-top:12px;
+}
+.dp-proj .dp-lbl{margin-bottom:5px}
+.dp-proj p{font-family:var(--sans);font-size:.7rem;color:var(--text2);line-height:1.55}
+
+/* ============================================================
+   SECTION 4 — PERSONAL
+   ============================================================ */
+.personal-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
+
+.risk-top{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-bottom:36px}
+
+.score-block{
+  background:var(--panel);border:1px solid var(--border);
+  padding:22px 28px;flex-shrink:0;
+}
+.score-lbl{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted2);margin-bottom:5px}
+.score-val{font-family:var(--mono);font-size:3.2rem;font-weight:700;color:var(--amber);line-height:1}
+.score-denom{font-family:var(--mono);font-size:1.1rem;color:var(--muted2)}
+.score-delta{font-family:var(--mono);font-size:.68rem;color:var(--red);margin-top:5px}
+.score-drivers{font-family:var(--sans);font-size:.74rem;color:var(--text2);margin-top:7px;max-width:260px;line-height:1.55}
+
+.risk-dims{flex:1;min-width:260px}
+.rdim{margin-bottom:14px}
+.rdim-hdr{display:flex;justify-content:space-between;margin-bottom:4px}
+.rdim-name{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2)}
+.rdim-score{font-family:var(--mono);font-size:.62rem;font-weight:700;color:var(--amber)}
+.rdim-bar{height:2px;background:var(--border2)}
+.rdim-fill{height:100%;background:var(--amber);transition:width .9s ease}
+.rdim-fill.danger{background:var(--red)}
+.rdim-fill.ok{background:var(--green)}
+
+.controls-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:28px;
+}
+.ctrl{
+  background:var(--panel);padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.ctrl-lbl{font-family:var(--sans);font-size:.78rem;color:var(--text2)}
+.ctrl-sub{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:2px}
+
+.toggle{position:relative;width:34px;height:19px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.tslider{position:absolute;inset:0;background:var(--border2);cursor:pointer;transition:.2s}
+.tslider::before{
+  content:'';position:absolute;height:13px;width:13px;
+  left:3px;bottom:3px;background:#555;transition:.2s;
+}
+.toggle input:checked+.tslider{background:rgba(245,158,11,.28)}
+.toggle input:checked+.tslider::before{transform:translateX(15px);background:var(--amber)}
+
+.ctrl-select{
+  background:var(--panel2);border:1px solid var(--border2);
+  color:var(--text2);font-family:var(--mono);font-size:.68rem;
+  padding:4px 7px;cursor:pointer;outline:none;
+}
+.ctrl-select:focus{border-color:var(--amber)}
+
+.rec-box{
+  background:var(--panel);border:1px solid var(--border);
+  padding:22px;margin-bottom:20px;
+}
+.rec-title{
+  font-family:var(--mono);font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.16em;color:var(--amber);margin-bottom:14px;
+}
+.rec-list{list-style:none}
+.rec-li{
+  font-family:var(--sans);font-size:.78rem;color:var(--text2);
+  padding:8px 0;border-bottom:1px solid var(--border);
+  display:flex;gap:9px;align-items:flex-start;line-height:1.55;
+}
+.rec-li:last-child{border-bottom:none}
+.rec-pri{
+  font-family:var(--mono);font-size:.58rem;font-weight:700;
+  padding:2px 4px;flex-shrink:0;margin-top:1px;
+}
+.rec-pri.high{background:rgba(239,68,68,.14);color:var(--red);border:1px solid rgba(239,68,68,.28)}
+.rec-pri.med{background:rgba(245,158,11,.14);color:var(--amber);border:1px solid rgba(245,158,11,.28)}
+.rec-pri.low{background:rgba(100,100,100,.18);color:var(--muted2);border:1px solid var(--border)}
+
+.proj-box{
+  background:var(--panel);border:1px solid var(--border);
+  padding:18px 22px;
+}
+.proj-eyebrow{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--amber);margin-bottom:9px;
+}
+.proj-text{font-family:var(--sans);font-size:.8rem;color:var(--text2);line-height:1.65}
+.proj-text strong{color:var(--red);font-family:var(--mono)}
+
+/* ---- FOOTER ---- */
+footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 24px}
+.foot-inner{max-width:1200px;margin:0 auto}
+.foot-title{font-family:var(--mono);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:12px}
+.foot-text{font-family:var(--sans);font-size:.7rem;color:var(--muted2);line-height:1.75;max-width:780px}
+.foot-meta{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-top:14px;letter-spacing:.05em}
+.foot-sep{margin:0 8px;color:var(--border2)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2)}
 </style>
 </head>
 <body>
 
-<div class="app">
+<div class="class-banner">UNCLASSIFIED // OPEN SOURCE INTELLIGENCE // CASCADE WEEKLY</div>
 
-<!-- ===== TAB BAR ===== -->
-<div class="tab-bar">
-  <button class="tab-btn active" data-tab="global">Global Cascade</button>
-  <button class="tab-btn" data-tab="personal">Personal View</button>
-</div>
-
-<!-- ===== GLOBAL CASCADE ===== -->
-<div class="tab-content active" id="tab-global">
-  <div class="gc-container">
-    <div class="gc-header">
-      <h1>Cascade Simulator: Interconnected Collapse 2026&ndash;2032</h1>
-      <p>How AI accelerates 14 converging global crises</p>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#briefing" class="nav-brand">CASCADE //</a>
+    <div class="nav-links">
+      <a href="#briefing" class="nav-link active" data-sec="briefing">Briefing</a>
+      <a href="#data" class="nav-link" data-sec="data">Assessment</a>
+      <a href="#cascade" class="nav-link" data-sec="cascade">Cascade</a>
+      <a href="#personal" class="nav-link" data-sec="personal">Personal</a>
     </div>
+  </div>
+</nav>
 
-    <div class="pivot-badge" id="pivotBadge">
-      <div class="label">Pivot Window</div>
-      <div class="years" id="pivotYears">2.5 yrs</div>
-      <div class="sub" id="pivotSub">Act now</div>
+<!-- S1: BRIEFING -->
+<section id="briefing">
+  <div class="briefing-inner">
+    <div class="briefing-head">
+      <div class="label" style="margin-bottom:12px">Weekly Intelligence Briefing</div>
+      <h1 class="briefing-title"><em>CASCADE</em> // WEEKLY INTELLIGENCE BRIEFING</h1>
+      <p class="briefing-subtitle">Interconnected Crisis Monitor — Open Source Analysis</p>
+      <div class="briefing-week" id="bwk"></div>
     </div>
+    <div class="briefing-story" id="bstory"></div>
+    <div class="key-numbers" id="keynums"></div>
+  </div>
+</section>
 
-    <div class="svg-wrap" id="svgWrap">
-      <svg id="graphSvg" viewBox="-50 -50 900 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="callout callout-paradox" id="calloutParadox">
-        <div class="callout-title">AI PARADOX</div>
-        AI destroys the consumers who fund AI. The system cannibalises itself.
+<!-- S2: DATA -->
+<section id="data" style="padding:0">
+  <div class="data-wrap">
+    <div class="section-hdr fade-in">
+      <div class="section-eyebrow">Intelligence Assessment</div>
+      <h2 class="section-title">SITUATION ASSESSMENT</h2>
+      <p class="section-sub">14-sector interconnected crisis monitor — severity and trend data</p>
+    </div>
+    <div class="crisis-grid" id="crisis-grid"></div>
+  </div>
+</section>
+
+<!-- S3: CASCADE -->
+<section id="cascade" style="padding:0">
+  <div class="cascade-wrap">
+    <div class="section-hdr fade-in">
+      <div class="section-eyebrow">Network Analysis</div>
+      <h2 class="section-title">CASCADE ANALYSIS // HOW CRISES FEED EACH OTHER</h2>
+      <p class="section-sub">This week's active connections highlighted — click any node for detail</p>
+    </div>
+    <div class="cascade-layout">
+      <div class="graph-panel">
+        <svg id="gsvg" viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
-      <div class="callout callout-retrain" id="calloutRetrain">
-        <div class="callout-title">RETRAINING MYTH</div>
-        The escape valve fails: AI also learns whatever you'd retrain into.
+      <div class="detail-panel">
+        <div class="dp-empty" id="dp-empty">// SELECT A NODE<br>TO VIEW DETAIL //</div>
+        <div class="dp-body" id="dp-body"></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== PERSONAL VIEW ===== -->
-<div class="tab-content" id="tab-personal">
-  <div class="pv-scroll">
-    <div class="pv-container">
-      <h1>Personal View</h1>
-      <p class="pv-sub">UK-based independent consultant &mdash; risk exposure &amp; mitigation</p>
-
-      <div class="pv-grid">
-        <div class="pv-card">
-          <h2>Risk Exposure</h2>
-          <div id="riskMeters"></div>
-        </div>
-        <div class="pv-card">
-          <h2>Mitigation Decisions</h2>
-          <div id="toggles"></div>
-        </div>
-        <div class="pv-card">
-          <h2>Relocation Analysis</h2>
-          <select class="reloc-select" id="relocSelect">
-            <option value="UK">United Kingdom (current)</option>
-            <option value="PT">Portugal</option>
-            <option value="IE">Ireland</option>
-            <option value="SG">Singapore</option>
-            <option value="AE">UAE</option>
-          </select>
-          <div class="reloc-desc" id="relocDesc"></div>
-        </div>
-        <div class="pv-card">
-          <div class="alert-box danger">
-            <h3>UK-Specific Risks</h3>
-            <ul>
-              <li>NHS collapse &mdash; private health insurance essential</li>
-              <li>Sterling vulnerability to global shocks</li>
-              <li>Housing distorted by institutional investors</li>
-              <li>Post-Brexit friction compounds tariffs</li>
-              <li>Economy disproportionately SaaS-dependent</li>
-            </ul>
-          </div>
-          <div class="alert-box warning" style="margin-top:10px">
-            <h3>Recommended Actions</h3>
-            <ul id="actionsList"></ul>
-            <div id="pivotCountdown" style="margin-top:8px;font-size:.76rem;font-weight:600"></div>
-          </div>
-        </div>
-      </div>
+<!-- S4: PERSONAL -->
+<section id="personal" style="padding:0">
+  <div class="personal-wrap">
+    <div class="section-hdr fade-in">
+      <div class="section-eyebrow">Exposure Analysis</div>
+      <h2 class="section-title">PERSONAL RISK ASSESSMENT</h2>
+      <p class="section-sub">UK-based independent consultant // Calibrated to current cascade state</p>
     </div>
-
-    <footer>
-      <p class="title">The Face of Humanity: April 2026 | Updated weekly</p>
-      <p>An honest assessment. Data sourced from ONS, CDC, NHS England, Yale Budget Lab, Oxfam, OECD, WHO, and 100+ additional sources.<br>Methodology: 14 specialist research agents, web-sourced April 2026 data, confidence levels marked throughout.</p>
-      <p class="updated">Last updated: 18 April 2026</p>
-    </footer>
+    <div class="risk-top">
+      <div class="score-block fade-in" id="score-block"></div>
+      <div class="risk-dims fade-in" id="risk-dims"></div>
+    </div>
+    <div class="controls-grid fade-in" id="controls-grid"></div>
+    <div class="rec-box fade-in">
+      <div class="rec-title">// RECOMMENDED ACTIONS</div>
+      <ul class="rec-list" id="rec-list"></ul>
+    </div>
+    <div class="proj-box fade-in" id="proj-box"></div>
   </div>
-</div>
+</section>
 
-<!-- ===== TIMELINE BAR (always visible) ===== -->
-<div class="timeline-bar">
-  <div class="timeline-label"><span id="tlYear">2026.0</span><span>2032</span></div>
-  <div class="timeline-track">
-    <input type="range" class="timeline-slider" id="timelineSlider" min="2026" max="2032" step="0.05" value="2026">
+<footer>
+  <div class="foot-inner">
+    <div class="foot-title">CASCADE // Open Source Intelligence Analysis</div>
+    <p class="foot-text">Data sourced from: ONS, FRED, NHS England, Yale Budget Lab, Oxfam, OECD, WHO, University of Michigan, NY Federal Reserve + 30 additional sources. Methodology: 14-sector interconnected cascade model. Weekly data refresh. All claims sourced. Confidence levels marked.</p>
+    <div class="foot-meta" id="foot-meta"></div>
   </div>
-  <div class="timeline-events" id="timelineEvents"></div>
-</div>
-
-</div><!-- /.app -->
-
-<!-- DETAIL PANEL -->
-<div class="detail-overlay" id="detailOverlay"></div>
-<div class="detail-panel" id="detailPanel">
-  <button class="detail-close" id="detailClose">&times;</button>
-  <h2 id="dpTitle"></h2>
-  <div class="stat" id="dpStat"></div>
-  <div class="confidence" id="dpConf"></div>
-  <p id="dpDesc" style="font-size:.82rem;color:var(--text2);line-height:1.5;margin-bottom:10px"></p>
-  <h3>Feeds into</h3>
-  <ul class="conn-list" id="dpOutbound"></ul>
-  <h3>Fed by</h3>
-  <ul class="conn-list" id="dpInbound"></ul>
-</div>
+</footer>
 
 <script>
-(function(){
-'use strict';
-
-/* =================== DATA =================== */
-const NODES = [
-  {id:0, name:'AI ACCELERANT', short:'AI', desc:'Artificial intelligence as force multiplier across all crisis domains. Exponential capability growth outpacing institutional response.', stat:'Anthropic withholds Mythos model from public release. Nearly 50% of Q1 2026 tech layoffs now AI-attributed. Capability doubling every 6-8 months.', conf:'Observed \u2014 HIGH', color0:'#f59e0b', isCenter:true, updated:true},
-  {id:1, name:'SaaS Collapse', short:'SaaS', desc:'AI-native tools replacing established SaaS platforms. Revenue compression across the sector.', stat:'80K tech layoffs Q1 2026, 48% AI-attributed. Snap cuts 16% workforce April 15, citing AI efficiency.', conf:'HIGH (observed)', updated:true},
-  {id:2, name:'White-Collar Displacement', short:'Jobs', desc:'AI automates cognitive tasks faster than retraining cycles can compensate. Professional roles hollowed out.', stat:'502K projected AI cuts by end 2026', conf:'HIGH'},
-  {id:3, name:'Consumer Demand Collapse', short:'Demand', desc:'Job losses and tariff costs crush consumer spending power. Retail and services contract.', stat:'Consumer confidence hits 74-year low (Michigan, April 2026). $1,500/yr household tariff cost. Markets at all-time highs while consumers report worst outlook since 1952.', conf:'HIGH (modelled)', updated:true},
-  {id:4, name:'Commercial RE Crash', short:'CRE', desc:'Remote work + business failures empty commercial property. Loan defaults threaten regional banks.', stat:'Office vacancy at 20-year highs', conf:'HIGH (observed)'},
-  {id:5, name:'Healthcare Failure', short:'Health', desc:'Underfunded systems buckling under demand. Preventable deaths rising.', stat:'6.13M NHS wait list. 66.5% US bankruptcies medical', conf:'HIGH'},
-  {id:6, name:'Housing Crisis', short:'Housing', desc:'Institutional investors + rising rates lock out buyers. Homelessness at emergency levels.', stat:'4 die homeless daily UK. 771K homeless US', conf:'HIGH (observed)'},
-  {id:7, name:'Mental Health Crisis', short:'Mental', desc:'Isolation, job loss, and system failure drive anxiety, depression, and suicide.', stat:'1.7M NHS mental health wait list. 49K US suicides/yr', conf:'HIGH'},
-  {id:8, name:'Birth Rate Collapse', short:'Births', desc:'Economic insecurity makes parenthood unviable. Population decline threatens pension systems.', stat:'136/237 countries below replacement. S.Korea 0.68', conf:'HIGH (structural)'},
-  {id:9, name:'Gov Revenue Collapse', short:'GovRev', desc:'Shrinking tax base + rising demand = austerity spiral. Public services gutted.', stat:'190K excess UK deaths linked to austerity (LSE)', conf:'MEDIUM-HIGH'},
-  {id:10, name:'Social Disintegration', short:'Social', desc:'Community bonds dissolving. Loneliness epidemic undermines collective resilience.', stat:'17% zero close friends (was 3% in 1990)', conf:'HIGH (observed)'},
-  {id:11, name:'Wealth Hyper-Concentration', short:'Wealth', desc:'AI profits concentrate in fewer hands. Middle class hollowed out. Oligarchic feedback loops.', stat:'Billionaires +$2T in 2024. Top 1% > bottom 95%', conf:'HIGH'},
-  {id:12, name:'Geopolitical Chaos', short:'Geo', desc:'Resource wars, trade disruption, and failed-state contagion. Supply chains fracture.', stat:'Iran briefly declared Hormuz open April 17, reversed within hours. Oil swung $100\u2192$83\u2192$97 in 48hrs. Trump threatens 50% China tariffs April 13. Nothing resolved.', conf:'MEDIUM-HIGH', updated:true},
-  {id:13, name:'Cyber Threats', short:'Cyber', desc:'AI-powered attacks outpace defenses. Deepfakes erode trust. Critical infrastructure at risk.', stat:'Deepfake fraud $1.1B. 4.8M unfilled cyber roles', conf:'HIGH'},
-  {id:14, name:'Democratic Collapse', short:'Democracy', desc:'Institutional trust at all-time lows. Censorship rising. Democratic norms eroding.', stat:'9% govt trust (all-time low). 8K+ web pages removed', conf:'MEDIUM-HIGH'}
-];
-
-const CONNECTIONS = [
-  [1,2,1],[1,3,1],[2,3,1],[2,7,1],[3,4,1],[3,9,1],[5,7,1],[6,7,1],[6,8,1],[7,10,1],[9,5,1],[9,14,1],[10,14,1],[11,6,1],[11,14,1],[12,3,1],
-  [2,6,.6],[3,1,.6],[3,10,.6],[4,9,.6],[5,8,.6],[7,8,.6],[8,9,.6],[11,3,.6],[11,9,.6],[12,9,.6],[13,3,.6],[13,14,.6],[14,9,.6],[14,10,.6]
-];
-
-const TIMELINE_EVENTS = [
-  {year:2026.3, text:'Consumer confidence 74-yr low'},
-  {year:2026.5, text:'Tariff impacts land'},
-  {year:2026.75, text:'First SaaS failures'},
-  {year:2027, text:'500K+ AI layoffs'},
-  {year:2027.5, text:'Demand drops'},
-  {year:2028, text:'SaaS -40-60%'},
-  {year:2028.5, text:'PIVOT WINDOW CLOSES', critical:true},
-  {year:2029, text:'Demand collapse critical'},
-  {year:2030, text:'UBI or neo-feudalism'}
-];
-
-const RISK_KEYS = [
-  {key:'income', label:'Income Security'},
-  {key:'clients', label:'Client Stability'},
-  {key:'housing', label:'Housing Security'},
-  {key:'health', label:'Healthcare Access'},
-  {key:'digital', label:'Digital Security'},
-  {key:'retire', label:'Retirement Viability'},
-  {key:'safety', label:'Physical Safety'},
-  {key:'social', label:'Social Connection'}
-];
-
-const BASE_SCORES = {income:62,clients:55,housing:50,health:40,digital:45,retire:35,safety:65,social:40};
-const DECAY_RATES = {income:8,clients:7,housing:5,health:6,digital:4,retire:6,safety:3,social:5};
-
-const TOGGLES_DATA = [
-  {id:'ltd', label:'Incorporate as Ltd Company', effects:{income:5,retire:8}},
-  {id:'diversify', label:'Diversify Income Streams', effects:{income:15,clients:10}},
-  {id:'multicurr', label:'Multi-currency Savings', effects:{retire:10}},
-  {id:'insurance', label:'Income Protection Insurance', effects:{income:20}},
-  {id:'network', label:'Accelerated Network Building', effects:{clients:18,social:20}},
-  {id:'ai_consult', label:'AI-augmented Consulting', effects:{income:12,clients:10}, diminishing:true},
-  {id:'cybersec', label:'Digital Security Hardening', effects:{digital:30}},
-  {id:'emergency', label:'Emergency Fund 12 months', effects:{income:8,housing:5,retire:10}}
-];
-
-const RELOC_DATA = {
-  UK:{desc:'Current base. Strong consulting market but high exposure to SaaS dependency, NHS strain, and sterling volatility. Post-Brexit friction amplifies tariff impacts.',adj:{income:0,clients:0,housing:0,health:0,digital:0,retire:0,safety:0,social:0}},
-  PT:{desc:'Lower cost of living. NHR tax regime (if still available). Growing tech scene in Lisbon. Weaker local consulting demand but strong quality of life. EU single market access.',adj:{income:-8,clients:-12,housing:15,health:10,digital:0,retire:12,safety:8,social:-5}},
-  IE:{desc:'English-speaking EU base. Strong tech sector presence (but also SaaS-exposed). Higher housing costs than UK in Dublin. Good healthcare access via HSE + VHI.',adj:{income:5,clients:5,housing:-8,health:8,digital:3,retire:5,safety:5,social:0}},
-  SG:{desc:'Asia-Pacific hub. Zero capital gains, low personal tax. Excellent infrastructure and safety. High cost of living. Strong consulting demand from APAC clients.',adj:{income:10,clients:8,housing:-15,health:15,digital:8,retire:8,safety:15,social:-10}},
-  AE:{desc:'Zero income tax. Growing consulting market. Very high heat/climate risk. Healthcare good but expensive. Limited worker protections. Social freedoms restricted.',adj:{income:15,clients:5,housing:-5,health:5,digital:5,retire:12,safety:10,social:-15}}
+// ================================================================
+// DATA OBJECT — edit this weekly
+// ================================================================
+const DATA = {
+  meta: {
+    week: 2,
+    date: "2026-04-18",
+    prevDate: "2026-04-11",
+    nextUpdate: "2026-04-25"
+  },
+  briefing: {
+    story: [
+      "Consumer confidence collapsed to a <strong>74-year low</strong> this week while equity markets hit all-time highs — the widest divergence between Wall Street and Main Street ever recorded. The disconnect suggests markets are pricing in AI-driven productivity gains that have not yet materialised for workers or consumers.",
+      "Meanwhile, the Strait of Hormuz situation deteriorated further. Iran briefly declared the strait open on April 17 before reversing within hours, sending Brent crude on a <strong>$17 swing in 48 hours</strong>. The instability is feeding directly into energy costs and fertiliser prices that will hit food shelves by autumn.",
+      "Snap became the latest company to cut staff citing AI efficiency, reducing headcount by 16%. Combined with Q1 data showing <strong>nearly half of all tech layoffs are now AI-attributed</strong>, the displacement thesis is moving from projection to documented reality."
+    ],
+    keyNumbers: [
+      { val:"50.8",  lbl:"Consumer Sentiment",  chg:"74-yr low",        arrow:"▼", danger:true  },
+      { val:"80,000",lbl:"Tech Layoffs Q1",      chg:"48% AI-attributed",arrow:"▼", danger:true  },
+      { val:"$4.12", lbl:"US Gas Price",          chg:"+50% YoY",         arrow:"▼", danger:true  },
+      { val:"6.13M", lbl:"NHS Wait List",         chg:"1 in 9 people",    arrow:"▼", danger:true  }
+    ]
+  },
+  nodes: [
+    { id:"ai-accelerant",         name:"AI ACCELERANT",              val:"~50%",    stat:"Q1 layoffs AI-attributed",            chg:"▼ Snap -16%; AI attribution rising",       trend:"down",  sev:0.72, updated:true,  col:"danger", desc:"AI adoption is the primary accelerant across all cascade nodes. Q1 2026 now shows approximately half of all tech sector layoffs directly attributed to AI efficiency gains — moving from projection to documented reality.",              proj:"At current trajectory: 0.82 severity by Q4 2026, 0.91 by Q2 2027 (high confidence).", feedsInto:["saas-collapse","white-collar-displacement","consumer-demand"],    fedBy:[] },
+    { id:"saas-collapse",         name:"SaaS COLLAPSE",              val:"80,000",  stat:"Tech layoffs Q1 2026",                chg:"▼ Record Q1; Snap, Google, Meta cutting",  trend:"down",  sev:0.68, updated:true,  col:"danger", desc:"The SaaS sector is experiencing accelerating consolidation as AI tools replace entire engineering and support teams. 80,000 tech layoffs in Q1 2026 represents the highest Q1 figure since the 2022-23 correction.",                     proj:"At current trajectory: 0.75 severity by Q4 2026, 0.82 by Q2 2027 (medium confidence).",feedsInto:["white-collar-displacement","commercial-re","consumer-demand"],   fedBy:["ai-accelerant"] },
+    { id:"white-collar-displacement",name:"WHITE-COLLAR DISPLACEMENT",val:"502,000",stat:"Projected AI cuts 2026",             chg:"▼ Projections revised upward post-Q1",     trend:"down",  sev:0.65, updated:false, col:"danger", desc:"Goldman Sachs and Oxford Economics both revised 2026 displacement projections upward following Q1 data. Knowledge workers — lawyers, analysts, copywriters, coders — are the primary affected demographic.",                              proj:"At current trajectory: 0.72 severity by Q4 2026, 0.80 by Q2 2027 (medium confidence).",feedsInto:["consumer-demand","mental-health","housing-crisis"],              fedBy:["ai-accelerant","saas-collapse"] },
+    { id:"consumer-demand",       name:"CONSUMER DEMAND",            val:"50.8",    stat:"Michigan Consumer Sentiment Index",   chg:"▼ 10.9% — 74-year low",                   trend:"down",  sev:0.78, updated:true,  col:"danger", desc:"The University of Michigan Consumer Sentiment Index fell to 50.8 — its lowest reading since 1952. The index measures consumer expectations about personal finances, business conditions, and buying conditions. The divergence from equity markets is the widest ever recorded.", proj:"At current trajectory: 0.85 severity by Q4 2026, 0.90 by Q2 2027 (high confidence).",  feedsInto:["gov-revenue","social-disintegration","mental-health"],           fedBy:["white-collar-displacement","housing-crisis","geopolitical-chaos"] },
+    { id:"commercial-re",         name:"COMMERCIAL RE",              val:"20.1%",   stat:"US office vacancy rate",              chg:"▼ New record; refinancing cliff 2026-27",   trend:"down",  sev:0.62, updated:false, col:"warn",   desc:"US office vacancy hit 20.1%, a post-war record. $900B in commercial real estate loans mature in 2026-2027. Regional banks hold ~70% of this exposure. A default cascade would dwarf the 2023 regional banking crisis.",                        proj:"At current trajectory: 0.70 severity by Q4 2026, 0.78 by Q2 2027 (medium confidence).",feedsInto:["gov-revenue","consumer-demand"],                                 fedBy:["saas-collapse","white-collar-displacement"] },
+    { id:"healthcare-failure",    name:"HEALTHCARE FAILURE",         val:"6.13M",   stat:"NHS waiting list",                    chg:"▼ 1 in 9 people waiting for treatment",    trend:"down",  sev:0.71, updated:false, col:"danger", desc:"NHS England waiting list stands at 6.13M — approximately 1 in 9 of the entire population. Wait times for cancer treatment, mental health, and elective surgery are at record highs. The system is structurally unable to clear the backlog with current funding.",  proj:"At current trajectory: 0.76 severity by Q4 2026, 0.82 by Q2 2027 (high confidence).",  feedsInto:["mental-health","birth-rate-collapse","social-disintegration"],   fedBy:["gov-revenue","consumer-demand"] },
+    { id:"housing-crisis",        name:"HOUSING CRISIS",             val:"771,480", stat:"US homeless count",                   chg:"▼ +18% YoY; UK rough sleeping +27%",       trend:"down",  sev:0.67, updated:false, col:"danger", desc:"US homeless count hit 771,480 — the highest ever recorded, up 18% year-on-year. UK rough sleeping rose 27%. Housing costs as a share of income are at multi-decade highs in both countries, driven by supply constraint, rate rises, and wage stagnation.",      proj:"At current trajectory: 0.74 severity by Q4 2026, 0.81 by Q2 2027 (medium confidence).",feedsInto:["mental-health","social-disintegration","birth-rate-collapse"],  fedBy:["consumer-demand","white-collar-displacement"] },
+    { id:"mental-health",         name:"MENTAL HEALTH",              val:"1.7M",    stat:"NHS mental health waiting list",      chg:"► Stable but critically elevated",         trend:"stable",sev:0.69, updated:false, col:"warn",   desc:"1.7M people on NHS mental health waiting lists. Anxiety and depression rates tracking at all-time highs across all age demographics. Young adult (18-25) mental health crisis now classified as a public health emergency by WHO Europe.",              proj:"At current trajectory: 0.74 severity by Q4 2026, 0.80 by Q2 2027 (medium confidence).",feedsInto:["birth-rate-collapse","social-disintegration","gov-revenue"],    fedBy:["housing-crisis","healthcare-failure","consumer-demand"] },
+    { id:"birth-rate-collapse",   name:"BIRTH RATE COLLAPSE",        val:"1.41",    stat:"UK fertility rate",                   chg:"▼ Below 1.5 threshold — generational shift",trend:"down", sev:0.58, updated:false, col:"warn",   desc:"UK fertility rate fell to 1.41 — well below the 2.1 replacement threshold and the lowest ever recorded. South Korea at 0.72 represents the extreme end of a global trend. Population decline creates compounding fiscal pressures for pension and healthcare systems.", proj:"At current trajectory: 0.65 severity by Q4 2026, 0.72 by Q2 2027 (high confidence).",  feedsInto:["gov-revenue","healthcare-failure"],                              fedBy:["mental-health","housing-crisis","social-disintegration"] },
+    { id:"gov-revenue",           name:"GOV REVENUE COLLAPSE",       val:"190,000", stat:"Excess UK deaths from austerity (est.)",chg:"► Revenue pressure; no relief in sight",  trend:"stable",sev:0.64, updated:false, col:"warn",   desc:"Structural government revenue shortfall is forcing continued austerity. Independent research estimates 190,000 excess deaths in the UK attributable to austerity cuts since 2010. The fiscal trap: cuts reduce tax revenue, which forces more cuts.",      proj:"At current trajectory: 0.70 severity by Q4 2026, 0.76 by Q2 2027 (medium confidence).",feedsInto:["healthcare-failure","housing-crisis","democratic-collapse"],    fedBy:["consumer-demand","birth-rate-collapse","commercial-re"] },
+    { id:"social-disintegration", name:"SOCIAL DISINTEGRATION",      val:"17%",     stat:"Adults with zero close friends",      chg:"▼ Loneliness epidemic accelerating",       trend:"down",  sev:0.61, updated:false, col:"warn",   desc:"17% of UK adults report having no close friends — up from 7% in 2012. The 'loneliness epidemic' is now a documented public health crisis. Social fragmentation correlates with political extremism, declining civic participation, and rising mental health demand.",   proj:"At current trajectory: 0.68 severity by Q4 2026, 0.74 by Q2 2027 (medium confidence).",feedsInto:["mental-health","democratic-collapse","birth-rate-collapse"],   fedBy:["consumer-demand","housing-crisis","mental-health"] },
+    { id:"wealth-concentration",  name:"WEALTH CONCENTRATION",       val:"$2T",     stat:"Billionaire wealth gains 2024",       chg:"▼ Gini coefficient at post-war high",      trend:"down",  sev:0.74, updated:false, col:"danger", desc:"The world's billionaires added $2T to their collective wealth in 2024 while median real wages stagnated. Oxfam's Gini coefficient analysis shows wealth inequality at its highest point since before WWII. Tax avoidance costs OECD governments an estimated $427B annually.", proj:"At current trajectory: 0.80 severity by Q4 2026, 0.87 by Q2 2027 (high confidence).",  feedsInto:["democratic-collapse","social-disintegration","gov-revenue"],    fedBy:["ai-accelerant","saas-collapse"] },
+    { id:"geopolitical-chaos",    name:"GEOPOLITICAL CHAOS",         val:"$97",     stat:"Brent crude per barrel",              chg:"▼ $17 swing in 48hrs — Hormuz instability",trend:"down",  sev:0.76, updated:true,  col:"danger", desc:"Iran reversed its Hormuz strait declaration within hours, creating unprecedented price volatility. $97 Brent crude feeds directly into fertiliser costs (autumn food price impact), transport, and energy. Trade war tariffs are compounding supply chain fragmentation.", proj:"At current trajectory: 0.82 severity by Q4 2026, 0.88 by Q2 2027 (medium confidence).",feedsInto:["consumer-demand","gov-revenue","social-disintegration"],        fedBy:[] },
+    { id:"cyber-threats",         name:"CYBER THREATS",              val:"$1.1B",   stat:"Deepfake fraud losses 2025",          chg:"▼ State attacks on infrastructure +340%",  trend:"down",  sev:0.57, updated:false, col:"warn",   desc:"AI-generated deepfake fraud hit $1.1B in losses in 2025. State-level cyberattacks on critical infrastructure increased 340% since 2022. The combination of AI-powered offensive capability and aging infrastructure creates asymmetric vulnerability.",               proj:"At current trajectory: 0.65 severity by Q4 2026, 0.73 by Q2 2027 (medium confidence).",feedsInto:["gov-revenue","democratic-collapse"],                             fedBy:["ai-accelerant","geopolitical-chaos"] },
+    { id:"democratic-collapse",   name:"DEMOCRATIC COLLAPSE",        val:"9%",      stat:"UK Government trust (all-time low)",  chg:"▼ Institutional trust collapsing globally",trend:"down",  sev:0.70, updated:false, col:"danger", desc:"UK government trust fell to 9% — the lowest ever recorded. US Congress trust at 12%. The trust deficit creates a governance crisis: institutions needed to manage cascade crises cannot mobilise public cooperation. Democratic backsliding is accelerating in 24 countries.", proj:"At current trajectory: 0.78 severity by Q4 2026, 0.85 by Q2 2027 (high confidence).",  feedsInto:["social-disintegration","healthcare-failure"],                   fedBy:["wealth-concentration","gov-revenue","social-disintegration"] }
+  ],
+  connections:[
+    {from:"ai-accelerant",to:"saas-collapse",w:0.9},
+    {from:"ai-accelerant",to:"white-collar-displacement",w:0.85},
+    {from:"ai-accelerant",to:"wealth-concentration",w:0.7},
+    {from:"ai-accelerant",to:"cyber-threats",w:0.65},
+    {from:"saas-collapse",to:"white-collar-displacement",w:0.85},
+    {from:"saas-collapse",to:"commercial-re",w:0.7},
+    {from:"saas-collapse",to:"consumer-demand",w:0.6},
+    {from:"white-collar-displacement",to:"consumer-demand",w:0.8},
+    {from:"white-collar-displacement",to:"mental-health",w:0.65},
+    {from:"white-collar-displacement",to:"housing-crisis",w:0.6},
+    {from:"consumer-demand",to:"gov-revenue",w:0.75},
+    {from:"consumer-demand",to:"social-disintegration",w:0.55},
+    {from:"consumer-demand",to:"mental-health",w:0.6},
+    {from:"commercial-re",to:"gov-revenue",w:0.7},
+    {from:"healthcare-failure",to:"mental-health",w:0.8},
+    {from:"healthcare-failure",to:"birth-rate-collapse",w:0.5},
+    {from:"housing-crisis",to:"mental-health",w:0.75},
+    {from:"housing-crisis",to:"social-disintegration",w:0.65},
+    {from:"housing-crisis",to:"birth-rate-collapse",w:0.6},
+    {from:"mental-health",to:"birth-rate-collapse",w:0.55},
+    {from:"mental-health",to:"social-disintegration",w:0.7},
+    {from:"gov-revenue",to:"healthcare-failure",w:0.8},
+    {from:"gov-revenue",to:"housing-crisis",w:0.65},
+    {from:"gov-revenue",to:"democratic-collapse",w:0.7},
+    {from:"social-disintegration",to:"democratic-collapse",w:0.65},
+    {from:"social-disintegration",to:"mental-health",w:0.6},
+    {from:"wealth-concentration",to:"democratic-collapse",w:0.75},
+    {from:"wealth-concentration",to:"gov-revenue",w:0.7},
+    {from:"geopolitical-chaos",to:"consumer-demand",w:0.7},
+    {from:"geopolitical-chaos",to:"gov-revenue",w:0.55},
+    {from:"geopolitical-chaos",to:"cyber-threats",w:0.6},
+    {from:"cyber-threats",to:"gov-revenue",w:0.5},
+    {from:"cyber-threats",to:"democratic-collapse",w:0.6},
+    {from:"birth-rate-collapse",to:"gov-revenue",w:0.65},
+    {from:"democratic-collapse",to:"healthcare-failure",w:0.55}
+  ],
+  activeThisWeek:["ai-accelerant","saas-collapse","consumer-demand","geopolitical-chaos"],
+  history:[
+    { date:"2026-04-11", nodes:{ "ai-accelerant":{sev:0.70},"saas-collapse":{sev:0.65},"white-collar-displacement":{sev:0.62},"consumer-demand":{sev:0.68},"commercial-re":{sev:0.60},"healthcare-failure":{sev:0.69},"housing-crisis":{sev:0.65},"mental-health":{sev:0.68},"birth-rate-collapse":{sev:0.56},"gov-revenue":{sev:0.62},"social-disintegration":{sev:0.59},"wealth-concentration":{sev:0.72},"geopolitical-chaos":{sev:0.65},"cyber-threats":{sev:0.54},"democratic-collapse":{sev:0.67} } },
+    { date:"2026-04-18", nodes:{ "ai-accelerant":{sev:0.72},"saas-collapse":{sev:0.68},"white-collar-displacement":{sev:0.65},"consumer-demand":{sev:0.78},"commercial-re":{sev:0.62},"healthcare-failure":{sev:0.71},"housing-crisis":{sev:0.67},"mental-health":{sev:0.69},"birth-rate-collapse":{sev:0.58},"gov-revenue":{sev:0.64},"social-disintegration":{sev:0.61},"wealth-concentration":{sev:0.74},"geopolitical-chaos":{sev:0.76},"cyber-threats":{sev:0.57},"democratic-collapse":{sev:0.70} } }
+  ],
+  personal:{
+    score:47, prevScore:42,
+    drivers:"Consumer demand collapse (-3pts), AI displacement acceleration (-2pts)",
+    dims:[
+      {name:"Income Stability",  score:58,col:"warn"},
+      {name:"Client Pipeline",   score:62,col:"warn"},
+      {name:"Housing Security",  score:35,col:"danger"},
+      {name:"Health Access",     score:45,col:"danger"},
+      {name:"Digital Exposure",  score:70,col:"warn"},
+      {name:"Retirement",        score:28,col:"danger"},
+      {name:"Physical Safety",   score:72,col:"ok"},
+      {name:"Social Capital",    score:55,col:"warn"}
+    ],
+    controls:[
+      {id:"ef",   lbl:"Emergency Fund (6mo)",       sub:"Liquidity buffer against income loss",         type:"toggle", def:false},
+      {id:"inc",  lbl:"Diversified Income Streams",  sub:"Multiple client types / revenue sources",      type:"toggle", def:false},
+      {id:"ski",  lbl:"AI-Proof Skills Maintained",  sub:"Active upskilling in irreplaceable domains",   type:"toggle", def:true},
+      {id:"hlt",  lbl:"Private Health Cover",        sub:"NHS wait list bypass",                         type:"toggle", def:false},
+      {id:"pen",  lbl:"Pension Contributions Active",sub:"Retirement timeline protected",                type:"toggle", def:true},
+      {id:"hse",  lbl:"Housing Owned / Secured",     sub:"Not exposed to rental market volatility",      type:"toggle", def:false},
+      {id:"loc",  lbl:"Relocation Readiness",        sub:"Prepared to move if conditions worsen",        type:"select", opts:["No contingency","EU residency viable","Canada/NZ option","Remote-first lifestyle"],def:0}
+    ],
+    recs:[
+      {pri:"high",text:"Build 6-month emergency fund — consumer demand collapse and AI displacement are converging on independent consultant income. Top priority given no current buffer."},
+      {pri:"high",text:"Diversify client base across sectors. AI-exposed SaaS clients now represent elevated counterparty risk. Target public sector, healthcare, or AI-native clients."},
+      {pri:"high",text:"Explore private health insurance options. NHS wait lists at 6.13M means 3-6 month delays for any non-emergency treatment — an unacceptable risk for a self-employed person."},
+      {pri:"med", text:"Review pension contributions and increase if possible. Wealth concentration trends suggest public pension adequacy will decline. Self-funded retirement is the safer assumption."},
+      {pri:"med", text:"Begin EU residency research as a contingency. Geopolitical and economic conditions are worsening on a 12-24 month view. Having options ready has low cost and high option value."},
+      {pri:"low", text:"Accelerate AI tool adoption in service delivery. Delivering AI-augmented output at competitive rates is the primary moat for independent consultants in 2026-2027."}
+    ],
+    projection:"If current trends continue and no mitigation actions are taken, composite risk score reaches <strong>65 by Q4 2026</strong> and <strong>78 by Q2 2027</strong>. Implementing all recommended actions reduces Q4 2026 projection to 51 and Q2 2027 to 58."
+  }
 };
 
-/* =================== STATE =================== */
-let currentYear = 2026;
-let activeTab = 'global';
-let toggleStates = {};
-TOGGLES_DATA.forEach(t => toggleStates[t.id] = false);
-let relocation = 'UK';
+// ================================================================
+// HELPERS
+// ================================================================
+function sevColor(s){ return s>=0.70?'var(--red)':s>=0.50?'var(--amber)':'var(--green)'; }
 
-/* =================== TABS =================== */
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    this.classList.add('active');
-    const tab = this.dataset.tab;
-    document.getElementById('tab-'+tab).classList.add('active');
-    activeTab = tab;
-    if(tab==='personal') updatePersonalView();
-  });
-});
+function sparkSVG(id,w=80,h=24){
+  const pts = DATA.history.map(h=>(h.nodes[id]||{}).sev||0);
+  if(pts.length<2) return '';
+  const p=2,iw=w-p*2,ih=h-p*2;
+  const xs=pts.map((_,i)=>p+(i/(pts.length-1))*iw);
+  const ys=pts.map(v=>p+(1-v)*ih);
+  const d=xs.map((x,i)=>`${i?'L':'M'}${x.toFixed(1)},${ys[i].toFixed(1)}`).join(' ');
+  const lx=xs[xs.length-1], ly=ys[ys.length-1];
+  const c=sevColor(pts[pts.length-1]);
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+    <path d="${d}" fill="none" stroke="${c}" stroke-width="1.5" stroke-opacity=".6"/>
+    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${c}"/>
+  </svg>`;
+}
 
-/* =================== SVG GRAPH =================== */
-const svg = document.getElementById('graphSvg');
-const CX=400, CY=400, R=300;
+function fmtDate(s){
+  const [y,m,d]=s.split('-');
+  const mn=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  return `${parseInt(d)} ${mn[parseInt(m)-1]} ${y}`;
+}
 
-function buildGraph(){
-  svg.innerHTML = '';
+// ================================================================
+// RENDER: BRIEFING
+// ================================================================
+function renderBriefing(){
+  const {meta,briefing}=DATA;
+  document.getElementById('bwk').textContent=`WEEK ${String(meta.week).padStart(2,'0')} // ${fmtDate(meta.date)}`;
+  document.getElementById('bstory').innerHTML=briefing.story.map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('keynums').innerHTML=briefing.keyNumbers.map(k=>`
+    <div class="kn">
+      <div class="kn-val${k.danger?' danger':''}">${k.val}</div>
+      <div class="kn-lbl">${k.lbl}</div>
+      <div class="kn-chg${k.danger?' danger':''}">${k.arrow} ${k.chg}</div>
+    </div>`).join('');
+}
 
-  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
-  const glow = document.createElementNS('http://www.w3.org/2000/svg','filter');
-  glow.id='glow';
-  glow.innerHTML='<feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>';
-  defs.appendChild(glow);
-  const radGrad = document.createElementNS('http://www.w3.org/2000/svg','radialGradient');
-  radGrad.id='ambientGlow';
-  radGrad.innerHTML='<stop offset="0%" stop-color="rgba(245,158,11,0.06)"/><stop offset="100%" stop-color="rgba(245,158,11,0)"/>';
-  defs.appendChild(radGrad);
-  svg.appendChild(defs);
+// ================================================================
+// RENDER: CRISIS GRID
+// ================================================================
+function renderGrid(){
+  const activeSet=new Set(DATA.activeThisWeek);
+  document.getElementById('crisis-grid').innerHTML=DATA.nodes.map(n=>{
+    const tc=n.trend==='down'?'down':n.trend==='up'?'up':'stable';
+    const ta=n.trend==='down'?'▼':n.trend==='up'?'▲':'►';
+    return `<div class="ccard" onclick="selectNode('${n.id}')">
+      <div class="ccard-top">
+        <div class="ccard-name">${n.name}</div>
+        <div class="ccard-badges">
+          ${n.updated?'<span class="badge-upd">UPDATED</span>':''}
+          <span class="badge-trend ${tc}">${ta}</span>
+        </div>
+      </div>
+      <div class="sev-bar"><div class="sev-fill" style="width:${(n.sev*100).toFixed(0)}%;background:${sevColor(n.sev)}"></div></div>
+      <div class="ccard-stat">
+        <div class="ccard-val ${n.col}">${n.val}</div>
+        <div>${sparkSVG(n.id)}</div>
+      </div>
+      <div class="ccard-lbl">${n.stat}</div>
+      <div class="ccard-chg ${tc}">${n.chg}</div>
+    </div>`;
+  }).join('');
+}
 
-  const bgGlow = document.createElementNS('http://www.w3.org/2000/svg','circle');
-  bgGlow.setAttribute('cx',CX);bgGlow.setAttribute('cy',CY);bgGlow.setAttribute('r',350);
-  bgGlow.setAttribute('fill','url(#ambientGlow)');bgGlow.id='bgGlow';
-  svg.appendChild(bgGlow);
-
-  [150,300].forEach(r=>{
-    const ring=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    ring.setAttribute('cx',CX);ring.setAttribute('cy',CY);ring.setAttribute('r',r);
-    ring.setAttribute('fill','none');ring.setAttribute('stroke','rgba(255,255,255,.03)');ring.setAttribute('stroke-width','1');
-    svg.appendChild(ring);
-  });
-
-  const connG = document.createElementNS('http://www.w3.org/2000/svg','g');
-  connG.id='connGroup';
-  svg.appendChild(connG);
-
-  const aiConnG = document.createElementNS('http://www.w3.org/2000/svg','g');
-  aiConnG.id='aiConnGroup';
-  svg.appendChild(aiConnG);
-
-  const nodeG = document.createElementNS('http://www.w3.org/2000/svg','g');
-  nodeG.id='nodeGroup';
-  svg.appendChild(nodeG);
-
-  const positions = [{x:CX,y:CY}];
-  for(let i=0;i<14;i++){
-    const angle = -Math.PI/2 + (2*Math.PI*i/14);
-    positions.push({x: CX + R*Math.cos(angle), y: CY + R*Math.sin(angle)});
-  }
-  window._nodePos = positions;
-
-  CONNECTIONS.forEach(([from,to,strength]) => {
-    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1', positions[from].x);
-    line.setAttribute('y1', positions[from].y);
-    line.setAttribute('x2', positions[to].x);
-    line.setAttribute('y2', positions[to].y);
-    line.dataset.from = from;
-    line.dataset.to = to;
-    line.dataset.strength = strength;
-    line.setAttribute('stroke', strength===1 ? 'rgba(245,158,11,0.15)' : 'rgba(245,158,11,0.08)');
-    line.setAttribute('stroke-width', strength===1 ? '1.5' : '1');
-    line.style.cursor = 'pointer';
-    line.addEventListener('mouseenter', () => {
-      const s = parseFloat(line.dataset.strength);
-      line.setAttribute('stroke-width', s===1 ? '4' : '2.5');
-      line.setAttribute('stroke', s===1 ? 'rgba(245,158,11,0.7)' : 'rgba(245,158,11,0.45)');
-      [parseInt(line.dataset.from), parseInt(line.dataset.to)].forEach(nid => {
-        const c = document.getElementById('nodeCircle'+nid);
-        if(c) c.setAttribute('filter','url(#glow)');
-      });
-    });
-    line.addEventListener('mouseleave', () => {
-      const t2 = (currentYear - 2026) / 6;
-      const s = parseFloat(line.dataset.strength);
-      const baseW = s===1 ? 1.5 : 1;
-      line.setAttribute('stroke-width', baseW + 3 * t2 * s);
-      const rv = Math.round(245 - 100*t2);
-      const gv = Math.round(158 - 100*t2);
-      const opacity = (s===1 ? 0.15 : 0.08) + 0.35 * t2 * s;
-      line.setAttribute('stroke', `rgba(${rv},${gv},11,${opacity})`);
-      [parseInt(line.dataset.from), parseInt(line.dataset.to)].forEach(nid => {
-        const nd = NODES[nid];
-        const c = document.getElementById('nodeCircle'+nid);
-        if(c && !nd.isCenter) c.removeAttribute('filter');
-      });
-    });
-    connG.appendChild(line);
+// ================================================================
+// RENDER: CASCADE GRAPH
+// ================================================================
+const NPOS={};
+function renderGraph(){
+  const svg=document.getElementById('gsvg');
+  const cx=280,cy=280,r=215;
+  const outer=DATA.nodes.filter(n=>n.id!=='ai-accelerant');
+  NPOS['ai-accelerant']={x:cx,y:cy};
+  outer.forEach((n,i)=>{
+    const a=(i/outer.length)*Math.PI*2-Math.PI/2;
+    NPOS[n.id]={x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};
   });
 
-  for(let i=1;i<=14;i++){
-    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1', CX);
-    line.setAttribute('y1', CY);
-    line.setAttribute('x2', positions[i].x);
-    line.setAttribute('y2', positions[i].y);
-    line.dataset.target = i;
-    line.setAttribute('stroke', 'rgba(245,158,11,0.1)');
-    line.setAttribute('stroke-width', '1');
-    aiConnG.appendChild(line);
-  }
+  const activeSet=new Set(DATA.activeThisWeek);
+  let html='';
 
-  NODES.forEach((node,i) => {
-    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-    g.style.cursor = 'pointer';
-    g.dataset.nodeId = i;
-
-    if(node.isCenter){
-      g.style.animation = 'aiBreath 2s ease-in-out infinite';
-      g.style.transformBox = 'fill-box';
-      g.style.transformOrigin = 'center';
-    }
-
-    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    circle.setAttribute('cx', positions[i].x);
-    circle.setAttribute('cy', positions[i].y);
-    circle.setAttribute('r', node.isCenter ? 40 : 24);
-    circle.style.fill = node.isCenter ? '#f59e0b' : '#b45309';
-    circle.style.stroke = node.isCenter ? '#fbbf24' : '#92400e';
-    circle.setAttribute('stroke-width', node.isCenter ? '3' : '1.5');
-    if(node.isCenter) circle.setAttribute('filter','url(#glow)');
-    circle.id = 'nodeCircle'+i;
-    circle.classList.add('node-circle');
-    g.appendChild(circle);
-
-    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
-    label.setAttribute('x', positions[i].x);
-    label.setAttribute('y', positions[i].y);
-    label.setAttribute('text-anchor','middle');
-    label.setAttribute('dominant-baseline','central');
-    label.setAttribute('fill','#fff');
-    label.setAttribute('font-size', node.isCenter ? '11' : '8.5');
-    label.setAttribute('font-weight','700');
-    label.setAttribute('font-family','system-ui,-apple-system,sans-serif');
-    label.setAttribute('pointer-events','none');
-
-    if(node.isCenter){
-      label.textContent = 'AI';
-      const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
-      sub.setAttribute('x', positions[i].x);
-      sub.setAttribute('y', positions[i].y + 14);
-      sub.setAttribute('text-anchor','middle');
-      sub.setAttribute('fill','rgba(255,255,255,.7)');
-      sub.setAttribute('font-size','7');
-      sub.setAttribute('font-weight','600');
-      sub.setAttribute('font-family','system-ui');
-      sub.setAttribute('pointer-events','none');
-      sub.textContent = 'ACCELERANT';
-      g.appendChild(sub);
-    } else {
-      label.textContent = node.short;
-    }
-    g.appendChild(label);
-
-    if(!node.isCenter){
-      const angle = -Math.PI/2 + (2*Math.PI*(i-1)/14);
-      const dist = R + 48;
-      const lx = CX + dist*Math.cos(angle);
-      const ly = CY + dist*Math.sin(angle);
-      const olabel = document.createElementNS('http://www.w3.org/2000/svg','text');
-      olabel.setAttribute('x', lx);
-      olabel.setAttribute('y', ly);
-      olabel.setAttribute('text-anchor','middle');
-      olabel.setAttribute('dominant-baseline','central');
-      olabel.setAttribute('fill','#777');
-      olabel.setAttribute('font-size','7');
-      olabel.setAttribute('font-family','system-ui,-apple-system,sans-serif');
-      olabel.setAttribute('pointer-events','none');
-      olabel.textContent = node.name;
-      g.appendChild(olabel);
-    }
-
-    g.addEventListener('mouseenter', () => {
-      circle.setAttribute('stroke-width', node.isCenter ? '4' : '2.5');
-      circle.setAttribute('filter','url(#glow)');
-    });
-    g.addEventListener('mouseleave', () => {
-      circle.setAttribute('stroke-width', node.isCenter ? '3' : '1.5');
-      if(!node.isCenter) circle.removeAttribute('filter');
-    });
-    g.addEventListener('click', () => openDetail(i));
-    nodeG.appendChild(g);
-  });
-}
-
-function getNodeRadius(i){
-  if(i===0){
-    const t = (currentYear - 2026) / 6;
-    return 40 + 35 * t * t;
-  }
-  const t = (currentYear - 2026) / 6;
-  return 24 + 14 * t;
-}
-
-function yearToColor(t){
-  if(t < 0.33) return lerpColor('#f59e0b','#f97316', t/0.33);
-  if(t < 0.66) return lerpColor('#f97316','#ef4444', (t-0.33)/0.33);
-  return lerpColor('#ef4444','#991b1b', (t-0.66)/0.34);
-}
-
-function lerpColor(a,b,t){
-  t = Math.max(0,Math.min(1,t));
-  const ah=parseInt(a.slice(1),16), bh=parseInt(b.slice(1),16);
-  const ar=(ah>>16)&0xff, ag=(ah>>8)&0xff, ab2=ah&0xff;
-  const br=(bh>>16)&0xff, bg=(bh>>8)&0xff, bb=bh&0xff;
-  const rr=Math.round(ar+(br-ar)*t), rg=Math.round(ag+(bg-ag)*t), rb=Math.round(ab2+(bb-ab2)*t);
-  return '#'+((1<<24)+(rr<<16)+(rg<<8)+rb).toString(16).slice(1);
-}
-
-function updateGraph(){
-  const t = (currentYear - 2026) / 6;
-  const pos = window._nodePos;
-  if(!pos) return;
-
-  NODES.forEach((node,i) => {
-    const circle = document.getElementById('nodeCircle'+i);
-    if(!circle) return;
-    const r = getNodeRadius(i);
-    circle.setAttribute('r', r);
-    const col = i===0 ? yearToColor(t*0.7) : yearToColor(t);
-    circle.style.fill = col;
-    const strokeCol = lerpColor(i===0?'#fbbf24':'#92400e', '#7f1d1d', t);
-    circle.style.stroke = strokeCol;
+  // connections
+  DATA.connections.forEach(c=>{
+    const f=NPOS[c.from],t=NPOS[c.to];
+    if(!f||!t) return;
+    const act=activeSet.has(c.from)||activeSet.has(c.to);
+    html+=`<line x1="${f.x.toFixed(1)}" y1="${f.y.toFixed(1)}" x2="${t.x.toFixed(1)}" y2="${t.y.toFixed(1)}" stroke="${act?'var(--amber)':'#3a3a3a'}" stroke-width="${(c.w*(act?2.2:1)).toFixed(2)}" stroke-opacity="${act?.42:.18}"/>`;
   });
 
-  const connG = document.getElementById('connGroup');
-  if(connG){
-    Array.from(connG.children).forEach(line => {
-      const s = parseFloat(line.dataset.strength);
-      const baseW = s===1 ? 1.5 : 1;
-      const w = baseW + 3 * t * s;
-      const opacity = (s===1 ? 0.15 : 0.08) + 0.35 * t * s;
-      line.setAttribute('stroke-width', w);
-      const r = Math.round(245 - 100*t);
-      const g = Math.round(158 - 100*t);
-      line.setAttribute('stroke', `rgba(${r},${g},11,${opacity})`);
-    });
-  }
+  // nodes
+  DATA.nodes.forEach(n=>{
+    const p=NPOS[n.id];
+    if(!p) return;
+    const isCtr=n.id==='ai-accelerant';
+    const nr=isCtr?30:8+n.sev*15;
+    const act=activeSet.has(n.id);
+    const c=sevColor(n.sev);
+    const shortLines=n.name.split(' ').reduce((acc,w,i)=>{
+      if(i===0) acc.push(w);
+      else if(acc[acc.length-1].length+w.length<11) acc[acc.length-1]+=' '+w;
+      else acc.push(w);
+      return acc;
+    },[]).slice(0,2);
 
-  const aiG = document.getElementById('aiConnGroup');
-  if(aiG){
-    Array.from(aiG.children).forEach(line => {
-      const w = 1 + 6 * t * t;
-      const opacity = 0.1 + 0.55 * t * t;
-      line.setAttribute('stroke-width', w);
-      line.setAttribute('stroke', `rgba(245,158,11,${opacity})`);
-    });
-  }
-
-  const bgG = document.getElementById('bgGlow');
-  if(bgG) bgG.setAttribute('r', 350 + 100*t);
-
-  const cp = document.getElementById('calloutParadox');
-  const cr = document.getElementById('calloutRetrain');
-  if(cp) cp.classList.toggle('visible', currentYear >= 2026.5);
-  if(cr) cr.classList.toggle('visible', currentYear >= 2027);
-
-  updatePivotBadge();
-}
-
-function updatePivotBadge(){
-  const remaining = Math.max(0, 2028.5 - currentYear);
-  const el = document.getElementById('pivotYears');
-  const sub = document.getElementById('pivotSub');
-  const badge = document.getElementById('pivotBadge');
-  if(remaining <= 0){
-    el.textContent = 'CLOSED';
-    el.style.color = 'var(--red)';
-    sub.textContent = 'Window passed';
-    badge.style.borderColor = 'var(--red)';
-  } else if(remaining < 1){
-    el.textContent = remaining.toFixed(1)+' yr';
-    el.style.color = 'var(--red)';
-    sub.textContent = 'Critical';
-    badge.style.borderColor = 'var(--red)';
-  } else if(remaining < 2){
-    el.textContent = remaining.toFixed(1)+' yrs';
-    el.style.color = 'var(--amber)';
-    sub.textContent = 'Narrowing';
-    badge.style.borderColor = 'var(--amber)';
-  } else {
-    el.textContent = remaining.toFixed(1)+' yrs';
-    el.style.color = 'var(--green)';
-    sub.textContent = 'Act now';
-    badge.style.borderColor = 'var(--green)';
-  }
-}
-
-/* =================== TIMELINE =================== */
-const slider = document.getElementById('timelineSlider');
-const tlLabel = document.getElementById('tlYear');
-
-function onSliderChange(val){
-  currentYear = parseFloat(val);
-  tlLabel.textContent = currentYear.toFixed(1);
-  slider.value = val;
-  updateGraph();
-  updateTimelineEvents();
-  if(activeTab==='personal') updatePersonalView();
-}
-
-slider.addEventListener('input', e => onSliderChange(e.target.value));
-
-function buildTimelineEvents(){
-  const container = document.getElementById('timelineEvents');
-  TIMELINE_EVENTS.forEach(ev => {
-    const pill = document.createElement('span');
-    pill.className = 'timeline-event' + (ev.critical?' critical':'');
-    pill.textContent = ev.text;
-    pill.dataset.year = ev.year;
-    container.appendChild(pill);
-  });
-}
-
-function updateTimelineEvents(){
-  document.querySelectorAll('.timeline-event').forEach(pill => {
-    const y = parseFloat(pill.dataset.year);
-    pill.classList.toggle('active', currentYear >= y);
-  });
-}
-
-/* =================== DETAIL PANEL =================== */
-const overlay = document.getElementById('detailOverlay');
-const panel = document.getElementById('detailPanel');
-
-function openDetail(nodeId){
-  const node = NODES[nodeId];
-  document.getElementById('dpTitle').textContent = node.name;
-
-  const statEl = document.getElementById('dpStat');
-  if(node.updated){
-    statEl.innerHTML = node.stat + ' <span class="updated-badge">UPDATED</span>';
-  } else {
-    statEl.textContent = node.stat;
-  }
-  document.getElementById('dpConf').textContent = 'Confidence: ' + node.conf;
-  document.getElementById('dpDesc').textContent = node.desc;
-
-  const outbound = CONNECTIONS.filter(c => c[0]===nodeId).map(c => ({id:c[1], name:NODES[c[1]].name, strength:c[2]===1?' (strong)':' (medium)'}));
-  if(nodeId===0) for(let i=1;i<=14;i++) outbound.push({id:i, name:NODES[i].name, strength:' (accelerant)'});
-  const outEl = document.getElementById('dpOutbound');
-  if(outbound.length){
-    outEl.innerHTML = outbound.map(n=>`<li class="clickable" data-nid="${n.id}">${n.name}<span style="color:var(--text3);font-size:.72rem">${n.strength}</span></li>`).join('');
-    outEl.querySelectorAll('li.clickable').forEach(li => li.addEventListener('click', () => openDetail(parseInt(li.dataset.nid))));
-  } else {
-    outEl.innerHTML = '<li style="color:var(--text3)">None</li>';
-  }
-
-  const inbound = CONNECTIONS.filter(c => c[1]===nodeId).map(c => ({id:c[0], name:NODES[c[0]].name, strength:c[2]===1?' (strong)':' (medium)'}));
-  if(nodeId!==0) inbound.push({id:0, name:'AI ACCELERANT', strength:' (accelerant)'});
-  const inEl = document.getElementById('dpInbound');
-  if(inbound.length){
-    inEl.innerHTML = inbound.map(n=>`<li class="clickable" data-nid="${n.id}">${n.name}<span style="color:var(--text3);font-size:.72rem">${n.strength}</span></li>`).join('');
-    inEl.querySelectorAll('li.clickable').forEach(li => li.addEventListener('click', () => openDetail(parseInt(li.dataset.nid))));
-  } else {
-    inEl.innerHTML = '<li style="color:var(--text3)">None</li>';
-  }
-
-  overlay.classList.add('open');
-  panel.classList.add('open');
-}
-
-function closeDetail(){
-  overlay.classList.remove('open');
-  panel.classList.remove('open');
-}
-document.getElementById('detailClose').addEventListener('click', closeDetail);
-overlay.addEventListener('click', closeDetail);
-
-/* =================== PERSONAL VIEW =================== */
-function buildRiskMeters(){
-  const container = document.getElementById('riskMeters');
-  RISK_KEYS.forEach(rk => {
-    const div = document.createElement('div');
-    div.className = 'risk-meter';
-    div.innerHTML = `<div class="rm-label"><span>${rk.label}</span><span id="rmVal_${rk.key}">--</span></div><div class="rm-bar"><div class="rm-fill" id="rmFill_${rk.key}"></div></div>`;
-    container.appendChild(div);
-  });
-}
-
-function buildToggles(){
-  const container = document.getElementById('toggles');
-  TOGGLES_DATA.forEach(t => {
-    const row = document.createElement('div');
-    row.className = 'toggle-row';
-    const effectsStr = Object.entries(t.effects).map(([k,v])=>{
-      const label = RISK_KEYS.find(r=>r.key===k);
-      return '+'+ v +' '+(label?label.label:k);
-    }).join(', ');
-    row.innerHTML = `<label class="toggle-switch"><input type="checkbox" data-toggle="${t.id}"><span class="slider"></span></label><div class="toggle-text"><strong>${t.label}</strong>${t.diminishing?' <span style="color:var(--text3)">(diminishes over time)</span>':''}<br><span style="color:var(--text3);font-size:.7rem">${effectsStr}</span></div>`;
-    container.appendChild(row);
-  });
-  container.addEventListener('change', e => {
-    if(e.target.dataset.toggle){
-      toggleStates[e.target.dataset.toggle] = e.target.checked;
-      updatePersonalView();
-    }
-  });
-}
-
-function buildRelocation(){
-  const sel = document.getElementById('relocSelect');
-  sel.addEventListener('change', e => {
-    relocation = e.target.value;
-    updatePersonalView();
-  });
-}
-
-function calcScores(){
-  const t = (currentYear - 2026) / 6;
-  const yearsIn = currentYear - 2026;
-  const scores = {};
-
-  RISK_KEYS.forEach(rk => {
-    let base = BASE_SCORES[rk.key];
-    base += (RELOC_DATA[relocation].adj[rk.key] || 0);
-    let val = base - DECAY_RATES[rk.key] * yearsIn * (1 + t*0.5);
-
-    TOGGLES_DATA.forEach(tog => {
-      if(toggleStates[tog.id] && tog.effects[rk.key]){
-        let boost = tog.effects[rk.key];
-        if(tog.diminishing){
-          boost = boost * Math.max(0.2, 1 - yearsIn * 0.15);
-        }
-        val += boost;
+    html+=`<g style="cursor:pointer" onclick="selectNode('${n.id}')">
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+9).toFixed(1)}" fill="${c}" fill-opacity="${act?.3:.07}"/>
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#111" stroke="${c}" stroke-width="${act?2:1}"/>
+      ${act?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+5).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".7" stroke-opacity=".35" stroke-dasharray="3,3"/>`:''}
+      ${isCtr
+        ?`<text x="${p.x}" y="${p.y-3}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+7}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="${c}">ACCELERANT</text>`
+        :shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*9).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="${c}" fill-opacity=".88">${ln}</text>`).join('')
       }
+    </g>`;
+  });
+  svg.innerHTML=html;
+}
+
+function selectNode(id){
+  const n=DATA.nodes.find(x=>x.id===id);
+  if(!n) return;
+  document.getElementById('dp-empty').style.display='none';
+  const body=document.getElementById('dp-body');
+  body.classList.add('on');
+  const makeTags=(ids,cls)=>ids.map(nid=>{
+    const nd=DATA.nodes.find(x=>x.id===nid);
+    return nd?`<span class="${cls}" onclick="selectNode('${nid}')">${nd.name}</span>`:'';
+  }).join('');
+  body.innerHTML=`
+    <div class="dp-name">${n.name}</div>
+    <div class="dp-bigval">${n.val}</div>
+    <div class="dp-vallbl">${n.stat}</div>
+    <div class="dp-chg">${n.chg}</div>
+    <div class="dp-desc">${n.desc}</div>
+    ${n.feedsInto.length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(n.feedsInto,'dp-tag-out')}</div>`:''}
+    ${n.fedBy.length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(n.fedBy,'dp-tag-in')}</div>`:''}
+    <div class="dp-proj"><div class="dp-lbl">PROJECTION</div><p>${n.proj}</p></div>`;
+  if(window.innerWidth<860) document.getElementById('dp-body').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ================================================================
+// RENDER: PERSONAL
+// ================================================================
+function renderPersonal(){
+  const p=DATA.personal;
+  const diff=p.score-p.prevScore;
+  document.getElementById('score-block').innerHTML=`
+    <div class="score-lbl">Composite Risk Score</div>
+    <div class="score-val">${p.score}<span class="score-denom">/100</span></div>
+    <div class="score-delta">${diff>0?'▲':'▼'} ${Math.abs(diff)} from last week</div>
+    <div class="score-drivers">${p.drivers}</div>`;
+
+  document.getElementById('risk-dims').innerHTML=p.dims.map(d=>`
+    <div class="rdim">
+      <div class="rdim-hdr"><span class="rdim-name">${d.name}</span><span class="rdim-score">${d.score}</span></div>
+      <div class="rdim-bar"><div class="rdim-fill ${d.col}" style="width:${d.score}%"></div></div>
+    </div>`).join('');
+
+  document.getElementById('controls-grid').innerHTML=p.controls.map(c=>`
+    <div class="ctrl">
+      <div><div class="ctrl-lbl">${c.lbl}</div><div class="ctrl-sub">${c.sub}</div></div>
+      ${c.type==='toggle'
+        ?`<label class="toggle"><input type="checkbox" ${c.def?'checked':''}><span class="tslider"></span></label>`
+        :`<select class="ctrl-select">${c.opts.map((o,i)=>`<option${i===c.def?' selected':''}>${o}</option>`).join('')}</select>`
+      }
+    </div>`).join('');
+
+  document.getElementById('rec-list').innerHTML=p.recs.map(r=>`
+    <li class="rec-li">
+      <span class="rec-pri ${r.pri}">${r.pri.toUpperCase()}</span>
+      <span>${r.text}</span>
+    </li>`).join('');
+
+  document.getElementById('proj-box').innerHTML=`
+    <div class="proj-eyebrow">// PROJECTION — UNTREATED TRAJECTORY</div>
+    <p class="proj-text">${p.projection}</p>`;
+}
+
+// ================================================================
+// RENDER: FOOTER + NAV
+// ================================================================
+function renderFooter(){
+  const m=DATA.meta;
+  document.getElementById('foot-meta').innerHTML=`Last updated: ${fmtDate(m.date)}<span class="foot-sep">//</span>Next update: ${fmtDate(m.nextUpdate)}<span class="foot-sep">//</span>Week ${String(m.week).padStart(2,'0')} of ongoing analysis`;
+}
+
+function initNav(){
+  const links=document.querySelectorAll('.nav-link[data-sec]');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active',l.dataset.sec===e.target.id));
     });
-
-    scores[rk.key] = Math.max(0, Math.min(100, Math.round(val)));
-  });
-  return scores;
+  },{threshold:0.4});
+  ['briefing','data','cascade','personal'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
 }
 
-function meterColor(val){
-  if(val >= 60) return 'var(--green)';
-  if(val >= 35) return 'var(--amber)';
-  return 'var(--red)';
+function initFade(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.08});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 }
 
-function updatePersonalView(){
-  const scores = calcScores();
-
-  RISK_KEYS.forEach(rk => {
-    const val = scores[rk.key];
-    const valEl = document.getElementById('rmVal_'+rk.key);
-    const fillEl = document.getElementById('rmFill_'+rk.key);
-    if(valEl){ valEl.textContent = val; valEl.style.color = meterColor(val); }
-    if(fillEl){ fillEl.style.width = val+'%'; fillEl.style.background = meterColor(val); }
-  });
-
-  document.getElementById('relocDesc').textContent = RELOC_DATA[relocation].desc;
-  updateActions();
-
-  const remaining = Math.max(0, 2028.5 - currentYear);
-  const pcEl = document.getElementById('pivotCountdown');
-  if(remaining <= 0){
-    pcEl.innerHTML = '<span style="color:var(--red)">Pivot window CLOSED. Every decision is now urgent.</span>';
-  } else {
-    pcEl.innerHTML = '<span style="color:var(--amber)">Pivot window: '+remaining.toFixed(1)+' years remaining</span>';
-  }
-}
-
-function updateActions(){
-  const list = document.getElementById('actionsList');
-  const items = [];
-  TOGGLES_DATA.forEach(t => {
-    if(!toggleStates[t.id]) items.push(t.label);
-  });
-  if(items.length === 0){
-    list.innerHTML = '<li style="color:var(--green)">All mitigations active. Monitor and adapt.</li>';
-  } else {
-    list.innerHTML = items.map((item,i) => `<li><strong>Priority ${i+1}:</strong> ${item}</li>`).join('');
-  }
-}
-
-/* =================== INIT =================== */
-buildGraph();
-buildTimelineEvents();
-buildRiskMeters();
-buildToggles();
-buildRelocation();
-slider.value = 2026;
-currentYear = 2026;
-tlLabel.textContent = '2026.0';
-updateGraph();
-updateTimelineEvents();
-updatePersonalView();
-
-})();
+// ================================================================
+// BOOT
+// ================================================================
+document.addEventListener('DOMContentLoaded',()=>{
+  renderBriefing();
+  renderGrid();
+  renderGraph();
+  renderPersonal();
+  renderFooter();
+  initNav();
+  initFade();
+});
 </script>
 </body>
 </html>
