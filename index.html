@@ -27,7 +27,7 @@
   --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 
-html{font-size:14px;scroll-behavior:smooth}
+html{font-size:14px;scroll-behavior:smooth;scroll-padding-top:72px}
 body{
   background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;
   background-image:
@@ -555,9 +555,9 @@ const DATA = {
     controls:[
       {id:"ef",   lbl:"Emergency Fund (6mo)",       sub:"Liquidity buffer against income loss",         type:"toggle", def:false},
       {id:"inc",  lbl:"Diversified Income Streams",  sub:"Multiple client types / revenue sources",      type:"toggle", def:false},
-      {id:"ski",  lbl:"AI-Proof Skills Maintained",  sub:"Active upskilling in irreplaceable domains",   type:"toggle", def:true},
+      {id:"ski",  lbl:"AI-Proof Skills Maintained",  sub:"Active upskilling in irreplaceable domains",   type:"toggle", def:false},
       {id:"hlt",  lbl:"Private Health Cover",        sub:"NHS wait list bypass",                         type:"toggle", def:false},
-      {id:"pen",  lbl:"Pension Contributions Active",sub:"Retirement timeline protected",                type:"toggle", def:true},
+      {id:"pen",  lbl:"Pension Contributions Active",sub:"Retirement timeline protected",                type:"toggle", def:false},
       {id:"hse",  lbl:"Housing Owned / Secured",     sub:"Not exposed to rental market volatility",      type:"toggle", def:false},
       {id:"loc",  lbl:"Relocation Readiness",        sub:"Prepared to move if conditions worsen",        type:"select", opts:["No contingency","EU residency viable","Canada/NZ option","Remote-first lifestyle"],def:0}
     ],
@@ -618,7 +618,6 @@ function renderBriefing(){
 // RENDER: CRISIS GRID
 // ================================================================
 function renderGrid(){
-  const activeSet=new Set(DATA.activeThisWeek);
   document.getElementById('crisis-grid').innerHTML=DATA.nodes.map(n=>{
     const tc=n.trend==='down'?'down':n.trend==='up'?'up':'stable';
     const ta=n.trend==='down'?'▼':n.trend==='up'?'▲':'►';
@@ -694,6 +693,15 @@ function renderGraph(){
   svg.innerHTML=html;
 }
 
+const EDGES={into:{},by:{}};
+function buildEdgeMaps(){
+  DATA.nodes.forEach(n=>{EDGES.into[n.id]=[];EDGES.by[n.id]=[];});
+  DATA.connections.forEach(c=>{
+    if(EDGES.into[c.from]) EDGES.into[c.from].push(c.to);
+    if(EDGES.by[c.to]) EDGES.by[c.to].push(c.from);
+  });
+}
+
 function selectNode(id){
   const n=DATA.nodes.find(x=>x.id===id);
   if(!n) return;
@@ -704,14 +712,16 @@ function selectNode(id){
     const nd=DATA.nodes.find(x=>x.id===nid);
     return nd?`<span class="${cls}" onclick="selectNode('${nid}')">${nd.name}</span>`:'';
   }).join('');
+  const feedsInto=EDGES.into[id]||[];
+  const fedBy=EDGES.by[id]||[];
   body.innerHTML=`
     <div class="dp-name">${n.name}</div>
     <div class="dp-bigval">${n.val}</div>
     <div class="dp-vallbl">${n.stat}</div>
     <div class="dp-chg">${n.chg}</div>
     <div class="dp-desc">${n.desc}</div>
-    ${n.feedsInto.length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(n.feedsInto,'dp-tag-out')}</div>`:''}
-    ${n.fedBy.length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(n.fedBy,'dp-tag-in')}</div>`:''}
+    ${feedsInto.length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(feedsInto,'dp-tag-out')}</div>`:''}
+    ${fedBy.length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(fedBy,'dp-tag-in')}</div>`:''}
     <div class="dp-proj"><div class="dp-lbl">PROJECTION</div><p>${n.proj}</p></div>`;
   if(window.innerWidth<860) document.getElementById('dp-body').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -867,6 +877,7 @@ function initTrendCharts(){
 // BOOT
 // ================================================================
 document.addEventListener('DOMContentLoaded',()=>{
+  buildEdgeMaps();
   renderBriefing();
   renderGrid();
   renderGraph();
