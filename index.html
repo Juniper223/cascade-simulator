@@ -391,6 +391,12 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
   </div>
 </section>
 
+<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div style="max-width:1200px;margin:0 auto;padding:28px 24px">
+    <div id="trend-charts" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+  </div>
+</div>
+
 <!-- S2: DATA -->
 <section id="data" style="padding:0">
   <div class="data-wrap">
@@ -427,9 +433,7 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 <section id="personal" style="padding:0">
   <div class="personal-wrap">
     <div class="section-hdr fade-in">
-      <div class="section-eyebrow">Exposure Analysis</div>
       <h2 class="section-title">PERSONAL RISK ASSESSMENT</h2>
-      <p class="section-sub">UK-based independent consultant // Calibrated to current cascade state</p>
     </div>
     <div class="risk-top">
       <div class="score-block fade-in" id="score-block"></div>
@@ -734,8 +738,8 @@ function renderPersonal(){
     <div class="ctrl">
       <div><div class="ctrl-lbl">${c.lbl}</div><div class="ctrl-sub">${c.sub}</div></div>
       ${c.type==='toggle'
-        ?`<label class="toggle"><input type="checkbox" ${c.def?'checked':''}><span class="tslider"></span></label>`
-        :`<select class="ctrl-select">${c.opts.map((o,i)=>`<option${i===c.def?' selected':''}>${o}</option>`).join('')}</select>`
+        ?`<label class="toggle"><input type="checkbox" data-id="${c.id}" onchange="updatePersonalScores()" ${c.def?'checked':''}><span class="tslider"></span></label>`
+        :`<select class="ctrl-select" data-id="${c.id}" onchange="updatePersonalScores()">${c.opts.map((o,i)=>`<option${i===c.def?' selected':''}>${o}</option>`).join('')}</select>`
       }
     </div>`).join('');
 
@@ -776,6 +780,90 @@ function initFade(){
 }
 
 // ================================================================
+// PERSONAL SCORE UPDATE
+// ================================================================
+const BASE_DIM_SCORES=[58,62,35,45,70,28,72,55];
+function updatePersonalScores(){
+  const toggleEffects={
+    ef: [{idx:0,delta:15},{idx:5,delta:10}],
+    inc:[{idx:0,delta:12},{idx:1,delta:15}],
+    ski:[{idx:0,delta:10},{idx:4,delta:8}],
+    hlt:[{idx:3,delta:20}],
+    pen:[{idx:5,delta:18}],
+    hse:[{idx:2,delta:25}]
+  };
+  const selectEffects={
+    1:[{idx:6,delta:5},{idx:7,delta:5}],
+    2:[{idx:6,delta:10},{idx:7,delta:8}],
+    3:[{idx:6,delta:8},{idx:7,delta:12}]
+  };
+  const scores=[...BASE_DIM_SCORES];
+  document.querySelectorAll('#controls-grid input[type="checkbox"]').forEach(el=>{
+    if(!el.checked) return;
+    (toggleEffects[el.dataset.id]||[]).forEach(({idx,delta})=>{scores[idx]=Math.min(100,scores[idx]+delta);});
+  });
+  const sel=document.querySelector('#controls-grid select[data-id="loc"]');
+  if(sel)(selectEffects[sel.selectedIndex]||[]).forEach(({idx,delta})=>{scores[idx]=Math.min(100,scores[idx]+delta);});
+  const colorOf=s=>s>=70?'ok':s>=50?'warn':'danger';
+  const dims=DATA.personal.dims;
+  dims.forEach((d,i)=>{d.score=scores[i];d.col=colorOf(scores[i]);});
+  document.getElementById('risk-dims').innerHTML=dims.map(d=>`
+    <div class="rdim">
+      <div class="rdim-hdr"><span class="rdim-name">${d.name}</span><span class="rdim-score">${d.score}</span></div>
+      <div class="rdim-bar"><div class="rdim-fill ${d.col}" style="width:${d.score}%"></div></div>
+    </div>`).join('');
+  const composite=Math.round(100-scores.reduce((a,b)=>a+b,0)/scores.length);
+  const diff=composite-DATA.personal.prevScore;
+  document.getElementById('score-block').innerHTML=`
+    <div class="score-lbl">Composite Risk Score</div>
+    <div class="score-val">${composite}<span class="score-denom">/100</span></div>
+    <div class="score-delta">${diff>0?'▲':'▼'} ${Math.abs(diff)} from last week</div>
+    <div class="score-drivers">${DATA.personal.drivers}</div>`;
+}
+
+// ================================================================
+// TREND CHARTS
+// ================================================================
+function buildChart(title,data){
+  const W=280,H=160,pad={top:28,right:12,bottom:22,left:36};
+  const iw=W-pad.left-pad.right,ih=H-pad.top-pad.bottom;
+  const xs=data.map(d=>d[0]),ys=data.map(d=>d[1]);
+  const xmin=Math.min(...xs),xmax=Math.max(...xs);
+  const ymin=Math.min(...ys),ymax=Math.max(...ys);
+  const yRange=ymax-ymin||1;
+  const px=x=>pad.left+((x-xmin)/(xmax-xmin||1))*iw;
+  const py=y=>pad.top+(1-(y-ymin)/yRange)*ih;
+  let grid='';
+  for(let i=0;i<=4;i++){
+    const gy=pad.top+(i/4)*ih;
+    grid+=`<line x1="${pad.left}" y1="${gy.toFixed(1)}" x2="${W-pad.right}" y2="${gy.toFixed(1)}" stroke="#1e1e1e" stroke-width="1"/>`;
+    grid+=`<text x="${pad.left-4}" y="${(gy+3).toFixed(1)}" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${(ymax-(i/4)*yRange).toFixed(0)}</text>`;
+  }
+  grid+=`<text x="${pad.left}" y="${H-4}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${xmin}</text>`;
+  grid+=`<text x="${W-pad.right}" y="${H-4}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${xmax}</text>`;
+  const pathD='M'+data.map(d=>`${px(d[0]).toFixed(1)},${py(d[1]).toFixed(1)}`).join(' L');
+  const lx=px(xs[xs.length-1]),ly=py(ys[ys.length-1]);
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#111;border:1px solid #222">
+    <text x="${pad.left}" y="16" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="#f59e0b" letter-spacing="0.12em">${title}</text>
+    ${grid}
+    <path d="${pathD}" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="#f59e0b"/>
+  </svg>`;
+}
+
+function initTrendCharts(){
+  const charts=[
+    {title:"CONSUMER SENTIMENT",data:[[2020,99.8],[2021,79],[2022,58.5],[2023,64.4],[2024,73.6],[2025,61.5],[2026,50.8]]},
+    {title:"AI LAYOFFS %",      data:[[2024.0,12],[2024.25,18],[2024.5,22],[2024.75,28],[2025.0,32],[2025.25,36],[2025.5,40],[2025.75,44],[2026.0,48]]},
+    {title:"NHS WAIT LIST (M)", data:[[2020,4.4],[2021,5.2],[2022,6.4],[2023,7.35],[2024,6.7],[2025,6.15],[2026,6.13]]},
+    {title:"BRENT CRUDE $",     data:[[2024,80],[2024.5,82],[2025,68],[2025.5,70],[2026,78],[2026.17,85],[2026.25,102],[2026.33,97]]}
+  ];
+  const el=document.getElementById('trend-charts');
+  if(!el) return;
+  el.innerHTML=charts.map(c=>`<div>${buildChart(c.title,c.data)}</div>`).join('');
+}
+
+// ================================================================
 // BOOT
 // ================================================================
 document.addEventListener('DOMContentLoaded',()=>{
@@ -786,6 +874,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderFooter();
   initNav();
   initFade();
+  initTrendCharts();
 });
 </script>
 </body>
