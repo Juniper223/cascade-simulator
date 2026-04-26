@@ -687,6 +687,46 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2)}
 
+/* ---- REVEALS (progressive disclosure) ---- */
+.reveals{max-width:1200px;margin:0 auto;padding:24px 24px 0}
+.reveal{border-bottom:1px solid var(--border);position:relative}
+.reveal:first-child{border-top:1px solid var(--border)}
+.reveal summary{
+  list-style:none;cursor:pointer;user-select:none;
+  padding:26px 0;display:flex;align-items:baseline;gap:20px;
+  transition:color .15s;
+}
+.reveal summary::-webkit-details-marker{display:none}
+.reveal summary:hover .reveal-label,.reveal summary:focus-visible .reveal-label{color:var(--amber)}
+.reveal summary:focus-visible{outline:none}
+.reveal-label{
+  font-family:var(--mono);font-size:1.05rem;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--text);
+  flex:0 0 auto;transition:color .15s;
+}
+.reveal-hint{
+  font-family:var(--sans);font-size:.82rem;color:var(--muted2);
+  flex:1;line-height:1.45;
+}
+.reveal-icon{
+  font-family:var(--mono);font-size:1.6rem;color:var(--muted);
+  font-weight:300;line-height:1;flex:0 0 auto;transition:transform .25s,color .15s;
+}
+.reveal[open] .reveal-icon{transform:rotate(45deg);color:var(--amber)}
+.reveal-body{padding-bottom:48px}
+.reveal-body section{padding:0!important}
+.reveal-body .data-wrap,.reveal-body .cascade-wrap,.reveal-body .personal-wrap,
+.reveal-body .signals-wrap,.reveal-body .preds-wrap,.reveal-body .method-wrap,
+.reveal-body .trends-wrap{padding:8px 0 0!important;max-width:none}
+.reveal-body .section-hdr{display:none}
+.reveal-body .fade-in{opacity:1;transform:none}
+@media(max-width:680px){
+  .reveal summary{flex-wrap:wrap;gap:6px;padding-right:36px;padding-top:22px;padding-bottom:22px}
+  .reveal-label{flex-basis:100%}
+  .reveal-hint{flex-basis:100%}
+  .reveal-icon{position:absolute;right:0;top:24px}
+}
+
 /* ---- TOAST ---- */
 .toast{
   position:fixed;bottom:20px;right:20px;
@@ -730,14 +770,12 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
     <a href="#briefing" class="nav-brand">CASCADE //</a>
     <button class="nav-burger" id="nav-burger" aria-label="Open menu">≡</button>
     <div class="nav-links" id="nav-links">
-      <a href="#briefing" class="nav-link active" data-sec="briefing">Briefing</a>
-      <a href="#trend-charts" class="nav-link" data-sec="trend-charts">Trends</a>
-      <a href="#personal" class="nav-link" data-sec="personal">Personal</a>
-      <a href="#data" class="nav-link" data-sec="data">All risks</a>
-      <a href="#cascade" class="nav-link" data-sec="cascade">Cascade</a>
-      <a href="#signals" class="nav-link" data-sec="signals">Signals</a>
-      <a href="#predictions" class="nav-link" data-sec="predictions">Predictions</a>
-      <a href="#methodology" class="nav-link" data-sec="methodology">Method</a>
+      <a href="#briefing" class="nav-link active" data-sec="briefing">Top</a>
+      <a href="#reveal-evidence" class="nav-link" data-sec="reveal-evidence">This week</a>
+      <a href="#reveal-risks" class="nav-link" data-sec="reveal-risks">All 19 risks</a>
+      <a href="#reveal-coming" class="nav-link" data-sec="reveal-coming">What's coming</a>
+      <a href="#reveal-personal" class="nav-link" data-sec="reveal-personal">For you</a>
+      <a href="#reveal-method" class="nav-link" data-sec="reveal-method">Method</a>
     </div>
     <div class="nav-actions">
       <button class="nav-btn" id="btn-share" title="Copy weekly summary">Share</button>
@@ -758,106 +796,113 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
     <div class="cascade-index" id="cidx"></div>
     <div class="briefing-lede" id="blede"></div>
     <div class="one-thing" id="one-thing"></div>
-    <div class="key-numbers" id="keynums"></div>
-    <div class="ntn-strip" id="ntn-strip"></div>
-    <div class="briefing-story" id="bstory"></div>
   </div>
 </section>
 
-<!-- S2: TREND CHARTS (long-range context before deep-dives) -->
-<section id="trend-charts">
-  <div class="trends-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">Long-Range Trends</div>
-      <h2 class="section-title">FOUR LINES TO REMEMBER</h2>
-      <p class="section-sub">Each line is one of the four most-cited indicators on the page, charted back to 2020. The latest reading is labelled.</p>
-    </div>
-    <div id="charts-grid"></div>
-  </div>
-</section>
+<div class="reveals">
 
-<!-- S3: PERSONAL (promoted; only interactive surface) -->
-<section id="personal" style="padding:0">
-  <div class="personal-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">What this means for you</div>
-      <h2 class="section-title">PERSONAL RISK ASSESSMENT</h2>
-      <p class="section-sub">Your starting risk score, before you do anything to protect yourself. Switch on each safety net below to see your score drop. The advice list reorders to put your weakest area at the top.</p>
+  <!-- REVEAL 1: This week's evidence -->
+  <details class="reveal" id="reveal-evidence">
+    <summary>
+      <span class="reveal-label">This week</span>
+      <span class="reveal-hint">the four headline numbers, what changed vs last week, what to watch next</span>
+      <span class="reveal-icon" aria-hidden="true">+</span>
+    </summary>
+    <div class="reveal-body">
+      <div class="key-numbers" id="keynums"></div>
+      <div class="ntn-strip" id="ntn-strip" style="margin-top:24px"></div>
+      <div class="briefing-story" id="bstory" style="margin-top:24px"></div>
     </div>
-    <div class="risk-top">
-      <div class="score-block fade-in" id="score-block"></div>
-      <div class="risk-dims fade-in" id="risk-dims"></div>
-    </div>
-    <div class="controls-grid fade-in" id="controls-grid"></div>
-    <div class="rec-box fade-in">
-      <div class="rec-title">// RECOMMENDED ACTIONS // RANKED BY YOUR WEAKEST AREA</div>
-      <ul class="rec-list" id="rec-list"></ul>
-    </div>
-    <div class="proj-box fade-in" id="proj-box"></div>
-  </div>
-</section>
+  </details>
 
-<!-- S4: DATA (19 risk cards, grouped by trend) -->
-<section id="data" style="padding:0">
-  <div class="data-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">All 19 Risks</div>
-      <h2 class="section-title">SITUATION ASSESSMENT</h2>
-      <p class="section-sub">Each card is one risk. It shows how bad it is right now, whether it is getting worse, and where the number comes from. Grouped by trend this week.</p>
+  <!-- REVEAL 2: All 19 risks + cascade -->
+  <details class="reveal" id="reveal-risks">
+    <summary>
+      <span class="reveal-label">All 19 risks</span>
+      <span class="reveal-hint">grouped by trend this week, with sources, plus the cascade diagram showing how they feed each other</span>
+      <span class="reveal-icon" aria-hidden="true">+</span>
+    </summary>
+    <div class="reveal-body">
+      <section id="data">
+        <div class="data-wrap"><div id="crisis-grouped"></div></div>
+      </section>
+      <section id="cascade" style="margin-top:32px">
+        <div class="cascade-wrap" style="padding-top:0">
+          <div class="cascade-layout">
+            <div class="graph-panel">
+              <svg id="gsvg" viewBox="20 20 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascade network of interconnected risks."></svg>
+            </div>
+            <div class="detail-panel">
+              <div class="dp-empty" id="dp-empty">// SELECT A NODE<br>TO VIEW DETAIL //</div>
+              <div class="dp-body" id="dp-body"></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <div id="crisis-grouped"></div>
-  </div>
-</section>
+  </details>
 
-<!-- S5: CASCADE (network detail) -->
-<section id="cascade" style="padding:0">
-  <div class="cascade-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">How they feed each other</div>
-      <h2 class="section-title">CASCADE DIAGRAM</h2>
-      <p class="section-sub">The risks that changed the most this week are highlighted. Click any circle to see why.</p>
+  <!-- REVEAL 3: What's coming -->
+  <details class="reveal" id="reveal-coming">
+    <summary>
+      <span class="reveal-label">What's coming</span>
+      <span class="reveal-hint">long-range trend charts, leading indicators we watch, and the forward calls we have on the record</span>
+      <span class="reveal-icon" aria-hidden="true">+</span>
+    </summary>
+    <div class="reveal-body">
+      <section id="trend-charts">
+        <div class="trends-wrap"><div id="charts-grid"></div></div>
+      </section>
+      <section id="signals" style="margin-top:32px">
+        <div class="signals-wrap">
+          <div class="signal-grid" id="signal-grid"></div>
+          <p class="signal-foot">// PENDING means the model watches this indicator but the data has not yet been sourced to a citable release.</p>
+        </div>
+      </section>
+      <section id="predictions" style="margin-top:32px">
+        <div class="preds-wrap">
+          <div class="preds-summary" id="preds-summary"></div>
+          <div style="overflow-x:auto"><table class="preds-table" id="preds-table"></table></div>
+          <p class="preds-foot">// Forward calls only on launch. Retrospective rows appear as horizons arrive.</p>
+        </div>
+      </section>
     </div>
-    <div class="cascade-layout">
-      <div class="graph-panel">
-        <svg id="gsvg" viewBox="20 20 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascade network of interconnected risks. High-severity risks are in the inner ring; lower-severity in the outer ring."></svg>
-      </div>
-      <div class="detail-panel">
-        <div class="dp-empty" id="dp-empty">// SELECT A NODE<br>TO VIEW DETAIL //</div>
-        <div class="dp-body" id="dp-body"></div>
-      </div>
-    </div>
-  </div>
-</section>
+  </details>
 
-<!-- S6: EMERGING SIGNALS (leading indicators feeding the main 19) -->
-<section id="signals" style="padding:0">
-  <div class="signals-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">Leading Indicators</div>
-      <h2 class="section-title">EMERGING SIGNALS</h2>
-      <p class="section-sub">Thirteen extra data tracks (mostly UK-focused, mostly monthly) that feed into the main 19 risks. Click any indicator to jump to the cascade node it informs.</p>
+  <!-- REVEAL 4: Personal -->
+  <details class="reveal" id="reveal-personal">
+    <summary>
+      <span class="reveal-label">For you</span>
+      <span class="reveal-hint">a personal risk score that drops as you switch on each safety net; advice reorders to your weakest area</span>
+      <span class="reveal-icon" aria-hidden="true">+</span>
+    </summary>
+    <div class="reveal-body">
+      <section id="personal">
+        <div class="personal-wrap">
+          <div class="risk-top">
+            <div class="score-block" id="score-block"></div>
+            <div class="risk-dims" id="risk-dims"></div>
+          </div>
+          <div class="controls-grid" id="controls-grid"></div>
+          <div class="rec-box">
+            <div class="rec-title">// RECOMMENDED ACTIONS // RANKED BY YOUR WEAKEST AREA</div>
+            <ul class="rec-list" id="rec-list"></ul>
+          </div>
+          <div class="proj-box" id="proj-box"></div>
+        </div>
+      </section>
     </div>
-    <div class="signal-grid" id="signal-grid"></div>
-    <p class="signal-foot">// PENDING means the model watches this indicator but the data has not yet been sourced to a citable release. Populated as sources publish.</p>
-  </div>
-</section>
+  </details>
 
-<!-- S7: PREDICTIONS BOARD (accountability layer) -->
-<section id="predictions" style="padding:0">
-  <div class="preds-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">Accountability</div>
-      <h2 class="section-title">PREDICTIONS BOARD</h2>
-      <p class="section-sub">Forward calls we have made on the record. Each one will be scored when its horizon arrives. The hit / miss tally will appear here as the briefing accumulates a track record.</p>
-    </div>
-    <div class="preds-summary fade-in" id="preds-summary"></div>
-    <div style="overflow-x:auto" class="fade-in"><table class="preds-table" id="preds-table"></table></div>
-    <p class="preds-foot">// Forward calls only on launch. Retrospective rows will appear as horizons arrive. Brier score will land once at least 5 calls have been scored.</p>
-  </div>
-</section>
-
-<!-- METHODOLOGY -->
-<section id="methodology" style="padding:0">
+  <!-- REVEAL 5: Method -->
+  <details class="reveal" id="reveal-method">
+    <summary>
+      <span class="reveal-label">How this is built</span>
+      <span class="reveal-hint">methodology, source ratings, corrections log</span>
+      <span class="reveal-icon" aria-hidden="true">+</span>
+    </summary>
+    <div class="reveal-body">
+      <section id="methodology" style="padding:0">
   <div class="method-wrap">
     <div class="section-hdr fade-in">
       <div class="section-eyebrow">Method</div>
@@ -890,9 +935,13 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
         <p>Every card links to its main source. Each source is rated T1 (most reliable, official government statistics) through T5 (least reliable, sites that just collect numbers from other sites). When we show what comes next, we are drawing a straight line forward from the current trend, not running a clever model. The "confidence" label tells you how good our sources are, not the odds the prediction is right.</p>
       </div>
     </div>
-    <div class="corr-card fade-in" id="corr-card" style="margin-top:24px"></div>
+    <div class="corr-card" id="corr-card" style="margin-top:24px"></div>
   </div>
 </section>
+    </div>
+  </details>
+
+</div><!-- /.reveals -->
 
 <footer>
   <div class="foot-inner">
@@ -1948,6 +1997,25 @@ function initKeyboard(){
   });
 }
 
+// Open the parent <details> when its anchor is clicked or when the URL has a fragment.
+function initReveals(){
+  const openByAnchor = (id) => {
+    const target = document.getElementById(id);
+    if(!target) return;
+    let p = target;
+    while(p){
+      if(p.tagName === 'DETAILS') p.open = true;
+      p = p.parentElement;
+    }
+  };
+  document.querySelectorAll('a.nav-link[data-sec]').forEach(a => {
+    a.addEventListener('click', () => openByAnchor(a.dataset.sec));
+  });
+  if(window.location.hash){
+    openByAnchor(window.location.hash.slice(1));
+  }
+}
+
 // ================================================================
 // RENDER: CORRECTIONS LOG
 // ================================================================
@@ -2156,6 +2224,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   initShare();
   initCharts();
   initKeyboard();
+  initReveals();
   // Auto-select top weekly mover so the cascade detail panel has content from page load
   if(DATA.activeThisWeek && DATA.activeThisWeek[0]){
     selectNode(DATA.activeThisWeek[0], false);
