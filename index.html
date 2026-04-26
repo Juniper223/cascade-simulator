@@ -38,71 +38,60 @@
   --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 
-html{font-size:14px;scroll-behavior:smooth;scroll-padding-top:80px}
+html{font-size:16px;scroll-behavior:smooth;scroll-padding-top:64px}
 body{
-  background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;
-  background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 59px,#111 59px,#111 60px),
-    repeating-linear-gradient(90deg,transparent,transparent 59px,#111 59px,#111 60px);
+  background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;
+  font-feature-settings:"kern" 1,"liga" 1;
+  -webkit-font-smoothing:antialiased;
 }
 
 .mono{font-family:var(--mono)}
-.label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted2)}
+.label{font-family:var(--sans);font-size:.78rem;color:var(--muted2)}
 
-/* ---- CLASSIFICATION BANNER ---- */
-.class-banner{
-  background:var(--amber);color:#0a0a0a;
-  font-family:var(--mono);font-size:.62rem;font-weight:700;
-  letter-spacing:.18em;text-transform:uppercase;
-  text-align:center;padding:5px 20px;
-  position:sticky;top:0;z-index:1000;
-}
+/* Classification banner removed for calm aesthetic. */
 
-/* ---- NAV ---- */
+/* ---- NAV (calm, editorial) ---- */
 .site-nav{
-  position:sticky;top:28px;z-index:100;
-  background:rgba(10,10,10,.94);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,.92);backdrop-filter:blur(10px);
 }
 .nav-inner{
-  max-width:1200px;margin:0 auto;
+  max-width:760px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;height:44px;
+  padding:0 24px;height:56px;
 }
 .nav-brand{
-  font-family:var(--mono);font-size:.75rem;font-weight:700;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);
+  font-family:var(--sans);font-size:.95rem;font-weight:600;
+  letter-spacing:.02em;color:var(--text);
   text-decoration:none;
 }
-.nav-actions{display:flex;align-items:center;gap:12px}
-.nav-links{display:flex}
+.nav-actions{display:flex;align-items:center;gap:14px}
+.nav-links{display:flex;gap:6px}
 .nav-link{
-  font-family:var(--mono);font-size:.6rem;text-transform:uppercase;
-  letter-spacing:.12em;color:var(--muted2);text-decoration:none;
-  padding:0 14px;height:44px;display:flex;align-items:center;
-  border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
+  font-family:var(--sans);font-size:.85rem;font-weight:400;
+  color:var(--muted2);text-decoration:none;
+  padding:6px 10px;
+  border-bottom:1px solid transparent;transition:color .15s;
 }
-.nav-link:hover,.nav-link.active{color:var(--amber);border-bottom-color:var(--amber)}
+.nav-link:hover,.nav-link.active{color:var(--text)}
 
 .nav-btn{
-  background:transparent;border:1px solid var(--border2);
-  color:var(--muted2);font-family:var(--mono);font-size:.58rem;
-  letter-spacing:.12em;text-transform:uppercase;
-  padding:8px 12px;min-height:30px;cursor:pointer;transition:all .15s;
+  background:transparent;border:0;
+  color:var(--muted2);font-family:var(--sans);font-size:.85rem;
+  padding:6px 10px;cursor:pointer;transition:color .15s;
 }
-.nav-btn:hover{color:var(--amber);border-color:var(--amber)}
-@media(max-width:480px){.nav-btn{padding:8px 10px;font-size:.55rem}.nav-actions{gap:6px}}
+.nav-btn:hover{color:var(--text)}
 
-.nav-burger{display:none;background:none;border:0;color:var(--amber);cursor:pointer;padding:8px;font-size:1.1rem;font-family:var(--mono)}
+.nav-burger{display:none;background:none;border:0;color:var(--text);cursor:pointer;padding:8px;font-size:1.2rem;font-family:var(--sans)}
 
 @media(max-width:680px){
   .nav-links{
-    display:none;position:absolute;top:44px;left:0;right:0;
+    display:none;position:absolute;top:56px;left:0;right:0;
     flex-direction:column;background:rgba(10,10,10,.98);
-    border-bottom:1px solid var(--border);padding:8px 0;
+    padding:10px 0;gap:0;
   }
   .nav-links.open{display:flex}
-  .nav-link{height:38px;padding:0 24px;justify-content:flex-start;border-bottom:none}
+  .nav-link{padding:10px 24px;border-bottom:none}
   .nav-burger{display:inline-flex}
 }
 
@@ -119,36 +108,18 @@ body{
 /* ============================================================
    SECTION 1 — BRIEFING
    ============================================================ */
-#briefing{
-  position:relative;overflow:hidden;
-}
-.briefing-inner{max-width:1200px;margin:0 auto;padding:48px 24px 24px;width:100%}
+#briefing{position:relative}
+.briefing-inner{max-width:680px;margin:0 auto;padding:64px 24px 32px;width:100%}
 
-.briefing-head{
-  padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:32px;
-  position:relative;
-}
-.briefing-head::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(
-    0deg,transparent,transparent 3px,
-    rgba(245,158,11,.012) 3px,rgba(245,158,11,.012) 4px
-  );
-}
-
+.briefing-head{margin-bottom:48px}
 .briefing-title{
-  font-family:var(--mono);font-size:clamp(1.6rem,4vw,2.8rem);
-  font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--text);line-height:1.1;margin-bottom:8px;
+  font-family:var(--sans);font-size:clamp(1.5rem,3.4vw,2.1rem);
+  font-weight:600;letter-spacing:-0.01em;color:var(--text);
+  line-height:1.2;margin-bottom:6px;
 }
-.briefing-title em{color:var(--amber);font-style:normal}
-
-.briefing-subtitle{font-family:var(--sans);font-size:.88rem;color:var(--muted2);margin-bottom:18px}
-
-.briefing-week{
-  font-family:var(--mono);font-size:.95rem;font-weight:600;
-  color:var(--amber);letter-spacing:.16em;text-transform:uppercase;
-}
+.briefing-title em{color:var(--text);font-style:normal}
+.briefing-subtitle{display:none}
+.briefing-week{font-family:var(--sans);font-size:.95rem;color:var(--muted2);font-weight:400}
 
 .briefing-story{max-width:740px;margin-bottom:40px}
 .briefing-story p{
@@ -176,22 +147,19 @@ body{
 .kn-chg{font-family:var(--mono);font-size:.68rem;font-weight:600;display:flex;align-items:center;gap:4px}
 .kn-chg.danger{color:var(--red)}
 
-/* ---- CASCADE INDEX (the single number) ---- */
-.cascade-index{
-  display:flex;align-items:flex-end;gap:18px;
-  padding:22px 0 18px;border-bottom:1px solid var(--border);margin-bottom:22px;
-  flex-wrap:wrap;
-}
+/* ---- CASCADE INDEX (calm, sentence-like) ---- */
+.cascade-index{margin-bottom:36px}
 .cidx-num{
-  font-family:var(--mono);font-size:clamp(3rem,9vw,4.2rem);font-weight:700;line-height:0.95;
-  letter-spacing:-0.02em;color:var(--red);
+  font-family:var(--sans);font-size:clamp(3.5rem,8vw,4.8rem);font-weight:300;line-height:1;
+  letter-spacing:-0.04em;color:var(--text);display:block;margin-bottom:6px;
 }
-.cidx-denom{font-family:var(--mono);font-size:clamp(1rem,2.5vw,1.4rem);color:var(--muted2);font-weight:600;margin-left:-4px}
-.cidx-meta{display:flex;flex-direction:column;gap:4px;padding-bottom:10px;flex:1;min-width:240px}
-.cidx-label{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2)}
-.cidx-delta{font-family:var(--mono);font-size:.92rem;font-weight:600;color:var(--red);display:flex;align-items:center;gap:6px}
-.cidx-delta.down{color:var(--green)}
-.cidx-context{font-family:var(--sans);font-size:.78rem;color:var(--text2);line-height:1.5}
+.cidx-denom{font-family:var(--sans);font-size:1.2rem;color:var(--muted);font-weight:300;margin-left:2px}
+.cidx-meta{display:block}
+.cidx-label{display:none}
+.cidx-delta{font-family:var(--sans);font-size:.9rem;color:var(--muted2);font-weight:400}
+.cidx-delta.down{color:var(--muted2)}
+.cidx-delta.up{color:var(--muted2)}
+.cidx-context{display:none}
 
 /* ---- TRENDS WRAP ---- */
 .trends-wrap{max-width:1200px;margin:0 auto;padding:60px 24px}
@@ -214,38 +182,28 @@ body{
 .bucket-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
 @media(max-width:680px){.bucket-grid{grid-template-columns:1fr}}
 
-/* ---- ONE THING (the hero focal point) ---- */
-.one-thing{
-  margin-top:30px;margin-bottom:0;
-  background:linear-gradient(135deg,rgba(245,158,11,.06),rgba(239,68,68,.04));
-  border:1px solid rgba(245,158,11,.4);
-  padding:22px 26px;position:relative;
-}
-.one-thing::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--amber);
-}
+/* ---- ONE THING (calm, no box) ---- */
+.one-thing{margin-top:36px;margin-bottom:0}
 .one-thing .ot-eyebrow{
-  font-family:var(--mono);font-size:.6rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;
+  font-family:var(--sans);font-size:.85rem;color:var(--muted2);
+  font-weight:400;margin-bottom:6px;
 }
 .one-thing .ot-headline{
-  font-family:var(--mono);font-size:clamp(1rem,3vw,1.15rem);font-weight:700;
-  color:var(--text);line-height:1.35;margin-bottom:8px;letter-spacing:.02em;
+  font-family:var(--sans);font-size:clamp(1.2rem,2.8vw,1.5rem);font-weight:500;
+  color:var(--text);line-height:1.35;margin-bottom:14px;letter-spacing:-0.005em;
 }
-.one-thing .ot-why{font-family:var(--sans);font-size:.82rem;color:var(--text2);line-height:1.6}
-.one-thing .ot-why strong{color:var(--text)}
-.ot-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.one-thing .ot-why{font-family:var(--sans);font-size:1rem;color:var(--text2);line-height:1.7}
+.one-thing .ot-why strong{color:var(--text);font-weight:600}
+.ot-actions{display:flex;gap:14px;margin-top:18px;flex-wrap:wrap;align-items:center}
 .ot-btn{
-  font-family:var(--mono);font-size:.6rem;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;
-  background:transparent;border:1px solid var(--amber);color:var(--amber);
-  padding:7px 11px;cursor:pointer;text-decoration:none;display:inline-block;
-  transition:background .15s,color .15s;
+  font-family:var(--sans);font-size:.85rem;font-weight:400;
+  background:transparent;border:0;color:var(--amber);
+  padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+  transition:opacity .15s;
 }
-.ot-btn:hover{background:var(--amber);color:#0a0a0a}
-.ot-btn.done{background:var(--green);border-color:var(--green);color:#062710}
-.ot-btn.done:hover{background:rgba(34,197,94,.85)}
-.ot-streak{font-family:var(--mono);font-size:.6rem;color:var(--green);letter-spacing:.08em;text-transform:uppercase}
+.ot-btn:hover{opacity:.7}
+.ot-btn.done{color:var(--muted2);text-decoration:none}
+.ot-streak{font-family:var(--sans);font-size:.8rem;color:var(--muted2)}
 
 @media(max-width:480px){.one-thing{padding:18px 18px}}
 
@@ -285,16 +243,11 @@ body{
   .briefing-story-tag{min-width:0;padding-top:0}
 }
 
-/* ---- PLAIN-ENGLISH LEDE ---- */
-.briefing-lede{
-  background:var(--panel);border-left:3px solid var(--amber);
-  padding:18px 22px;margin-bottom:30px;max-width:740px;
-}
-.briefing-lede .lede-eyebrow{
-  font-family:var(--mono);font-size:.56rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;
-}
-.briefing-lede p{font-family:var(--sans);font-size:.92rem;line-height:1.7;color:var(--text)}
+/* ---- LEDE (no box, just typography) ---- */
+.briefing-lede{margin-bottom:0}
+.briefing-lede .lede-eyebrow{display:none}
+.briefing-lede p{font-family:var(--sans);font-size:1.05rem;line-height:1.7;color:var(--text2)}
+.briefing-lede strong{color:var(--text);font-weight:600}
 
 /* ---- TAGS + STALE BADGE ---- */
 .ccard-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
@@ -678,41 +631,45 @@ body{
 /* ---- FOOTER ---- */
 footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 24px}
 .foot-inner{max-width:1200px;margin:0 auto}
-.foot-title{font-family:var(--mono);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);margin-bottom:12px}
-.foot-text{font-family:var(--sans);font-size:.7rem;color:var(--muted2);line-height:1.75;max-width:780px}
-.foot-meta{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-top:14px;letter-spacing:.05em}
+.foot-title{font-family:var(--sans);font-size:.95rem;font-weight:500;color:var(--text);margin-bottom:10px}
+.foot-text{font-family:var(--sans);font-size:.85rem;color:var(--muted2);line-height:1.65;max-width:680px}
+.foot-meta{font-family:var(--sans);font-size:.78rem;color:var(--muted);margin-top:14px}
 .foot-sep{margin:0 8px;color:var(--border2)}
+footer{padding:48px 24px}
+.foot-inner{max-width:680px;margin:0 auto}
 
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2)}
 
-/* ---- REVEALS (progressive disclosure) ---- */
-.reveals{max-width:1200px;margin:0 auto;padding:24px 24px 0}
+/* ---- REVEALS (calm, editorial) ---- */
+.reveals{max-width:680px;margin:0 auto;padding:32px 24px 0}
 .reveal{border-bottom:1px solid var(--border);position:relative}
 .reveal:first-child{border-top:1px solid var(--border)}
 .reveal summary{
   list-style:none;cursor:pointer;user-select:none;
-  padding:26px 0;display:flex;align-items:baseline;gap:20px;
-  transition:color .15s;
+  padding:22px 30px 22px 0;
+  display:block;position:relative;transition:color .15s;
 }
 .reveal summary::-webkit-details-marker{display:none}
-.reveal summary:hover .reveal-label,.reveal summary:focus-visible .reveal-label{color:var(--amber)}
 .reveal summary:focus-visible{outline:none}
 .reveal-label{
-  font-family:var(--mono);font-size:1.05rem;font-weight:700;
-  letter-spacing:.04em;text-transform:uppercase;color:var(--text);
-  flex:0 0 auto;transition:color .15s;
+  font-family:var(--sans);font-size:1rem;font-weight:500;
+  color:var(--text);
+  display:inline;margin-right:8px;
 }
 .reveal-hint{
-  font-family:var(--sans);font-size:.82rem;color:var(--muted2);
-  flex:1;line-height:1.45;
+  font-family:var(--sans);font-size:.95rem;color:var(--muted2);
+  display:inline;line-height:1.5;
 }
+.reveal summary:hover .reveal-label{color:var(--amber)}
 .reveal-icon{
-  font-family:var(--mono);font-size:1.6rem;color:var(--muted);
-  font-weight:300;line-height:1;flex:0 0 auto;transition:transform .25s,color .15s;
+  font-family:var(--sans);font-size:1.4rem;color:var(--muted);
+  font-weight:300;line-height:1;
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  transition:transform .25s,color .15s;
 }
-.reveal[open] .reveal-icon{transform:rotate(45deg);color:var(--amber)}
+.reveal[open] .reveal-icon{transform:translateY(-50%) rotate(45deg);color:var(--amber)}
 .reveal-body{padding-bottom:48px}
 .reveal-body section{padding:0!important}
 .reveal-body .data-wrap,.reveal-body .cascade-wrap,.reveal-body .personal-wrap,
@@ -720,12 +677,6 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 .reveal-body .trends-wrap{padding:8px 0 0!important;max-width:none}
 .reveal-body .section-hdr{display:none}
 .reveal-body .fade-in{opacity:1;transform:none}
-@media(max-width:680px){
-  .reveal summary{flex-wrap:wrap;gap:6px;padding-right:36px;padding-top:22px;padding-bottom:22px}
-  .reveal-label{flex-basis:100%}
-  .reveal-hint{flex-basis:100%}
-  .reveal-icon{position:absolute;right:0;top:24px}
-}
 
 /* ---- TOAST ---- */
 .toast{
@@ -763,11 +714,9 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 </head>
 <body>
 
-<div class="class-banner">UNCLASSIFIED // OPEN SOURCE INTELLIGENCE // CASCADE WEEKLY</div>
-
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="#briefing" class="nav-brand">CASCADE //</a>
+    <a href="#briefing" class="nav-brand">Cascade</a>
     <button class="nav-burger" id="nav-burger" aria-label="Open menu">≡</button>
     <div class="nav-links" id="nav-links">
       <a href="#briefing" class="nav-link active" data-sec="briefing">Top</a>
@@ -788,9 +737,7 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 <section id="briefing">
   <div class="briefing-inner">
     <div class="briefing-head">
-      <div class="label" style="margin-bottom:12px">Weekly Intelligence Briefing</div>
-      <h1 class="briefing-title"><em>CASCADE</em> // WEEKLY INTELLIGENCE BRIEFING</h1>
-      <p class="briefing-subtitle">Tracking 19 things that could go wrong, every week. Built from public data anyone can check.</p>
+      <h1 class="briefing-title">Cascade</h1>
       <div class="briefing-week" id="bwk"></div>
     </div>
     <div class="cascade-index" id="cidx"></div>
@@ -945,7 +892,7 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 
 <footer>
   <div class="foot-inner">
-    <div class="foot-title">CASCADE // Open Source Intelligence Analysis</div>
+    <div class="foot-title">Cascade. A weekly briefing built from public data.</div>
     <p class="foot-text">Data sourced from ONS, FRED, NHS England, NHS Digital, Federal Reserve DFA, EIA, Forbes RTB, NY Fed GSCPI, NOAA NCEI, FAO, Yale Budget Lab, Oxfam, OECD, WHO, University of Michigan, Bloomberg, Al Jazeera, CNBC, Layoffs.fyi, Samaritans, CALM, LGIU and additional named sources. Sources tagged by tier (T1 government statistical agency through T5 aggregator). Methodology: 19-sector interconnected cascade model with multi-source composites for stagnant single-source indicators. Weekly data refresh. All claims sourced. Confidence levels marked.</p>
     <div class="foot-meta" id="foot-meta"></div>
   </div>
@@ -1421,6 +1368,11 @@ function fmtDate(s){
   const mn=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
   return `${parseInt(d)} ${mn[parseInt(m)-1]} ${y}`;
 }
+function prettyDate(s){
+  const [y,m,d]=s.split('-');
+  const mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return `${parseInt(d)} ${mn[parseInt(m)-1]} ${y}`;
+}
 
 function sparkSVG(id,w=80,h=24){
   const pts = DATA.history.map(h=>(h.nodes[id]||{}).sev||0);
@@ -1470,7 +1422,7 @@ function cascadeIndex(weekIdx){
 
 function renderBriefing(){
   const {meta,briefing}=DATA;
-  document.getElementById('bwk').textContent=`WEEK ${String(meta.week).padStart(2,'0')} // ${fmtDate(meta.date)}`;
+  document.getElementById('bwk').textContent=`Week ${meta.week}, ${prettyDate(meta.date)}`;
 
   // CASCADE INDEX (single hero number)
   const idxNow  = cascadeIndex(DATA.history.length-1);
@@ -1484,20 +1436,15 @@ function renderBriefing(){
 
   const cidxEl = document.getElementById('cidx');
   if(cidxEl){
+    const verb = idxDelta > 0 ? 'up' : idxDelta < 0 ? 'down' : 'flat';
     cidxEl.innerHTML = `
-      <div>
-        <span class="cidx-num">${idxNow}</span><span class="cidx-denom">/100</span>
-      </div>
-      <div class="cidx-meta">
-        <span class="cidx-label">Cascade Index // forward-weighted</span>
-        <span class="cidx-delta ${idxDeltaCls}">${idxArrow} ${idxDeltaSign}${idxDelta} this week (${idxDeltaSign}${idxDeltaTotal} over the briefing's history)</span>
-        <span class="cidx-context">A single number from 0 (calm) to 100 (crisis). Leading indicators count double, lagging count half, so this is what is coming, not what already arrived.</span>
-      </div>`;
+      <span class="cidx-num">${idxNow}<span class="cidx-denom">/100</span></span>
+      <span class="cidx-delta">${verb === 'flat' ? 'unchanged from last week' : `${verb} ${Math.abs(idxDelta)} from last week`}</span>`;
   }
 
   const ledeEl = document.getElementById('blede');
   if(briefing.lede){
-    ledeEl.innerHTML = `<div class="lede-eyebrow">// In plain English</div><p>${briefing.lede}</p>`;
+    ledeEl.innerHTML = `<p>${briefing.lede}</p>`;
   }
 
   const otEl = document.getElementById('one-thing');
@@ -1506,13 +1453,13 @@ function renderBriefing(){
     const isDone = (typeof localStorage !== 'undefined') && localStorage.getItem(weekKey) === '1';
     const streak = computeStreak(meta.week);
     otEl.innerHTML = `
-      <div class="ot-eyebrow">// If you do one thing this week</div>
+      <div class="ot-eyebrow">If you do one thing this week</div>
       <div class="ot-headline">${briefing.oneThing.headline}</div>
       <div class="ot-why">${briefing.oneThing.why}</div>
       <div class="ot-actions">
-        <button class="ot-btn" id="ot-cal" type="button">Add to my calendar</button>
-        <button class="ot-btn ${isDone?'done':''}" id="ot-done" type="button">${isDone?'\u2713 Marked done':'Mark this week done'}</button>
-        ${streak>1?`<span class="ot-streak">\u2605 ${streak}-week streak</span>`:''}
+        <button class="ot-btn" id="ot-cal" type="button">add to calendar</button>
+        <button class="ot-btn ${isDone?'done':''}" id="ot-done" type="button">${isDone?'marked done':'mark done'}</button>
+        ${streak>1?`<span class="ot-streak">${streak} weeks in a row</span>`:''}
       </div>`;
     document.getElementById('ot-cal').addEventListener('click', () => downloadOneThingICS(briefing.oneThing.headline, meta));
     document.getElementById('ot-done').addEventListener('click', () => {
@@ -2036,7 +1983,7 @@ function renderCorrections(){
 // ================================================================
 function renderFooter(){
   const m=DATA.meta;
-  document.getElementById('foot-meta').innerHTML=`Last updated: ${fmtDate(m.date)}<span class="foot-sep">//</span>Next update: ${fmtDate(m.nextUpdate)}<span class="foot-sep">//</span>Week ${String(m.week).padStart(2,'0')} of ongoing analysis`;
+  document.getElementById('foot-meta').innerHTML=`Last updated ${prettyDate(m.date)}. Next update ${prettyDate(m.nextUpdate)}.`;
 }
 
 function initNav(){
