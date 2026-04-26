@@ -4,10 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CASCADE // Weekly Intelligence Briefing</title>
-<meta name="description" content="A weekly OSINT briefing on 15 interconnected economic, social and political crisis indicators.">
-<meta property="og:title" content="CASCADE // Weekly Intelligence Briefing">
-<meta property="og:description" content="19-sector interconnected crisis monitor. Open source analysis. Updated weekly.">
+<meta name="description" content="A weekly plain-English briefing on 19 interconnected economic, social, political and environmental risks. Built from public data anyone can check.">
+<meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
+<meta property="og:title" content="CASCADE // Weekly Intelligence Briefing">
+<meta property="og:description" content="19 risks tracked weekly. One number, one action, one page.">
+<meta property="og:url" content="https://cascade-simulator.pages.dev">
+<meta property="og:site_name" content="CASCADE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CASCADE // Weekly Intelligence Briefing">
+<meta name="twitter:description" content="19 risks tracked weekly. One number, one action, one page.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='18' font-weight='700' fill='%23f59e0b'%3E%2F%2F%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +38,7 @@
   --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 
-html{font-size:14px;scroll-behavior:smooth}
+html{font-size:14px;scroll-behavior:smooth;scroll-padding-top:80px}
 body{
   background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;
   background-image:
@@ -345,7 +352,9 @@ body{
   cursor:pointer;transition:background .18s,box-shadow .18s;
   position:relative;
 }
-.ccard:hover{background:var(--panel2);box-shadow:inset 3px 0 0 var(--amber)}
+.ccard{outline:none}
+.ccard:hover,.ccard:focus-visible{background:var(--panel2);box-shadow:inset 3px 0 0 var(--amber)}
+.ccard:focus-visible{outline:1px solid var(--amber);outline-offset:-1px}
 .ccard:hover::after{
   content:'click for detail';
   position:absolute;top:14px;right:18px;
@@ -548,6 +557,14 @@ body{
   display:flex;gap:9px;align-items:flex-start;line-height:1.55;
 }
 .rec-li:last-child{border-bottom:none}
+.rec-li.done{opacity:.5}
+.rec-li.done span:last-child{text-decoration:line-through;text-decoration-color:var(--muted)}
+.rec-done-tag{
+  font-family:var(--mono);font-size:.54rem;font-weight:700;
+  letter-spacing:.12em;color:var(--green);
+  border:1px solid rgba(34,197,94,.35);background:rgba(34,197,94,.08);
+  padding:2px 5px;flex-shrink:0;margin-top:1px;
+}
 .rec-pri{
   font-family:var(--mono);font-size:.58rem;font-weight:700;
   padding:2px 4px;flex-shrink:0;margin-top:1px;
@@ -566,6 +583,34 @@ body{
 }
 .proj-text{font-family:var(--sans);font-size:.8rem;color:var(--text2);line-height:1.65}
 .proj-text strong{color:var(--red);font-family:var(--mono)}
+
+/* ---- EMERGING SIGNALS ---- */
+.signals-wrap{max-width:1200px;margin:0 auto;padding:60px 24px}
+.signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+@media(max-width:860px){.signal-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.signal-grid{grid-template-columns:1fr}}
+.sig{background:var(--panel);padding:16px 18px;display:flex;flex-direction:column;min-height:160px}
+.sig-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:8px}
+.sig-name{font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);flex:1}
+.sig-conf{font-family:var(--mono);font-size:.52rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:2px 5px;flex-shrink:0}
+.sig-conf.high{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.sig-conf.med {background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
+.sig-conf.low {background:rgba(100,100,100,.18);color:var(--muted2);border:1px solid var(--border2)}
+.sig-conf.pending{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.28)}
+.sig-val{font-family:var(--mono);font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:3px}
+.sig-val.pending{color:var(--muted);font-size:.9rem}
+.sig-stat{font-family:var(--sans);font-size:.7rem;color:var(--muted2);line-height:1.4;margin-bottom:8px}
+.sig-chg{font-family:var(--mono);font-size:.62rem;color:var(--text2);margin-bottom:10px}
+.sig-meta{margin-top:auto;display:flex;justify-content:space-between;gap:8px;align-items:flex-end;padding-top:8px;border-top:1px solid var(--border)}
+.sig-src{font-family:var(--mono);font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted2);text-decoration:none;border-bottom:1px dotted var(--border2);padding-bottom:1px}
+.sig-src:hover{color:var(--amber);border-bottom-color:var(--amber)}
+.sig-feeds{font-family:var(--mono);font-size:.54rem;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);cursor:pointer;text-align:right;background:none;border:0;padding:0}
+.sig-feeds:hover{text-decoration:underline}
+.signal-foot{font-family:var(--mono);font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:16px}
+
+/* ---- CASCADE NODE FOCUS ---- */
+#gsvg g[role="button"]:focus{outline:none}
+#gsvg g[role="button"]:focus-visible circle:nth-of-type(2){stroke-width:3;stroke:var(--amber)}
 
 /* ---- METHODOLOGY ---- */
 .method-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
@@ -600,18 +645,23 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
 
 /* ---- PRINT ---- */
 @media print{
-  body{background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt}
-  .class-banner,.site-nav,.nav-actions,.nav-burger,.toast,#cascade,#personal,#methodology{display:none!important}
+  :root{--bg:#fff;--panel:#fff;--panel2:#fff;--border:#ccc;--border2:#ddd;--text:#111;--text2:#222;--muted:#555;--muted2:#444}
+  html,body{background:#fff;color:#111;background-image:none;font-family:Georgia,serif;font-size:11pt}
+  .class-banner,.site-nav,.nav-actions,.nav-burger,.toast,.toggle,.ctrl-select,.nav-btn{display:none!important}
+  section{page-break-inside:avoid;min-height:0;padding:14pt 0!important}
   #briefing{min-height:auto}
+  .briefing-inner,.data-wrap,.cascade-wrap,.personal-wrap,.method-wrap,.signals-wrap,.trends-wrap{padding:10pt 0}
   .briefing-title,.section-title,.method-card h4{color:#000;font-family:Georgia,serif}
   .briefing-title em{color:#b85c00}
   .briefing-week,.section-eyebrow{color:#b85c00}
-  .briefing-story p,.section-sub,.foot-text{color:#222}
-  .key-numbers,.crisis-grid{display:block;border:0}
-  .kn,.ccard{break-inside:avoid;border:1px solid #ccc;margin-bottom:6px;background:#fff}
-  .kn-val,.ccard-val{color:#000}
-  .ccard-name{color:#b85c00}
-  .ccard-foot a{color:#444}
+  .briefing-story p,.section-sub,.foot-text,.method-card p{color:#222}
+  .key-numbers,.bucket-grid,.signal-grid,.method-grid,.ntn-strip{display:block;border:0}
+  .kn,.ccard,.sig,.ntn-tile,.method-card,.score-block,.rec-box,.proj-box,.graph-panel,.detail-panel{break-inside:avoid;border:1px solid #bbb;margin-bottom:6px;background:#fff}
+  .kn-val,.ccard-val,.cidx-num,.score-val{color:#000}
+  .ccard-name,.sig-name{color:#b85c00}
+  .ccard-foot a,.sig-src{color:#444}
+  .fade-in{opacity:1!important;transform:none!important}
+  a{color:inherit;text-decoration:none}
   footer{border-top:1px solid #ccc;background:#fff}
 }
 </style>
@@ -630,6 +680,7 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
       <a href="#personal" class="nav-link" data-sec="personal">Personal</a>
       <a href="#data" class="nav-link" data-sec="data">All risks</a>
       <a href="#cascade" class="nav-link" data-sec="cascade">Cascade</a>
+      <a href="#signals" class="nav-link" data-sec="signals">Signals</a>
       <a href="#methodology" class="nav-link" data-sec="methodology">Method</a>
     </div>
     <div class="nav-actions">
@@ -712,13 +763,26 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
     </div>
     <div class="cascade-layout">
       <div class="graph-panel">
-        <svg id="gsvg" viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg id="gsvg" viewBox="20 20 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascade network of interconnected risks. High-severity risks are in the inner ring; lower-severity in the outer ring."></svg>
       </div>
       <div class="detail-panel">
         <div class="dp-empty" id="dp-empty">// SELECT A NODE<br>TO VIEW DETAIL //</div>
         <div class="dp-body" id="dp-body"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- S6: EMERGING SIGNALS (leading indicators feeding the main 19) -->
+<section id="signals" style="padding:0">
+  <div class="signals-wrap">
+    <div class="section-hdr fade-in">
+      <div class="section-eyebrow">Leading Indicators</div>
+      <h2 class="section-title">EMERGING SIGNALS</h2>
+      <p class="section-sub">Thirteen extra data tracks (mostly UK-focused, mostly monthly) that feed into the main 19 risks. Click any indicator to jump to the cascade node it informs.</p>
+    </div>
+    <div class="signal-grid" id="signal-grid"></div>
+    <p class="signal-foot">// PENDING means the model watches this indicator but the data has not yet been sourced to a citable release. Populated as sources publish.</p>
   </div>
 </section>
 
@@ -1051,15 +1115,15 @@ const DATA = {
       {id:"loc",  lbl:"Relocation Readiness",        sub:"Prepared to move if conditions worsen",      type:"select", opts:["No contingency","EU residency viable","Canada/NZ option","Remote-first lifestyle"], def:0}
     ],
     recs:[
-      {id:"ef",  pri:"high", text:"Build a 6-month emergency fund. The chance of a sudden income drop went up this week with the Meta and Microsoft cuts. This is the top priority if you do not yet have a buffer.", how:"Open a high-interest instant-access savings account this weekend. Set up a standing order for a fixed amount on payday. Aim to cover 6 months of essentials (rent, food, bills).", dims:[0,5]},
-      {id:"inc", pri:"high", text:"Spread your client base across different industries. Software clients are now more likely to delay or cancel work. Target customers in healthcare, the public sector, or AI companies that are still hiring.", how:"This week, write down every paying client by industry. If any one industry is more than 50% of your income, pick one prospect outside it and send a single intro email by Friday.", dims:[0,1]},
-      {id:"hlt", pri:"high", text:"Look into private health cover. With 6.19M people on NHS waiting lists, you could face 3-6 month delays for things like a hip replacement or scan. That is the kind of hit a self-employed person genuinely cannot absorb.", how:"Get one quote each from Bupa, Vitality, and AXA. Most freelancers can deduct it as a business expense. Decide on a budget cap before quoting so you do not get upsold.", dims:[3]},
-      {id:"hse", pri:"med",  text:"Sort out your housing situation before things get worse. UK rough sleeping is at a record and US homelessness is at 771K. The rental market is not going to calm down any time soon.", how:"If you rent: ask your landlord this month about extending your lease at the current rent. If you own: check if remortgaging onto a longer fixed rate makes sense before yields rise further.", dims:[2]},
-      {id:"loc", pri:"med",  text:"Get a Plan B for living somewhere else ready. The Hormuz tanker seizures and a Wikipedia page now called 'fuel crisis' change what the next 1-2 years look like. Having the option costs almost nothing; using it might matter.", how:"Spend an hour researching one realistic alternative: EU residency through a partner, Canada or NZ skilled-worker route, or a remote-first base in Portugal/Spain. Bookmark the official immigration page.", dims:[6,7]},
-      {id:"pen", pri:"med",  text:"Review your pension contributions and increase if you can. Billionaire wealth at $18.3T suggests the state pension will keep falling behind the cost of living.", how:"Log in to your pension portal this week, check your current contribution rate, and increase by 1-2 percentage points. For self-employed: open a SIPP if you do not have one (Vanguard, AJ Bell, or Hargreaves).", dims:[5]},
-      {id:"ski", pri:"low",  text:"Get faster at using AI tools in your work. Consultants who deliver AI-augmented work at competitive rates will keep their pricing. Everyone else gets undercut.", how:"Pick one repetitive part of your work this week (a brief, a report, a deck). Rebuild it once with Claude or ChatGPT. Document the time saved. Repeat next week with another task.", dims:[0,4]}
+      {id:"ef",  pri:"high", sat:"ef",  text:"Build a 6-month emergency fund. The chance of a sudden income drop went up this week with the Meta and Microsoft cuts. This is the top priority if you do not yet have a buffer.", how:"Open a high-interest instant-access savings account this weekend. Set up a standing order for a fixed amount on payday. Aim to cover 6 months of essentials (rent, food, bills).", dims:[0,5]},
+      {id:"inc", pri:"high", sat:"inc", text:"Spread your income across different industries or employers. Software clients and tech employers are now more likely to delay, cancel or cut. Target healthcare, the public sector, or AI companies that are still hiring.", how:"This week, write down every income source by industry. If any one industry is more than 50% of your income, pick one prospect or role outside it and take a single concrete step (an intro email, an application, a coffee).", dims:[0,1]},
+      {id:"hlt", pri:"high", sat:"hlt", text:"Look into private health cover. With 6.19M people on NHS waiting lists, you could face 3-6 month delays for things like a hip replacement or scan. That kind of hit is hard to absorb if you depend on your own income.", how:"Get one quote each from Bupa, Vitality, and AXA. Most freelancers can deduct it as a business expense. Decide on a budget cap before quoting so you do not get upsold.", dims:[3]},
+      {id:"hse", pri:"med",  sat:"hse", text:"Sort out your housing situation before things get worse. UK rough sleeping is at a record and US homelessness is at 771K. The rental market is not going to calm down any time soon.", how:"If you rent: ask your landlord this month about extending your lease at the current rent. If you own: check if remortgaging onto a longer fixed rate makes sense before yields rise further.", dims:[2]},
+      {id:"loc", pri:"med",  sat:"loc", text:"Get a Plan B for living somewhere else ready. The Hormuz tanker seizures and a Wikipedia page now called 'fuel crisis' change what the next 1-2 years look like. Having the option costs almost nothing; using it might matter.", how:"Spend an hour researching one realistic alternative: EU residency through a partner, Canada or NZ skilled-worker route, or a remote-first base in Portugal/Spain. Bookmark the official immigration page.", dims:[6,7]},
+      {id:"pen", pri:"med",  sat:"pen", text:"Review your pension contributions and increase if you can. Billionaire wealth at $18.3T suggests the state pension will keep falling behind the cost of living.", how:"Log in to your pension portal this week, check your current contribution rate, and increase by 1-2 percentage points. If self-employed: open a SIPP if you do not have one (Vanguard, AJ Bell, or Hargreaves).", dims:[5]},
+      {id:"ski", pri:"low",  sat:"ski", text:"Get faster at using AI tools in your work. Knowledge workers who deliver AI-augmented work at competitive rates will keep their pricing. Everyone else gets undercut.", how:"Pick one repetitive part of your work this week (a brief, a report, a deck). Rebuild it once with Claude or ChatGPT. Document the time saved. Repeat next week with another task.", dims:[0,4]}
     ],
-    projection:"If things keep getting worse at the current pace and you do not take any protective steps, a self-employed UK consultant ends up with an overall risk score of <strong>61 by the end of 2026</strong> and <strong>74 by mid-2027</strong>. Switching on the Emergency Fund, Diversified Income, Private Health Cover and Housing Security toggles brings that down to <strong>49 by end of 2026</strong> and <strong>56 by mid-2027</strong>."
+    projection:"If things keep getting worse at the current pace and you do not take any protective steps, the average household on the default settings ends up with an overall risk score of <strong>61 by the end of 2026</strong> and <strong>74 by mid-2027</strong>. Switching on the Emergency Fund, Diversified Income, Private Health Cover and Housing Security toggles brings that down to <strong>49 by end of 2026</strong> and <strong>56 by mid-2027</strong>."
   }
 };
 
@@ -1112,6 +1176,38 @@ DATA.nodes.forEach(n=>{
 DATA.corrections = [
   { date:"2026-04-25", text:"Last week we cited UK government trust at 9 percent. That number was a sub-question from the LGIU/YouGov poll, not the headline trust reading. The headline figure is 25 to 27 percent. Democratic Collapse severity revised from 0.70 to 0.69 to reflect the correction." }
 ];
+
+// ================================================================
+// EMERGING SIGNALS (13 leading indicators feeding the 19 main risks)
+// ================================================================
+DATA.signals = [
+  { id:"fao-fpi",    name:"FAO FOOD PRICE INDEX",   val:"128.5",          stat:"Monthly global food commodity price index (2014-16=100): cereals, oils, dairy, meat, sugar.", chg:"+2.4% MoM, +1.0% YoY", asOf:"Mar 2026",      sourceName:"FAO",                sourceUrl:"https://www.fao.org/worldfoodsituation/foodpricesindex/en/", feedsInto:"food-security",          confidence:"high" },
+  { id:"urea",       name:"UREA SPOT PRICE",        val:"$713 / tonne",   stat:"Urea fertiliser spot price, global benchmark (FOB).",                                       chg:"+16.8% MoM, +75% YoY", asOf:"16 Apr 2026",   sourceName:"Trading Economics",  sourceUrl:"https://tradingeconomics.com/commodity/urea", feedsInto:"food-security",          confidence:"med"  },
+  { id:"uk-grocery", name:"UK GROCERY INFLATION",   val:"4.3%",           stat:"Kantar 4-weekly take-home grocery price inflation, Great Britain.",                         chg:"Flat vs Feb (was 4.1%)", asOf:"4 wks to 22 Mar 2026", sourceName:"Kantar Worldpanel", sourceUrl:"https://www.kantar.com/campaigns/grocery-market-share", feedsInto:"consumer-demand",        confidence:"med"  },
+  { id:"giving-gap", name:"GIVING vs FOOD PARCELS", val:"\u00a314bn / 2.9m", stat:"CAF UK charitable giving total (2025) vs Trussell emergency food parcels distributed (Apr 2024 to Mar 2025).", chg:"Giving \u2212\u00a31.4bn YoY; parcels near record", asOf:"2025 / FY24-25", sourceName:"CAF + Trussell", sourceUrl:"https://www.cafonline.org/docs/default-source/uk-giving-reports/uk_giving_report_2025.pdf", feedsInto:"social-disintegration",  confidence:"high" },
+  { id:"ccj",        name:"UK CCJ VOLUME",          val:"288,538",        stat:"New consumer + commercial County Court Judgments registered, England & Wales, Q4 2025.",    chg:"\u22128.9% QoQ, +9.4% YoY", asOf:"Q4 2025",     sourceName:"Registry Trust",     sourceUrl:"https://www.registry-trust.org.uk/court-judgment-statistics/q4-2025-summary", feedsInto:"consumer-demand",        confidence:"high" },
+  { id:"bnpl",       name:"UK BNPL MISSED PAYMENTS",val:"22% of users",   stat:"Share of UK Buy-Now-Pay-Later users missing at least one repayment in the prior 6 months. 10.9m UK adults using BNPL (FCA Financial Lives).", chg:"BNPL user base +24% vs 2022", asOf:"FCA to May 2024", sourceName:"FCA", sourceUrl:"https://www.fca.org.uk/publications/occasional-papers/op69-impact-bnpl-credit-consumer-indebtedness-arrears", feedsInto:"consumer-demand",        confidence:"med"  },
+  { id:"dv-calls",   name:"UK DOMESTIC ABUSE",      val:"816,493",        stat:"Police-recorded domestic-abuse-related crimes, England & Wales, year ending Mar 2025 (15.4% of all offences).", chg:"\u22124.1% YoY (recording-method changes noted)", asOf:"YE Mar 2025", sourceName:"ONS", sourceUrl:"https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/domesticabuseinenglandandwalesoverview/november2025", feedsInto:"social-disintegration",  confidence:"high" },
+  { id:"school-abs", name:"ENGLAND SCHOOL ABSENCE", val:"6.64%",          stat:"Overall pupil absence rate, state schools England, 2025/26 autumn term. Persistent absence 18.52%.", chg:"Peaked 8.88% end-autumn (illness)", asOf:"Autumn 2025/26", sourceName:"DfE",                sourceUrl:"https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", feedsInto:"social-disintegration",  confidence:"high" },
+  { id:"trends",     name:"\"FOOD BANK NEAR ME\" SEARCH", val:"PENDING",  stat:"Google Trends UK, 12-month search trajectory.",                                              chg:"No citable point-in-time URL: live-pull required.", asOf:"\u2014", sourceName:"Google Trends", sourceUrl:"https://trends.google.com/trends/explore?geo=GB&q=food%20bank%20near%20me", feedsInto:"consumer-demand",        confidence:"pending" },
+  { id:"sbiz",       name:"UK COMPANY DISSOLUTIONS", val:"726,735",       stat:"Total UK Companies House dissolutions FYE Mar 2025 (voluntary + compulsory strike-offs, excluding formal insolvencies).", chg:"+9.6% YoY; incorporations \u221210% YoY", asOf:"FYE Mar 2025", sourceName:"Companies House",    sourceUrl:"https://www.gov.uk/government/statistics/companies-register-activities-statistical-release-april-2024-to-march-2025/companies-register-activities-april-2024-to-march-2025", feedsInto:"saas-collapse",          confidence:"high" },
+  { id:"pets",       name:"RSPCA PET ABANDONMENTS",  val:"~22,000 cases", stat:"Reported pet abandonment cases received by RSPCA, England & Wales (reporting year).",       chg:"Record high; cost-of-living cited; guinea pig +34% YoY", asOf:"2024/25", sourceName:"RSPCA",              sourceUrl:"https://www.rspca.org.uk/whatwedo/latest/facts", feedsInto:"social-disintegration",  confidence:"low"  },
+  { id:"gambling",   name:"UK GAMBLING SPEND (GGY)", val:"\u00a316.8bn",  stat:"Gross Gambling Yield of GB customer-facing gambling industry incl. lotteries, FY24-25.",    chg:"+7.3% YoY; remote casino/betting/bingo +13.1%", asOf:"FY 2024-25", sourceName:"Gambling Commission", sourceUrl:"https://www.gamblingcommission.gov.uk/statistics-and-research/publication/industry-statistics-annual-report-financial-year-april-2024-to-march-2025", feedsInto:"social-disintegration",  confidence:"high" },
+  { id:"indeed",     name:"INDEED UK JOB POSTINGS", val:"~73 (\u221227% vs baseline)", stat:"Indeed UK job postings index, Feb-2020=100. AI-mention postings +127% vs baseline.", chg:"Still 27% below baseline; wage growth eased to 4.0% YoY", asOf:"End-Feb 2026", sourceName:"Indeed Hiring Lab",   sourceUrl:"https://www.hiringlab.org/uk/blog/2026/03/30/uk-labour-market-is-cooling-but-ai-hiring-is-bucking-the-trend/", feedsInto:"white-collar-displacement", confidence:"high" }
+];
+
+// ================================================================
+// EDGE MAPS (single source of truth for FEEDS INTO / FED BY)
+// ================================================================
+const EDGES = { into:{}, by:{} };
+function buildEdgeMaps(){
+  DATA.nodes.forEach(n=>{ EDGES.into[n.id] = []; EDGES.by[n.id] = []; });
+  DATA.connections.forEach(c=>{
+    if(EDGES.into[c.from]) EDGES.into[c.from].push(c.to);
+    if(EDGES.by[c.to])     EDGES.by[c.to].push(c.from);
+  });
+}
+buildEdgeMaps();
 
 // ================================================================
 // AUTO-DERIVE WoW MOVEMENT (updated flags + activeThisWeek)
@@ -1334,7 +1430,7 @@ function renderCardHTML(n){
   const tc=n.trend==='down'?'down':n.trend==='up'?'up':'stable';
   const ta=n.trend==='down'?'▼':n.trend==='up'?'▲':'►';
   const stale = isStale(n);
-  return `<div class="ccard" onclick="selectNode('${n.id}',true)">
+  return `<div class="ccard" role="button" tabindex="0" aria-label="${n.name}: ${n.val}, ${n.stat}" onclick="selectNode('${n.id}',true)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNode('${n.id}',true);}">
     <div class="ccard-top">
       <div class="ccard-name">${n.name}</div>
       <div class="ccard-badges">
@@ -1390,49 +1486,94 @@ function renderGrouped(){
 const NPOS={};
 function renderGraph(){
   const svg=document.getElementById('gsvg');
-  const cx=280,cy=280,r=215;
-  const outer=DATA.nodes.filter(n=>n.id!=='ai-accelerant');
+  // Two-ring layout: high-severity (>=0.70) inner ring; lower outer; ai-accelerant centre.
+  const cx=320, cy=320, innerR=140, outerR=260;
+  const outerNodes = DATA.nodes.filter(n=>n.id!=='ai-accelerant');
+  const inner = outerNodes.filter(n=>n.sev>=0.70);
+  const outer = outerNodes.filter(n=>n.sev<0.70);
   NPOS['ai-accelerant']={x:cx,y:cy};
+  inner.forEach((n,i)=>{
+    const a=(i/inner.length)*Math.PI*2 - Math.PI/2;
+    NPOS[n.id]={x:cx+innerR*Math.cos(a), y:cy+innerR*Math.sin(a)};
+  });
   outer.forEach((n,i)=>{
-    const a=(i/outer.length)*Math.PI*2-Math.PI/2;
-    NPOS[n.id]={x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};
+    const a=(i/outer.length)*Math.PI*2 - Math.PI/2 + Math.PI/Math.max(outer.length,1);
+    NPOS[n.id]={x:cx+outerR*Math.cos(a), y:cy+outerR*Math.sin(a)};
   });
 
-  const activeSet=new Set(DATA.activeThisWeek);
-  let html='';
+  const deltaById = Object.fromEntries(DATA.nodes.map(n=>[n.id, Math.max(0, n.delta||0)]));
+  const activeSet = new Set(DATA.activeThisWeek);
+  let html = '';
 
+  // Edges: stroke + opacity scale by edge weight x source-node delta
   DATA.connections.forEach(c=>{
-    const f=NPOS[c.from],t=NPOS[c.to];
+    const f=NPOS[c.from], t=NPOS[c.to];
     if(!f||!t) return;
-    const act=activeSet.has(c.from)||activeSet.has(c.to);
-    html+=`<line x1="${f.x.toFixed(1)}" y1="${f.y.toFixed(1)}" x2="${t.x.toFixed(1)}" y2="${t.y.toFixed(1)}" stroke="${act?'var(--amber)':'#3a3a3a'}" stroke-width="${(c.w*(act?2.2:1)).toFixed(2)}" stroke-opacity="${act?.42:.18}"/>`;
+    const sourceDelta = deltaById[c.from] || 0;
+    const act = activeSet.has(c.from) || activeSet.has(c.to);
+    const baseStroke = c.w * 1.4;
+    const boost = sourceDelta * 18;
+    const stroke = act ? 'var(--amber)' : '#3a3a3a';
+    const opacity = act ? Math.min(0.7, 0.25 + sourceDelta*4) : (0.14 + c.w*0.06);
+    html += `<line class="edge" data-from="${c.from}" data-to="${c.to}" x1="${f.x.toFixed(1)}" y1="${f.y.toFixed(1)}" x2="${t.x.toFixed(1)}" y2="${t.y.toFixed(1)}" stroke="${stroke}" stroke-width="${(baseStroke+boost).toFixed(2)}" stroke-opacity="${opacity.toFixed(2)}"/>`;
   });
 
+  // Nodes
   DATA.nodes.forEach(n=>{
     const p=NPOS[n.id];
     if(!p) return;
-    const isCtr=n.id==='ai-accelerant';
-    const nr=isCtr?30:8+n.sev*15;
-    const act=activeSet.has(n.id);
-    const c=sevColor(n.sev);
-    const shortLines=n.name.split(' ').reduce((acc,w,i)=>{
+    const isCtr = n.id==='ai-accelerant';
+    const nr = isCtr ? 34 : 9 + n.sev*16;
+    const act = activeSet.has(n.id);
+    const c = sevColor(n.sev);
+    const shortLines = n.name.split(' ').reduce((acc,w,i)=>{
       if(i===0) acc.push(w);
-      else if(acc[acc.length-1].length+w.length<11) acc[acc.length-1]+=' '+w;
+      else if(acc[acc.length-1].length + w.length < 13) acc[acc.length-1] += ' ' + w;
       else acc.push(w);
       return acc;
     },[]).slice(0,2);
 
-    html+=`<g style="cursor:pointer" onclick="selectNode('${n.id}')">
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+9).toFixed(1)}" fill="${c}" fill-opacity="${act?.3:.07}"/>
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#111" stroke="${c}" stroke-width="${act?2:1}"/>
-      ${act?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+5).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".7" stroke-opacity=".35" stroke-dasharray="3,3"/>`:''}
+    html += `<g class="cnode" data-id="${n.id}" style="cursor:pointer" role="button" tabindex="0" aria-label="${n.name}, severity ${n.sev.toFixed(2)}" onclick="selectNode('${n.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNode('${n.id}');}">
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+10).toFixed(1)}" fill="${c}" fill-opacity="${act?.32:.06}"/>
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#0a0a0a" stroke="${c}" stroke-width="${act?2.5:1}"/>
+      ${act?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+6).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".8" stroke-opacity=".5" stroke-dasharray="4,3"/>`:''}
       ${isCtr
-        ?`<text x="${p.x}" y="${p.y-3}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+7}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="${c}">ACCELERANT</text>`
-        :shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*9).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="${c}" fill-opacity=".88">${ln}</text>`).join('')
+        ? `<text x="${p.x}" y="${p.y-2}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+9}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="${c}">ACCELERANT</text>`
+        : shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*10).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="${act?700:500}" fill="${c}" fill-opacity=".95">${ln}</text>`).join('')
       }
     </g>`;
   });
-  svg.innerHTML=html;
+
+  svg.innerHTML = html;
+  initGraphHover();
+}
+
+// Hover / focus highlights node + its edges; dims everything else.
+function initGraphHover(){
+  const svg = document.getElementById('gsvg');
+  if(!svg) return;
+  const allNodes = svg.querySelectorAll('.cnode');
+  const allEdges = svg.querySelectorAll('.edge');
+  const setFocus = (id) => {
+    if(!id){
+      allNodes.forEach(n=>n.style.opacity='1');
+      allEdges.forEach(e=>{ e.style.opacity=''; });
+      return;
+    }
+    const connected = new Set([id]);
+    allEdges.forEach(e=>{
+      const f = e.dataset.from, t = e.dataset.to;
+      if(f===id || t===id){ e.style.opacity = '1'; e.setAttribute('stroke','var(--amber)'); connected.add(f); connected.add(t); }
+      else { e.style.opacity = '0.07'; }
+    });
+    allNodes.forEach(n=>{ n.style.opacity = connected.has(n.dataset.id) ? '1' : '0.25'; });
+  };
+  allNodes.forEach(n=>{
+    n.addEventListener('mouseenter', ()=>setFocus(n.dataset.id));
+    n.addEventListener('mouseleave', ()=>setFocus(null));
+    n.addEventListener('focus', ()=>setFocus(n.dataset.id));
+    n.addEventListener('blur',  ()=>setFocus(null));
+  });
 }
 
 function selectNode(id, scrollToCascade){
@@ -1451,8 +1592,8 @@ function selectNode(id, scrollToCascade){
     <div class="dp-vallbl">${n.stat}</div>
     <div class="dp-chg">${n.chg}</div>
     <div class="dp-desc">${n.desc}</div>
-    ${n.feedsInto.length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(n.feedsInto,'dp-tag-out')}</div>`:''}
-    ${n.fedBy.length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(n.fedBy,'dp-tag-in')}</div>`:''}
+    ${(EDGES.into[id]||[]).length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(EDGES.into[id],'dp-tag-out')}</div>`:''}
+    ${(EDGES.by[id]||[]).length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(EDGES.by[id],'dp-tag-in')}</div>`:''}
     <div class="dp-proj"><div class="dp-lbl">IF NOTHING CHANGES</div><p>${n.proj}</p></div>
     ${n.scenarios?`
       <div class="dp-scenarios">
@@ -1468,11 +1609,12 @@ function selectNode(id, scrollToCascade){
         </div>
       </div>`:''}
     <div class="dp-meta">${n.region} // ${n.cadence} // ${n.phase==='lead'?'Leading':n.phase==='lag'?'Lagging':'Coincident'}<br>Verified ${fmtDate(n.lastVerified)} // <a href="${n.src}" target="_blank" rel="noopener">${shortHost(n.src)}</a>${n.tier?`<span class="tier-chip t${n.tier}" style="margin-left:6px">T${n.tier}</span>`:''}${n.composite?`<br><br><span class="dp-lbl">COMPOSITE OF</span><br>${n.composite.map(c=>`${c.label}: ${c.value} (T${c.tier}, ${c.cadence})`).join('<br>')}`:''}</div>`;
-  if(scrollToCascade){
+  if(scrollToCascade === true){
     document.getElementById('cascade').scrollIntoView({behavior:'smooth',block:'start'});
-  } else if(window.innerWidth<860){
+  } else if(scrollToCascade === undefined && window.innerWidth<860){
     document.getElementById('dp-body').scrollIntoView({behavior:'smooth',block:'nearest'});
   }
+  // scrollToCascade === false  =>  no scroll at all (used by auto-select on load)
 }
 
 // ================================================================
@@ -1543,17 +1685,70 @@ function updatePersonalScores(){
     <div class="score-base">Untreated baseline this week: <strong style="color:var(--text)">${p.baseUntreated}</strong> ${baseDir} ${Math.abs(baseDelta)} from last week (${p.prevUntreated})</div>
     <div class="score-drivers">${p.drivers}</div>`;
 
+  // Read live control state to mark recs as DONE
+  const ctrlState = {};
+  document.querySelectorAll('#controls-grid input[type="checkbox"]').forEach(el=>{ ctrlState[el.dataset.id] = el.checked; });
+  const locSel = document.querySelector('#controls-grid select[data-id="loc"]');
+  if(locSel) ctrlState.loc = locSel.selectedIndex > 0;
+
   const weakest = dimsOut.map((d,i)=>({i,score:d.score})).sort((a,b)=>a.score-b.score).map(o=>o.i);
   const recsRanked = [...p.recs].sort((a,b)=>{
+    const adone = a.sat && ctrlState[a.sat] ? 1 : 0;
+    const bdone = b.sat && ctrlState[b.sat] ? 1 : 0;
+    if(adone !== bdone) return adone - bdone;  // done items sink to the bottom
     const ascore = Math.min(...a.dims.map(i=>weakest.indexOf(i)));
     const bscore = Math.min(...b.dims.map(i=>weakest.indexOf(i)));
     return ascore - bscore;
   });
-  document.getElementById('rec-list').innerHTML=recsRanked.map(r=>`
-    <li class="rec-li">
-      <span class="rec-pri ${r.pri}">${r.pri.toUpperCase()}</span>
-      <span>${r.text}</span>
-    </li>`).join('');
+  document.getElementById('rec-list').innerHTML=recsRanked.map(r=>{
+    const done = r.sat && ctrlState[r.sat];
+    const tag = done
+      ? `<span class="rec-done-tag">DONE</span>`
+      : `<span class="rec-pri ${r.pri}">${r.pri.toUpperCase()}</span>`;
+    return `<li class="rec-li${done?' done':''}">${tag}<span>${r.text}</span></li>`;
+  }).join('');
+}
+
+// ================================================================
+// RENDER: EMERGING SIGNALS
+// ================================================================
+function renderSignals(){
+  const el = document.getElementById('signal-grid');
+  if(!el || !DATA.signals) return;
+  el.innerHTML = DATA.signals.map(s=>{
+    const isPending = s.confidence==='pending' || s.val==='PENDING';
+    const confCls = isPending ? 'pending' : s.confidence;
+    const confLbl = isPending ? 'PENDING' : s.confidence.toUpperCase();
+    const feedNode = DATA.nodes.find(n=>n.id===s.feedsInto);
+    return `<div class="sig">
+      <div class="sig-top">
+        <div class="sig-name">${s.name}</div>
+        <span class="sig-conf ${confCls}">${confLbl}</span>
+      </div>
+      <div class="sig-val${isPending?' pending':''}">${s.val}</div>
+      <div class="sig-stat">${s.stat}</div>
+      <div class="sig-chg">${s.chg||'\u2014'}${s.asOf&&s.asOf!=='\u2014'?` \u00b7 ${s.asOf}`:''}</div>
+      <div class="sig-meta">
+        <a class="sig-src" href="${s.sourceUrl}" target="_blank" rel="noopener">${s.sourceName} \u2197</a>
+        ${feedNode?`<button class="sig-feeds" onclick="selectNode('${s.feedsInto}',true)">\u2192 ${feedNode.name}</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ================================================================
+// CLEAR DETAIL SELECTION (Esc)
+// ================================================================
+function clearSelection(){
+  const empty = document.getElementById('dp-empty');
+  const body = document.getElementById('dp-body');
+  if(empty) empty.style.display = '';
+  if(body) body.classList.remove('on');
+}
+function initKeyboard(){
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape') clearSelection();
+  });
 }
 
 // ================================================================
@@ -1586,7 +1781,7 @@ function initNav(){
       if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active',l.dataset.sec===e.target.id));
     });
   },{threshold:0.4});
-  ['briefing','data','cascade','personal','methodology'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
+  ['briefing','trend-charts','personal','data','cascade','signals','methodology'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
   const burger=document.getElementById('nav-burger');
   const menu=document.getElementById('nav-links');
   if(burger&&menu){
@@ -1596,8 +1791,10 @@ function initNav(){
 }
 
 function initFade(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  const obs=new IntersectionObserver((entries,o)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); o.unobserve(e.target); }
+    });
   },{threshold:0.08});
   document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 }
@@ -1688,6 +1885,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderBriefing();
   renderGrouped();
   renderGraph();
+  renderSignals();
   renderPersonal();
   renderCorrections();
   renderFooter();
@@ -1695,6 +1893,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   initFade();
   initShare();
   initCharts();
+  initKeyboard();
+  // Auto-select top weekly mover so the cascade detail panel has content from page load
+  if(DATA.activeThisWeek && DATA.activeThisWeek[0]){
+    selectNode(DATA.activeThisWeek[0], false);
+  }
 });
 </script>
 </body>
