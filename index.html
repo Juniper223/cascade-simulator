@@ -84,6 +84,7 @@ body{
   padding:8px 12px;min-height:30px;cursor:pointer;transition:all .15s;
 }
 .nav-btn:hover{color:var(--amber);border-color:var(--amber)}
+@media(max-width:480px){.nav-btn{padding:8px 10px;font-size:.55rem}.nav-actions{gap:6px}}
 
 .nav-burger{display:none;background:none;border:0;color:var(--amber);cursor:pointer;padding:8px;font-size:1.1rem;font-family:var(--mono)}
 
@@ -175,10 +176,10 @@ body{
   flex-wrap:wrap;
 }
 .cidx-num{
-  font-family:var(--mono);font-size:4.2rem;font-weight:700;line-height:0.95;
+  font-family:var(--mono);font-size:clamp(3rem,9vw,4.2rem);font-weight:700;line-height:0.95;
   letter-spacing:-0.02em;color:var(--red);
 }
-.cidx-denom{font-family:var(--mono);font-size:1.4rem;color:var(--muted2);font-weight:600;margin-left:-4px}
+.cidx-denom{font-family:var(--mono);font-size:clamp(1rem,2.5vw,1.4rem);color:var(--muted2);font-weight:600;margin-left:-4px}
 .cidx-meta{display:flex;flex-direction:column;gap:4px;padding-bottom:10px;flex:1;min-width:240px}
 .cidx-label{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2)}
 .cidx-delta{font-family:var(--mono);font-size:.92rem;font-weight:600;color:var(--red);display:flex;align-items:center;gap:6px}
@@ -221,11 +222,12 @@ body{
   letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;
 }
 .one-thing .ot-headline{
-  font-family:var(--mono);font-size:1.15rem;font-weight:700;
+  font-family:var(--mono);font-size:clamp(1rem,3vw,1.15rem);font-weight:700;
   color:var(--text);line-height:1.35;margin-bottom:8px;letter-spacing:.02em;
 }
 .one-thing .ot-why{font-family:var(--sans);font-size:.82rem;color:var(--text2);line-height:1.6}
 .one-thing .ot-why strong{color:var(--text)}
+@media(max-width:480px){.one-thing{padding:18px 18px}}
 
 /* ---- NOW / THEN / NEXT ---- */
 .ntn-strip{
@@ -258,6 +260,10 @@ body{
 }
 .briefing-story-text{font-family:var(--sans);font-size:.85rem;line-height:1.65;color:var(--text2);flex:1}
 .briefing-story-text strong{color:var(--text);font-weight:600}
+@media(max-width:480px){
+  .briefing-story-row{flex-direction:column;gap:6px;padding:14px 16px}
+  .briefing-story-tag{min-width:0;padding-top:0}
+}
 
 /* ---- PLAIN-ENGLISH LEDE ---- */
 .briefing-lede{
@@ -510,15 +516,15 @@ body{
 .ctrl-lbl{font-family:var(--sans);font-size:.78rem;color:var(--text2)}
 .ctrl-sub{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:2px}
 
-.toggle{position:relative;width:34px;height:19px;flex-shrink:0}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
 .toggle input{opacity:0;width:0;height:0}
 .tslider{position:absolute;inset:0;background:var(--border2);cursor:pointer;transition:.2s}
 .tslider::before{
-  content:'';position:absolute;height:13px;width:13px;
+  content:'';position:absolute;height:18px;width:18px;
   left:3px;bottom:3px;background:#555;transition:.2s;
 }
 .toggle input:checked+.tslider{background:rgba(245,158,11,.28)}
-.toggle input:checked+.tslider::before{transform:translateX(15px);background:var(--amber)}
+.toggle input:checked+.tslider::before{transform:translateX(20px);background:var(--amber)}
 
 .ctrl-select{
   background:var(--panel2);border:1px solid var(--border2);
@@ -779,8 +785,8 @@ const DATA = {
     headline: "Big Tech cut 20,000 jobs in 24 hours, oil jumped 16% on Hormuz tanker seizures, and US consumer mood hit its worst pre-recession reading since 1952.",
     lede: "Three things broke this week. <strong>Big Tech announced about 20,000 job cuts in 24 hours</strong> and openly blamed AI. <strong>Brent crude oil jumped 16 percent</strong> after the US and Iran started seizing each other's tankers in the Persian Gulf. And the <strong>University of Michigan's monthly survey of US consumer mood came in at 49.8</strong>, lower than the score in any month going into a recession since 1952. If you work in tech, drive a car, or were planning a major purchase, all three will hit you in the next three months.",
     oneThing: {
-      headline: "Reach out to one potential client outside the tech industry this week.",
-      why: "<strong>Why this week:</strong> Big Tech just announced 20,000 job cuts in 24 hours. That means software companies, the most common clients for self-employed consultants, are about to spend less. If most of your income comes from tech firms, you are exposed. Spend an hour this week starting one conversation with someone in healthcare, the public sector, or an AI company that is still hiring. An hour now is much easier than scrambling for new work in July."
+      headline: "Build one buffer this week. Money, a skill, or a person.",
+      why: "<strong>Why this week:</strong> all three of this week's signals point the same way. Big Tech cut 20,000 jobs in 24 hours. Oil jumped 16 percent. US consumer mood hit its lowest pre-recession level since 1952. The next six months will be harder on jobs, prices and confidence than the last six. The best thing anyone can do this week is add one shock absorber. <strong>Money</strong>: top up a savings buffer, even by £100. <strong>Skill</strong>: spend an hour getting better at something AI cannot easily do (judgement, hands-on, in-person). <strong>Person</strong>: reach out to one human you would call if you needed help. Pick one. Compounding starts there. The Personal Risk section below has more specific suggestions for your situation."
     },
     upcoming: [
       { date:"2026-04-30", event:"US Q1 GDP first estimate",      note:"Two real-time trackers disagree: the Atlanta Fed says US growth was 1.2 percent, the New York Fed says 2.3 percent. If the official number turns out negative, that is the textbook start of a recession." },
@@ -1421,8 +1427,8 @@ function renderGraph(){
       <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#111" stroke="${c}" stroke-width="${act?2:1}"/>
       ${act?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+5).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".7" stroke-opacity=".35" stroke-dasharray="3,3"/>`:''}
       ${isCtr
-        ?`<text x="${p.x}" y="${p.y-3}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+7}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="${c}">ACCELERANT</text>`
-        :shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*9).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="${c}" fill-opacity=".88">${ln}</text>`).join('')
+        ?`<text x="${p.x}" y="${p.y-3}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+7}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="${c}">ACCELERANT</text>`
+        :shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*9).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="${c}" fill-opacity=".88">${ln}</text>`).join('')
       }
     </g>`;
   });
