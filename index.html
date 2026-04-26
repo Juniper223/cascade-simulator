@@ -234,6 +234,32 @@ body{
 }
 .one-thing .ot-why{font-family:var(--sans);font-size:.82rem;color:var(--text2);line-height:1.6}
 .one-thing .ot-why strong{color:var(--text)}
+.ot-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.ot-btn{
+  font-family:var(--mono);font-size:.6rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--amber);color:var(--amber);
+  padding:7px 11px;cursor:pointer;text-decoration:none;display:inline-block;
+  transition:background .15s,color .15s;
+}
+.ot-btn:hover{background:var(--amber);color:#0a0a0a}
+.ot-btn.done{background:var(--green);border-color:var(--green);color:#062710}
+.ot-btn.done:hover{background:rgba(34,197,94,.85)}
+.ot-streak{font-family:var(--mono);font-size:.6rem;color:var(--green);letter-spacing:.08em;text-transform:uppercase}
+
+/* welcome-back banner */
+.welcome-back{
+  background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.35);
+  padding:10px 14px;margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;
+}
+.welcome-back-text{font-family:var(--sans);font-size:.8rem;color:var(--text2);line-height:1.5}
+.welcome-back-text strong{color:var(--text)}
+.welcome-back-close{
+  background:transparent;border:0;color:var(--muted2);font-family:var(--mono);
+  cursor:pointer;font-size:.7rem;padding:4px 8px;
+}
+.welcome-back-close:hover{color:var(--text)}
 @media(max-width:480px){.one-thing{padding:18px 18px}}
 
 /* ---- NOW / THEN / NEXT ---- */
@@ -470,6 +496,24 @@ body{
 }
 .dp-proj .dp-lbl{margin-bottom:5px}
 .dp-proj p{font-family:var(--sans);font-size:.7rem;color:var(--text2);line-height:1.55}
+.dp-pressure{background:var(--panel2);border:1px solid var(--border);padding:10px 12px;margin-top:10px}
+.dp-pressure .dp-lbl{margin-bottom:6px}
+.dp-pressure-row{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:.7rem;color:var(--text2);margin-bottom:4px}
+.dp-pressure-row strong{color:var(--text);font-weight:700}
+.dp-pressure-source{font-family:var(--sans);font-size:.66rem;color:var(--muted2);margin-top:6px;line-height:1.4}
+.dp-pctile{margin-top:10px;padding:8px 12px;background:var(--panel2);border:1px solid var(--border)}
+.dp-pctile-text{font-family:var(--mono);font-size:.62rem;color:var(--text2);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase}
+.dp-pctile-bar{height:4px;background:var(--border2);position:relative}
+.dp-pctile-fill{position:absolute;left:0;top:0;height:100%;background:var(--amber)}
+.dp-pctile-marker{position:absolute;top:-3px;width:2px;height:10px;background:var(--text)}
+
+/* tiny percentile pip on each card */
+.ccard-pctile{display:flex;align-items:center;gap:6px;margin-top:6px;font-family:var(--mono);font-size:.55rem;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase}
+.ccard-pctile-bar{flex:1;height:2px;background:var(--border2);position:relative}
+.ccard-pctile-fill{position:absolute;left:0;top:0;height:100%;background:var(--muted2)}
+.ccard-pctile-fill.hot{background:var(--red)}
+.ccard-pctile-fill.warm{background:var(--amber)}
+
 .dp-scenarios{margin-top:12px}
 .scen-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-family:var(--mono);font-size:.62rem}
 .scen-name{flex:0 0 110px;color:var(--text2);text-transform:uppercase;letter-spacing:.06em}
@@ -612,6 +656,30 @@ body{
 #gsvg g[role="button"]:focus{outline:none}
 #gsvg g[role="button"]:focus-visible circle:nth-of-type(2){stroke-width:3;stroke:var(--amber)}
 
+/* ---- PREDICTIONS BOARD ---- */
+.preds-wrap{max-width:1200px;margin:0 auto;padding:60px 24px}
+.preds-summary{display:flex;gap:30px;align-items:baseline;margin-bottom:18px;flex-wrap:wrap}
+.preds-num{font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--text);letter-spacing:-0.01em}
+.preds-num small{font-family:var(--mono);font-size:.7rem;color:var(--muted2);font-weight:600;margin-left:6px;letter-spacing:.06em;text-transform:uppercase}
+.preds-table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.78rem;background:var(--panel);border:1px solid var(--border)}
+.preds-table th,.preds-table td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.preds-table th{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);background:var(--panel2)}
+.preds-table td.preds-claim{color:var(--text);max-width:540px;line-height:1.55}
+.preds-table td.preds-claim small{display:block;color:var(--muted2);font-family:var(--mono);font-size:.6rem;margin-top:3px;letter-spacing:.04em;text-transform:uppercase}
+.preds-table td.preds-when{font-family:var(--mono);font-size:.66rem;color:var(--text2);white-space:nowrap}
+.preds-table td.preds-conf{font-family:var(--mono);font-size:.6rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.08em}
+.preds-status{font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 6px;border:1px solid}
+.preds-status.pending{color:var(--amber);border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.08)}
+.preds-status.hit{color:var(--green);border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08)}
+.preds-status.miss{color:var(--red);border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08)}
+.preds-status.partial{color:var(--text2);border-color:var(--border2);background:var(--panel2)}
+.preds-foot{font-family:var(--mono);font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:14px}
+@media(max-width:680px){
+  .preds-table{font-size:.72rem}
+  .preds-table th,.preds-table td{padding:9px 10px}
+  .preds-table td.preds-claim{max-width:none}
+}
+
 /* ---- METHODOLOGY ---- */
 .method-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
 .method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
@@ -681,6 +749,7 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
       <a href="#data" class="nav-link" data-sec="data">All risks</a>
       <a href="#cascade" class="nav-link" data-sec="cascade">Cascade</a>
       <a href="#signals" class="nav-link" data-sec="signals">Signals</a>
+      <a href="#predictions" class="nav-link" data-sec="predictions">Predictions</a>
       <a href="#methodology" class="nav-link" data-sec="methodology">Method</a>
     </div>
     <div class="nav-actions">
@@ -700,6 +769,7 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
       <div class="briefing-week" id="bwk"></div>
     </div>
     <div class="cascade-index" id="cidx"></div>
+    <div id="welcome-back-slot"></div>
     <div class="briefing-lede" id="blede"></div>
     <div class="one-thing" id="one-thing"></div>
     <div class="key-numbers" id="keynums"></div>
@@ -783,6 +853,20 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
     </div>
     <div class="signal-grid" id="signal-grid"></div>
     <p class="signal-foot">// PENDING means the model watches this indicator but the data has not yet been sourced to a citable release. Populated as sources publish.</p>
+  </div>
+</section>
+
+<!-- S7: PREDICTIONS BOARD (accountability layer) -->
+<section id="predictions" style="padding:0">
+  <div class="preds-wrap">
+    <div class="section-hdr fade-in">
+      <div class="section-eyebrow">Accountability</div>
+      <h2 class="section-title">PREDICTIONS BOARD</h2>
+      <p class="section-sub">Forward calls we have made on the record. Each one will be scored when its horizon arrives. The hit / miss tally will appear here as the briefing accumulates a track record.</p>
+    </div>
+    <div class="preds-summary fade-in" id="preds-summary"></div>
+    <div style="overflow-x:auto" class="fade-in"><table class="preds-table" id="preds-table"></table></div>
+    <p class="preds-foot">// Forward calls only on launch. Retrospective rows will appear as horizons arrive. Brier score will land once at least 5 calls have been scored.</p>
   </div>
 </section>
 
@@ -1178,6 +1262,25 @@ DATA.corrections = [
 ];
 
 // ================================================================
+// PREDICTIONS BOARD: what we said, when, by when, and (eventually) what happened
+// status: 'pending' | 'hit' | 'miss' | 'partial'
+// ================================================================
+DATA.predictions = [
+  // Forward calls made this week (2026-04-25). To be scored when each horizon arrives.
+  { id:"p-2026-04-25-1", issued:"2026-04-25", horizon:"2026-05-30", nodeId:"geopolitical-chaos",  confidence:"medium", status:"pending",
+    claim:"Brent crude closes above $110 at least once before 30 May.", actual:null },
+  { id:"p-2026-04-25-2", issued:"2026-04-25", horizon:"2026-05-02", nodeId:"consumer-demand",     confidence:"medium", status:"pending",
+    claim:"US Q1 GDP advance estimate (released 30 Apr) prints below 1.5% annualised.", actual:null },
+  { id:"p-2026-04-25-3", issued:"2026-04-25", horizon:"2026-05-02", nodeId:"consumer-demand",     confidence:"medium", status:"pending",
+    claim:"PCE inflation for March prints at or above 0.3% MoM.", actual:null },
+  { id:"p-2026-04-25-4", issued:"2026-04-25", horizon:"2026-07-31", nodeId:"saas-collapse",       confidence:"high",   status:"pending",
+    claim:"At least one more Big Tech company (>10K headcount) announces a 5%+ AI-attributed cut by end July.", actual:null },
+  { id:"p-2026-04-25-5", issued:"2026-04-25", horizon:"2026-09-30", nodeId:"food-security",       confidence:"medium", status:"pending",
+    claim:"FAO Food Price Index prints above 135 in any month between June and September.", actual:null },
+  // Retrospective rows. Filled by hand each week as horizons arrive. Empty on first publish.
+];
+
+// ================================================================
 // EMERGING SIGNALS (13 leading indicators feeding the 19 main risks)
 // ================================================================
 DATA.signals = [
@@ -1189,7 +1292,7 @@ DATA.signals = [
   { id:"bnpl",       name:"UK BNPL MISSED PAYMENTS",val:"22% of users",   stat:"Share of UK Buy-Now-Pay-Later users missing at least one repayment in the prior 6 months. 10.9m UK adults using BNPL (FCA Financial Lives).", chg:"BNPL user base +24% vs 2022", asOf:"FCA to May 2024", sourceName:"FCA", sourceUrl:"https://www.fca.org.uk/publications/occasional-papers/op69-impact-bnpl-credit-consumer-indebtedness-arrears", feedsInto:"consumer-demand",        confidence:"med"  },
   { id:"dv-calls",   name:"UK DOMESTIC ABUSE",      val:"816,493",        stat:"Police-recorded domestic-abuse-related crimes, England & Wales, year ending Mar 2025 (15.4% of all offences).", chg:"\u22124.1% YoY (recording-method changes noted)", asOf:"YE Mar 2025", sourceName:"ONS", sourceUrl:"https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/domesticabuseinenglandandwalesoverview/november2025", feedsInto:"social-disintegration",  confidence:"high" },
   { id:"school-abs", name:"ENGLAND SCHOOL ABSENCE", val:"6.64%",          stat:"Overall pupil absence rate, state schools England, 2025/26 autumn term. Persistent absence 18.52%.", chg:"Peaked 8.88% end-autumn (illness)", asOf:"Autumn 2025/26", sourceName:"DfE",                sourceUrl:"https://explore-education-statistics.service.gov.uk/find-statistics/pupil-attendance-in-schools", feedsInto:"social-disintegration",  confidence:"high" },
-  { id:"trends",     name:"\"FOOD BANK NEAR ME\" SEARCH", val:"PENDING",  stat:"Google Trends UK, 12-month search trajectory.",                                              chg:"No citable point-in-time URL: live-pull required.", asOf:"\u2014", sourceName:"Google Trends", sourceUrl:"https://trends.google.com/trends/explore?geo=GB&q=food%20bank%20near%20me", feedsInto:"consumer-demand",        confidence:"pending" },
+  { id:"trends",     name:"\"FOOD BANK NEAR ME\" SEARCH", val:"PENDING",  stat:"Google Trends UK, 12-month search trajectory.",                                              chg:"No citable point-in-time URL: live-pull required.", asOf:"n/a", sourceName:"Google Trends", sourceUrl:"https://trends.google.com/trends/explore?geo=GB&q=food%20bank%20near%20me", feedsInto:"consumer-demand",        confidence:"pending" },
   { id:"sbiz",       name:"UK COMPANY DISSOLUTIONS", val:"726,735",       stat:"Total UK Companies House dissolutions FYE Mar 2025 (voluntary + compulsory strike-offs, excluding formal insolvencies).", chg:"+9.6% YoY; incorporations \u221210% YoY", asOf:"FYE Mar 2025", sourceName:"Companies House",    sourceUrl:"https://www.gov.uk/government/statistics/companies-register-activities-statistical-release-april-2024-to-march-2025/companies-register-activities-april-2024-to-march-2025", feedsInto:"saas-collapse",          confidence:"high" },
   { id:"pets",       name:"RSPCA PET ABANDONMENTS",  val:"~22,000 cases", stat:"Reported pet abandonment cases received by RSPCA, England & Wales (reporting year).",       chg:"Record high; cost-of-living cited; guinea pig +34% YoY", asOf:"2024/25", sourceName:"RSPCA",              sourceUrl:"https://www.rspca.org.uk/whatwedo/latest/facts", feedsInto:"social-disintegration",  confidence:"low"  },
   { id:"gambling",   name:"UK GAMBLING SPEND (GGY)", val:"\u00a316.8bn",  stat:"Gross Gambling Yield of GB customer-facing gambling industry incl. lotteries, FY24-25.",    chg:"+7.3% YoY; remote casino/betting/bingo +13.1%", asOf:"FY 2024-25", sourceName:"Gambling Commission", sourceUrl:"https://www.gamblingcommission.gov.uk/statistics-and-research/publication/industry-statistics-annual-report-financial-year-april-2024-to-march-2025", feedsInto:"social-disintegration",  confidence:"high" },
@@ -1210,7 +1313,7 @@ function buildEdgeMaps(){
 buildEdgeMaps();
 
 // ================================================================
-// AUTO-DERIVE WoW MOVEMENT (updated flags + activeThisWeek)
+// AUTO-DERIVE WoW MOVEMENT (updated flags + activeThisWeek + pressure + percentile)
 // ================================================================
 function deriveWeeklyChanges(){
   const h = DATA.history;
@@ -1234,6 +1337,44 @@ function deriveWeeklyChanges(){
   DATA.weeklyMovers = movers;
 }
 deriveWeeklyChanges();
+
+// CASCADE PRESSURE: incoming-edge propagation. Real model, not just a viz.
+function deriveCascadePressure(){
+  const deltaById = Object.fromEntries(DATA.nodes.map(n => [n.id, n.delta || 0]));
+  DATA.nodes.forEach(n => {
+    let pressure = 0;
+    const sources = [];
+    DATA.connections.filter(c => c.to === n.id).forEach(c => {
+      const srcDelta = Math.max(0, deltaById[c.from] || 0);
+      const contrib = srcDelta * c.w;
+      if(contrib > 0){
+        pressure += contrib;
+        sources.push({ id: c.from, contrib });
+      }
+    });
+    sources.sort((a,b) => b.contrib - a.contrib);
+    n.incomingPressure = +pressure.toFixed(3);
+    n.pressureSources = sources.slice(0, 3);
+    // Predicted next-week severity: roughly half of incoming pressure realised, capped at 1.0
+    const decay = 0.5;
+    n.predictedNextSev = Math.min(1, +(n.sev + pressure * decay).toFixed(3));
+  });
+}
+deriveCascadePressure();
+
+// FLEET-WIDE PERCENTILE: how does this risk's current severity rank against
+// every reading of every risk across every recorded week?
+function derivePercentiles(){
+  const all = [];
+  DATA.history.forEach(w => Object.values(w.nodes).forEach(x => all.push(x.sev)));
+  if(all.length < 5) return;
+  all.sort((a,b) => a - b);
+  DATA.nodes.forEach(n => {
+    const idx = all.findIndex(v => v >= n.sev);
+    n.pctile = idx < 0 ? 100 : Math.round((idx / all.length) * 100);
+  });
+}
+derivePercentiles();
 
 // ================================================================
 // HELPERS
@@ -1326,10 +1467,26 @@ function renderBriefing(){
 
   const otEl = document.getElementById('one-thing');
   if(briefing.oneThing && otEl){
+    const weekKey = `cascade.done.week-${meta.week}`;
+    const isDone = (typeof localStorage !== 'undefined') && localStorage.getItem(weekKey) === '1';
+    const streak = computeStreak(meta.week);
     otEl.innerHTML = `
       <div class="ot-eyebrow">// If you do one thing this week</div>
       <div class="ot-headline">${briefing.oneThing.headline}</div>
-      <div class="ot-why">${briefing.oneThing.why}</div>`;
+      <div class="ot-why">${briefing.oneThing.why}</div>
+      <div class="ot-actions">
+        <button class="ot-btn" id="ot-cal" type="button">Add to my calendar</button>
+        <button class="ot-btn ${isDone?'done':''}" id="ot-done" type="button">${isDone?'\u2713 Marked done':'Mark this week done'}</button>
+        ${streak>1?`<span class="ot-streak">\u2605 ${streak}-week streak</span>`:''}
+      </div>`;
+    document.getElementById('ot-cal').addEventListener('click', () => downloadOneThingICS(briefing.oneThing.headline, meta));
+    document.getElementById('ot-done').addEventListener('click', () => {
+      try{
+        if(localStorage.getItem(weekKey) === '1'){ localStorage.removeItem(weekKey); }
+        else { localStorage.setItem(weekKey, '1'); }
+      }catch{}
+      renderBriefing();
+    });
   }
 
   // NTN strip with Forward / Rear split in the Now tile
@@ -1451,6 +1608,7 @@ function renderCardHTML(n){
     </div>
     <div class="ccard-lbl">${n.stat}</div>
     <div class="ccard-chg ${tc}">${n.chg}</div>
+    ${n.pctile!=null?`<div class="ccard-pctile" title="This risk's current severity vs every reading of every risk across all weeks tracked"><span>P${n.pctile}</span><div class="ccard-pctile-bar"><div class="ccard-pctile-fill ${n.pctile>=85?'hot':n.pctile>=60?'warm':''}" style="width:${n.pctile}%"></div></div></div>`:''}
     <div class="ccard-foot">
       <span>Verified ${fmtDate(n.lastVerified)}${stale?' (stale)':''}</span>
       <span><a class="ccard-src" href="${n.src}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${shortHost(n.src)}</a>${n.tier?`<span class="tier-chip t${n.tier}" title="Tier ${n.tier} source">T${n.tier}</span>`:''}</span>
@@ -1595,6 +1753,18 @@ function selectNode(id, scrollToCascade){
     ${(EDGES.into[id]||[]).length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(EDGES.into[id],'dp-tag-out')}</div>`:''}
     ${(EDGES.by[id]||[]).length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(EDGES.by[id],'dp-tag-in')}</div>`:''}
     <div class="dp-proj"><div class="dp-lbl">IF NOTHING CHANGES</div><p>${n.proj}</p></div>
+    ${n.incomingPressure>0.005?`
+      <div class="dp-pressure">
+        <div class="dp-lbl">CASCADE PRESSURE THIS WEEK</div>
+        <div class="dp-pressure-row"><span>Pressure arriving from upstream risks:</span><strong>+${n.incomingPressure.toFixed(2)}</strong></div>
+        <div class="dp-pressure-row"><span>Likely next-week severity (model):</span><strong>${n.predictedNextSev.toFixed(2)}</strong> (now ${n.sev.toFixed(2)})</div>
+        ${n.pressureSources&&n.pressureSources.length?`<div class="dp-pressure-source">Mostly from: ${n.pressureSources.map(s=>{const sn=DATA.nodes.find(x=>x.id===s.id);return sn?`<a href="#" onclick="event.preventDefault();selectNode('${s.id}')" style="color:var(--amber);text-decoration:none;border-bottom:1px dotted var(--amber)">${sn.name.toLowerCase()}</a> (+${s.contrib.toFixed(2)})`:'';}).join(', ')}.</div>`:''}
+      </div>`:''}
+    ${n.pctile!=null?`
+      <div class="dp-pctile">
+        <div class="dp-pctile-text">Hotter than <strong style="color:var(--text)">${n.pctile}%</strong> of all readings tracked so far</div>
+        <div class="dp-pctile-bar"><div class="dp-pctile-fill" style="width:${n.pctile}%"></div></div>
+      </div>`:''}
     ${n.scenarios?`
       <div class="dp-scenarios">
         <div class="dp-lbl" style="margin-top:14px;margin-bottom:8px">THREE SCENARIOS // PROBABILITY \u00d7 RISK SCORE END OF 2026</div>
@@ -1727,13 +1897,54 @@ function renderSignals(){
       </div>
       <div class="sig-val${isPending?' pending':''}">${s.val}</div>
       <div class="sig-stat">${s.stat}</div>
-      <div class="sig-chg">${s.chg||'\u2014'}${s.asOf&&s.asOf!=='\u2014'?` \u00b7 ${s.asOf}`:''}</div>
+      <div class="sig-chg">${s.chg||'n/a'}${s.asOf&&s.asOf!=='n/a'?` \u00b7 ${s.asOf}`:''}</div>
       <div class="sig-meta">
         <a class="sig-src" href="${s.sourceUrl}" target="_blank" rel="noopener">${s.sourceName} \u2197</a>
         ${feedNode?`<button class="sig-feeds" onclick="selectNode('${s.feedsInto}',true)">\u2192 ${feedNode.name}</button>`:''}
       </div>
     </div>`;
   }).join('');
+}
+
+// ================================================================
+// RENDER: PREDICTIONS BOARD
+// ================================================================
+function renderPredictions(){
+  const sumEl = document.getElementById('preds-summary');
+  const tblEl = document.getElementById('preds-table');
+  if(!sumEl || !tblEl || !DATA.predictions) return;
+  const ps = DATA.predictions;
+  const tally = { pending:0, hit:0, miss:0, partial:0 };
+  ps.forEach(p => { tally[p.status] = (tally[p.status]||0) + 1; });
+  const scored = tally.hit + tally.miss + tally.partial;
+
+  sumEl.innerHTML = `
+    <div class="preds-num">${tally.hit}<small>hit</small></div>
+    <div class="preds-num">${tally.miss}<small>miss</small></div>
+    <div class="preds-num">${tally.partial}<small>partial</small></div>
+    <div class="preds-num">${tally.pending}<small>pending</small></div>
+    ${scored>=5?`<div class="preds-num">${(tally.hit/scored*100).toFixed(0)}%<small>hit rate</small></div>`:`<div class="preds-num" style="color:var(--muted2)">n/a<small>hit rate (need 5 scored)</small></div>`}`;
+
+  const sorted = [...ps].sort((a,b) => {
+    if(a.status === b.status) return a.horizon.localeCompare(b.horizon);
+    const order = { pending:0, partial:1, hit:2, miss:3 };
+    return order[a.status] - order[b.status];
+  });
+
+  tblEl.innerHTML = `
+    <thead><tr>
+      <th>Status</th><th>Claim</th><th>Issued</th><th>Horizon</th><th>Confidence</th>
+    </tr></thead>
+    <tbody>${sorted.map(p => {
+      const node = DATA.nodes.find(n => n.id === p.nodeId);
+      return `<tr>
+        <td><span class="preds-status ${p.status}">${p.status}</span></td>
+        <td class="preds-claim">${p.claim}${node?`<small>Cascade node: ${node.name.toLowerCase()}</small>`:''}${p.actual?`<small>Actual: ${p.actual}</small>`:''}</td>
+        <td class="preds-when">${fmtDate(p.issued)}</td>
+        <td class="preds-when">${fmtDate(p.horizon)}</td>
+        <td class="preds-conf">${p.confidence}</td>
+      </tr>`;
+    }).join('')}</tbody>`;
 }
 
 // ================================================================
@@ -1781,7 +1992,7 @@ function initNav(){
       if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active',l.dataset.sec===e.target.id));
     });
   },{threshold:0.4});
-  ['briefing','trend-charts','personal','data','cascade','signals','methodology'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
+  ['briefing','trend-charts','personal','data','cascade','signals','predictions','methodology'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
   const burger=document.getElementById('nav-burger');
   const menu=document.getElementById('nav-links');
   if(burger&&menu){
@@ -1879,14 +2090,102 @@ function initCharts(){
 }
 
 // ================================================================
+// LOCALSTORAGE PERSIST + WELCOME-BACK + ONE THING ACTIONS
+// ================================================================
+const LS = {
+  get(k){ try{return localStorage.getItem(k);}catch{return null;} },
+  set(k,v){ try{localStorage.setItem(k,v);}catch{} },
+  rm(k){ try{localStorage.removeItem(k);}catch{} }
+};
+
+function computeStreak(currentWeek){
+  let streak = 0;
+  for(let w = currentWeek; w >= 1; w--){
+    if(LS.get(`cascade.done.week-${w}`) === '1') streak++;
+    else break;
+  }
+  return streak;
+}
+
+function downloadOneThingICS(headline, meta){
+  // Schedule a 30-minute reminder for next Monday 09:00 local time relative to meta.date.
+  const monday = new Date(meta.date + 'T09:00:00');
+  monday.setDate(monday.getDate() + ((1 - monday.getDay() + 7) % 7));
+  if(monday < new Date()) monday.setDate(monday.getDate() + 7);
+  const end = new Date(monday.getTime() + 30*60000);
+  const fmt = d => d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const uid = `cascade-week${meta.week}-${Date.now()}@cascade-simulator`;
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//CASCADE//Weekly Briefing//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    'BEGIN:VEVENT',`UID:${uid}`,`DTSTAMP:${fmt(new Date())}`,`DTSTART:${fmt(monday)}`,`DTEND:${fmt(end)}`,
+    `SUMMARY:CASCADE Week ${meta.week}: ${headline}`,
+    `DESCRIPTION:From the CASCADE weekly briefing. https://cascade-simulator.pages.dev`,
+    'BEGIN:VALARM','ACTION:DISPLAY',`DESCRIPTION:CASCADE: ${headline}`,'TRIGGER:-PT15M','END:VALARM',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type:'text/calendar' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `cascade-week-${meta.week}.ics`;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); document.body.removeChild(a); }, 100);
+  showToast('Calendar event downloaded');
+}
+
+// Toggle state persistence
+function persistControl(id, value){ LS.set(`cascade.ctrl.${id}`, String(value)); }
+function loadPersistedControls(){
+  document.querySelectorAll('#controls-grid input[type="checkbox"]').forEach(el=>{
+    const v = LS.get(`cascade.ctrl.${el.dataset.id}`);
+    if(v === '1') el.checked = true;
+    else if(v === '0') el.checked = false;
+    el.addEventListener('change', ()=>persistControl(el.dataset.id, el.checked?1:0));
+  });
+  const sel = document.querySelector('#controls-grid select[data-id="loc"]');
+  if(sel){
+    const v = LS.get('cascade.ctrl.loc');
+    if(v != null) sel.selectedIndex = parseInt(v,10) || 0;
+    sel.addEventListener('change', ()=>persistControl('loc', sel.selectedIndex));
+  }
+  if(typeof updatePersonalScores === 'function') updatePersonalScores();
+}
+
+// Welcome-back banner: derived from last visit timestamp
+function renderWelcomeBack(){
+  const slot = document.getElementById('welcome-back-slot');
+  if(!slot) return;
+  const lastVisit = LS.get('cascade.lastVisit');
+  const lastWeek = LS.get('cascade.lastWeek');
+  const now = new Date().toISOString().slice(0,10);
+  // Mark current visit (will be read NEXT visit)
+  LS.set('cascade.lastVisit', now);
+  LS.set('cascade.lastWeek', String(DATA.meta.week));
+  if(!lastVisit || lastVisit === now) return;
+  const days = Math.floor((Date.now() - new Date(lastVisit + 'T00:00:00').getTime()) / 86400000);
+  const weeksMissed = lastWeek ? (DATA.meta.week - parseInt(lastWeek,10)) : 0;
+  const movers = (DATA.weeklyMovers||[]).slice(0,3).map(m=>{
+    const n = DATA.nodes.find(x=>x.id===m.id);
+    return n ? `${n.name.toLowerCase()} ${m.delta>0?'+':''}${m.delta.toFixed(2)}` : '';
+  }).filter(Boolean).join(', ');
+  slot.innerHTML = `
+    <div class="welcome-back">
+      <div class="welcome-back-text">Welcome back. Last visit <strong>${days} day${days===1?'':'s'} ago</strong>${weeksMissed>0?`, ${weeksMissed} week${weeksMissed===1?'':'s'} of briefings ago`:''}. Biggest changes since: <strong>${movers||'none above threshold'}</strong>.</div>
+      <button class="welcome-back-close" type="button" onclick="this.parentElement.remove()">dismiss \u2715</button>
+    </div>`;
+}
+
+// ================================================================
 // BOOT
 // ================================================================
 document.addEventListener('DOMContentLoaded',()=>{
+  renderWelcomeBack();
   renderBriefing();
   renderGrouped();
   renderGraph();
   renderSignals();
   renderPersonal();
+  loadPersistedControls();
+  renderPredictions();
   renderCorrections();
   renderFooter();
   initNav();
