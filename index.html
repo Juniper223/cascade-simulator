@@ -247,19 +247,6 @@ body{
 .ot-btn.done:hover{background:rgba(34,197,94,.85)}
 .ot-streak{font-family:var(--mono);font-size:.6rem;color:var(--green);letter-spacing:.08em;text-transform:uppercase}
 
-/* welcome-back banner */
-.welcome-back{
-  background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.35);
-  padding:10px 14px;margin-bottom:18px;
-  display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;
-}
-.welcome-back-text{font-family:var(--sans);font-size:.8rem;color:var(--text2);line-height:1.5}
-.welcome-back-text strong{color:var(--text)}
-.welcome-back-close{
-  background:transparent;border:0;color:var(--muted2);font-family:var(--mono);
-  cursor:pointer;font-size:.7rem;padding:4px 8px;
-}
-.welcome-back-close:hover{color:var(--text)}
 @media(max-width:480px){.one-thing{padding:18px 18px}}
 
 /* ---- NOW / THEN / NEXT ---- */
@@ -769,7 +756,6 @@ footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 2
       <div class="briefing-week" id="bwk"></div>
     </div>
     <div class="cascade-index" id="cidx"></div>
-    <div id="welcome-back-slot"></div>
     <div class="briefing-lede" id="blede"></div>
     <div class="one-thing" id="one-thing"></div>
     <div class="key-numbers" id="keynums"></div>
@@ -2150,35 +2136,12 @@ function loadPersistedControls(){
   if(typeof updatePersonalScores === 'function') updatePersonalScores();
 }
 
-// Welcome-back banner: derived from last visit timestamp
-function renderWelcomeBack(){
-  const slot = document.getElementById('welcome-back-slot');
-  if(!slot) return;
-  const lastVisit = LS.get('cascade.lastVisit');
-  const lastWeek = LS.get('cascade.lastWeek');
-  const now = new Date().toISOString().slice(0,10);
-  // Mark current visit (will be read NEXT visit)
-  LS.set('cascade.lastVisit', now);
-  LS.set('cascade.lastWeek', String(DATA.meta.week));
-  if(!lastVisit || lastVisit === now) return;
-  const days = Math.floor((Date.now() - new Date(lastVisit + 'T00:00:00').getTime()) / 86400000);
-  const weeksMissed = lastWeek ? (DATA.meta.week - parseInt(lastWeek,10)) : 0;
-  const movers = (DATA.weeklyMovers||[]).slice(0,3).map(m=>{
-    const n = DATA.nodes.find(x=>x.id===m.id);
-    return n ? `${n.name.toLowerCase()} ${m.delta>0?'+':''}${m.delta.toFixed(2)}` : '';
-  }).filter(Boolean).join(', ');
-  slot.innerHTML = `
-    <div class="welcome-back">
-      <div class="welcome-back-text">Welcome back. Last visit <strong>${days} day${days===1?'':'s'} ago</strong>${weeksMissed>0?`, ${weeksMissed} week${weeksMissed===1?'':'s'} of briefings ago`:''}. Biggest changes since: <strong>${movers||'none above threshold'}</strong>.</div>
-      <button class="welcome-back-close" type="button" onclick="this.parentElement.remove()">dismiss \u2715</button>
-    </div>`;
-}
+// (welcome-back banner removed: tracking-feeling on a public weekly briefing)
 
 // ================================================================
 // BOOT
 // ================================================================
 document.addEventListener('DOMContentLoaded',()=>{
-  renderWelcomeBack();
   renderBriefing();
   renderGrouped();
   renderGraph();
