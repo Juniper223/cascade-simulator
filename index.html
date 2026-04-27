@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CASCADE // Weekly Intelligence Briefing</title>
-<meta name="description" content="A weekly plain-English briefing on 19 interconnected economic, social, political and environmental risks. Built from public data anyone can check.">
+<meta name="description" content="A weekly plain-English briefing on 19 interconnected risks plus 2 human outcomes (life expectancy, quality of life). Built from public data anyone can check.">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CASCADE // Weekly Intelligence Briefing">
-<meta property="og:description" content="19 risks tracked weekly. One number, one action, one page.">
+<meta property="og:description" content="19 risks + 2 human outcomes, tracked weekly. One number, one action, one page.">
 <meta property="og:url" content="https://cascade-simulator.pages.dev">
 <meta property="og:site_name" content="CASCADE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CASCADE // Weekly Intelligence Briefing">
-<meta name="twitter:description" content="19 risks tracked weekly. One number, one action, one page.">
+<meta name="twitter:description" content="19 risks + 2 human outcomes, tracked weekly. One number, one action, one page.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='18' font-weight='700' fill='%23f59e0b'%3E%2F%2F%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -257,6 +257,7 @@ body{
   padding:2px 5px;border:1px solid var(--border2);
   background:var(--panel2);color:var(--muted2);
 }
+.tag.tag-outcome{color:var(--green);border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.08)}
 .tag.tag-region{color:var(--text2)}
 .tag.tag-cadence{color:var(--muted2)}
 .tag.tag-phase{color:var(--text2)}
@@ -721,7 +722,7 @@ footer{padding:48px 24px}
     <div class="nav-links" id="nav-links">
       <a href="#briefing" class="nav-link active" data-sec="briefing">Top</a>
       <a href="#reveal-evidence" class="nav-link" data-sec="reveal-evidence">This week</a>
-      <a href="#reveal-risks" class="nav-link" data-sec="reveal-risks">All 19 risks</a>
+      <a href="#reveal-risks" class="nav-link" data-sec="reveal-risks">All 19 risks + 2 outcomes</a>
       <a href="#reveal-coming" class="nav-link" data-sec="reveal-coming">What's coming</a>
       <a href="#reveal-personal" class="nav-link" data-sec="reveal-personal">For you</a>
       <a href="#reveal-method" class="nav-link" data-sec="reveal-method">Method</a>
@@ -762,10 +763,10 @@ footer{padding:48px 24px}
     </div>
   </details>
 
-  <!-- REVEAL 2: All 19 risks + cascade -->
+  <!-- REVEAL 2: All 19 risks + 2 outcomes + cascade -->
   <details class="reveal" id="reveal-risks">
     <summary>
-      <span class="reveal-label">All 19 risks</span>
+      <span class="reveal-label">All 19 risks + 2 outcomes</span>
       <span class="reveal-hint">grouped by trend this week, with sources, plus the cascade diagram showing how they feed each other</span>
       <span class="reveal-icon" aria-hidden="true">+</span>
     </summary>
@@ -777,7 +778,7 @@ footer{padding:48px 24px}
         <div class="cascade-wrap" style="padding-top:0">
           <div class="cascade-layout">
             <div class="graph-panel">
-              <svg id="gsvg" viewBox="20 20 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascade network of interconnected risks."></svg>
+              <svg id="gsvg" viewBox="20 20 600 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascade network of interconnected risks and human outcomes."></svg>
             </div>
             <div class="detail-panel">
               <div class="dp-empty" id="dp-empty">// SELECT A NODE<br>TO VIEW DETAIL //</div>
@@ -862,6 +863,10 @@ footer{padding:48px 24px}
         <p>Each one was picked for three reasons: we can measure it from public data, academic research keeps showing it really matters when systems fall apart, and it actually affects ordinary people's pay, rent and health. Climate, supply chain, food security and sovereign debt were added on 2026-04-25 to close the loop between geopolitics, economics and social pressure.</p>
       </div>
       <div class="method-card">
+        <h4>Two human outcomes</h4>
+        <p>Life expectancy and quality of life were added on 2026-04-27 as a separate tier below the cascade. They sit there because they're not drivers — they're what the 19 risks ultimately produce on people's bodies and on how good they feel about their lives. They only receive arrows, never send them. Source: ONS National Life Tables and ONS Personal Wellbeing.</p>
+      </div>
+      <div class="method-card">
         <h4>Risk scores (0 to 1)</h4>
         <p>Each risk has a score from 0 (calm) to 1 (crisis). <code>0.50</code> is the typical reading over the last decade. <code>0.70 or above</code> is amber (worth watching). <code>0.85 or above</code> is red (active problem). Scores are set each week by reading the main source for each risk and judging where it sits relative to its history.</p>
       </div>
@@ -893,7 +898,7 @@ footer{padding:48px 24px}
 <footer>
   <div class="foot-inner">
     <div class="foot-title">Cascade. A weekly briefing built from public data.</div>
-    <p class="foot-text">Data sourced from ONS, FRED, NHS England, NHS Digital, Federal Reserve DFA, EIA, Forbes RTB, NY Fed GSCPI, NOAA NCEI, FAO, Yale Budget Lab, Oxfam, OECD, WHO, University of Michigan, Bloomberg, Al Jazeera, CNBC, Layoffs.fyi, Samaritans, CALM, LGIU and additional named sources. Sources tagged by tier (T1 government statistical agency through T5 aggregator). Methodology: 19-sector interconnected cascade model with multi-source composites for stagnant single-source indicators. Weekly data refresh. All claims sourced. Confidence levels marked.</p>
+    <p class="foot-text">Data sourced from ONS, FRED, NHS England, NHS Digital, Federal Reserve DFA, EIA, Forbes RTB, NY Fed GSCPI, NOAA NCEI, FAO, Yale Budget Lab, Oxfam, OECD, WHO, University of Michigan, Bloomberg, Al Jazeera, CNBC, Layoffs.fyi, Samaritans, CALM, LGIU and additional named sources. Sources tagged by tier (T1 government statistical agency through T5 aggregator). Methodology: 19-sector interconnected cascade model with two human-outcome nodes (life expectancy, quality of life) and multi-source composites for stagnant single-source indicators. Weekly data refresh. All claims sourced. Confidence levels marked.</p>
     <div class="foot-meta" id="foot-meta"></div>
   </div>
 </footer>
@@ -1080,7 +1085,19 @@ const DATA = {
       desc:"The 9 percent figure used last week was a sub-question, not the headline. The headline LGIU/YouGov reading is 25 to 27 percent trust in government, with 76 percent saying they do not trust MPs to improve their lives. US Congress trust sits at 12 percent. Democratic backsliding is documented in 24 countries.",
       proj:"Trust deficits compress the policy bandwidth available to manage every other sector here. Severity track: 0.77 by Q4 2026, 0.84 by Q2 2027 (high confidence).",
       src:"https://lgiu.org/press-release/only-25-of-voters-trust-the-government-to-act-in-the-best-interests-of-local-people-finds-new-lgiu-poll/", lastVerified:"2026-04-25",
-      feedsInto:["social-disintegration","healthcare-failure"], fedBy:["wealth-concentration","gov-revenue","social-disintegration"] }
+      feedsInto:["social-disintegration","healthcare-failure"], fedBy:["wealth-concentration","gov-revenue","social-disintegration"] },
+
+    { id:"life-expectancy",       name:"LIFE EXPECTANCY",            val:"78.8 / 82.8", stat:"UK male / female life expectancy at birth (years, ONS NLT 2021–23)", chg:"Stalled vs 2017–19; ~1 year of expected life lost vs pre-2019 trajectory", trend:"down", sev:0.66, col:"danger", outcome:true,
+      desc:"After more than a century of near-continuous gains, UK life expectancy at birth is no longer rising. The latest ONS National Life Tables show the post-2011 stall has hardened into a small reversal, driven by pandemic-era mortality and slower improvement in older-age survival. The deprivation gradient has widened: men in the most deprived decile live a decade less than those in the least deprived.",
+      proj:"If the upstream drivers (NHS access, austerity, housing, mental health) continue on current trajectories, the next ONS NLT release is unlikely to recover pre-2019 trend. Outcome severity 0.70 by Q4 2026 if those drivers worsen as projected.",
+      src:"https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/bulletins/nationallifetablesunitedkingdom/2021to2023", lastVerified:"2026-04-25",
+      feedsInto:[], fedBy:["healthcare-failure","gov-revenue","mental-health","housing-crisis","consumer-demand","food-security"] },
+
+    { id:"quality-of-life",       name:"QUALITY OF LIFE",            val:"PENDING",   stat:"ONS Personal Wellbeing — life satisfaction / worthwhile / happiness / anxiety (0–10)", chg:"Release cadence shifted to annual; 2024–25 figures awaited",     trend:"down",   sev:0.62, col:"warn",   outcome:true,
+      desc:"ONS asks about 150,000 UK adults four questions on a 0 to 10 scale: how satisfied they are with life, how worthwhile they feel the things they do are, how happy they were yesterday, and how anxious they were yesterday. The series has shown post-pandemic deterioration, with rising anxiety especially among under-30s. Historical anchor: 2022/23 means were ~7.45 (life satisfaction), ~7.74 (worthwhile), ~7.45 (happiness), ~3.23 (anxiety).",
+      proj:"Mental-health, housing and consumer-demand pressures all push downward. Outcome severity 0.66 by Q4 2026 if those pressures persist. Held as PENDING-value because the latest annual bulletin has not been confirmed for the briefing as of 2026-04-25.",
+      src:"https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/bulletins/measuringnationalwellbeing/previousReleases", lastVerified:"2026-04-25",
+      feedsInto:[], fedBy:["mental-health","social-disintegration","housing-crisis","consumer-demand","healthcare-failure","democratic-collapse","white-collar-displacement"] }
   ],
   connections:[
     {from:"ai-accelerant",to:"saas-collapse",w:0.9},
@@ -1136,12 +1153,25 @@ const DATA = {
     {from:"geopolitical-chaos",to:"supply-chain",w:0.7},
     {from:"geopolitical-chaos",to:"food-security",w:0.55},
     {from:"geopolitical-chaos",to:"sovereign-debt",w:0.45},
-    {from:"gov-revenue",to:"sovereign-debt",w:0.5}
+    {from:"gov-revenue",to:"sovereign-debt",w:0.5},
+    {from:"healthcare-failure",to:"life-expectancy",w:0.85},
+    {from:"gov-revenue",to:"life-expectancy",w:0.7},
+    {from:"mental-health",to:"life-expectancy",w:0.55},
+    {from:"housing-crisis",to:"life-expectancy",w:0.5},
+    {from:"consumer-demand",to:"life-expectancy",w:0.45},
+    {from:"food-security",to:"life-expectancy",w:0.45},
+    {from:"mental-health",to:"quality-of-life",w:0.85},
+    {from:"social-disintegration",to:"quality-of-life",w:0.7},
+    {from:"housing-crisis",to:"quality-of-life",w:0.7},
+    {from:"consumer-demand",to:"quality-of-life",w:0.7},
+    {from:"healthcare-failure",to:"quality-of-life",w:0.6},
+    {from:"democratic-collapse",to:"quality-of-life",w:0.5},
+    {from:"white-collar-displacement",to:"quality-of-life",w:0.5}
   ],
   history:[
-    { date:"2026-04-11", nodes:{ "ai-accelerant":{sev:0.70},"saas-collapse":{sev:0.65},"white-collar-displacement":{sev:0.62},"consumer-demand":{sev:0.68},"commercial-re":{sev:0.60},"healthcare-failure":{sev:0.69},"housing-crisis":{sev:0.65},"mental-health":{sev:0.68},"birth-rate-collapse":{sev:0.56},"gov-revenue":{sev:0.62},"social-disintegration":{sev:0.59},"wealth-concentration":{sev:0.72},"geopolitical-chaos":{sev:0.65},"cyber-threats":{sev:0.54},"democratic-collapse":{sev:0.67},"climate-stress":{sev:0.66},"supply-chain":{sev:0.50},"food-security":{sev:0.56},"sovereign-debt":{sev:0.57} } },
-    { date:"2026-04-18", nodes:{ "ai-accelerant":{sev:0.72},"saas-collapse":{sev:0.68},"white-collar-displacement":{sev:0.65},"consumer-demand":{sev:0.78},"commercial-re":{sev:0.62},"healthcare-failure":{sev:0.71},"housing-crisis":{sev:0.67},"mental-health":{sev:0.69},"birth-rate-collapse":{sev:0.58},"gov-revenue":{sev:0.64},"social-disintegration":{sev:0.61},"wealth-concentration":{sev:0.74},"geopolitical-chaos":{sev:0.76},"cyber-threats":{sev:0.57},"democratic-collapse":{sev:0.70},"climate-stress":{sev:0.67},"supply-chain":{sev:0.51},"food-security":{sev:0.57},"sovereign-debt":{sev:0.58} } },
-    { date:"2026-04-25", nodes:{ "ai-accelerant":{sev:0.76},"saas-collapse":{sev:0.74},"white-collar-displacement":{sev:0.69},"consumer-demand":{sev:0.80},"commercial-re":{sev:0.64},"healthcare-failure":{sev:0.72},"housing-crisis":{sev:0.70},"mental-health":{sev:0.69},"birth-rate-collapse":{sev:0.58},"gov-revenue":{sev:0.63},"social-disintegration":{sev:0.61},"wealth-concentration":{sev:0.74},"geopolitical-chaos":{sev:0.84},"cyber-threats":{sev:0.59},"democratic-collapse":{sev:0.69},"climate-stress":{sev:0.68},"supply-chain":{sev:0.52},"food-security":{sev:0.58},"sovereign-debt":{sev:0.59} } }
+    { date:"2026-04-11", nodes:{ "ai-accelerant":{sev:0.70},"saas-collapse":{sev:0.65},"white-collar-displacement":{sev:0.62},"consumer-demand":{sev:0.68},"commercial-re":{sev:0.60},"healthcare-failure":{sev:0.69},"housing-crisis":{sev:0.65},"mental-health":{sev:0.68},"birth-rate-collapse":{sev:0.56},"gov-revenue":{sev:0.62},"social-disintegration":{sev:0.59},"wealth-concentration":{sev:0.72},"geopolitical-chaos":{sev:0.65},"cyber-threats":{sev:0.54},"democratic-collapse":{sev:0.67},"climate-stress":{sev:0.66},"supply-chain":{sev:0.50},"food-security":{sev:0.56},"sovereign-debt":{sev:0.57},"life-expectancy":{sev:0.65},"quality-of-life":{sev:0.61} } },
+    { date:"2026-04-18", nodes:{ "ai-accelerant":{sev:0.72},"saas-collapse":{sev:0.68},"white-collar-displacement":{sev:0.65},"consumer-demand":{sev:0.78},"commercial-re":{sev:0.62},"healthcare-failure":{sev:0.71},"housing-crisis":{sev:0.67},"mental-health":{sev:0.69},"birth-rate-collapse":{sev:0.58},"gov-revenue":{sev:0.64},"social-disintegration":{sev:0.61},"wealth-concentration":{sev:0.74},"geopolitical-chaos":{sev:0.76},"cyber-threats":{sev:0.57},"democratic-collapse":{sev:0.70},"climate-stress":{sev:0.67},"supply-chain":{sev:0.51},"food-security":{sev:0.57},"sovereign-debt":{sev:0.58},"life-expectancy":{sev:0.66},"quality-of-life":{sev:0.62} } },
+    { date:"2026-04-25", nodes:{ "ai-accelerant":{sev:0.76},"saas-collapse":{sev:0.74},"white-collar-displacement":{sev:0.69},"consumer-demand":{sev:0.80},"commercial-re":{sev:0.64},"healthcare-failure":{sev:0.72},"housing-crisis":{sev:0.70},"mental-health":{sev:0.69},"birth-rate-collapse":{sev:0.58},"gov-revenue":{sev:0.63},"social-disintegration":{sev:0.61},"wealth-concentration":{sev:0.74},"geopolitical-chaos":{sev:0.84},"cyber-threats":{sev:0.59},"democratic-collapse":{sev:0.69},"climate-stress":{sev:0.68},"supply-chain":{sev:0.52},"food-security":{sev:0.58},"sovereign-debt":{sev:0.59},"life-expectancy":{sev:0.66},"quality-of-life":{sev:0.62} } }
   ],
   longHistory:{
     consumerSentiment:{ label:"CONSUMER SENTIMENT (U-MICH)", points:[
@@ -1579,6 +1609,7 @@ function renderCardHTML(n){
       </div>
     </div>
     <div class="ccard-tags">
+      ${n.outcome?`<span class="tag tag-outcome">Outcome</span>`:''}
       ${n.region?`<span class="tag tag-region">${n.region}</span>`:''}
       ${n.cadence?`<span class="tag tag-cadence">${n.cadence}</span>`:''}
       ${n.phase?`<span class="tag tag-phase ${n.phase}">${n.phase==='lead'?'Leading':n.phase==='lag'?'Lagging':'Coincident'}</span>`:''}
@@ -1627,10 +1658,13 @@ const NPOS={};
 function renderGraph(){
   const svg=document.getElementById('gsvg');
   // Two-ring layout: high-severity (>=0.70) inner ring; lower outer; ai-accelerant centre.
+  // Outcome tier sits below the rings — life expectancy and quality of life only
+  // receive edges from the driver systems above.
   const cx=320, cy=320, innerR=140, outerR=260;
-  const outerNodes = DATA.nodes.filter(n=>n.id!=='ai-accelerant');
-  const inner = outerNodes.filter(n=>n.sev>=0.70);
-  const outer = outerNodes.filter(n=>n.sev<0.70);
+  const drivers = DATA.nodes.filter(n=>n.id!=='ai-accelerant' && !n.outcome);
+  const outcomes = DATA.nodes.filter(n=>n.outcome);
+  const inner = drivers.filter(n=>n.sev>=0.70);
+  const outer = drivers.filter(n=>n.sev<0.70);
   NPOS['ai-accelerant']={x:cx,y:cy};
   inner.forEach((n,i)=>{
     const a=(i/inner.length)*Math.PI*2 - Math.PI/2;
@@ -1640,10 +1674,21 @@ function renderGraph(){
     const a=(i/outer.length)*Math.PI*2 - Math.PI/2 + Math.PI/Math.max(outer.length,1);
     NPOS[n.id]={x:cx+outerR*Math.cos(a), y:cy+outerR*Math.sin(a)};
   });
+  const oy = 700;
+  outcomes.forEach((n,i)=>{
+    const ox = cx + (i - (outcomes.length-1)/2) * 220;
+    NPOS[n.id]={x:ox, y:oy};
+  });
 
   const deltaById = Object.fromEntries(DATA.nodes.map(n=>[n.id, Math.max(0, n.delta||0)]));
   const activeSet = new Set(DATA.activeThisWeek);
   let html = '';
+
+  // Separator above the outcome tier
+  if(outcomes.length){
+    html += `<line x1="40" y1="615" x2="600" y2="615" stroke="#222" stroke-width="1" stroke-dasharray="4,4"/>`;
+    html += `<text x="${cx}" y="635" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#666" letter-spacing="0.18em">— HUMAN OUTCOMES —</text>`;
+  }
 
   // Edges: stroke + opacity scale by edge weight x source-node delta
   DATA.connections.forEach(c=>{
@@ -1663,7 +1708,8 @@ function renderGraph(){
     const p=NPOS[n.id];
     if(!p) return;
     const isCtr = n.id==='ai-accelerant';
-    const nr = isCtr ? 34 : 9 + n.sev*16;
+    const isOutcome = !!n.outcome;
+    const nr = isCtr ? 34 : isOutcome ? 38 : 9 + n.sev*16;
     const act = activeSet.has(n.id);
     const c = sevColor(n.sev);
     const shortLines = n.name.split(' ').reduce((acc,w,i)=>{
@@ -1673,13 +1719,16 @@ function renderGraph(){
       return acc;
     },[]).slice(0,2);
 
-    html += `<g class="cnode" data-id="${n.id}" style="cursor:pointer" role="button" tabindex="0" aria-label="${n.name}, severity ${n.sev.toFixed(2)}" onclick="selectNode('${n.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNode('${n.id}');}">
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+10).toFixed(1)}" fill="${c}" fill-opacity="${act?.32:.06}"/>
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#0a0a0a" stroke="${c}" stroke-width="${act?2.5:1}"/>
+    html += `<g class="cnode" data-id="${n.id}" style="cursor:pointer" role="button" tabindex="0" aria-label="${n.name}, severity ${n.sev.toFixed(2)}${isOutcome?', human outcome':''}" onclick="selectNode('${n.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNode('${n.id}');}">
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+10).toFixed(1)}" fill="${c}" fill-opacity="${act?.32:isOutcome?.12:.06}"/>
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#0a0a0a" stroke="${c}" stroke-width="${act?2.5:isOutcome?1.8:1}"/>
+      ${isOutcome?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+5).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".7" stroke-opacity=".4"/>`:''}
       ${act?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+6).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".8" stroke-opacity=".5" stroke-dasharray="4,3"/>`:''}
       ${isCtr
         ? `<text x="${p.x}" y="${p.y-2}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+9}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="${c}">ACCELERANT</text>`
-        : shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*10).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="${act?700:500}" fill="${c}" fill-opacity=".95">${ln}</text>`).join('')
+        : isOutcome
+          ? shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y-3+li*11).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="${c}">${ln}</text>`).join('')
+          : shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*10).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="${act?700:500}" fill="${c}" fill-opacity=".95">${ln}</text>`).join('')
       }
     </g>`;
   });
