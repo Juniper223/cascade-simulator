@@ -211,6 +211,68 @@ a:hover{color:var(--vermilion)}
 }
 
 /* ============================================================
+   THE CASCADE CLOCK
+   ============================================================ */
+.clock{
+  text-align:center;
+  padding:6rem 24px 5rem;
+  border-top:1px solid var(--rule);
+}
+.clock-label{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:2.75rem;
+}
+.clock-number{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(5.5rem,15vw,10rem);
+  line-height:.92;
+  letter-spacing:-.045em;
+  color:var(--ink);
+  font-variation-settings:"opsz" 144,"SOFT" 50;
+  font-feature-settings:"lnum","tnum";
+  font-variant-numeric:lining-nums tabular-nums;
+}
+.clock-scale{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:1rem;
+}
+.clock-divider{
+  width:32px;
+  height:1px;
+  background:var(--vermilion);
+  margin:2.5rem auto;
+}
+.clock-midnight{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.2rem,2.6vw,1.6rem);
+  line-height:1.4;
+  color:var(--ink-soft);
+  font-variation-settings:"opsz" 96;
+}
+.clock-midnight .clock-time-label{
+  color:var(--muted);
+}
+.clock-explain{
+  font-family:var(--serif);
+  font-size:1rem;
+  line-height:1.6;
+  color:var(--muted);
+  max-width:46ch;
+  margin:2.5rem auto 0;
+}
+
+/* ============================================================
    COMING SOON STRIP
    ============================================================ */
 .coming{
@@ -329,6 +391,10 @@ a:hover{color:var(--vermilion)}
   .masthead{padding:5rem 24px 3.5rem}
   .vigil{padding:12vh 24px;min-height:80vh}
   .vigil-stamp{margin-bottom:3rem}
+  .clock{padding:4rem 24px 3.5rem}
+  .clock-label{margin-bottom:2rem}
+  .clock-divider{margin:2rem auto}
+  .clock-explain{margin-top:2rem}
 }
 </style>
 </head>
@@ -366,12 +432,25 @@ a:hover{color:var(--vermilion)}
   </p>
 </section>
 
-<!-- IV. COMING SOON STRIP (temporary, for week-of-rebuild) -->
+<!-- IV. THE CASCADE CLOCK -->
+<section class="clock" aria-labelledby="clock-heading">
+  <p class="clock-label" id="clock-heading">The Cascade Clock</p>
+  <p class="clock-number" aria-label="Severity 74 of 100">74</p>
+  <p class="clock-scale">out of one hundred</p>
+  <div class="clock-divider" aria-hidden="true"></div>
+  <p class="clock-midnight">
+    Five minutes, twelve seconds <span class="clock-time-label">to midnight.</span>
+  </p>
+  <p class="clock-explain">
+    A weighted composite of all twenty-three measures in this issue. Lower means more time. Higher means less. The first weekly delta lands next Friday, once we have a baseline on the new method.
+  </p>
+</section>
+
+<!-- V. COMING SOON STRIP (temporary, for week-of-rebuild) -->
 <section class="coming">
   <p class="coming-label">Issue 04 · Building this week</p>
   <h3>This is the new Cascade. The chapters land in order over the next few days.</h3>
   <ol class="coming-list" aria-label="Contents arriving in this issue">
-    <li>The Cascade Clock <span>Sun</span></li>
     <li>The cascade plate, this week's strongest arrows <span>Sun</span></li>
     <li>I. Work and wages <span>Mon</span></li>
     <li>II. Housing and the cost of living <span>Mon</span></li>
