@@ -10,7 +10,7 @@
 <meta property="og:title" content="Cascade · Issue 04 · The Hormuz Week">
 <meta property="og:description" content="A weekly almanac for orienting yourself: 23 interconnected risks and outcomes, sourced sentence by sentence.">
 <meta property="og:url" content="https://cascade-simulator.pages.dev">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE6'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='400' font-size='22' fill='%23C8431C'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE6'/%3E%3Ccircle cx='16' cy='16' r='13.6' fill='none' stroke='%23C8431C' stroke-width='0.7' opacity='0.55'/%3E%3Cpath d='M22 8.5 Q11 8.5 11 16 Q11 23.5 22 23.5' fill='none' stroke='%231A1714' stroke-width='1.7' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%23C8431C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
@@ -268,7 +268,76 @@ a:hover{color:var(--vermilion)}
   line-height:1.6;
   color:var(--muted);
   max-width:46ch;
+  margin:2rem auto 0;
+}
+
+/* Scale of contributing signals (calm 0 to midnight 100) */
+.clock-scale{
+  max-width:380px;
   margin:2.5rem auto 0;
+  padding:0 8px;
+}
+.clock-scale-track{
+  position:relative;
+  height:28px;
+}
+.scale-rule{
+  position:absolute;
+  top:50%;
+  left:0;right:0;
+  height:1px;
+  background:var(--rule);
+  transform:translateY(-50%);
+}
+.scale-pip{
+  position:absolute;
+  top:50%;
+  width:5px;
+  height:5px;
+  background:var(--vermilion);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  opacity:.7;
+}
+.scale-stem{
+  position:absolute;
+  top:50%;
+  width:1.5px;
+  height:18px;
+  background:var(--vermilion);
+  transform:translate(-50%,-50%);
+}
+.scale-stem::after{
+  content:attr(data-label);
+  position:absolute;
+  top:-1.4em;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.13em;
+  color:var(--vermilion);
+}
+.clock-scale-labels{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin-top:.6rem;
+}
+.clock-scale-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.92rem;
+  color:var(--muted);
+  text-align:center;
+  margin-bottom:1rem;
+  max-width:38ch;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 /* ============================================================
@@ -337,12 +406,11 @@ a:hover{color:var(--vermilion)}
   padding:4rem 24px 3rem;
 }
 .colophon-mark{
-  font-family:var(--serif);
-  font-size:1.6rem;
-  font-style:italic;
-  color:var(--vermilion);
-  margin-bottom:1rem;
+  display:flex;
+  justify-content:center;
+  margin-bottom:1.5rem;
 }
+.cascade-mark{display:block}
 .colophon p{
   font-family:var(--serif);
   font-style:italic;
@@ -573,9 +641,9 @@ body > *{position:relative;z-index:2}
   <p>
     None of these things caused the others. All of them are the same thing. They are what it looks like when many systems <em>that depended on each other to be calm</em> stop being calm at the same time. This issue is an attempt to walk you slowly through twenty-three of those systems, in order, with sources, so that by the end you can see the picture rather than just the panic.
   </p>
-  <span class="marginal" id="m-layoffs">Layoffs.fyi<em>Wk ending 25 Apr</em></span>
-  <span class="marginal" id="m-brent">ICE Futures<em>Wk 18 close</em></span>
-  <span class="marginal" id="m-mich">U-Mich sentiment<em>April final</em></span>
+  <span class="marginal" id="m-layoffs">Tech-job cuts<em>Last seven days</em></span>
+  <span class="marginal" id="m-brent">Crude oil price<em>End of week</em></span>
+  <span class="marginal" id="m-mich">U.S. consumer mood<em>End of April</em></span>
 </section>
 
 <div class="ornament" aria-hidden="true">
@@ -593,8 +661,18 @@ body > *{position:relative;z-index:2}
   <p class="clock-midnight">
     <span id="clock-time">Four minutes, forty-eight seconds</span> <span class="clock-time-label">to midnight.</span>
   </p>
+  <div class="clock-scale" aria-label="Where this week's measures landed">
+    <p class="clock-scale-intro">Each dot is one measure this week. The taller mark is the average.</p>
+    <div class="clock-scale-track" id="clock-scale-track" aria-hidden="true">
+      <span class="scale-rule"></span>
+    </div>
+    <div class="clock-scale-labels" aria-hidden="true">
+      <span>calm</span>
+      <span>midnight</span>
+    </div>
+  </div>
   <p class="clock-explain">
-    A weighted composite of all twenty-three measures in this issue. Lower means more time. Higher means less. The first weekly delta lands next Friday, once we have a baseline on the new method.
+    The Cascade Clock is one number that summarises how stressed the world's systems looked this week. Zero is calm. One hundred is midnight. From next Friday we'll start showing how it has moved week to week.
   </p>
 </section>
 
@@ -632,7 +710,13 @@ body > *{position:relative;z-index:2}
 
 <!-- V. COLOPHON (temporary, full version arrives at end of issue) -->
 <section class="colophon">
-  <p class="colophon-mark">⌖</p>
+  <p class="colophon-mark" aria-hidden="true">
+    <svg class="cascade-mark" viewBox="0 0 64 64" width="44" height="44">
+      <circle cx="32" cy="32" r="28.5" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.45" style="color:var(--vermilion)"/>
+      <path d="M44 17 Q22 17 22 32 Q22 47 44 47" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="color:var(--ink)"/>
+      <circle cx="32" cy="32" r="1.4" fill="currentColor" style="color:var(--vermilion)"/>
+    </svg>
+  </p>
   <p>
     Issue 04 of <em>Cascade</em> is being set, this week, in Fraunces and IBM&nbsp;Plex&nbsp;Mono on cream paper. Twenty-three measures, sourced. The chapters are arriving in order.
   </p>
@@ -737,6 +821,23 @@ document.documentElement.classList.add('js');
 
   numEl.setAttribute('aria-label', 'Severity ' + severity + ' of 100');
   timeEl.textContent = reading;
+
+  // Build the signals scale: one pip per signal, one stem at the composite.
+  const track = document.getElementById('clock-scale-track');
+  if(track){
+    SIGNALS.forEach(s => {
+      const pip = document.createElement('span');
+      pip.className = 'scale-pip';
+      pip.style.left = s.value + '%';
+      pip.title = s.label + ' · ' + s.value;
+      track.appendChild(pip);
+    });
+    const stem = document.createElement('span');
+    stem.className = 'scale-stem';
+    stem.style.left = severity + '%';
+    stem.setAttribute('data-label', severity);
+    track.appendChild(stem);
+  }
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
