@@ -10,10 +10,10 @@
 <meta property="og:title" content="Cascade · Issue 04 · The Hormuz Week">
 <meta property="og:description" content="A weekly almanac for orienting yourself: 23 interconnected risks and outcomes, sourced sentence by sentence.">
 <meta property="og:url" content="https://cascade-simulator.pages.dev">
-<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE6'/%3E%3Ccircle cx='16' cy='16' r='13.6' fill='none' stroke='%23C8431C' stroke-width='0.7' opacity='0.55'/%3E%3Cpath d='M22 8.5 Q11 8.5 11 16 Q11 23.5 22 23.5' fill='none' stroke='%231A1714' stroke-width='1.7' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='1' fill='%23C8431C'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE6'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='400' font-size='22' fill='%23C8431C'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=UnifrakturMaguntia&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -130,16 +130,44 @@ a:hover{color:var(--vermilion)}
   color:var(--muted);
   margin-bottom:1.5rem;
 }
+.masthead-title-frame{
+  position:relative;
+  display:inline-block;
+  padding:0 3.5rem;
+  margin:0 auto 1.5rem;
+}
 .masthead-title{
-  font-family:var(--serif);
-  font-weight:300;
+  font-family:'UnifrakturMaguntia','UnifrakturCook',var(--serif);
+  font-weight:400;
   font-style:normal;
-  font-size:clamp(3.6rem,9vw,6.5rem);
-  line-height:.95;
-  letter-spacing:-.025em;
+  font-size:clamp(4.2rem,10.5vw,7.5rem);
+  line-height:1;
+  letter-spacing:.005em;
   color:var(--ink);
-  margin-bottom:1.5rem;
-  font-variation-settings:"opsz" 144,"SOFT" 50;
+  margin:0;
+  position:relative;
+  z-index:1;
+}
+.masthead-title-flourish{
+  position:absolute;
+  top:50%;
+  width:3rem;
+  height:auto;
+  color:var(--vermilion);
+  opacity:.85;
+  pointer-events:none;
+}
+.masthead-title-flourish.left{
+  left:-1rem;
+  transform:translateY(-50%) scaleX(-1);
+}
+.masthead-title-flourish.right{
+  right:-1rem;
+  transform:translateY(-50%);
+}
+@media (max-width:560px){
+  .masthead-title-frame{padding:0 2.4rem}
+  .masthead-title-flourish{width:2.2rem}
 }
 .masthead-issue{
   font-family:var(--serif);
@@ -410,7 +438,6 @@ a:hover{color:var(--vermilion)}
   justify-content:center;
   margin-bottom:1.5rem;
 }
-.cascade-mark{display:block}
 .colophon p{
   font-family:var(--serif);
   font-style:italic;
@@ -623,7 +650,23 @@ body > *{position:relative;z-index:2}
 <!-- II. MASTHEAD -->
 <header class="masthead">
   <p class="masthead-kicker">A weekly almanac · Sourced sentence by sentence</p>
-  <h1 class="masthead-title">Cascade</h1>
+  <div class="masthead-title-frame">
+    <svg class="masthead-title-flourish left" viewBox="0 0 60 80" aria-hidden="true">
+      <path d="M58 40 Q40 40 30 28 Q22 18 16 22 Q12 24 14 30 Q16 36 24 36 Q14 38 10 30 Q6 22 14 14 Q22 8 30 14 Q34 17 36 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M58 40 Q40 40 30 52 Q22 62 16 58 Q12 56 14 50 Q16 44 24 44 Q14 42 10 50 Q6 58 14 66 Q22 72 30 66 Q34 63 36 58" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="14" cy="22" r="1.6" fill="currentColor"/>
+      <circle cx="14" cy="58" r="1.6" fill="currentColor"/>
+      <circle cx="40" cy="40" r="1.2" fill="currentColor"/>
+    </svg>
+    <h1 class="masthead-title">Cascade</h1>
+    <svg class="masthead-title-flourish right" viewBox="0 0 60 80" aria-hidden="true">
+      <path d="M58 40 Q40 40 30 28 Q22 18 16 22 Q12 24 14 30 Q16 36 24 36 Q14 38 10 30 Q6 22 14 14 Q22 8 30 14 Q34 17 36 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M58 40 Q40 40 30 52 Q22 62 16 58 Q12 56 14 50 Q16 44 24 44 Q14 42 10 50 Q6 58 14 66 Q22 72 30 66 Q34 63 36 58" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="14" cy="22" r="1.6" fill="currentColor"/>
+      <circle cx="14" cy="58" r="1.6" fill="currentColor"/>
+      <circle cx="40" cy="40" r="1.2" fill="currentColor"/>
+    </svg>
+  </div>
   <p class="masthead-issue">Issue <em>04</em> &nbsp;·&nbsp; The Hormuz Week</p>
   <p class="masthead-date">Friday, 2 May 2026</p>
   <p class="masthead-almanac">
@@ -711,10 +754,9 @@ body > *{position:relative;z-index:2}
 <!-- V. COLOPHON (temporary, full version arrives at end of issue) -->
 <section class="colophon">
   <p class="colophon-mark" aria-hidden="true">
-    <svg class="cascade-mark" viewBox="0 0 64 64" width="44" height="44">
-      <circle cx="32" cy="32" r="28.5" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.45" style="color:var(--vermilion)"/>
-      <path d="M44 17 Q22 17 22 32 Q22 47 44 47" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="color:var(--ink)"/>
-      <circle cx="32" cy="32" r="1.4" fill="currentColor" style="color:var(--vermilion)"/>
+    <svg viewBox="0 0 12 12" width="12" height="12" style="color:var(--vermilion)">
+      <path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      <circle cx="6" cy="6" r="1" fill="currentColor"/>
     </svg>
   </p>
   <p>
