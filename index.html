@@ -13,8 +13,31 @@
 <link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE6'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='400' font-size='22' fill='%23C8431C'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=UnifrakturMaguntia&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=MedievalSharp&family=Pirata+One&family=Eagle+Lake&display=swap" rel="stylesheet">
 <style>
+/* Self-hosted display fonts (Iconian Fonts, free for personal use) */
+@font-face{
+  font-family:'Sable Lion';
+  src:url('fonts/sable.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Brin Athyn';
+  src:url('fonts/brinathyn.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Woodgod';
+  src:url('fonts/woodgod.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
@@ -35,6 +58,7 @@
   --vigil:#14110E;
   --serif:'Fraunces','Iowan Old Style','Hoefler Text',Georgia,serif;
   --mono:'IBM Plex Mono','SF Mono',Menlo,monospace;
+  --display:'Sable Lion','MedievalSharp','UnifrakturMaguntia',var(--serif);
 }
 
 html{
@@ -137,12 +161,12 @@ a:hover{color:var(--vermilion)}
   margin:0 auto 1.5rem;
 }
 .masthead-title{
-  font-family:'UnifrakturMaguntia','UnifrakturCook',var(--serif);
+  font-family:var(--display);
   font-weight:400;
   font-style:normal;
-  font-size:clamp(4.2rem,10.5vw,7.5rem);
+  font-size:clamp(3.4rem,10vw,7.2rem);
   line-height:1;
-  letter-spacing:.005em;
+  letter-spacing:.01em;
   color:var(--ink);
   margin:0;
   position:relative;
@@ -198,7 +222,7 @@ a:hover{color:var(--vermilion)}
    THE LEDE
    ============================================================ */
 .lede{
-  padding:5rem 0 3rem;
+  padding:5rem 24px 3rem;
 }
 .lede h1{
   font-family:var(--serif);
@@ -620,16 +644,78 @@ body > *{position:relative;z-index:2}
   .js .clock .clock-divider{width:32px}
 }
 
-@media (max-width:560px){
-  .lede p:first-of-type::first-letter{font-size:4.4em}
-  .masthead{padding:5rem 24px 3.5rem}
-  .vigil{padding:12vh 24px;min-height:80vh}
-  .vigil-stamp{margin-bottom:3rem}
-  .clock{padding:4rem 24px 3.5rem}
-  .clock-label{margin-bottom:2rem}
-  .clock-divider{margin:2rem auto}
-  .clock-explain{margin-top:2rem}
-  .ornament{padding-top:2.5rem}
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width:760px){
+  /* Lede holds horizontal padding so text never hits the screen edge */
+  .lede{padding:3.5rem 22px 2rem}
+  .lede h1{font-size:1.5rem;line-height:1.22;margin-bottom:1.25rem}
+  .lede p{font-size:1.02rem;line-height:1.58}
+  .lede p:first-of-type::first-letter{font-size:4.2em;margin:.04em 0.06em -0.04em 0}
+
+  /* Vigil opener */
+  .vigil{padding:10vh 22px;min-height:78vh}
+  .vigil-stamp{font-size:.62rem;margin-bottom:2.5rem;letter-spacing:.18em}
+  .vigil-line{font-size:1.35rem;line-height:1.4;max-width:24ch}
+  .vigil-line br{display:none}
+  .vigil-foot{font-size:.58rem;bottom:2rem}
+
+  /* Masthead */
+  .masthead{padding:4rem 22px 3rem}
+  .masthead-kicker{font-size:.62rem;letter-spacing:.16em;margin-bottom:1.25rem;line-height:1.5}
+  .masthead-title-frame{padding:0 2.6rem;margin-bottom:1.25rem}
+  .masthead-title{font-size:clamp(3rem,14vw,4.4rem)}
+  .masthead-title-flourish{width:2rem}
+  .masthead-title-flourish.left{left:-.5rem}
+  .masthead-title-flourish.right{right:-.5rem}
+  .masthead-issue{font-size:1.08rem;margin-bottom:.6rem}
+  .masthead-date{font-size:.66rem}
+  .masthead-almanac{font-size:.6rem;letter-spacing:.12em;line-height:1.7}
+  .masthead-almanac .almanac-sep{margin:0 .55em}
+  .masthead-rule{margin-top:1.75rem}
+
+  /* Section ornaments */
+  .ornament{padding:2.5rem 22px 0;gap:1rem}
+  .ornament-rule{max-width:80px}
+
+  /* Clock */
+  .clock{padding:3.5rem 22px 3rem}
+  .clock-label{margin-bottom:1.75rem;font-size:.6rem}
+  .clock-number{font-size:clamp(4.5rem,22vw,6rem)}
+  .clock-scale{margin-top:1.5rem;font-size:.62rem}
+  .clock-divider{margin:1.75rem auto}
+  .clock-midnight{font-size:1.15rem;line-height:1.45;padding:0 .5rem}
+  .clock-explain{font-size:.94rem;line-height:1.55;margin-top:1.75rem}
+
+  /* Signal scale */
+  .clock-scale-intro{font-size:.84rem;margin-bottom:.85rem;max-width:30ch}
+  .clock-scale-labels{font-size:.5rem}
+
+  /* Coming list */
+  .coming{padding:3.5rem 22px;margin-top:2rem}
+  .coming-label{font-size:.6rem;margin-bottom:1rem}
+  .coming h3{font-size:1.2rem;line-height:1.32;margin-bottom:1.25rem;max-width:24ch}
+  .coming-list{max-width:none;font-size:.9rem}
+  .coming-list li{font-size:.92rem;padding:.45rem 0;line-height:1.55}
+  .coming-list li::before{font-size:.62rem;margin-right:.6rem;min-width:2.4em}
+  .coming-list li span{font-size:.62rem}
+
+  /* Colophon */
+  .colophon{padding:3rem 22px 2.5rem}
+  .colophon p{font-size:.88rem;line-height:1.55}
+  .colophon p.next{font-size:.62rem;margin-top:1.5rem}
+}
+
+/* Very small phones */
+@media (max-width:380px){
+  .vigil-line{font-size:1.2rem}
+  .masthead-title{font-size:2.6rem}
+  .masthead-issue{font-size:1rem}
+  .lede h1{font-size:1.32rem}
+  .lede p{font-size:.98rem}
+  .clock-number{font-size:4rem}
+  .masthead-almanac{font-size:.55rem;letter-spacing:.1em}
 }
 </style>
 </head>
@@ -768,6 +854,16 @@ body > *{position:relative;z-index:2}
 <script>
 // Mark JS available so animation styles activate (no-JS sees everything).
 document.documentElement.classList.add('js');
+
+// Display-font swap via ?font=sable|brin|wood (default sable).
+(function(){
+  const map = { sable: 'Sable Lion', brin: 'Brin Athyn', wood: 'Woodgod' };
+  const key = (new URLSearchParams(window.location.search)).get('font');
+  const choice = map[key];
+  if(choice){
+    document.documentElement.style.setProperty('--display', choice + ", 'MedievalSharp', " + getComputedStyle(document.documentElement).getPropertyValue('--serif'));
+  }
+})();
 
 // ----- Marginalia placement -----
 // Marginals are siblings inside .lede; CSS pins them to the right edge
