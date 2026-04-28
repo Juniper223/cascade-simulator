@@ -417,24 +417,14 @@ a:hover{color:var(--vermilion)}
   max-width:640px;
   margin:0 auto;
 }
-.chapter-beat{
-  margin-bottom:2.25rem;
-}
-.beat-eyebrow{
-  font-family:var(--mono);
-  font-size:.6rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-bottom:.7rem;
-}
-.chapter-beat p:not(.beat-eyebrow){
+.chapter-body p{
   font-family:var(--serif);
   font-size:1.08rem;
-  line-height:1.62;
+  line-height:1.65;
   color:var(--ink-soft);
+  margin-bottom:1.5rem;
 }
-.chapter-beat.first p:not(.beat-eyebrow)::first-letter{
+.chapter-body p:first-of-type::first-letter{
   font-family:var(--illuminated);
   font-weight:400;
   font-size:4.4em;
@@ -810,9 +800,8 @@ body > *{position:relative;z-index:2}
   /* Chapters */
   .chapter{padding:3.5rem 22px 2.5rem}
   .chapter-title{font-size:1.5rem;margin-bottom:2rem;max-width:18ch}
-  .chapter-beat{margin-bottom:1.75rem}
-  .chapter-beat p:not(.beat-eyebrow){font-size:1rem;line-height:1.58}
-  .chapter-beat.first p:not(.beat-eyebrow)::first-letter{font-size:3.6em}
+  .chapter-body p{font-size:1rem;line-height:1.6;margin-bottom:1.25rem}
+  .chapter-body p:first-of-type::first-letter{font-size:3.6em}
   .chapter-measures{margin-top:2.75rem}
   .measures-list li{
     grid-template-columns:1fr auto;
@@ -949,29 +938,44 @@ body > *{position:relative;z-index:2}
   <h2 class="chapter-title" id="ch-work-title">Why does work matter?</h2>
 
   <div class="chapter-body">
-    <div class="chapter-beat first">
-      <p class="beat-eyebrow">The state</p>
-      <p>This week, Big Tech announced about twenty thousand layoffs inside twenty-four hours. The phrasing was new. Where last year's letters spoke of efficiency and streamlining, this year's letters named the mechanism out loud: customer support, junior code, internal analysis, copywriting — work that no longer requires the same headcount because of artificial intelligence.</p>
-    </div>
+    <p>Big Tech laid off about twenty thousand people in a single day this week. The letters were unusual. They named the work being replaced. Customer support, junior code, copywriting, mid-career analysis. Three of the letters used the same phrase, no longer headcount-justified at current AI capability. The same companies wrote similar letters last year and used the word efficiency.</p>
 
-    <div class="chapter-beat">
-      <p class="beat-eyebrow">The long view</p>
-      <p>Tech employment has not contracted at this pace since 2001. What is different now is which jobs go. Past downturns cut from the bottom: recent graduates, contractors, ad sales. The current cuts are coming from the middle: senior engineers, mid-career writers, analysts who have been at the same company for a decade. Anthropic's own measure of which white-collar tasks have been displaced by AI usage suggests roughly eight percent of pre-2023 work no longer needs the human it once did. The number was zero in early 2023.</p>
-    </div>
+    <p>Tech employment has not shrunk this fast since 2001. The difference, this time, is which jobs go. Dot-com cuts came from the bottom of the org chart, the new graduates and the contractors. The current cuts are senior. Anthropic's measure of how much pre-2023 white-collar work an AI is now used for sits near eight per cent. In January 2023 it was zero.</p>
 
-    <div class="chapter-beat">
-      <p class="beat-eyebrow">What to watch</p>
-      <p>Three things, in order. The Friday weekly tally on the industry layoff tracker will tell us whether twenty thousand was a one-week event or a new floor. The U.S. unemployment number for May, due 6 June, will tell us whether the cuts are showing up in the official rate; they usually take six to ten weeks. And the average-hourly-earnings print, also due 6 June, will tell us whether wage growth is starting to weigh. If it is, the next chapter, housing, gets harder.</p>
-    </div>
+    <p>Three readings will tell us whether this is the new floor. The Friday count on the industry layoff tracker, which arrives weekly. The American unemployment release for May, out 6 June, which picks up fresh cuts on a six-to-ten-week lag. And the average hourly earnings print, the same morning, which is where cuts first reach wages. If wages bend, the next chapter gets harder.</p>
 
-    <div class="chapter-beat">
-      <p class="beat-eyebrow">The cascade</p>
-      <p>Work feeds housing. Work feeds consumer mood, which is the headline of chapter eight. Work feeds political confidence, which is chapter seven. When work cracks, those things crack a few months later. The 49.8 mood number this week is what 2024's tech layoffs and 2025's wage stagnation look like with a delay.</p>
-    </div>
+    <p>Work is upstream of almost everything in this issue. The mood number of 49.8 you read at the top is partly the layoffs of 2024 and the flat wages of 2025 catching up. The next Tuesday a company sends a letter, watch what cancels in the supermarket basket on Wednesday.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-work-measures-label">
       <p class="measures-label" id="ch-work-measures-label">Three measures from this chapter</p>
       <ol class="measures-list" data-chapter-measures="work" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- VI. CHAPTER II — HOUSING AND THE COST OF LIVING -->
+<section class="chapter" id="ch-housing" aria-labelledby="ch-housing-title">
+  <p class="chapter-eyebrow">Chapter II · Housing and the cost of living · Monday</p>
+  <h2 class="chapter-title" id="ch-housing-title">How long can a mortgage hold?</h2>
+
+  <div class="chapter-body">
+    <p>The five-year fixed mortgage in the United Kingdom held at 5.2 per cent this week. It has been above five since November. A first-time buyer in London now pays nine times their salary for a starter flat. In 1999 they paid four. Median rent across the United States rose seven per cent year on year, the same as last quarter.</p>
+
+    <p>There is no peacetime stretch in the last hundred years for this many of these numbers being this far from their long average at once. Mortgage rates are not historically high. The early eighties saw fifteen per cent. The difference is that wages used to chase rates. They no longer do. The average British wage has risen eleven per cent since 2019. Rent has risen thirty-eight.</p>
+
+    <p>The Bank of England meets on the seventh of May. A cut would knock the average new mortgage offer below five per cent within a week. A hold pushes the next remortgage cohort, the people who locked in at 1.9 per cent late in 2021, into a roughly doubled monthly payment. Around 1.4 million British households remortgage in 2026.</p>
+
+    <p>Housing is downstream of work and upstream of nearly everything else. When the monthly mortgage moves, the dinner-out goes first, then the holiday, then the second car. The 49.8 mood number is partly that. Watch what the supermarkets report for May, especially the share of the basket marked own-brand.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-housing-measures-label">
+      <p class="measures-label" id="ch-housing-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="housing" aria-live="polite"></ol>
     </div>
   </div>
 </section>
@@ -1033,7 +1037,7 @@ const DATA = {
   },
   chapters: [
     { id: 'work',        number: 1, title: 'Work and wages',                day: 'Mon', published: true  },
-    { id: 'housing',     number: 2, title: 'Housing and the cost of living', day: 'Mon', published: false },
+    { id: 'housing',     number: 2, title: 'Housing and the cost of living', day: 'Mon', published: true  },
     { id: 'health',      number: 3, title: 'Health and care',                day: 'Tue', published: false },
     { id: 'society',     number: 4, title: 'Society and belonging',          day: 'Tue', published: false },
     { id: 'environment', number: 5, title: 'Environment, food, supply',      day: 'Wed', published: false },
@@ -1047,6 +1051,9 @@ const DATA = {
     { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',           value:85, reading:'20,000', unit:'24-hour total',   source:'Industry layoff tracker',     readingPeriod:'Week ending 25 Apr', seeded:true  },
     { id:'ai-displacement',  chapterId:'work',        label:'AI displacement rate',    value:70, reading:'~8%',    unit:'pre-2023 tasks',  source:'Anthropic Economic Index',    readingPeriod:'April reading',      seeded:false },
     { id:'wage-growth',      chapterId:'work',        label:'U.S. wage growth',        value:60, reading:'3.4%',   unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'March final',        seeded:false },
+    { id:'mortgage-rate',    chapterId:'housing',     label:'UK 5-year fixed',         value:78, reading:'5.2%',   unit:'mortgage rate',   source:'Bank of England',             readingPeriod:'Friday',             seeded:true  },
+    { id:'price-to-income',  chapterId:'housing',     label:'London affordability',    value:75, reading:'9.0x',   unit:'price-to-salary', source:'Office for National Stats',   readingPeriod:'Latest quarter',     seeded:false },
+    { id:'rent-yoy',         chapterId:'housing',     label:'U.S. median rent',        value:65, reading:'+7%',    unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'April release',      seeded:false },
     { id:'oil-price',        chapterId:'environment', label:'Crude oil price',         value:68, reading:'+16%',   unit:'week-over-week',  source:'Oil futures market',          readingPeriod:'End of week',        seeded:true  },
     { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',      value:90, reading:'49.8',   unit:'index',           source:'University of Michigan',      readingPeriod:'End of April',       seeded:true  },
     { id:'life-expectancy',  chapterId:'health',      label:'Life expectancy (UK)',    value:65, reading:'81.4',   unit:'years at birth',  source:'Office for National Stats',   readingPeriod:'Latest annual',      seeded:true  },
@@ -1231,7 +1238,7 @@ const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
     { title: 'Small Graces, a poem, the colophon',         day: 'Fri' },
   ];
   const chapterRows = upcomingChapters().map(c => ({
-    title: ROMAN[c.number] + '. ' + c.title,
+    title: c.title,
     day: c.day,
   }));
   const rows = [...fixedHead, ...chapterRows, ...fixedTail];
