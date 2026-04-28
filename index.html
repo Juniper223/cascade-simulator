@@ -491,6 +491,72 @@ a:hover{color:var(--vermilion)}
 }
 
 /* ============================================================
+   FONT PICKER (temporary, for choosing the display font)
+   ============================================================ */
+.font-picker{
+  position:fixed;
+  top:14px;
+  right:14px;
+  z-index:60;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.45rem .55rem;
+  background:rgba(244,239,230,.94);
+  border:1px solid var(--rule);
+  border-radius:6px;
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  box-shadow:0 1px 3px rgba(26,23,20,.06);
+}
+.font-picker-label{margin-right:.35rem}
+.font-picker button{
+  font-family:inherit;
+  font-size:inherit;
+  letter-spacing:inherit;
+  text-transform:inherit;
+  background:none;
+  border:1px solid transparent;
+  color:var(--muted);
+  padding:.3rem .55rem;
+  cursor:pointer;
+  border-radius:3px;
+  transition:color .15s ease, border-color .15s ease, background .15s ease;
+}
+.font-picker button:hover{color:var(--ink)}
+.font-picker button.is-active{
+  color:var(--vermilion);
+  border-color:var(--rule);
+  background:rgba(200,67,28,.05);
+}
+.font-picker-close{
+  background:none;
+  border:none;
+  color:var(--muted-2);
+  cursor:pointer;
+  font-size:1rem;
+  line-height:1;
+  padding:.1rem .35rem;
+  margin-left:.2rem;
+}
+.font-picker-close:hover{color:var(--vermilion)}
+@media (max-width:480px){
+  .font-picker{
+    top:auto;
+    bottom:14px;
+    left:14px;
+    right:14px;
+    justify-content:center;
+    font-size:.55rem;
+  }
+}
+
+/* ============================================================
    PAPER TEXTURE
    Subtle letterpress impression on the cream paper.
    ============================================================ */
@@ -723,6 +789,14 @@ body > *{position:relative;z-index:2}
 
 <div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
 
+<div class="font-picker" id="font-picker" aria-label="Display font picker (temporary)">
+  <span class="font-picker-label">Title font</span>
+  <button data-font="sable">Sable</button>
+  <button data-font="brin">Brin Athyn</button>
+  <button data-font="wood">Woodgod</button>
+  <button class="font-picker-close" data-action="close" aria-label="Hide picker">×</button>
+</div>
+
 <!-- I. THE OPENING -->
 <section class="vigil" aria-label="Opening">
   <p class="vigil-stamp">CASCADE · ISSUE 04 · 2 MAY 2026</p>
@@ -855,14 +929,46 @@ body > *{position:relative;z-index:2}
 // Mark JS available so animation styles activate (no-JS sees everything).
 document.documentElement.classList.add('js');
 
-// Display-font swap via ?font=sable|brin|wood (default sable).
+// Display-font swap (visible picker + ?font= query param + localStorage).
 (function(){
   const map = { sable: 'Sable Lion', brin: 'Brin Athyn', wood: 'Woodgod' };
-  const key = (new URLSearchParams(window.location.search)).get('font');
-  const choice = map[key];
-  if(choice){
-    document.documentElement.style.setProperty('--display', choice + ", 'MedievalSharp', " + getComputedStyle(document.documentElement).getPropertyValue('--serif'));
+  const fallback = ", 'MedievalSharp', " + getComputedStyle(document.documentElement).getPropertyValue('--serif');
+  const picker = document.getElementById('font-picker');
+  if(!picker) return;
+
+  function apply(key){
+    const name = map[key];
+    if(!name) return;
+    document.documentElement.style.setProperty('--display', name + fallback);
+    picker.querySelectorAll('button[data-font]').forEach(b => {
+      b.classList.toggle('is-active', b.dataset.font === key);
+    });
+    try { localStorage.setItem('cascade.font', key); } catch(e){}
   }
+
+  // Initial pick: ?font=… > localStorage > default 'sable'
+  const fromUrl = (new URLSearchParams(window.location.search)).get('font');
+  let stored = null;
+  try { stored = localStorage.getItem('cascade.font'); } catch(e){}
+  apply(map[fromUrl] ? fromUrl : (map[stored] ? stored : 'sable'));
+
+  picker.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    if(btn.dataset.action === 'close'){
+      picker.style.display = 'none';
+      try { localStorage.setItem('cascade.fontPickerHidden', '1'); } catch(e){}
+      return;
+    }
+    if(btn.dataset.font) apply(btn.dataset.font);
+  });
+
+  // Honour previous dismissal
+  try {
+    if(localStorage.getItem('cascade.fontPickerHidden') === '1'){
+      picker.style.display = 'none';
+    }
+  } catch(e){}
 })();
 
 // ----- Marginalia placement -----
