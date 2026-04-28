@@ -387,6 +387,111 @@ a:hover{color:var(--vermilion)}
 }
 
 /* ============================================================
+   CHAPTERS
+   Each chapter follows the five-beat rhythm: question, state,
+   long view, what to watch, the cascade. Three measures footer.
+   ============================================================ */
+.chapter{
+  padding:5rem 24px 4rem;
+}
+.chapter-eyebrow{
+  text-align:center;
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.5rem;
+}
+.chapter-title{
+  text-align:center;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.7rem,3.4vw,2.3rem);
+  line-height:1.22;
+  color:var(--ink);
+  margin:0 auto 3rem;
+  max-width:24ch;
+  font-variation-settings:"opsz" 96;
+}
+.chapter-body{
+  max-width:640px;
+  margin:0 auto;
+}
+.chapter-beat{
+  margin-bottom:2.25rem;
+}
+.beat-eyebrow{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:.7rem;
+}
+.chapter-beat p:not(.beat-eyebrow){
+  font-family:var(--serif);
+  font-size:1.08rem;
+  line-height:1.62;
+  color:var(--ink-soft);
+}
+.chapter-beat.first p:not(.beat-eyebrow)::first-letter{
+  font-family:var(--illuminated);
+  font-weight:400;
+  font-size:4.4em;
+  float:left;
+  line-height:.85;
+  margin:.05em .12em -.08em 0;
+  color:var(--vermilion);
+}
+.chapter-measures{
+  margin-top:3.5rem;
+  padding-top:1.75rem;
+  border-top:1px solid var(--rule);
+}
+.measures-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1rem;
+  text-align:center;
+}
+.measures-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.measures-list li{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:1rem;
+  padding:.75rem 0;
+  border-bottom:1px solid var(--rule-soft);
+  align-items:baseline;
+  font-family:var(--serif);
+  font-size:.96rem;
+}
+.measures-list li:last-child{border-bottom:none}
+.measure-label{color:var(--ink)}
+.measure-reading{
+  font-family:var(--mono);
+  font-size:.9em;
+  color:var(--ink);
+  font-weight:500;
+}
+.measure-source{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  white-space:nowrap;
+}
+
+/* ============================================================
    COMING SOON STRIP
    ============================================================ */
 .coming{
@@ -585,7 +690,7 @@ body > *{position:relative;z-index:2}
   font-size:.94em;
   margin-top:.2em;
 }
-@media (max-width:1100px){
+@media (max-width:980px){
   .marginal{display:none}
 }
 
@@ -685,6 +790,23 @@ body > *{position:relative;z-index:2}
   /* Signal scale */
   .clock-scale-intro{font-size:.84rem;margin-bottom:.85rem;max-width:30ch}
   .clock-scale-labels{font-size:.5rem}
+
+  /* Chapters */
+  .chapter{padding:3.5rem 22px 2.5rem}
+  .chapter-title{font-size:1.5rem;margin-bottom:2rem;max-width:18ch}
+  .chapter-beat{margin-bottom:1.75rem}
+  .chapter-beat p:not(.beat-eyebrow){font-size:1rem;line-height:1.58}
+  .chapter-beat.first p:not(.beat-eyebrow)::first-letter{font-size:3.6em}
+  .chapter-measures{margin-top:2.75rem}
+  .measures-list li{
+    grid-template-columns:1fr auto;
+    gap:.4rem 1rem;
+  }
+  .measure-source{
+    grid-column:1 / -1;
+    margin-top:-.25rem;
+    white-space:normal;
+  }
 
   /* Coming list */
   .coming{padding:3.5rem 22px;margin-top:2rem}
@@ -805,24 +927,50 @@ body > *{position:relative;z-index:2}
   <span class="ornament-rule"></span>
 </div>
 
-<!-- V. COMING SOON STRIP (temporary, for week-of-rebuild) -->
+<!-- V. CHAPTER I — WORK AND WAGES -->
+<section class="chapter" id="ch-work" aria-labelledby="ch-work-title">
+  <p class="chapter-eyebrow">Chapter I · Work and wages · Monday</p>
+  <h2 class="chapter-title" id="ch-work-title">Why does work matter?</h2>
+
+  <div class="chapter-body">
+    <div class="chapter-beat first">
+      <p class="beat-eyebrow">The state</p>
+      <p>This week, Big Tech announced about twenty thousand layoffs inside twenty-four hours. The phrasing was new. Where last year's letters spoke of efficiency and streamlining, this year's letters named the mechanism out loud: customer support, junior code, internal analysis, copywriting — work that no longer requires the same headcount because of artificial intelligence.</p>
+    </div>
+
+    <div class="chapter-beat">
+      <p class="beat-eyebrow">The long view</p>
+      <p>Tech employment has not contracted at this pace since 2001. What is different now is which jobs go. Past downturns cut from the bottom: recent graduates, contractors, ad sales. The current cuts are coming from the middle: senior engineers, mid-career writers, analysts who have been at the same company for a decade. Anthropic's own measure of which white-collar tasks have been displaced by AI usage suggests roughly eight percent of pre-2023 work no longer needs the human it once did. The number was zero in early 2023.</p>
+    </div>
+
+    <div class="chapter-beat">
+      <p class="beat-eyebrow">What to watch</p>
+      <p>Three things, in order. The Friday weekly tally on the industry layoff tracker will tell us whether twenty thousand was a one-week event or a new floor. The U.S. unemployment number for May, due 6 June, will tell us whether the cuts are showing up in the official rate; they usually take six to ten weeks. And the average-hourly-earnings print, also due 6 June, will tell us whether wage growth is starting to weigh. If it is, the next chapter, housing, gets harder.</p>
+    </div>
+
+    <div class="chapter-beat">
+      <p class="beat-eyebrow">The cascade</p>
+      <p>Work feeds housing. Work feeds consumer mood, which is the headline of chapter eight. Work feeds political confidence, which is chapter seven. When work cracks, those things crack a few months later. The 49.8 mood number this week is what 2024's tech layoffs and 2025's wage stagnation look like with a delay.</p>
+    </div>
+
+    <div class="chapter-measures" aria-labelledby="ch-work-measures-label">
+      <p class="measures-label" id="ch-work-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="work" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- VI. COMING SOON STRIP (temporary, for week-of-rebuild) -->
 <section class="coming">
   <p class="coming-label">Issue 04 · Building this week</p>
   <h3>This is the new Cascade. The chapters land in order over the next few days.</h3>
-  <ol class="coming-list" aria-label="Contents arriving in this issue">
-    <li>The cascade plate, this week's strongest arrows <span>Sun</span></li>
-    <li>I. Work and wages <span>Mon</span></li>
-    <li>II. Housing and the cost of living <span>Mon</span></li>
-    <li>III. Health and care <span>Tue</span></li>
-    <li>IV. Society and belonging <span>Tue</span></li>
-    <li>V. Environment, food, supply <span>Wed</span></li>
-    <li>VI. Geopolitics and security <span>Wed</span></li>
-    <li>VII. Governance and trust <span>Thu</span></li>
-    <li>VIII. Human outcomes <span>Thu</span></li>
-    <li>The Standings, the Watch List, the Outlook <span>Fri</span></li>
-    <li>Predictions, methodology, sources <span>Fri</span></li>
-    <li>Small Graces, a poem, the colophon <span>Fri</span></li>
-  </ol>
+  <ol class="coming-list" id="coming-list" aria-label="Contents arriving in this issue"></ol>
 </section>
 
 <div class="ornament" aria-hidden="true">
@@ -840,7 +988,7 @@ body > *{position:relative;z-index:2}
     </svg>
   </p>
   <p>
-    Issue 04 of <em>Cascade</em> is being set, this week, in Fraunces and IBM&nbsp;Plex&nbsp;Mono on cream paper. Twenty-three measures, sourced. The chapters are arriving in order.
+    Issue 04 of <em>Cascade</em> is in progress on cream paper. Twenty-three measures, sourced. The chapters are arriving in order.
   </p>
   <p class="next">Next issue · Friday 9 May 2026</p>
 </section>
@@ -848,6 +996,54 @@ body > *{position:relative;z-index:2}
 <script>
 // Mark JS available so animation styles activate (no-JS sees everything).
 document.documentElement.classList.add('js');
+
+// ============================================================
+// THE CASCADE DATA FRAMEWORK
+// Single source of truth for the issue. Editing measures here
+// updates the Cascade Clock, the per-chapter measures footer,
+// the Coming list, and (in time) the Standings, Watch List,
+// Outlook, and Predictions appendices. The recipe of data
+// analysis lives here, in one place.
+// ============================================================
+const DATA = {
+  issue: {
+    number: 4,
+    title: 'The Hormuz Week',
+    publishedAt: '2026-05-02',
+    nextIssueAt: '2026-05-09',
+    week: 18,
+    moon: 'Waning gibbous',
+    sun: { rise: '5:30', set: '20:32', city: 'London' },
+  },
+  chapters: [
+    { id: 'work',        number: 1, title: 'Work and wages',                day: 'Mon', published: true  },
+    { id: 'housing',     number: 2, title: 'Housing and the cost of living', day: 'Mon', published: false },
+    { id: 'health',      number: 3, title: 'Health and care',                day: 'Tue', published: false },
+    { id: 'society',     number: 4, title: 'Society and belonging',          day: 'Tue', published: false },
+    { id: 'environment', number: 5, title: 'Environment, food, supply',      day: 'Wed', published: false },
+    { id: 'geopolitics', number: 6, title: 'Geopolitics and security',       day: 'Wed', published: false },
+    { id: 'governance',  number: 7, title: 'Governance and trust',           day: 'Thu', published: false },
+    { id: 'outcomes',    number: 8, title: 'Human outcomes',                 day: 'Thu', published: false },
+  ],
+  // value: 0-100 contribution to severity (100 = at midnight)
+  // seeded: included in the Issue 04 Clock composite (true) or arriving with a chapter (false)
+  measures: [
+    { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',           value:85, reading:'20,000', unit:'24-hour total',   source:'Industry layoff tracker',     readingPeriod:'Week ending 25 Apr', seeded:true  },
+    { id:'ai-displacement',  chapterId:'work',        label:'AI displacement rate',    value:70, reading:'~8%',    unit:'pre-2023 tasks',  source:'Anthropic Economic Index',    readingPeriod:'April reading',      seeded:false },
+    { id:'wage-growth',      chapterId:'work',        label:'U.S. wage growth',        value:60, reading:'3.4%',   unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'March final',        seeded:false },
+    { id:'oil-price',        chapterId:'environment', label:'Crude oil price',         value:68, reading:'+16%',   unit:'week-over-week',  source:'Oil futures market',          readingPeriod:'End of week',        seeded:true  },
+    { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',      value:90, reading:'49.8',   unit:'index',           source:'University of Michigan',      readingPeriod:'End of April',       seeded:true  },
+    { id:'life-expectancy',  chapterId:'health',      label:'Life expectancy (UK)',    value:65, reading:'81.4',   unit:'years at birth',  source:'Office for National Stats',   readingPeriod:'Latest annual',      seeded:true  },
+    { id:'hormuz-strait',    chapterId:'geopolitics', label:'Hormuz strait stress',    value:78, reading:'Active', unit:'tanker seizures', source:'U.S. Energy Info Admin',      readingPeriod:'Week of 28 Apr',     seeded:true  },
+    { id:'geopolitical-risk',chapterId:'geopolitics', label:'Geopolitical risk index', value:72, reading:'High',   unit:'GPR composite',   source:'Caldara & Iacoviello GPR',    readingPeriod:'April composite',    seeded:true  },
+  ],
+};
+
+// Tiny accessors so render code reads like English.
+const seededMeasures   = () => DATA.measures.filter(m => m.seeded);
+const measuresInChapter = (id) => DATA.measures.filter(m => m.chapterId === id);
+const findChapter      = (id) => DATA.chapters.find(c => c.id === id);
+const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
 
 // ----- Marginalia placement -----
 // Marginals are siblings inside .lede; CSS pins them to the right edge
@@ -901,21 +1097,11 @@ document.documentElement.classList.add('js');
 })();
 
 // ----- The Cascade Clock -----
-// Each signal contributes a severity reading (0 = calm, 100 = at midnight).
-// Severity = round(mean(values)). Minutes to midnight = (100 - severity) / 5,
-// so high severity = less time on the clock (Doomsday convention).
-// On scroll-into-view: severity counts up from 0 once, divider draws in,
-// midnight line fades up. The reading itself does NOT tick — it's the
-// week's snapshot, like a printed almanac.
+// Pulls measures with seeded=true from the DATA framework, computes
+// the composite severity, renders the number + minutes-to-midnight +
+// signal scale. Updating DATA cascades here automatically.
 (function(){
-  const SIGNALS = [
-    { id: 'tech-layoffs',    label: 'Tech job cuts (24h)',  value: 85, source: 'Layoffs.fyi' },
-    { id: 'oil-price',       label: 'Brent crude (week)',   value: 68, source: 'ICE Futures' },
-    { id: 'consumer-mood',   label: 'Consumer sentiment',   value: 90, source: 'Univ. of Michigan' },
-    { id: 'life-expectancy', label: 'Life expectancy (UK)', value: 65, source: 'ONS' },
-    { id: 'hormuz-strait',   label: 'Hormuz strait stress', value: 78, source: 'EIA' },
-    { id: 'geopolitics',     label: 'Geopolitical risk',    value: 72, source: 'GPR Index' },
-  ];
+  const SIGNALS = seededMeasures();
 
   const ONES  = ['','one','two','three','four','five','six','seven','eight','nine'];
   const TEENS = ['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
@@ -991,6 +1177,51 @@ document.documentElement.classList.add('js');
     clockEl.classList.add('in-view');
     numEl.textContent = severity;
   }
+})();
+
+// ----- Chapter measures footer -----
+// Each chapter has an empty <ol data-chapter-measures="id">. Fill it
+// from DATA so the chapter automatically reflects measure updates.
+(function(){
+  document.querySelectorAll('[data-chapter-measures]').forEach(list => {
+    const chapId = list.dataset.chapterMeasures;
+    const items = measuresInChapter(chapId);
+    if(!items.length) return;
+    list.innerHTML = items.map(m => (
+      '<li>' +
+        '<span class="measure-label">' + m.label + '</span>' +
+        '<span class="measure-reading">' + m.reading + '</span>' +
+        '<span class="measure-source">' + m.source + ' · ' + m.readingPeriod + '</span>' +
+      '</li>'
+    )).join('');
+  });
+})();
+
+// ----- Coming-soon list -----
+// Generated from DATA.chapters where published is false, plus the
+// fixed almanac-end items (cascade plate Sun, Standings/Watch List
+// Fri, etc). When a chapter flips to published:true, it disappears
+// from the list and appears as a chapter on the page above.
+(function(){
+  const list = document.getElementById('coming-list');
+  if(!list) return;
+  const ROMAN = ['','I','II','III','IV','V','VI','VII','VIII'];
+  const fixedHead = [
+    { title: "The cascade plate, this week's strongest arrows", day: 'Sun' },
+  ];
+  const fixedTail = [
+    { title: 'The Standings, the Watch List, the Outlook', day: 'Fri' },
+    { title: 'Predictions, methodology, sources',          day: 'Fri' },
+    { title: 'Small Graces, a poem, the colophon',         day: 'Fri' },
+  ];
+  const chapterRows = upcomingChapters().map(c => ({
+    title: ROMAN[c.number] + '. ' + c.title,
+    day: c.day,
+  }));
+  const rows = [...fixedHead, ...chapterRows, ...fixedTail];
+  list.innerHTML = rows.map(r => (
+    '<li>' + r.title + ' <span>' + r.day + '</span></li>'
+  )).join('');
 })();
 </script>
 </body>
