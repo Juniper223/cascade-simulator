@@ -887,6 +887,357 @@ a:hover{color:var(--vermilion)}
 }
 
 /* ============================================================
+   STICKY TABLE OF CONTENTS
+   Appears once the reader scrolls past the masthead.
+   ============================================================ */
+.toc-nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:55;
+  background:rgba(244,239,230,.94);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+  padding:.6rem 18px;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted);
+  transform:translateY(-110%);
+  transition:transform .35s cubic-bezier(.2,.6,.2,1);
+}
+.toc-nav.is-visible{transform:translateY(0)}
+.toc-list{
+  list-style:none;
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  margin:0;
+  padding:0;
+}
+.toc-list a{
+  text-decoration:none;
+  color:var(--muted);
+  padding:.2rem .15rem;
+  white-space:nowrap;
+  transition:color .15s ease;
+}
+.toc-list a:hover{color:var(--vermilion)}
+.toc-sep{color:var(--rule);user-select:none}
+@media (max-width:760px){
+  .toc-list{gap:.55rem;font-size:.5rem;letter-spacing:.1em}
+  .toc-sep{display:none}
+}
+
+/* ============================================================
+   THE BOTTOM LINE (orientation panel after Clock)
+   Three sentences: where we were, where we are, what's next.
+   ============================================================ */
+.bottom-line{
+  background:var(--paper-warm);
+  padding:3rem 24px;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.bottom-line-inner{
+  max-width:720px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.75rem;
+}
+.bl-cell{
+  text-align:left;
+}
+.bl-eyebrow{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:.6rem;
+}
+.bl-line{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.05rem;
+  line-height:1.55;
+  color:var(--ink);
+  font-variation-settings:"opsz" 96;
+}
+.bl-line strong{
+  font-style:normal;
+  color:var(--vermilion);
+  font-weight:500;
+}
+@media (max-width:760px){
+  .bottom-line{padding:2rem 22px}
+  .bottom-line-inner{grid-template-columns:1fr;gap:1.25rem}
+  .bl-line{font-size:1rem}
+}
+
+/* ============================================================
+   AT-A-GLANCE GRID (every measure as one cell)
+   ============================================================ */
+.glance{
+  padding:5rem 24px 4rem;
+  text-align:center;
+}
+.glance-eyebrow{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+}
+.glance-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.6rem,3.2vw,2.1rem);
+  color:var(--ink);
+  margin:0 auto 1.25rem;
+  max-width:32ch;
+  font-variation-settings:"opsz" 96;
+}
+.glance-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--muted);
+  max-width:42ch;
+  margin:0 auto 2.5rem;
+  line-height:1.55;
+}
+.glance-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  max-width:840px;
+  margin:0 auto;
+  text-align:left;
+}
+.glance-cell{
+  display:flex;
+  flex-direction:column;
+  padding:.85rem .7rem .8rem;
+  border:1px solid var(--rule);
+  border-left-width:3px;
+  border-radius:2px;
+  background:var(--paper);
+  text-decoration:none;
+  color:inherit;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  min-height:96px;
+}
+.glance-cell:hover{
+  transform:translateY(-1px);
+  box-shadow:0 2px 8px rgba(26,23,20,.08);
+  background:#fafafa;
+}
+.glance-cell.tier-low{border-left-color:#9CA98F}
+.glance-cell.tier-mid{border-left-color:#D8A33A}
+.glance-cell.tier-high{border-left-color:var(--vermilion)}
+.cell-label{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--muted);
+  line-height:1.4;
+  margin-bottom:.5rem;
+}
+.cell-reading{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1rem;
+  color:var(--ink);
+  letter-spacing:-.005em;
+  line-height:1.1;
+  font-variation-settings:"opsz" 36;
+}
+.cell-delta{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  margin-top:.4rem;
+  color:var(--muted-2);
+}
+.delta-up{color:var(--vermilion)}
+.delta-down{color:#6B7A4F}
+.delta-flat{color:var(--muted-2)}
+.glance-key{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:2rem auto 0;
+  display:flex;
+  justify-content:center;
+  gap:1.25rem;
+  flex-wrap:wrap;
+}
+@media (max-width:760px){
+  .glance{padding:3.5rem 16px 2.5rem}
+  .glance-grid{grid-template-columns:repeat(3,1fr);gap:6px;padding:0 6px}
+  .cell-label{font-size:.5rem;line-height:1.3}
+  .cell-reading{font-size:1rem}
+  .cell-delta{font-size:.52rem}
+  .glance-cell{min-height:84px;padding:.65rem .55rem}
+}
+@media (max-width:380px){
+  .glance-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ============================================================
+   HISTORICAL ANCHORS (where have we seen this before)
+   ============================================================ */
+.anchors{
+  background:var(--paper-warm);
+  padding:5rem 24px 4rem;
+  text-align:center;
+}
+.anchors-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  max-width:1000px;
+  margin:0 auto;
+  text-align:left;
+}
+.anchor-card{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  padding:1.75rem 1.5rem;
+  display:flex;
+  flex-direction:column;
+}
+.anchor-year{
+  font-family:var(--display-num);
+  font-size:2.4rem;
+  color:var(--vermilion);
+  line-height:1;
+  margin-bottom:.85rem;
+  letter-spacing:.005em;
+}
+.anchor-headline{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:1.1rem;
+  line-height:1.3;
+  color:var(--ink);
+  margin:0 0 .85rem;
+  font-variation-settings:"opsz" 72;
+}
+.anchor-summary{
+  font-family:var(--serif);
+  font-size:.95rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin:0 0 1.25rem;
+}
+.anchor-similar, .anchor-different{
+  font-family:var(--serif);
+  font-size:.88rem;
+  line-height:1.5;
+  color:var(--muted);
+  margin:0 0 .55rem;
+}
+.anchor-similar strong, .anchor-different strong{
+  font-family:var(--mono);
+  font-style:normal;
+  font-weight:500;
+  text-transform:uppercase;
+  font-size:.6rem;
+  letter-spacing:.16em;
+  margin-right:.3em;
+}
+.anchor-similar strong{color:var(--vermilion)}
+.anchor-different strong{color:var(--ink)}
+.anchor-rating{
+  margin-top:auto;
+  padding-top:1rem;
+  border-top:1px solid var(--rule-soft);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+}
+.anchor-stars{color:var(--vermilion);font-size:.85rem;letter-spacing:.18em}
+@media (max-width:760px){
+  .anchors{padding:3.5rem 22px 2.5rem}
+  .anchors-grid{grid-template-columns:1fr;gap:1rem;max-width:560px}
+  .anchor-card{padding:1.5rem 1.25rem}
+  .anchor-year{font-size:2rem}
+}
+
+/* ============================================================
+   CHAPTER TAKEAWAY (one-sentence punch line per chapter)
+   ============================================================ */
+.chapter-takeaway{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:1.25rem;
+  line-height:1.4;
+  color:var(--vermilion);
+  text-align:center;
+  max-width:36ch;
+  margin:0 auto 2.5rem;
+  padding:0 1rem;
+  font-variation-settings:"opsz" 96;
+}
+@media (max-width:760px){
+  .chapter-takeaway{font-size:1.1rem;margin-bottom:1.75rem}
+}
+
+/* ============================================================
+   MEASURES TABLE — WoW deltas + source links
+   ============================================================ */
+.measure-delta{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  margin-left:.5em;
+  white-space:nowrap;
+}
+.measure-source a{
+  color:var(--muted-2);
+  text-decoration:none;
+  border-bottom:1px dotted var(--muted-2);
+  padding-bottom:1px;
+  transition:color .15s ease, border-color .15s ease;
+}
+.measure-source a:hover{
+  color:var(--vermilion);
+  border-bottom-color:var(--vermilion);
+}
+
+/* Clock WoW delta line */
+.clock-delta-line{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:.85rem;
+}
+.clock-delta-line .up{color:var(--vermilion)}
+.clock-delta-line .down{color:#6B7A4F}
+
+/* ============================================================
    PAPER TEXTURE
    Subtle letterpress impression on the cream paper.
    ============================================================ */
@@ -1176,6 +1527,32 @@ body > *{position:relative;z-index:2}
 
 <div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
 
+<nav class="toc-nav" id="toc-nav" aria-label="Table of contents">
+  <ul class="toc-list">
+    <li><a href="#cascade-clock">Clock</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#glance">At a glance</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#cascade-plate">Plate</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#anchors">Anchors</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#ch-work">I</a></li>
+    <li><a href="#ch-housing">II</a></li>
+    <li><a href="#ch-health">III</a></li>
+    <li><a href="#ch-society">IV</a></li>
+    <li><a href="#ch-environment">V</a></li>
+    <li><a href="#ch-geopolitics">VI</a></li>
+    <li><a href="#ch-governance">VII</a></li>
+    <li><a href="#ch-outcomes">VIII</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#standings-heading">Standings</a></li>
+    <li><a href="#watchlist-heading">Watch</a></li>
+    <li><a href="#outlook-heading">Outlook</a></li>
+    <li><a href="#predictions-heading">Predictions</a></li>
+  </ul>
+</nav>
+
 <!-- I. THE OPENING -->
 <section class="vigil" aria-label="Opening">
   <p class="vigil-stamp">CASCADE · ISSUE 04 · 2 MAY 2026</p>
@@ -1219,10 +1596,11 @@ body > *{position:relative;z-index:2}
 </div>
 
 <!-- IV. THE CASCADE CLOCK -->
-<section class="clock" aria-labelledby="clock-heading">
+<section class="clock" id="cascade-clock" aria-labelledby="clock-heading">
   <p class="clock-label" id="clock-heading">The Cascade Clock</p>
   <p class="clock-number" id="clock-number" aria-label="Severity score">76</p>
   <p class="clock-scale">out of one hundred</p>
+  <p class="clock-delta-line" id="clock-delta-line" aria-hidden="true"></p>
   <div class="clock-divider" aria-hidden="true"></div>
   <p class="clock-midnight">
     <span id="clock-time">Four minutes, forty-eight seconds</span> <span class="clock-time-label">to midnight.</span>
@@ -1248,7 +1626,45 @@ body > *{position:relative;z-index:2}
   <span class="ornament-rule"></span>
 </div>
 
-<!-- IV.B THE CASCADE PLATE -->
+<!-- IV.A THE BOTTOM LINE -->
+<section class="bottom-line" aria-label="The bottom line">
+  <div class="bottom-line-inner">
+    <div class="bl-cell">
+      <p class="bl-eyebrow">Where we were</p>
+      <p class="bl-line">Last Friday the Cascade reading sat at <strong>75</strong>. The strait was tense, not closed. Brent was at <strong>$92</strong>.</p>
+    </div>
+    <div class="bl-cell">
+      <p class="bl-eyebrow">Where we are</p>
+      <p class="bl-line">Today it is <strong>79</strong>. The strait has been substantially shut for two months. Brent closed Thursday at <strong>$114</strong>. The mood index returned a <strong>49.8</strong>.</p>
+    </div>
+    <div class="bl-cell">
+      <p class="bl-eyebrow">What's next</p>
+      <p class="bl-line">Bank of England decides on the <strong>seventh</strong>. U.S. real earnings on the <strong>twelfth</strong>. The next Cascade lands on the <strong>ninth</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IV.B AT A GLANCE -->
+<section class="glance" id="glance" aria-labelledby="glance-heading">
+  <p class="glance-eyebrow" id="glance-heading">At a glance</p>
+  <h2 class="glance-title">The week's twenty-three measures</h2>
+  <p class="glance-intro">Each cell, one measure. Color is severity. The arrow is the change since last Friday. Click a cell to read the chapter.</p>
+  <div class="glance-grid" id="glance-grid"></div>
+  <p class="glance-key">
+    <span class="key-item"><span class="key-dot key-low"></span> calm</span>
+    <span class="key-item"><span class="key-dot key-mid"></span> elevated</span>
+    <span class="key-item"><span class="key-dot key-high"></span> at midnight</span>
+    <span class="key-item"><span class="key-mark">◇</span> outcome</span>
+  </p>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IV.C THE CASCADE PLATE -->
 <section class="plate" id="cascade-plate" aria-labelledby="plate-heading">
   <p class="plate-eyebrow" id="plate-heading">The cascade plate</p>
   <h2 class="plate-title">This week's strongest arrows</h2>
@@ -1275,19 +1691,30 @@ body > *{position:relative;z-index:2}
   <span class="ornament-rule"></span>
 </div>
 
+<!-- IV.D HISTORICAL ANCHORS -->
+<section class="anchors" id="anchors" aria-labelledby="anchors-heading">
+  <p class="appendix-eyebrow" id="anchors-heading">Where we have seen this before</p>
+  <h2 class="appendix-title">Three weeks of the past century that resemble this one</h2>
+  <p class="appendix-intro">Picked for pattern, not for outcome. Each is annotated for what is alike and what is different. Use them as a frame, not as a forecast.</p>
+  <div class="anchors-grid" id="anchors-grid"></div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
 <!-- V. CHAPTER I — WORK AND WAGES -->
 <section class="chapter" id="ch-work" aria-labelledby="ch-work-title">
   <p class="chapter-eyebrow">Chapter I · Work and wages · Monday</p>
   <h2 class="chapter-title" id="ch-work-title">Why does work matter?</h2>
+  <p class="chapter-takeaway">The letters now name the cause out loud.</p>
 
   <div class="chapter-body">
-    <p>Big Tech laid off about twenty thousand people in a single day this week. The letters were unusual. They named the work being replaced. Customer support, junior code, copywriting, mid-career analysis. Three of the letters used the same phrase, no longer headcount-justified at current AI capability. The same companies wrote similar letters last year and used the word efficiency.</p>
+    <p>Big Tech laid off about seventeen thousand people on a Wednesday this week. Three of the letters used the same phrase, no longer headcount-justified at current AI capability, for jobs that until recently were copywriting, junior code, customer support. Last year's letters from the same firms said efficiency. Tech employment has not shrunk this fast since 2001, and the cuts now come from the middle, not the bottom.</p>
 
-    <p>Tech employment has not shrunk this fast since 2001. The difference, this time, is which jobs go. Dot-com cuts came from the bottom of the org chart, the new graduates and the contractors. The current cuts are senior. Anthropic's measure of how much pre-2023 white-collar work an AI is now used for sits near eight per cent. In January 2023 it was zero.</p>
-
-    <p>Three readings will tell us whether this is the new floor. The Friday count on the industry layoff tracker, which arrives weekly. The American unemployment release for May, out 6 June, which picks up fresh cuts on a six-to-ten-week lag. And the average hourly earnings print, the same morning, which is where cuts first reach wages. If wages bend, the next chapter gets harder.</p>
-
-    <p>Work is upstream of almost everything in this issue. The mood number of 49.8 you read at the top is partly the layoffs of 2024 and the flat wages of 2025 catching up. The next Tuesday a company sends a letter, watch what cancels in the supermarket basket on Wednesday.</p>
+    <p>Three readings will say whether 17,000 is a one-week event or a new floor. The Friday count on the industry layoff tracker, which arrives weekly. The U.S. unemployment release for May, out 6 June, which usually picks up fresh cuts on a six-to-ten-week lag. And the U.S. average hourly earnings print the same morning, which is where the cuts first reach wages. If wages bend, the next chapter gets harder.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-work-measures-label">
       <p class="measures-label" id="ch-work-measures-label">Three measures from this chapter</p>
@@ -1306,15 +1733,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-housing" aria-labelledby="ch-housing-title">
   <p class="chapter-eyebrow">Chapter II · Housing and the cost of living · Monday</p>
   <h2 class="chapter-title" id="ch-housing-title">How long can a mortgage hold?</h2>
+  <p class="chapter-takeaway">1.4 million British households remortgage this year into rates set by a war.</p>
 
   <div class="chapter-body">
-    <p>The five-year fixed mortgage in the United Kingdom held at 5.2 per cent this week. It has been above five since November. A first-time buyer in London now pays nine times their salary for a starter flat. In 1999 they paid four. Median rent across the United States rose seven per cent year on year, the same as last quarter.</p>
+    <p>The UK five-year fixed mortgage averaged 5.75 per cent in April, the highest since November and pushed up by Iran-war swap-rate volatility. A first-time buyer in London now pays roughly twelve times their salary for a starter flat. The eighties saw fifteen per cent mortgages, but wages chased rates then. They no longer do. The average British wage has risen 11 per cent since 2019. Rent has risen 38.</p>
 
-    <p>There is no peacetime stretch in the last hundred years for this many of these numbers being this far from their long average at once. Mortgage rates are not historically high. The early eighties saw fifteen per cent. The difference is that wages used to chase rates. They no longer do. The average British wage has risen eleven per cent since 2019. Rent has risen thirty-eight.</p>
-
-    <p>The Bank of England meets on the seventh of May. A cut would knock the average new mortgage offer below five per cent within a week. A hold pushes the next remortgage cohort, the people who locked in at 1.9 per cent late in 2021, into a roughly doubled monthly payment. Around 1.4 million British households remortgage in 2026.</p>
-
-    <p>Housing is downstream of work and upstream of nearly everything else. When the monthly mortgage moves, the dinner-out goes first, then the holiday, then the second car. The 49.8 mood number is partly that. Watch what the supermarkets report for May, especially the share of the basket marked own-brand.</p>
+    <p>The Bank of England meets on the seventh of May. A cut would knock the average new offer below 5 per cent within days. A hold pushes the next remortgage cohort, who locked in at 1.9 per cent late in 2021, into a roughly doubled monthly payment. Around 1.4 million British households remortgage this year. Watch the supermarket basket marked own-brand for the first sign of where the difference goes.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-housing-measures-label">
       <p class="measures-label" id="ch-housing-measures-label">Three measures from this chapter</p>
@@ -1333,15 +1757,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-health" aria-labelledby="ch-health-title">
   <p class="chapter-eyebrow">Chapter III · Health and care · Tuesday</p>
   <h2 class="chapter-title" id="ch-health-title">Are we waiting too long?</h2>
+  <p class="chapter-takeaway">We are healthier than ever and waiting longer than ever to be seen.</p>
 
   <div class="chapter-body">
-    <p>The Office for National Statistics released this year's life-expectancy figures. Men in the United Kingdom are 79.1 years, women are 83.0. Both numbers are at or just below where they were in 2019. The same release showed healthy life expectancy down by seven months, the lowest level since 2013. The long curve has stopped curving.</p>
+    <p>The Office for National Statistics released this year's life-expectancy figures. Men in the United Kingdom are 79.1 years, women are 83.0. Both numbers are at or just below where they were in 2019, the first sustained pause in over a hundred years. Healthy life expectancy is down by seven months, the lowest level since 2013. The current healthy-years number is now below the state pension age of 66 in over nine in ten local authorities.</p>
 
-    <p>For most of the twentieth century, every five years bought us roughly a year of extra life. The post-war NHS, vaccines, water, less smoking. The line went one way. From 2014 it stalled. From 2020 it bent. The current healthy-years number is now below the state pension age of 66 in over nine in ten local authorities.</p>
-
-    <p>Two readings to keep in front of you. The NHS England elective waiting list, 7.31 million cases this week. It peaked at 7.78 million in September 2024 and has come down by less than half a million in eighteen months. And the next mortality release, due in late May, which will say whether 2024-2025 is a recovery year or another flat one.</p>
-
-    <p>Health is the slowest signal in the issue. The mood number you read at the top, 49.8, is partly that we know we are waiting. Long care queues do not just hurt the people on them. They show up in the trackers that ask whether the country is going in the right direction. The current answer to that question, in the latest UK polling, is the lowest in five years.</p>
+    <p>The NHS England elective waiting list sits at 7.31 million cases this week. It peaked at 7.78 million in September 2024 and has come down by less than half a million in eighteen months. The next mortality release, due in late May, will say whether 2024-2025 is a recovery year or another flat one. The slower the body, the lower the mood. The 49.8 mood number is partly the queue.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-health-measures-label">
       <p class="measures-label" id="ch-health-measures-label">Three measures from this chapter</p>
@@ -1360,15 +1781,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-society" aria-labelledby="ch-society-title">
   <p class="chapter-eyebrow">Chapter IV · Society and belonging · Tuesday</p>
   <h2 class="chapter-title" id="ch-society-title">Who are you willing to disagree with?</h2>
+  <p class="chapter-takeaway">Seven in ten of us would not trust someone with different values.</p>
 
   <div class="chapter-body">
-    <p>The 2026 Edelman Trust Barometer, in the field this winter, asked thirty-seven thousand people whether they would trust someone who held different values. Seven in ten said no, or hesitated. Only thirty-nine per cent said they read or watched a news source from a different political leaning each week, six points down on a year ago.</p>
+    <p>The 2026 Edelman Trust Barometer asked thirty-seven thousand people across twenty-eight countries whether they would trust someone who held different values. Seven in ten said no or hesitated. Only thirty-nine per cent said they read a news source from a different political leaning each week, six points down on a year ago. The U.S. trust gap between high and low income respondents has gone from six points in 2012 to twenty-nine.</p>
 
-    <p>We used to share more weather. The local paper, the church newsletter, the radio breakfast show, the doctor's waiting room television. Five years ago, the trust gap between high-income and low-income respondents in the United States was six points. This year it is twenty-nine. We have been arranging ourselves into rooms where the volume of agreement is louder than the truth.</p>
-
-    <p>Three things to watch. Whether the rate of local-newsroom closures slows in 2026 (it did not in 2025). Whether public-library funding holds in the next round of council settlements. And whether the cross-cutting friendships figure, which the Pew Research Center reports each summer, comes back below the 26% it sat at last August.</p>
-
-    <p>This is the chapter that other chapters quietly need. A society that cannot disagree about housing cannot organise about housing. The decline in trust feeds the decline in collective action, which feeds the decline in the kind of politics that builds anything. The strait at the top of the issue arrived in countries that had a sixteen-point trust deficit waiting for it.</p>
+    <p>Three things to watch. Whether the rate of local-newsroom closures slows in 2026 (it did not in 2025). Whether public-library funding holds in the next round of council settlements. And whether the cross-cutting friendships figure, which Pew reports each summer, comes back below 26 per cent. A society that cannot disagree cannot organise. The strait, the layoffs, the mortgage all arrived in a country that had a sixteen-point trust deficit waiting for them.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-society-measures-label">
       <p class="measures-label" id="ch-society-measures-label">Three measures from this chapter</p>
@@ -1387,15 +1805,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-environment" aria-labelledby="ch-environment-title">
   <p class="chapter-eyebrow">Chapter V · Environment, food, supply · Wednesday</p>
   <h2 class="chapter-title" id="ch-environment-title">Who pays for the next bushel?</h2>
+  <p class="chapter-takeaway">All five FAO commodity indices are rising at once. The last two times were 2007 and 2022.</p>
 
   <div class="chapter-body">
-    <p>The FAO Food Price Index sat at 128.5 in March 2026, a second consecutive monthly rise. The April reading is due on the ninth of May and is likely higher: cereals and oils have all moved up since the Hormuz blockade tightened. A litre of diesel in Rotterdam is up about eleven per cent week-on-week. Forty-five commercial ships have been turned back from the Strait this month.</p>
+    <p>The FAO Food Price Index sat at 128.5 in March, a second consecutive monthly rise. The April reading is due on 9 May and is likely higher: cereals and oils have all moved up since the Hormuz blockade tightened. Forty-five commercial ships have been turned back from the Strait this month. A litre of diesel in Rotterdam is up about 11 per cent week-on-week. Cereals are mostly weather and partly war. Oils are mostly oil. All five FAO sub-indices are rising at once for the first time since 2022, and before that, 2007.</p>
 
-    <p>Cereal prices are mostly weather and partly war, in that order. Vegetable oil prices are mostly oil and partly soybean. Sugar is sugar. What is unusual now is that all five of the FAO's component indices are rising at once. The last time that happened was 2022, the year after the Russian invasion of Ukraine. The time before that was 2007, the year of the food riots.</p>
-
-    <p>Three things to watch. The April FAO release on the ninth. The Russian wheat export number for April, due in the second week of May. And whether the Geneva talks holding the strait partly open survive the next round, scheduled for the thirteenth.</p>
-
-    <p>Food is the chapter the others cannot afford to ignore. American real-wage growth of 0.3 per cent does not survive food inflation in the high single digits. The basket marked own-brand is the canary. The next time a supermarket reports its quarter, watch for which line of the basket has migrated where.</p>
+    <p>Three things to watch. The April FAO release on 9 May. The Russian wheat export number, due in the second week. And whether the Geneva talks on the strait, scheduled for 13 May, survive the next round. American real wage growth of 0.3 per cent does not survive food inflation in the high single digits. The supermarket basket marked own-brand is the canary.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-environment-measures-label">
       <p class="measures-label" id="ch-environment-measures-label">Three measures from this chapter</p>
@@ -1414,15 +1829,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-geopolitics" aria-labelledby="ch-geopolitics-title">
   <p class="chapter-eyebrow">Chapter VI · Geopolitics and security · Wednesday</p>
   <h2 class="chapter-title" id="ch-geopolitics-title">How long is a strait?</h2>
+  <p class="chapter-takeaway">The Strait of Hormuz has been substantially closed for two months.</p>
 
   <div class="chapter-body">
-    <p>The Strait of Hormuz has been substantially closed since the twenty-eighth of February. The United States seized the Iranian-flagged Touska on the nineteenth of April after firing on its engine room. Iran retaliated by seizing the MSC-Francesca and the Epaminodes, both bulk carriers under flags of convenience. Brent crude touched $126 a barrel mid-week and closed Thursday at $114.</p>
+    <p>The United States seized the Iranian-flagged Touska on 19 April after firing on its engine room. Iran retaliated by taking the MSC-Francesca and the Epaminodes. Brent touched $126 mid-week and closed Thursday at $114. About a fifth of the world's oil moves through twenty-one nautical miles of water at the strait's narrowest. Saudi-American mediation has prevented every escalation here since the 1980s. This is the first quarter in forty years where it has not held. Ali Khamenei was assassinated on 28 February.</p>
 
-    <p>About a fifth of the world's oil moves through twenty-one nautical miles of water at the strait's narrowest. Saudi-American mediation has prevented every escalation here since the 1980s. This is the first quarter in over forty years where mediation has not held. Ali Khamenei was assassinated on the twenty-eighth of February. There is no obvious path back to the table.</p>
-
-    <p>Three readings. The Brent close on the next Friday, which is the cleanest weekly read on whether the strait is open or shut. The number of vessels intercepted by U.S. Central Command, currently 45 since the thirteenth of April. And the next signal from the IAEA on Iranian uranium enrichment, due in the second week of May.</p>
-
-    <p>This chapter is upstream of food, of inflation expectations, of consumer mood, and of most of governance. Every other chapter has a paragraph in it that begins with the word "after". Watch the world's oil insurance premium, the Lloyd's war risk index for the Persian Gulf. It moved from 0.05 per cent of hull value to 0.45 per cent in the first week of the blockade.</p>
+    <p>Three readings. The Brent close on the next Friday, the cleanest weekly read on whether the strait is open or shut. The number of vessels intercepted by U.S. Central Command, currently 45 since 13 April. And the next IAEA signal on Iranian uranium enrichment, due the second week of May. The world's oil insurance premium, the Lloyd's war risk index for the Persian Gulf, moved from 0.05 to 0.45 per cent of hull value in the first week of the blockade.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-geopolitics-measures-label">
       <p class="measures-label" id="ch-geopolitics-measures-label">Three measures from this chapter</p>
@@ -1441,15 +1853,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-governance" aria-labelledby="ch-governance-title">
   <p class="chapter-eyebrow">Chapter VII · Governance and trust · Thursday</p>
   <h2 class="chapter-title" id="ch-governance-title">Who is in charge of the answer?</h2>
+  <p class="chapter-takeaway">Trust in government has fallen sixteen points in five years across twenty-eight countries.</p>
 
   <div class="chapter-body">
-    <p>Trust in national government leaders is down sixteen points across five years in the twenty-eight countries the Edelman Trust Barometer covers. Trust in major news organisations is down eleven. The places people now turn first when they want a real answer are their family, their neighbours, their coworkers, and (oddly) the chief executive of the company they happen to work for.</p>
+    <p>Trust in national government leaders is down sixteen points across five years in the twenty-eight countries the Edelman Trust Barometer covers. Trust in major news organisations is down eleven. The places people now turn first for a real answer are their family, their neighbours, their coworkers, and the chief executive of the company they happen to work for. Sixty-five per cent worry that foreign actors are deliberately injecting falsehoods into national news to widen domestic divisions.</p>
 
-    <p>Sixty-five per cent of those surveyed worry that foreign actors are deliberately injecting falsehoods into national news to widen domestic divisions. Half a generation ago, this would have read as a paranoid sentence. The election interference investigations from 2016 onwards, the Cambridge Analytica disclosures, and the falling cost of synthetic media have made it sober.</p>
-
-    <p>Three things to watch. The vote on the European Union's revised AI Act content provisions, scheduled for the third week of May. Whether the BBC's Newsnight returns to four nights a week or stays at three after the next budget review in June. And whether next month's UK local-election turnout drops below the 2024 floor of 33 per cent.</p>
-
-    <p>This is the rope ladder that connects the others. Without trust there is no policy, no prediction market, no shared reality on which markets, mortgages, vaccines, or elections depend. The Hormuz crisis above arrived in countries that had a sixteen-point trust deficit waiting for it. The 49.8 mood number was always going to be 49.8.</p>
+    <p>Three things to watch. The vote on the European Union's revised AI Act content provisions, third week of May. Whether the BBC's Newsnight returns to four nights a week or stays at three after the June budget review. And whether next month's UK local-election turnout drops below the 2024 floor of 33 per cent. Without trust there is no policy, no shared reality, no public out of which a response could form. The 49.8 mood number was always going to be 49.8.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-governance-measures-label">
       <p class="measures-label" id="ch-governance-measures-label">Three measures from this chapter</p>
@@ -1468,15 +1877,12 @@ body > *{position:relative;z-index:2}
 <section class="chapter" id="ch-outcomes" aria-labelledby="ch-outcomes-title">
   <p class="chapter-eyebrow">Chapter VIII · Human outcomes · Thursday</p>
   <h2 class="chapter-title" id="ch-outcomes-title">What does this all add up to?</h2>
+  <p class="chapter-takeaway">The mood index returned a 49.8. The series has not been below that since 1978.</p>
 
   <div class="chapter-body">
-    <p>The University of Michigan consumer sentiment index returned 49.8 for April. The series goes back to 1978. No reading that low has come in going into a recession since. Year-ahead inflation expectations rose to 4.7 per cent, the largest one-month jump since April of last year.</p>
+    <p>The University of Michigan consumer sentiment index returned 49.8 for April. The series goes back to 1978. No reading that low has come in going into a recession since. Year-ahead inflation expectations rose to 4.7 per cent, the largest one-month jump since April 2025. 122 million people are forcibly displaced worldwide, the most ever recorded. UNHCR projects 136 million by year-end. Sudan alone accounts for 14.3 million, three and a half million more than a year ago.</p>
 
-    <p>122 million people are forcibly displaced worldwide as of April, the most ever recorded. UNHCR projects 136 million by the end of the year. Sudan alone accounts for 14.3 million, three and a half million more than a year ago. Iran's number, almost untracked before this year, is now expected to top the global resettlement need.</p>
-
-    <p>Two things to watch. The April real earnings release on the twelfth, which will say whether 3.5 per cent nominal wage growth survives 4.7 per cent inflation expectations (it does not, on paper). And the May U-Mich preliminary on the sixteenth. A 49.8 was historic. A second 49.8 would be a pattern.</p>
-
-    <p>This is the issue's bottom line. Mood, displacement, expectations. They are the things people actually live in. The strait, the layoff letter, the mortgage, the waiting list, the trust survey, the food index, the news collapse: all upstream. Watch the supermarket basket marked own-brand. That is the next number.</p>
+    <p>Two things to watch. The April real earnings release on the twelfth, which will say whether 3.5 per cent nominal wage growth survives 4.7 per cent inflation expectations (it does not, on paper). And the May U-Mich preliminary on the sixteenth. A 49.8 was historic. A second 49.8 would be a pattern. The strait, the letter, the mortgage, the queue, the survey, the food index: all upstream of these numbers. The next reading begins on Monday.</p>
 
     <div class="chapter-measures" aria-labelledby="ch-outcomes-measures-label">
       <p class="measures-label" id="ch-outcomes-measures-label">Two measures from this chapter</p>
@@ -1699,40 +2105,70 @@ const DATA = {
     { id: 'outcomes',    number: 8, title: 'Human outcomes',                 day: 'Thu', published: true },
   ],
   // value: 0-100 contribution to severity (100 = at midnight)
+  // prevValue: Issue 03 reading (indicative; first full delta cycle)
   // outcome: terminal measure (a thing lived) vs. signal/structural
   // seeded: contributes to the Issue 04 Clock composite
+  // sourceUrl: clickable link to the original release page
   measures: [
     // Work and wages
-    { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',          value:88, reading:'17,000', unit:'in 24 hours',     source:'Industry layoff tracker',     readingPeriod:'23 Apr',         seeded:true,  outcome:false },
-    { id:'ai-displacement',  chapterId:'work',        label:'AI task displacement',   value:70, reading:'~8%',    unit:'of pre-2023 work',source:'Anthropic Economic Index',    readingPeriod:'April',          seeded:true,  outcome:false },
-    { id:'real-wage-growth', chapterId:'work',        label:'U.S. real wages',        value:55, reading:'+0.3%',  unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'March final',    seeded:true,  outcome:false },
+    { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',          value:88, prevValue:75, prevReading:'~5,000', deltaText:'+12k vs week ago', reading:'17,000', unit:'in 24 hours',     source:'Industry layoff tracker',     sourceUrl:'https://layoffs.fyi',                                     readingPeriod:'23 Apr',         seeded:true,  outcome:false },
+    { id:'ai-displacement',  chapterId:'work',        label:'AI task displacement',   value:70, prevValue:65, prevReading:'~7%',    deltaText:'+1 pt',            reading:'~8%',    unit:'of pre-2023 work',source:'Anthropic Economic Index',    sourceUrl:'https://www.anthropic.com/economic-index',                readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'real-wage-growth', chapterId:'work',        label:'U.S. real wages',        value:55, prevValue:60, prevReading:'+0.5%',  deltaText:'−0.2 pp',          reading:'+0.3%',  unit:'year-over-year',  source:'Bureau of Labor Statistics',  sourceUrl:'https://www.bls.gov/news.release/realer.htm',             readingPeriod:'March final',    seeded:true,  outcome:false },
     // Housing and the cost of living
-    { id:'mortgage-rate',    chapterId:'housing',     label:'UK 5-year fixed',        value:78, reading:'5.75%',  unit:'mortgage rate',   source:'Bank of England average',     readingPeriod:'April',          seeded:true,  outcome:false },
-    { id:'price-to-income',  chapterId:'housing',     label:'London affordability',   value:88, reading:'12x',    unit:'price-to-salary', source:'ONS housing affordability',   readingPeriod:'Latest quarter', seeded:true,  outcome:false },
-    { id:'rent-yoy',         chapterId:'housing',     label:'U.S. median rent',       value:60, reading:'+7%',    unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'April release',  seeded:true,  outcome:false },
+    { id:'mortgage-rate',    chapterId:'housing',     label:'UK 5-year fixed',        value:78, prevValue:72, prevReading:'5.30%',  deltaText:'+45 bps',          reading:'5.75%',  unit:'mortgage rate',   source:'Bank of England average',     sourceUrl:'https://www.bankofengland.co.uk/monetary-policy',         readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'price-to-income',  chapterId:'housing',     label:'London affordability',   value:88, prevValue:85, prevReading:'11.6x',  deltaText:'+0.4x',            reading:'12x',    unit:'price-to-salary', source:'ONS housing affordability',   sourceUrl:'https://www.ons.gov.uk/peoplepopulationandcommunity/housing/bulletins/housingaffordabilityinenglandandwales/2025', readingPeriod:'Latest quarter', seeded:true,  outcome:false },
+    { id:'rent-yoy',         chapterId:'housing',     label:'U.S. median rent',       value:60, prevValue:60, prevReading:'+7%',    deltaText:'unchanged',         reading:'+7%',    unit:'year-over-year',  source:'Bureau of Labor Statistics',  sourceUrl:'https://www.bls.gov/cpi/',                                readingPeriod:'April release',  seeded:true,  outcome:false },
     // Health and care
-    { id:'life-expectancy',  chapterId:'health',      label:'UK life expectancy',     value:70, reading:'79.1',   unit:'male, years',     source:'Office for National Stats',   readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
-    { id:'healthy-life',     chapterId:'health',      label:'UK healthy life',        value:80, reading:'60.7',   unit:'male, years',     source:'ONS healthy life expectancy', readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
-    { id:'nhs-waiting-list', chapterId:'health',      label:'NHS England queue',      value:82, reading:'7.31m',  unit:'cases waiting',   source:'NHS England RTT',             readingPeriod:'May release',    seeded:true,  outcome:false },
+    { id:'life-expectancy',  chapterId:'health',      label:'UK life expectancy',     value:70, prevValue:70, prevReading:'79.1',   deltaText:'unchanged',         reading:'79.1',   unit:'male, years',     source:'Office for National Stats',   sourceUrl:'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies', readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
+    { id:'healthy-life',     chapterId:'health',      label:'UK healthy life',        value:80, prevValue:80, prevReading:'60.7',   deltaText:'unchanged',         reading:'60.7',   unit:'male, years',     source:'ONS healthy life expectancy', sourceUrl:'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandlifeexpectancies', readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
+    { id:'nhs-waiting-list', chapterId:'health',      label:'NHS England queue',      value:82, prevValue:84, prevReading:'7.36m',  deltaText:'−50k cases',        reading:'7.31m',  unit:'cases waiting',   source:'NHS England RTT',             sourceUrl:'https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/', readingPeriod:'May release',    seeded:true,  outcome:false },
     // Society and belonging
-    { id:'trust-different',  chapterId:'society',     label:'Cross-values trust',     value:78, reading:'30%',    unit:'willing to trust',source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
-    { id:'cross-news',       chapterId:'society',     label:'Cross-political news',   value:80, reading:'39%',    unit:'weekly readers',  source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
-    { id:'income-trust-gap', chapterId:'society',     label:'U.S. income trust gap',  value:75, reading:'29 pts', unit:'high vs low',     source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'trust-different',  chapterId:'society',     label:'Cross-values trust',     value:78, prevValue:76, prevReading:'31%',    deltaText:'−1 pt',             reading:'30%',    unit:'willing to trust',source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'cross-news',       chapterId:'society',     label:'Cross-political news',   value:80, prevValue:78, prevReading:'40%',    deltaText:'−1 pt',             reading:'39%',    unit:'weekly readers',  source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'income-trust-gap', chapterId:'society',     label:'U.S. income trust gap',  value:75, prevValue:75, prevReading:'29 pts', deltaText:'unchanged',         reading:'29 pts', unit:'high vs low',     source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
     // Environment, food, supply
-    { id:'food-price-index', chapterId:'environment', label:'FAO food price',         value:70, reading:'128.5',  unit:'index',           source:'UN Food & Agriculture Org',   readingPeriod:'March',          seeded:true,  outcome:false },
-    { id:'supply-stress',    chapterId:'environment', label:'Hormuz shipping',        value:88, reading:'45',     unit:'ships diverted',  source:'U.S. Central Command',        readingPeriod:'Since 13 Apr',   seeded:true,  outcome:false },
-    { id:'climate-anomaly',  chapterId:'environment', label:'Global temperature',     value:80, reading:'+1.4°C', unit:'vs. 1951–80', source:'NASA GISTEMP',          readingPeriod:'March',          seeded:true,  outcome:false },
+    { id:'food-price-index', chapterId:'environment', label:'FAO food price',         value:70, prevValue:65, prevReading:'126.0',  deltaText:'+2.5 pts',          reading:'128.5',  unit:'index',           source:'UN Food & Agriculture Org',   sourceUrl:'https://www.fao.org/worldfoodsituation/foodpricesindex/',  readingPeriod:'March',          seeded:true,  outcome:false },
+    { id:'supply-stress',    chapterId:'environment', label:'Hormuz shipping',        value:88, prevValue:70, prevReading:'18',     deltaText:'+27 ships',         reading:'45',     unit:'ships diverted',  source:'U.S. Central Command',        sourceUrl:'https://www.centcom.mil/',                                readingPeriod:'Since 13 Apr',   seeded:true,  outcome:false },
+    { id:'climate-anomaly',  chapterId:'environment', label:'Global temperature',     value:80, prevValue:80, prevReading:'+1.4°C', deltaText:'unchanged',          reading:'+1.4°C', unit:'vs. 1951–80', source:'NASA GISTEMP',                  sourceUrl:'https://data.giss.nasa.gov/gistemp/',                     readingPeriod:'March',          seeded:true,  outcome:false },
     // Geopolitics and security
-    { id:'hormuz-strait',    chapterId:'geopolitics', label:'Hormuz strait',          value:95, reading:'Closed', unit:'since 28 Feb',    source:'U.S. Energy Info Admin',      readingPeriod:'Live',           seeded:true,  outcome:false },
-    { id:'geopolitical-risk',chapterId:'geopolitics', label:'Geopolitical risk',      value:90, reading:'High',   unit:'GPR composite',   source:'Caldara & Iacoviello GPR',    readingPeriod:'April',          seeded:true,  outcome:false },
-    { id:'brent-crude',      chapterId:'geopolitics', label:'Brent crude',            value:80, reading:'$114',   unit:'per barrel',      source:'ICE Futures',                 readingPeriod:'30 Apr close',   seeded:true,  outcome:false },
+    { id:'hormuz-strait',    chapterId:'geopolitics', label:'Hormuz strait',          value:95, prevValue:88, prevReading:'Tense',  deltaText:'+7',                reading:'Closed', unit:'since 28 Feb',    source:'U.S. Energy Info Admin',      sourceUrl:'https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints', readingPeriod:'Live',           seeded:true,  outcome:false },
+    { id:'geopolitical-risk',chapterId:'geopolitics', label:'Geopolitical risk',      value:90, prevValue:85, prevReading:'High',   deltaText:'+5',                reading:'High',   unit:'GPR composite',   source:'Caldara & Iacoviello GPR',    sourceUrl:'https://www.matteoiacoviello.com/gpr.htm',                readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'brent-crude',      chapterId:'geopolitics', label:'Brent crude',            value:80, prevValue:65, prevReading:'$92',    deltaText:'+$22',              reading:'$114',   unit:'per barrel',      source:'ICE Futures',                 sourceUrl:'https://www.theice.com/products/219/Brent-Crude-Futures', readingPeriod:'30 Apr close',   seeded:true,  outcome:false },
     // Governance and trust
-    { id:'govt-trust',       chapterId:'governance',  label:'Government trust',       value:80, reading:'−16 pts', unit:'5-year change', source:'Edelman Trust Barometer', readingPeriod:'2026 wave',      seeded:true,  outcome:false },
-    { id:'foreign-fear',     chapterId:'governance',  label:'Foreign-falsehood fear', value:75, reading:'65%',    unit:'agree concerned', source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
-    { id:'news-trust',       chapterId:'governance',  label:'News-org trust',         value:78, reading:'−11 pts', unit:'5-year change', source:'Edelman Trust Barometer', readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'govt-trust',       chapterId:'governance',  label:'Government trust',       value:80, prevValue:80, prevReading:'−16 pts', deltaText:'unchanged',         reading:'−16 pts', unit:'5-year change', source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'foreign-fear',     chapterId:'governance',  label:'Foreign-falsehood fear', value:75, prevValue:75, prevReading:'65%',    deltaText:'unchanged',         reading:'65%',    unit:'agree concerned', source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'news-trust',       chapterId:'governance',  label:'News-org trust',         value:78, prevValue:78, prevReading:'−11 pts', deltaText:'unchanged',         reading:'−11 pts', unit:'5-year change', source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
     // Human outcomes
-    { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',     value:92, reading:'49.8',   unit:'index',           source:'University of Michigan',      readingPeriod:'April final',    seeded:true,  outcome:true  },
-    { id:'displacement',     chapterId:'outcomes',    label:'Forcibly displaced',     value:80, reading:'122m',   unit:'people, global',  source:'UNHCR',                       readingPeriod:'April',          seeded:true,  outcome:true  },
+    { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',     value:92, prevValue:86, prevReading:'53.3',   deltaText:'−3.5 pts',          reading:'49.8',   unit:'index',           source:'University of Michigan',      sourceUrl:'https://data.sca.isr.umich.edu/',                         readingPeriod:'April final',    seeded:true,  outcome:true  },
+    { id:'displacement',     chapterId:'outcomes',    label:'Forcibly displaced',     value:80, prevValue:78, prevReading:'120m',   deltaText:'+2m',               reading:'122m',   unit:'people, global',  source:'UNHCR',                       sourceUrl:'https://www.unhcr.org/global-trends',                     readingPeriod:'April',          seeded:true,  outcome:true  },
+  ],
+  // Three closest historical resemblances for Issue 04. Picked for
+  // pattern, not outcome. Each notes what's similar and what's different.
+  anchors: [
+    {
+      year: 1979,
+      headline: 'Iranian Revolution and the second oil shock',
+      summary: 'The Shah fell in January, the Strait of Hormuz tightened through the spring. Brent went from $14 to $40 in a year. The UK\'s Winter of Discontent had ended weeks before. Consumer confidence sat at multi-decade lows.',
+      similar: 'Iran-driven oil shock. UK confidence at lowest in a generation. Strikes and political deadlock.',
+      different: 'Service economy did not yet exist. AI did not exist. Life expectancy was rising. The world was younger.',
+      stars: 4,
+    },
+    {
+      year: 1973,
+      headline: 'Yom Kippur War, OPEC embargo, three-day week',
+      summary: 'OPEC cut shipments in October. Oil quadrupled in twelve months. Britain went on a three-day week through the winter. Food prices rose double-digits across Europe.',
+      similar: 'Strategic chokepoint shock. UK industrial unrest. Food inflation across all commodities.',
+      different: 'Britain still had heavy industry. North Sea oil was just coming online. The Cold War was the geopolitical frame, not US-Iran.',
+      stars: 3,
+    },
+    {
+      year: 2008,
+      headline: 'Financial crisis and consumer mood at the bottom',
+      summary: 'Lehman fell in September, Michigan consumer sentiment hit 51.7 in November, the lowest reading since 1980. Mortgage stress led every household budget. The world\'s ten largest banks were either gone, nationalised, or staring at it.',
+      similar: 'Consumer mood at multi-decade low. Mortgage and household stress. Confidence collapse.',
+      different: 'Banks were the cause, not a side effect. Oil prices fell, did not rise. Inflation went negative. AI was not a phrase.',
+      stars: 3,
+    },
   ],
   // The strongest arrows for the cascade plate this week.
   // Each [from, to] is a measured-this-issue link from one node to another.
@@ -1898,6 +2334,11 @@ const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
   }
 })();
 
+// ----- Helpers -----
+const tierFor = v => v >= 80 ? 'high' : (v < 65 ? 'low' : 'mid');
+const deltaClass = (cur, prev) => cur > prev ? 'delta-up' : (cur < prev ? 'delta-down' : 'delta-flat');
+const deltaArrow = (cur, prev) => cur > prev ? '▲' : (cur < prev ? '▼' : '·');
+
 // ----- Chapter measures footer -----
 // Each chapter has an empty <ol data-chapter-measures="id">. Fill it
 // from DATA so the chapter automatically reflects measure updates.
@@ -1906,18 +2347,101 @@ const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
     const chapId = list.dataset.chapterMeasures;
     const items = measuresInChapter(chapId);
     if(!items.length) return;
-    list.innerHTML = items.map(m => (
-      '<li>' +
-        '<span class="measure-label">' + m.label + '</span>' +
-        '<span class="measure-reading">' + m.reading + '</span>' +
-        '<span class="measure-source">' + m.source + ' · ' + m.readingPeriod + '</span>' +
-      '</li>'
-    )).join('');
+    list.innerHTML = items.map(m => {
+      const dCls = deltaClass(m.value, m.prevValue);
+      const dArr = deltaArrow(m.value, m.prevValue);
+      const sourceHtml = m.sourceUrl
+        ? '<a href="' + m.sourceUrl + '" target="_blank" rel="noopener">' + m.source + '</a>'
+        : m.source;
+      return (
+        '<li>' +
+          '<span class="measure-label">' + m.label + '</span>' +
+          '<span class="measure-reading">' + m.reading +
+            '<span class="measure-delta ' + dCls + '">' + dArr + ' ' + m.deltaText + '</span>' +
+          '</span>' +
+          '<span class="measure-source">' + sourceHtml + ' · ' + m.readingPeriod + '</span>' +
+        '</li>'
+      );
+    }).join('');
   });
 })();
 
+// ----- At-a-glance grid -----
+(function(){
+  const grid = document.getElementById('glance-grid');
+  if(!grid) return;
+  grid.innerHTML = DATA.measures.map(m => {
+    const tier = tierFor(m.value);
+    const dCls = deltaClass(m.value, m.prevValue);
+    const dArr = deltaArrow(m.value, m.prevValue);
+    return (
+      '<a class="glance-cell tier-' + tier + '" href="#ch-' + m.chapterId + '" title="' + m.label + ' — ' + m.reading + '">' +
+        '<span class="cell-label">' + m.label + (m.outcome ? ' ◇' : '') + '</span>' +
+        '<span class="cell-reading">' + m.reading + '</span>' +
+        '<span class="cell-delta ' + dCls + '">' + dArr + ' ' + m.deltaText + '</span>' +
+      '</a>'
+    );
+  }).join('');
+})();
+
+// ----- Historical anchors -----
+(function(){
+  const grid = document.getElementById('anchors-grid');
+  if(!grid || !DATA.anchors) return;
+  grid.innerHTML = DATA.anchors.map(a => {
+    const stars = '★'.repeat(a.stars) + '☆'.repeat(5 - a.stars);
+    return (
+      '<article class="anchor-card">' +
+        '<p class="anchor-year">' + a.year + '</p>' +
+        '<h3 class="anchor-headline">' + a.headline + '</h3>' +
+        '<p class="anchor-summary">' + a.summary + '</p>' +
+        '<p class="anchor-similar"><strong>Similar</strong>' + a.similar + '</p>' +
+        '<p class="anchor-different"><strong>Different</strong>' + a.different + '</p>' +
+        '<div class="anchor-rating"><span class="anchor-stars">' + stars + '</span><span>' + a.stars + ' of 5 in resemblance</span></div>' +
+      '</article>'
+    );
+  }).join('');
+})();
+
+// ----- Sticky table of contents -----
+(function(){
+  const toc = document.getElementById('toc-nav');
+  const masthead = document.querySelector('.masthead');
+  if(!toc || !masthead) return;
+  let raf = 0;
+  function update(){
+    const past = window.scrollY > masthead.offsetTop + masthead.offsetHeight - 40;
+    toc.classList.toggle('is-visible', past);
+    raf = 0;
+  }
+  window.addEventListener('scroll', () => {
+    if(!raf) raf = requestAnimationFrame(update);
+  }, {passive:true});
+  update();
+})();
+
+// ----- Clock WoW delta line -----
+(function(){
+  const line = document.getElementById('clock-delta-line');
+  if(!line) return;
+  const seeded = seededMeasures();
+  const cur = Math.round(seeded.reduce((a, x) => a + x.value, 0) / seeded.length);
+  const prev = Math.round(seeded.reduce((a, x) => a + x.prevValue, 0) / seeded.length);
+  const diff = cur - prev;
+  if(diff === 0){
+    line.innerHTML = 'Unchanged from last Friday.';
+    return;
+  }
+  const curSec = Math.round((100 - cur) / 5 * 60);
+  const prevSec = Math.round((100 - prev) / 5 * 60);
+  const sec = Math.abs(curSec - prevSec);
+  const direction = diff > 0 ? 'closer to' : 'further from';
+  const cls = diff > 0 ? 'up' : 'down';
+  line.innerHTML = '<span class="' + cls + '">' + (diff > 0 ? '+' : '') + diff + ' on last Friday · ' + sec + ' seconds ' + direction + ' midnight</span>';
+})();
+
 // ----- The Standings (appendix table) -----
-// Sort all measures by severity (descending) and render as table.
+// Sort all measures by severity (descending) and render as table with WoW delta.
 (function(){
   const body = document.getElementById('standings-body');
   if(!body) return;
@@ -1925,12 +2449,12 @@ const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
   const sorted = [...DATA.measures].sort((a, b) => b.value - a.value);
   body.innerHTML = sorted.map((m, i) => {
     const ch = findChapter(m.chapterId);
-    let tier = 'mid';
-    if(m.value >= 80) tier = 'high';
-    else if(m.value < 65) tier = 'low';
+    const tier = tierFor(m.value);
+    const dCls = deltaClass(m.value, m.prevValue);
+    const dArr = deltaArrow(m.value, m.prevValue);
     return '<tr>' +
       '<td class="standings-rank">' + (i + 1) + '</td>' +
-      '<td>' + m.label + (m.outcome ? ' ◇' : '') + '</td>' +
+      '<td>' + m.label + (m.outcome ? ' ◇' : '') + '<br><span class="cell-delta ' + dCls + '">' + dArr + ' ' + m.deltaText + '</span></td>' +
       '<td><span class="standings-reading">' + m.reading + '</span></td>' +
       '<td class="standings-chapter">' + (ch ? ROMAN[ch.number] + '. ' + ch.title : '') + '</td>' +
       '<td class="right"><span class="severity-dot severity-' + tier + '" title="' + m.value + ' of 100"></span></td>' +
