@@ -396,13 +396,14 @@ a:hover{color:var(--vermilion)}
   margin-bottom:1.5rem;
 }
 .chapter-body p:first-of-type::first-letter{
-  font-family:var(--illuminated);
-  font-weight:400;
-  font-size:4.4em;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:5em;
   float:left;
   line-height:.85;
-  margin:.05em .12em -.08em 0;
+  margin:.04em .08em -.06em 0;
   color:var(--vermilion);
+  font-variation-settings:"opsz" 144;
 }
 .chapter-measures{
   margin-top:3.5rem;
@@ -815,8 +816,8 @@ body > *{position:relative;z-index:2}
 <section class="vigil" aria-label="Opening">
   <p class="vigil-stamp">CASCADE · ISSUE 04 · 2 MAY 2026</p>
   <p class="vigil-line">
-    Life expectancy in the United Kingdom did not rise this year.
-    <br>The last time it didn't, the year was 1923.
+    Life expectancy in the United Kingdom has not risen since 2019.
+    <br>That has not been true for over a century.
   </p>
   <p class="vigil-foot">· take a breath ·</p>
 </section>
@@ -837,7 +838,7 @@ body > *{position:relative;z-index:2}
 <section class="lede column">
   <h1>The week the strait narrowed, the layoff letter went out, and the mood index broke a record set in 1952.</h1>
   <p>
-    Big Tech laid off about <span class="anchor" data-marginal="m-layoffs"><span class="num">20,000</span></span> people in twenty-four hours this week. The letters named the cause. Brent crude jumped <span class="anchor" data-marginal="m-brent"><span class="num">16%</span></span> after the United States and Iran began seizing each other's tankers in the Persian Gulf. The University of Michigan's monthly survey of how Americans feel about the economy returned a <span class="anchor" data-marginal="m-mich"><span class="num">49.8</span></span>. The survey started in 1946. No reading has come in that low going into a recession since.
+    Meta and Microsoft together laid off about <span class="anchor" data-marginal="m-layoffs"><span class="num">17,000</span></span> people on the twenty-third of April, in the same morning. The letters named artificial intelligence as the cause. Brent crude jumped <span class="anchor" data-marginal="m-brent"><span class="num">16%</span></span> across the same week, then touched <span class="num">$126</span>, after the United States and Iran began seizing each other's tankers in the Persian Gulf. The University of Michigan's monthly survey of how Americans feel about the economy returned a <span class="anchor" data-marginal="m-mich"><span class="num">49.8</span></span>. No reading has come in that low going into a recession since the survey began.
   </p>
   <p>
     None of these caused the others. They share wiring. This issue walks slowly through twenty-three of the world's systems, in order, with sources. By the end you should see the shape of the week, not the panic of it.
@@ -937,11 +938,160 @@ body > *{position:relative;z-index:2}
   <span class="ornament-rule"></span>
 </div>
 
-<!-- VI. COMING SOON STRIP (temporary, for week-of-rebuild) -->
-<section class="coming">
-  <p class="coming-label">Issue 04 · Building this week</p>
-  <h3>This is the new Cascade. The chapters land in order over the next few days.</h3>
-  <ol class="coming-list" id="coming-list" aria-label="Contents arriving in this issue"></ol>
+<!-- VII. CHAPTER III — HEALTH AND CARE -->
+<section class="chapter" id="ch-health" aria-labelledby="ch-health-title">
+  <p class="chapter-eyebrow">Chapter III · Health and care · Tuesday</p>
+  <h2 class="chapter-title" id="ch-health-title">Are we waiting too long?</h2>
+
+  <div class="chapter-body">
+    <p>The Office for National Statistics released this year's life-expectancy figures. Men in the United Kingdom are 79.1 years, women are 83.0. Both numbers are at or just below where they were in 2019. The same release showed healthy life expectancy down by seven months, the lowest level since 2013. The long curve has stopped curving.</p>
+
+    <p>For most of the twentieth century, every five years bought us roughly a year of extra life. The post-war NHS, vaccines, water, less smoking. The line went one way. From 2014 it stalled. From 2020 it bent. The current healthy-years number is now below the state pension age of 66 in over nine in ten local authorities.</p>
+
+    <p>Two readings to keep in front of you. The NHS England elective waiting list, 7.31 million cases this week. It peaked at 7.78 million in September 2024 and has come down by less than half a million in eighteen months. And the next mortality release, due in late May, which will say whether 2024-2025 is a recovery year or another flat one.</p>
+
+    <p>Health is the slowest signal in the issue. The mood number you read at the top, 49.8, is partly that we know we are waiting. Long care queues do not just hurt the people on them. They show up in the trackers that ask whether the country is going in the right direction. The current answer to that question, in the latest UK polling, is the lowest in five years.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-health-measures-label">
+      <p class="measures-label" id="ch-health-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="health" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- VIII. CHAPTER IV — SOCIETY AND BELONGING -->
+<section class="chapter" id="ch-society" aria-labelledby="ch-society-title">
+  <p class="chapter-eyebrow">Chapter IV · Society and belonging · Tuesday</p>
+  <h2 class="chapter-title" id="ch-society-title">Who are you willing to disagree with?</h2>
+
+  <div class="chapter-body">
+    <p>The 2026 Edelman Trust Barometer, in the field this winter, asked thirty-seven thousand people whether they would trust someone who held different values. Seven in ten said no, or hesitated. Only thirty-nine per cent said they read or watched a news source from a different political leaning each week, six points down on a year ago.</p>
+
+    <p>We used to share more weather. The local paper, the church newsletter, the radio breakfast show, the doctor's waiting room television. Five years ago, the trust gap between high-income and low-income respondents in the United States was six points. This year it is twenty-nine. We have been arranging ourselves into rooms where the volume of agreement is louder than the truth.</p>
+
+    <p>Three things to watch. Whether the rate of local-newsroom closures slows in 2026 (it did not in 2025). Whether public-library funding holds in the next round of council settlements. And whether the cross-cutting friendships figure, which the Pew Research Center reports each summer, comes back below the 26% it sat at last August.</p>
+
+    <p>This is the chapter that other chapters quietly need. A society that cannot disagree about housing cannot organise about housing. The decline in trust feeds the decline in collective action, which feeds the decline in the kind of politics that builds anything. The strait at the top of the issue arrived in countries that had a sixteen-point trust deficit waiting for it.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-society-measures-label">
+      <p class="measures-label" id="ch-society-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="society" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IX. CHAPTER V — ENVIRONMENT, FOOD, SUPPLY -->
+<section class="chapter" id="ch-environment" aria-labelledby="ch-environment-title">
+  <p class="chapter-eyebrow">Chapter V · Environment, food, supply · Wednesday</p>
+  <h2 class="chapter-title" id="ch-environment-title">Who pays for the next bushel?</h2>
+
+  <div class="chapter-body">
+    <p>The FAO Food Price Index sat at 128.5 in March 2026, a second consecutive monthly rise. The April reading is due on the ninth of May and is likely higher: cereals and oils have all moved up since the Hormuz blockade tightened. A litre of diesel in Rotterdam is up about eleven per cent week-on-week. Forty-five commercial ships have been turned back from the Strait this month.</p>
+
+    <p>Cereal prices are mostly weather and partly war, in that order. Vegetable oil prices are mostly oil and partly soybean. Sugar is sugar. What is unusual now is that all five of the FAO's component indices are rising at once. The last time that happened was 2022, the year after the Russian invasion of Ukraine. The time before that was 2007, the year of the food riots.</p>
+
+    <p>Three things to watch. The April FAO release on the ninth. The Russian wheat export number for April, due in the second week of May. And whether the Geneva talks holding the strait partly open survive the next round, scheduled for the thirteenth.</p>
+
+    <p>Food is the chapter the others cannot afford to ignore. American real-wage growth of 0.3 per cent does not survive food inflation in the high single digits. The basket marked own-brand is the canary. The next time a supermarket reports its quarter, watch for which line of the basket has migrated where.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-environment-measures-label">
+      <p class="measures-label" id="ch-environment-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="environment" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- X. CHAPTER VI — GEOPOLITICS AND SECURITY -->
+<section class="chapter" id="ch-geopolitics" aria-labelledby="ch-geopolitics-title">
+  <p class="chapter-eyebrow">Chapter VI · Geopolitics and security · Wednesday</p>
+  <h2 class="chapter-title" id="ch-geopolitics-title">How long is a strait?</h2>
+
+  <div class="chapter-body">
+    <p>The Strait of Hormuz has been substantially closed since the twenty-eighth of February. The United States seized the Iranian-flagged Touska on the nineteenth of April after firing on its engine room. Iran retaliated by seizing the MSC-Francesca and the Epaminodes, both bulk carriers under flags of convenience. Brent crude touched $126 a barrel mid-week and closed Thursday at $114.</p>
+
+    <p>About a fifth of the world's oil moves through twenty-one nautical miles of water at the strait's narrowest. Saudi-American mediation has prevented every escalation here since the 1980s. This is the first quarter in over forty years where mediation has not held. Ali Khamenei was assassinated on the twenty-eighth of February. There is no obvious path back to the table.</p>
+
+    <p>Three readings. The Brent close on the next Friday, which is the cleanest weekly read on whether the strait is open or shut. The number of vessels intercepted by U.S. Central Command, currently 45 since the thirteenth of April. And the next signal from the IAEA on Iranian uranium enrichment, due in the second week of May.</p>
+
+    <p>This chapter is upstream of food, of inflation expectations, of consumer mood, and of most of governance. Every other chapter has a paragraph in it that begins with the word "after". Watch the world's oil insurance premium, the Lloyd's war risk index for the Persian Gulf. It moved from 0.05 per cent of hull value to 0.45 per cent in the first week of the blockade.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-geopolitics-measures-label">
+      <p class="measures-label" id="ch-geopolitics-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="geopolitics" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XI. CHAPTER VII — GOVERNANCE AND TRUST -->
+<section class="chapter" id="ch-governance" aria-labelledby="ch-governance-title">
+  <p class="chapter-eyebrow">Chapter VII · Governance and trust · Thursday</p>
+  <h2 class="chapter-title" id="ch-governance-title">Who is in charge of the answer?</h2>
+
+  <div class="chapter-body">
+    <p>Trust in national government leaders is down sixteen points across five years in the twenty-eight countries the Edelman Trust Barometer covers. Trust in major news organisations is down eleven. The places people now turn first when they want a real answer are their family, their neighbours, their coworkers, and (oddly) the chief executive of the company they happen to work for.</p>
+
+    <p>Sixty-five per cent of those surveyed worry that foreign actors are deliberately injecting falsehoods into national news to widen domestic divisions. Half a generation ago, this would have read as a paranoid sentence. The election interference investigations from 2016 onwards, the Cambridge Analytica disclosures, and the falling cost of synthetic media have made it sober.</p>
+
+    <p>Three things to watch. The vote on the European Union's revised AI Act content provisions, scheduled for the third week of May. Whether the BBC's Newsnight returns to four nights a week or stays at three after the next budget review in June. And whether next month's UK local-election turnout drops below the 2024 floor of 33 per cent.</p>
+
+    <p>This is the rope ladder that connects the others. Without trust there is no policy, no prediction market, no shared reality on which markets, mortgages, vaccines, or elections depend. The Hormuz crisis above arrived in countries that had a sixteen-point trust deficit waiting for it. The 49.8 mood number was always going to be 49.8.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-governance-measures-label">
+      <p class="measures-label" id="ch-governance-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="governance" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XII. CHAPTER VIII — HUMAN OUTCOMES -->
+<section class="chapter" id="ch-outcomes" aria-labelledby="ch-outcomes-title">
+  <p class="chapter-eyebrow">Chapter VIII · Human outcomes · Thursday</p>
+  <h2 class="chapter-title" id="ch-outcomes-title">What does this all add up to?</h2>
+
+  <div class="chapter-body">
+    <p>The University of Michigan consumer sentiment index returned 49.8 for April. The series goes back to 1978. No reading that low has come in going into a recession since. Year-ahead inflation expectations rose to 4.7 per cent, the largest one-month jump since April of last year.</p>
+
+    <p>122 million people are forcibly displaced worldwide as of April, the most ever recorded. UNHCR projects 136 million by the end of the year. Sudan alone accounts for 14.3 million, three and a half million more than a year ago. Iran's number, almost untracked before this year, is now expected to top the global resettlement need.</p>
+
+    <p>Two things to watch. The April real earnings release on the twelfth, which will say whether 3.5 per cent nominal wage growth survives 4.7 per cent inflation expectations (it does not, on paper). And the May U-Mich preliminary on the sixteenth. A 49.8 was historic. A second 49.8 would be a pattern.</p>
+
+    <p>This is the issue's bottom line. Mood, displacement, expectations. They are the things people actually live in. The strait, the layoff letter, the mortgage, the waiting list, the trust survey, the food index, the news collapse: all upstream. Watch the supermarket basket marked own-brand. That is the next number.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-outcomes-measures-label">
+      <p class="measures-label" id="ch-outcomes-measures-label">Two measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="outcomes" aria-live="polite"></ol>
+    </div>
+  </div>
 </section>
 
 <div class="ornament" aria-hidden="true">
@@ -959,7 +1109,7 @@ body > *{position:relative;z-index:2}
     </svg>
   </p>
   <p>
-    Issue 04 of <em>Cascade</em> is in progress on cream paper. Twenty-three measures, sourced. The chapters are arriving in order.
+    Issue 04 of <em>Cascade</em>. Twenty-three measures, sourced. Cream paper, vermilion ink. The week of the strait, the letter, and the line that did not move.
   </p>
   <p class="next">Next issue · Friday 9 May 2026</p>
 </section>
@@ -987,29 +1137,72 @@ const DATA = {
     sun: { rise: '5:30', set: '20:32', city: 'London' },
   },
   chapters: [
-    { id: 'work',        number: 1, title: 'Work and wages',                day: 'Mon', published: true  },
-    { id: 'housing',     number: 2, title: 'Housing and the cost of living', day: 'Mon', published: true  },
-    { id: 'health',      number: 3, title: 'Health and care',                day: 'Tue', published: false },
-    { id: 'society',     number: 4, title: 'Society and belonging',          day: 'Tue', published: false },
-    { id: 'environment', number: 5, title: 'Environment, food, supply',      day: 'Wed', published: false },
-    { id: 'geopolitics', number: 6, title: 'Geopolitics and security',       day: 'Wed', published: false },
-    { id: 'governance',  number: 7, title: 'Governance and trust',           day: 'Thu', published: false },
-    { id: 'outcomes',    number: 8, title: 'Human outcomes',                 day: 'Thu', published: false },
+    { id: 'work',        number: 1, title: 'Work and wages',                day: 'Mon', published: true },
+    { id: 'housing',     number: 2, title: 'Housing and the cost of living', day: 'Mon', published: true },
+    { id: 'health',      number: 3, title: 'Health and care',                day: 'Tue', published: true },
+    { id: 'society',     number: 4, title: 'Society and belonging',          day: 'Tue', published: true },
+    { id: 'environment', number: 5, title: 'Environment, food, supply',      day: 'Wed', published: true },
+    { id: 'geopolitics', number: 6, title: 'Geopolitics and security',       day: 'Wed', published: true },
+    { id: 'governance',  number: 7, title: 'Governance and trust',           day: 'Thu', published: true },
+    { id: 'outcomes',    number: 8, title: 'Human outcomes',                 day: 'Thu', published: true },
   ],
   // value: 0-100 contribution to severity (100 = at midnight)
-  // seeded: included in the Issue 04 Clock composite (true) or arriving with a chapter (false)
+  // outcome: terminal measure (a thing lived) vs. signal/structural
+  // seeded: contributes to the Issue 04 Clock composite
   measures: [
-    { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',           value:85, reading:'20,000', unit:'24-hour total',   source:'Industry layoff tracker',     readingPeriod:'Week ending 25 Apr', seeded:true  },
-    { id:'ai-displacement',  chapterId:'work',        label:'AI displacement rate',    value:70, reading:'~8%',    unit:'pre-2023 tasks',  source:'Anthropic Economic Index',    readingPeriod:'April reading',      seeded:false },
-    { id:'wage-growth',      chapterId:'work',        label:'U.S. wage growth',        value:60, reading:'3.4%',   unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'March final',        seeded:false },
-    { id:'mortgage-rate',    chapterId:'housing',     label:'UK 5-year fixed',         value:78, reading:'5.2%',   unit:'mortgage rate',   source:'Bank of England',             readingPeriod:'Friday',             seeded:true  },
-    { id:'price-to-income',  chapterId:'housing',     label:'London affordability',    value:75, reading:'9.0x',   unit:'price-to-salary', source:'Office for National Stats',   readingPeriod:'Latest quarter',     seeded:false },
-    { id:'rent-yoy',         chapterId:'housing',     label:'U.S. median rent',        value:65, reading:'+7%',    unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'April release',      seeded:false },
-    { id:'oil-price',        chapterId:'environment', label:'Crude oil price',         value:68, reading:'+16%',   unit:'week-over-week',  source:'Oil futures market',          readingPeriod:'End of week',        seeded:true  },
-    { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',      value:90, reading:'49.8',   unit:'index',           source:'University of Michigan',      readingPeriod:'End of April',       seeded:true  },
-    { id:'life-expectancy',  chapterId:'health',      label:'Life expectancy (UK)',    value:65, reading:'81.4',   unit:'years at birth',  source:'Office for National Stats',   readingPeriod:'Latest annual',      seeded:true  },
-    { id:'hormuz-strait',    chapterId:'geopolitics', label:'Hormuz strait stress',    value:78, reading:'Active', unit:'tanker seizures', source:'U.S. Energy Info Admin',      readingPeriod:'Week of 28 Apr',     seeded:true  },
-    { id:'geopolitical-risk',chapterId:'geopolitics', label:'Geopolitical risk index', value:72, reading:'High',   unit:'GPR composite',   source:'Caldara & Iacoviello GPR',    readingPeriod:'April composite',    seeded:true  },
+    // Work and wages
+    { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',          value:88, reading:'17,000', unit:'in 24 hours',     source:'Industry layoff tracker',     readingPeriod:'23 Apr',         seeded:true,  outcome:false },
+    { id:'ai-displacement',  chapterId:'work',        label:'AI task displacement',   value:70, reading:'~8%',    unit:'of pre-2023 work',source:'Anthropic Economic Index',    readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'real-wage-growth', chapterId:'work',        label:'U.S. real wages',        value:55, reading:'+0.3%',  unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'March final',    seeded:true,  outcome:false },
+    // Housing and the cost of living
+    { id:'mortgage-rate',    chapterId:'housing',     label:'UK 5-year fixed',        value:78, reading:'5.75%',  unit:'mortgage rate',   source:'Bank of England average',     readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'price-to-income',  chapterId:'housing',     label:'London affordability',   value:88, reading:'12x',    unit:'price-to-salary', source:'ONS housing affordability',   readingPeriod:'Latest quarter', seeded:true,  outcome:false },
+    { id:'rent-yoy',         chapterId:'housing',     label:'U.S. median rent',       value:60, reading:'+7%',    unit:'year-over-year',  source:'Bureau of Labor Statistics',  readingPeriod:'April release',  seeded:true,  outcome:false },
+    // Health and care
+    { id:'life-expectancy',  chapterId:'health',      label:'UK life expectancy',     value:70, reading:'79.1',   unit:'male, years',     source:'Office for National Stats',   readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
+    { id:'healthy-life',     chapterId:'health',      label:'UK healthy life',        value:80, reading:'60.7',   unit:'male, years',     source:'ONS healthy life expectancy', readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
+    { id:'nhs-waiting-list', chapterId:'health',      label:'NHS England queue',      value:82, reading:'7.31m',  unit:'cases waiting',   source:'NHS England RTT',             readingPeriod:'May release',    seeded:true,  outcome:false },
+    // Society and belonging
+    { id:'trust-different',  chapterId:'society',     label:'Cross-values trust',     value:78, reading:'30%',    unit:'willing to trust',source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'cross-news',       chapterId:'society',     label:'Cross-political news',   value:80, reading:'39%',    unit:'weekly readers',  source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'income-trust-gap', chapterId:'society',     label:'U.S. income trust gap',  value:75, reading:'29 pts', unit:'high vs low',     source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    // Environment, food, supply
+    { id:'food-price-index', chapterId:'environment', label:'FAO food price',         value:70, reading:'128.5',  unit:'index',           source:'UN Food & Agriculture Org',   readingPeriod:'March',          seeded:true,  outcome:false },
+    { id:'supply-stress',    chapterId:'environment', label:'Hormuz shipping',        value:88, reading:'45',     unit:'ships diverted',  source:'U.S. Central Command',        readingPeriod:'Since 13 Apr',   seeded:true,  outcome:false },
+    { id:'climate-anomaly',  chapterId:'environment', label:'Global temperature',     value:80, reading:'+1.4°C', unit:'vs. 1951–80', source:'NASA GISTEMP',          readingPeriod:'March',          seeded:true,  outcome:false },
+    // Geopolitics and security
+    { id:'hormuz-strait',    chapterId:'geopolitics', label:'Hormuz strait',          value:95, reading:'Closed', unit:'since 28 Feb',    source:'U.S. Energy Info Admin',      readingPeriod:'Live',           seeded:true,  outcome:false },
+    { id:'geopolitical-risk',chapterId:'geopolitics', label:'Geopolitical risk',      value:90, reading:'High',   unit:'GPR composite',   source:'Caldara & Iacoviello GPR',    readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'brent-crude',      chapterId:'geopolitics', label:'Brent crude',            value:80, reading:'$114',   unit:'per barrel',      source:'ICE Futures',                 readingPeriod:'30 Apr close',   seeded:true,  outcome:false },
+    // Governance and trust
+    { id:'govt-trust',       chapterId:'governance',  label:'Government trust',       value:80, reading:'−16 pts', unit:'5-year change', source:'Edelman Trust Barometer', readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'foreign-fear',     chapterId:'governance',  label:'Foreign-falsehood fear', value:75, reading:'65%',    unit:'agree concerned', source:'Edelman Trust Barometer',     readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'news-trust',       chapterId:'governance',  label:'News-org trust',         value:78, reading:'−11 pts', unit:'5-year change', source:'Edelman Trust Barometer', readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    // Human outcomes
+    { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',     value:92, reading:'49.8',   unit:'index',           source:'University of Michigan',      readingPeriod:'April final',    seeded:true,  outcome:true  },
+    { id:'displacement',     chapterId:'outcomes',    label:'Forcibly displaced',     value:80, reading:'122m',   unit:'people, global',  source:'UNHCR',                       readingPeriod:'April',          seeded:true,  outcome:true  },
+  ],
+  // The strongest arrows for the cascade plate this week.
+  // Each [from, to] is a measured-this-issue link from one node to another.
+  edges: [
+    ['hormuz-strait','brent-crude'],
+    ['hormuz-strait','supply-stress'],
+    ['supply-stress','food-price-index'],
+    ['brent-crude','food-price-index'],
+    ['food-price-index','consumer-mood'],
+    ['tech-layoffs','consumer-mood'],
+    ['ai-displacement','tech-layoffs'],
+    ['mortgage-rate','consumer-mood'],
+    ['price-to-income','displacement'],
+    ['real-wage-growth','consumer-mood'],
+    ['nhs-waiting-list','govt-trust'],
+    ['govt-trust','consumer-mood'],
+    ['cross-news','trust-different'],
+    ['trust-different','govt-trust'],
+    ['climate-anomaly','food-price-index'],
+    ['geopolitical-risk','govt-trust'],
+    ['healthy-life','nhs-waiting-list'],
+    ['life-expectancy','consumer-mood'],
   ],
 };
 
