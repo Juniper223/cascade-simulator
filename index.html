@@ -149,12 +149,6 @@ a:hover{color:var(--vermilion)}
   color:var(--muted);
   margin-bottom:1.5rem;
 }
-.masthead-title-frame{
-  position:relative;
-  display:inline-block;
-  padding:0 3.5rem;
-  margin:0 auto 1.5rem;
-}
 .masthead-title{
   font-family:var(--display);
   font-weight:400;
@@ -163,30 +157,7 @@ a:hover{color:var(--vermilion)}
   line-height:1;
   letter-spacing:.01em;
   color:var(--ink);
-  margin:0;
-  position:relative;
-  z-index:1;
-}
-.masthead-title-flourish{
-  position:absolute;
-  top:50%;
-  width:3rem;
-  height:auto;
-  color:var(--vermilion);
-  opacity:.85;
-  pointer-events:none;
-}
-.masthead-title-flourish.left{
-  left:-1rem;
-  transform:translateY(-50%) scaleX(-1);
-}
-.masthead-title-flourish.right{
-  right:-1rem;
-  transform:translateY(-50%);
-}
-@media (max-width:560px){
-  .masthead-title-frame{padding:0 2.4rem}
-  .masthead-title-flourish{width:2.2rem}
+  margin:0 0 1.5rem;
 }
 .masthead-issue{
   font-family:var(--serif);
@@ -769,11 +740,7 @@ body > *{position:relative;z-index:2}
   /* Masthead */
   .masthead{padding:4rem 22px 3rem}
   .masthead-kicker{font-size:.62rem;letter-spacing:.16em;margin-bottom:1.25rem;line-height:1.5}
-  .masthead-title-frame{padding:0 2.6rem;margin-bottom:1.25rem}
-  .masthead-title{font-size:clamp(3rem,14vw,4.4rem)}
-  .masthead-title-flourish{width:2rem}
-  .masthead-title-flourish.left{left:-.5rem}
-  .masthead-title-flourish.right{right:-.5rem}
+  .masthead-title{font-size:clamp(3rem,14vw,4.4rem);margin-bottom:1.25rem}
   .masthead-issue{font-size:1.08rem;margin-bottom:.6rem}
   .masthead-date{font-size:.66rem}
   .masthead-almanac{font-size:.6rem;letter-spacing:.12em;line-height:1.7}
@@ -848,8 +815,8 @@ body > *{position:relative;z-index:2}
 <section class="vigil" aria-label="Opening">
   <p class="vigil-stamp">CASCADE · ISSUE 04 · 2 MAY 2026</p>
   <p class="vigil-line">
-    This week, life expectancy in the United Kingdom held still.
-    <br>It has not held still in over a century.
+    Life expectancy in the United Kingdom did not rise this year.
+    <br>The last time it didn't, the year was 1923.
   </p>
   <p class="vigil-foot">· take a breath ·</p>
 </section>
@@ -857,23 +824,7 @@ body > *{position:relative;z-index:2}
 <!-- II. MASTHEAD -->
 <header class="masthead">
   <p class="masthead-kicker">A weekly almanac · Sourced sentence by sentence</p>
-  <div class="masthead-title-frame">
-    <svg class="masthead-title-flourish left" viewBox="0 0 60 80" aria-hidden="true">
-      <path d="M58 40 Q40 40 30 28 Q22 18 16 22 Q12 24 14 30 Q16 36 24 36 Q14 38 10 30 Q6 22 14 14 Q22 8 30 14 Q34 17 36 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <path d="M58 40 Q40 40 30 52 Q22 62 16 58 Q12 56 14 50 Q16 44 24 44 Q14 42 10 50 Q6 58 14 66 Q22 72 30 66 Q34 63 36 58" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <circle cx="14" cy="22" r="1.6" fill="currentColor"/>
-      <circle cx="14" cy="58" r="1.6" fill="currentColor"/>
-      <circle cx="40" cy="40" r="1.2" fill="currentColor"/>
-    </svg>
-    <h1 class="masthead-title">Cascade</h1>
-    <svg class="masthead-title-flourish right" viewBox="0 0 60 80" aria-hidden="true">
-      <path d="M58 40 Q40 40 30 28 Q22 18 16 22 Q12 24 14 30 Q16 36 24 36 Q14 38 10 30 Q6 22 14 14 Q22 8 30 14 Q34 17 36 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <path d="M58 40 Q40 40 30 52 Q22 62 16 58 Q12 56 14 50 Q16 44 24 44 Q14 42 10 50 Q6 58 14 66 Q22 72 30 66 Q34 63 36 58" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      <circle cx="14" cy="22" r="1.6" fill="currentColor"/>
-      <circle cx="14" cy="58" r="1.6" fill="currentColor"/>
-      <circle cx="40" cy="40" r="1.2" fill="currentColor"/>
-    </svg>
-  </div>
+  <h1 class="masthead-title">Cascade</h1>
   <p class="masthead-issue">Issue <em>04</em> &nbsp;·&nbsp; The Hormuz Week</p>
   <p class="masthead-date">Friday, 2 May 2026</p>
   <p class="masthead-almanac">
@@ -886,10 +837,10 @@ body > *{position:relative;z-index:2}
 <section class="lede column">
   <h1>The week the strait narrowed, the layoff letter went out, and the mood index broke a record set in 1952.</h1>
   <p>
-    Three things broke this week and they were the same thing. Big Tech announced about <span class="anchor" data-marginal="m-layoffs"><span class="num">20,000</span></span> job cuts in twenty-four hours and openly named artificial intelligence as the reason. Brent crude jumped <span class="anchor" data-marginal="m-brent"><span class="num">16%</span></span> after the United States and Iran began seizing one another's tankers in the Persian Gulf. And the University of Michigan's monthly survey of how Americans feel about the economy came in at <span class="anchor" data-marginal="m-mich"><span class="num">49.8</span></span>, lower than the score in any month going into a recession since the survey began.
+    Big Tech laid off about <span class="anchor" data-marginal="m-layoffs"><span class="num">20,000</span></span> people in twenty-four hours this week. The letters named the cause. Brent crude jumped <span class="anchor" data-marginal="m-brent"><span class="num">16%</span></span> after the United States and Iran began seizing each other's tankers in the Persian Gulf. The University of Michigan's monthly survey of how Americans feel about the economy returned a <span class="anchor" data-marginal="m-mich"><span class="num">49.8</span></span>. The survey started in 1946. No reading has come in that low going into a recession since.
   </p>
   <p>
-    None of these things caused the others. All of them are the same thing. They are what it looks like when many systems <em>that depended on each other to be calm</em> stop being calm at the same time. This issue is an attempt to walk you slowly through twenty-three of those systems, in order, with sources, so that by the end you can see the picture rather than just the panic.
+    None of these caused the others. They share wiring. This issue walks slowly through twenty-three of the world's systems, in order, with sources. By the end you should see the shape of the week, not the panic of it.
   </p>
   <span class="marginal" id="m-layoffs">Tech-job cuts<em>Last seven days</em></span>
   <span class="marginal" id="m-brent">Crude oil price<em>End of week</em></span>
@@ -922,7 +873,7 @@ body > *{position:relative;z-index:2}
     </div>
   </div>
   <p class="clock-explain">
-    The Cascade Clock is one number that summarises how stressed the world's systems looked this week. Zero is calm. One hundred is midnight. From next Friday we'll start showing how it has moved week to week.
+    The Cascade Clock is one number that summarises how stressed the world's systems looked this week. Zero is calm. One hundred is midnight.
   </p>
 </section>
 
