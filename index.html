@@ -452,6 +452,343 @@ a:hover{color:var(--vermilion)}
 }
 
 /* ============================================================
+   THE CASCADE PLATE (almanac chart)
+   23 nodes around a circle, vermilion arcs through the centre
+   for this week's strongest cause edges. Color tier by severity,
+   inner mark for outcome measures. Rendered from DATA in JS.
+   ============================================================ */
+.plate{
+  text-align:center;
+  padding:5rem 24px 4rem;
+}
+.plate-eyebrow{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+}
+.plate-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.6rem,3.2vw,2.1rem);
+  color:var(--ink);
+  margin:0 auto 1.25rem;
+  max-width:32ch;
+  font-variation-settings:"opsz" 96;
+}
+.plate-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--muted);
+  max-width:42ch;
+  margin:0 auto 2.5rem;
+  line-height:1.55;
+}
+.plate-svg{
+  display:block;
+  width:100%;
+  max-width:680px;
+  height:auto;
+  margin:0 auto;
+}
+.plate-edge{
+  fill:none;
+  stroke:var(--vermilion);
+  stroke-width:.8;
+  opacity:.45;
+  stroke-linecap:round;
+}
+.plate-node{
+  stroke:var(--ink);
+  stroke-width:.6;
+  opacity:.92;
+}
+.plate-node-low{fill:#9CA98F}
+.plate-node-mid{fill:#D8A33A}
+.plate-node-high{fill:var(--vermilion)}
+.plate-outcome-mark{
+  fill:var(--paper);
+  pointer-events:none;
+}
+.plate-center{
+  fill:var(--vermilion);
+  opacity:.7;
+}
+.plate-label{
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.04em;
+  fill:var(--muted);
+}
+.plate-key{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:2.5rem auto 0;
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  max-width:50ch;
+}
+.key-item{display:inline-flex;align-items:center;gap:.45em}
+.key-dot{display:inline-block;width:8px;height:8px;border-radius:50%;border:1px solid var(--ink)}
+.key-low{background:#9CA98F}
+.key-mid{background:#D8A33A}
+.key-high{background:var(--vermilion)}
+.key-mark{color:var(--vermilion);font-size:1.1em}
+
+/* ============================================================
+   APPENDICES (Standings, Watch List, Outlook, Predictions,
+   Small Graces, Poem)
+   ============================================================ */
+.appendix{
+  padding:4.5rem 24px 3rem;
+}
+.appendix-eyebrow{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+  text-align:center;
+}
+.appendix-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.6rem,3.2vw,2.1rem);
+  line-height:1.22;
+  color:var(--ink);
+  text-align:center;
+  margin:0 auto 1.5rem;
+  max-width:32ch;
+  font-variation-settings:"opsz" 96;
+}
+.appendix-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--muted);
+  max-width:46ch;
+  margin:0 auto 2.5rem;
+  line-height:1.55;
+  text-align:center;
+}
+
+/* The Standings */
+.standings-table{
+  width:100%;
+  max-width:640px;
+  margin:0 auto;
+  border-collapse:collapse;
+  font-family:var(--serif);
+  font-size:.96rem;
+}
+.standings-table th{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:var(--muted);
+  padding:.6rem .5rem 1rem;
+  text-align:left;
+  border-bottom:1px solid var(--rule);
+}
+.standings-table th.right{text-align:right}
+.standings-table td{
+  padding:.7rem .5rem;
+  border-bottom:1px solid var(--rule-soft);
+  vertical-align:baseline;
+}
+.standings-table td.right{text-align:right}
+.standings-rank{
+  font-family:var(--mono);
+  font-size:.65rem;
+  letter-spacing:.13em;
+  color:var(--muted-2);
+  width:3rem;
+}
+.standings-reading{
+  font-family:var(--mono);
+  font-size:.85em;
+  color:var(--ink);
+  font-weight:500;
+}
+.standings-chapter{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+}
+.severity-dot{
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  border:1px solid var(--ink);
+  margin-right:.4em;
+  vertical-align:-1px;
+}
+.severity-low{background:#9CA98F}
+.severity-mid{background:#D8A33A}
+.severity-high{background:var(--vermilion)}
+
+/* Watch List */
+.watch-list-items{
+  list-style:none;
+  max-width:640px;
+  margin:0 auto;
+  padding:0;
+  counter-reset:wl;
+}
+.watch-list-items > li{
+  padding:1.5rem 0 1.5rem 3rem;
+  border-bottom:1px solid var(--rule-soft);
+  position:relative;
+  counter-increment:wl;
+}
+.watch-list-items > li:last-child{border-bottom:none}
+.watch-list-items > li::before{
+  content:counter(wl, upper-roman);
+  position:absolute;
+  left:0;
+  top:1.65rem;
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.16em;
+  color:var(--vermilion);
+}
+.watch-list-items h3{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:1.1rem;
+  color:var(--ink);
+  margin:0 0 .55rem;
+  font-variation-settings:"opsz" 72;
+}
+.watch-list-items p{
+  font-family:var(--serif);
+  font-size:1rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+/* Outlook */
+.outlook-horizon{
+  max-width:640px;
+  margin:0 auto 2.5rem;
+}
+.outlook-horizon:last-child{margin-bottom:0}
+.outlook-horizon h3{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin:0 0 .85rem;
+  text-align:center;
+}
+.outlook-horizon p{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  line-height:1.62;
+  color:var(--ink-soft);
+}
+
+/* Predictions */
+.predictions-list{
+  list-style:none;
+  max-width:640px;
+  margin:0 auto;
+  padding:0;
+}
+.predictions-list > li{
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--rule-soft);
+}
+.predictions-list > li:last-child{border-bottom:none}
+.prediction-text{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  line-height:1.55;
+  color:var(--ink);
+  margin:0 0 .5rem;
+}
+.prediction-meta{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin:0;
+}
+
+/* Small Graces */
+.graces-list{
+  list-style:none;
+  max-width:560px;
+  margin:0 auto;
+  padding:0;
+  counter-reset:graces;
+}
+.graces-list li{
+  padding:1.25rem 0 1.25rem 2.5rem;
+  position:relative;
+  counter-increment:graces;
+  border-bottom:1px solid var(--rule-soft);
+}
+.graces-list li:last-child{border-bottom:none}
+.graces-list li::before{
+  content:counter(graces);
+  position:absolute;
+  left:0;
+  top:1.4rem;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--vermilion);
+}
+.graces-list p{
+  font-family:var(--serif);
+  font-size:1.02rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+/* Poem */
+.poem{
+  background:var(--paper-warm);
+  padding:5rem 24px;
+}
+.poem-body{
+  max-width:520px;
+  margin:0 auto;
+  text-align:center;
+}
+.poem-body p{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.1rem;
+  line-height:1.75;
+  color:var(--ink-soft);
+  margin:0;
+  font-variation-settings:"opsz" 96;
+}
+
+/* ============================================================
    COMING SOON STRIP
    ============================================================ */
 .coming{
@@ -781,6 +1118,33 @@ body > *{position:relative;z-index:2}
     white-space:normal;
   }
 
+  /* Plate */
+  .plate{padding:3.5rem 16px 2.5rem}
+  .plate-svg{max-width:100%}
+  .plate-label{font-size:7px}
+  .plate-key{font-size:.55rem;gap:1rem}
+  .plate-title{font-size:1.4rem}
+  .plate-intro{font-size:.95rem;margin-bottom:1.75rem}
+
+  /* Appendices */
+  .appendix{padding:3.5rem 22px 2.5rem}
+  .appendix-title{font-size:1.4rem;margin-bottom:1.25rem}
+  .appendix-intro{font-size:.95rem;margin-bottom:1.75rem}
+  .standings-table{font-size:.88rem}
+  .standings-table th,.standings-table td{padding:.5rem .35rem}
+  .standings-rank{font-size:.55rem;width:2rem}
+  .standings-chapter{display:none}
+  .watch-list-items > li{padding:1.25rem 0 1.25rem 2.4rem}
+  .watch-list-items h3{font-size:1rem}
+  .watch-list-items p{font-size:.95rem}
+  .outlook-horizon{margin-bottom:2rem}
+  .outlook-horizon p{font-size:1rem;line-height:1.58}
+  .prediction-text{font-size:1rem}
+  .graces-list li{padding:1rem 0 1rem 2rem}
+  .graces-list p{font-size:.98rem}
+  .poem{padding:3.5rem 22px}
+  .poem-body p{font-size:1rem;line-height:1.7}
+
   /* Coming list */
   .coming{padding:3.5rem 22px;margin-top:2rem}
   .coming-label{font-size:.6rem;margin-bottom:1rem}
@@ -875,6 +1239,33 @@ body > *{position:relative;z-index:2}
   </div>
   <p class="clock-explain">
     The Cascade Clock is one number that summarises how stressed the world's systems looked this week. Zero is calm. One hundred is midnight.
+  </p>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IV.B THE CASCADE PLATE -->
+<section class="plate" id="cascade-plate" aria-labelledby="plate-heading">
+  <p class="plate-eyebrow" id="plate-heading">The cascade plate</p>
+  <h2 class="plate-title">This week's strongest arrows</h2>
+  <p class="plate-intro">Every measure in the issue placed on a single dial. The vermilion arcs trace the strongest cause arrows we tracked this week.</p>
+
+  <svg class="plate-svg" viewBox="-360 -360 720 720" role="img" aria-label="Cascade plate: 23 measures arranged on a circle with cause arrows">
+    <g class="plate-edges" id="plate-edges"></g>
+    <g class="plate-nodes" id="plate-nodes"></g>
+    <g class="plate-labels" id="plate-labels"></g>
+    <circle class="plate-center" cx="0" cy="0" r="2.4"/>
+  </svg>
+
+  <p class="plate-key">
+    <span class="key-item"><span class="key-dot key-low"></span> calm</span>
+    <span class="key-item"><span class="key-dot key-mid"></span> elevated</span>
+    <span class="key-item"><span class="key-dot key-high"></span> at midnight</span>
+    <span class="key-item"><span class="key-mark">◇</span> outcome measure</span>
   </p>
 </section>
 
@@ -1100,7 +1491,168 @@ body > *{position:relative;z-index:2}
   <span class="ornament-rule"></span>
 </div>
 
-<!-- V. COLOPHON (temporary, full version arrives at end of issue) -->
+<!-- XIII. APPENDIX — THE STANDINGS -->
+<section class="appendix standings" aria-labelledby="standings-heading">
+  <p class="appendix-eyebrow">Appendix · The Standings</p>
+  <h2 class="appendix-title" id="standings-heading">The week's measures, ranked by severity</h2>
+  <p class="appendix-intro">Every measure in this issue, ordered by how close it sits to midnight.</p>
+
+  <table class="standings-table">
+    <thead>
+      <tr><th class="standings-rank-col">Rank</th><th>Measure</th><th>Reading</th><th class="standings-chapter">Chapter</th><th class="right">Tier</th></tr>
+    </thead>
+    <tbody id="standings-body"></tbody>
+  </table>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XIV. APPENDIX — THE WATCH LIST -->
+<section class="appendix watch-list" aria-labelledby="watchlist-heading">
+  <p class="appendix-eyebrow">Appendix · The Watch List</p>
+  <h2 class="appendix-title" id="watchlist-heading">Leading signals to keep an eye on</h2>
+  <p class="appendix-intro">Five readings due in the next two weeks, and what each one will tell us.</p>
+
+  <ol class="watch-list-items">
+    <li>
+      <h3>Brent crude, Friday close</h3>
+      <p>If above $108, the Hormuz blockade has not eased. If below, it has. The cleanest weekly read on the strait we have.</p>
+    </li>
+    <li>
+      <h3>U.S. April real earnings, 12 May</h3>
+      <p>Whether 3.5 per cent nominal wage growth survives 4.7 per cent inflation expectations. Real wage growth at or below zero confirms the household squeeze.</p>
+    </li>
+    <li>
+      <h3>U-Mich preliminary May, 16 May</h3>
+      <p>A second 49.8 turns historic into pattern. Anything above 56 says April was a spike, not a baseline.</p>
+    </li>
+    <li>
+      <h3>Bank of England, 7 May</h3>
+      <p>A cut takes new mortgage offers below 5 per cent within a week. A hold pushes the 1.4 million British households remortgaging this year into a roughly doubled monthly payment.</p>
+    </li>
+    <li>
+      <h3>FAO Food Price Index April, 9 May</h3>
+      <p>Whether all five commodity sub-indices are rising at once. 2007 and 2022 are the only times in living memory that has happened. We know what came after each.</p>
+    </li>
+  </ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XV. APPENDIX — THE OUTLOOK -->
+<section class="appendix outlook" aria-labelledby="outlook-heading">
+  <p class="appendix-eyebrow">Appendix · The Outlook</p>
+  <h2 class="appendix-title" id="outlook-heading">What is coming, and when</h2>
+
+  <div class="outlook-horizon">
+    <h3>Next week</h3>
+    <p>The Bank of England decides on the seventh. The April real-earnings release lands on the twelfth. The U-Mich preliminary on the sixteenth. Brent will close above or below $108 on Friday. The Geneva talks on Hormuz, scheduled for the thirteenth, will or will not produce a public statement.</p>
+  </div>
+  <div class="outlook-horizon">
+    <h3>Next quarter</h3>
+    <p>The first U.S. unemployment release that captures the April layoffs is out 6 June. The next round of British remortgages starts pricing through May and June. The European Union's revised AI Act content provisions vote falls in late May. And the Q1 corporate earnings cycle, just beginning, will tell us how much of the 92,000 cumulative cuts have reached profit margins.</p>
+  </div>
+  <div class="outlook-horizon">
+    <h3>Next year</h3>
+    <p>The 2027 Edelman Trust Barometer fields this winter. Refugee resettlement need is projected to fall to 2.5 million globally, with Iran for the first time leading the list. The Anthropic Economic Index will say whether AI displacement of pre-2023 white-collar work has crossed 15 per cent. The next ONS life-expectancy release will say whether 2025 brought back any of the years lost since 2014.</p>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XVI. APPENDIX — PREDICTIONS -->
+<section class="appendix predictions" aria-labelledby="predictions-heading">
+  <p class="appendix-eyebrow">Appendix · Predictions</p>
+  <h2 class="appendix-title" id="predictions-heading">Five forward calls, scored next week</h2>
+  <p class="appendix-intro">Cascade publishes its predictions a week early so they can be scored against actual outcomes. A running hit-rate appears here from Issue 05 onwards.</p>
+
+  <ol class="predictions-list">
+    <li>
+      <p class="prediction-text">Brent crude closes the week of 9 May above $108.</p>
+      <p class="prediction-meta">Scored 9 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">A Big Tech firm announces another single-day cut of 5,000 or more before 9 May.</p>
+      <p class="prediction-meta">Scored 9 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">The U.S. blockade of Iranian ports does not lift before 9 May.</p>
+      <p class="prediction-meta">Scored 9 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">The April real-earnings release on 12 May shows real wage growth at or below 0 per cent.</p>
+      <p class="prediction-meta">Scored 12 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">The U-Mich preliminary on 16 May comes in below 52.</p>
+      <p class="prediction-meta">Scored 16 May · Pending</p>
+    </li>
+  </ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XVII. APPENDIX — SMALL GRACES -->
+<section class="appendix small-graces" aria-labelledby="graces-heading">
+  <p class="appendix-eyebrow">Appendix · Small Graces</p>
+  <h2 class="appendix-title" id="graces-heading">Things that improved this week</h2>
+
+  <ol class="graces-list">
+    <li><p>UK childhood vaccination uptake recovered above 90 per cent for the first time since 2024, on the latest UKHSA quarterly figures.</p></li>
+    <li><p>Renewable energy provided 47 per cent of UK electricity generation in March, the highest March share on record.</p></li>
+    <li><p>Local food bank donations are up 12 per cent on volunteer hours, the largest spring rise since the pandemic relief peak of 2020.</p></li>
+    <li><p>A peace medal awarded to Sudanese civilian journalists earlier in April was attended, in person, by every single living recipient.</p></li>
+  </ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XVIII. APPENDIX — A POEM -->
+<section class="appendix poem" aria-labelledby="poem-heading">
+  <p class="appendix-eyebrow">Appendix · A poem</p>
+  <h2 class="appendix-title" id="poem-heading">Notes from the week</h2>
+
+  <div class="poem-body">
+    <p>At the strait, the ships do not sail and do not turn back.</p>
+    <p>At the desk, the letter says capability.</p>
+    <p>At the door, the postbox waits for the rate.</p>
+    <p>At the till, the basket is its own letter.</p>
+    <p>At the table, the longer numbers go quiet.</p>
+    <p>At the screen, we agree only with ourselves.</p>
+    <p>And in the long ledger of how long we live,</p>
+    <p>the line we drew for a hundred years</p>
+    <p>has paused to look at us.</p>
+    <p>We are the ones it is waiting for.</p>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XIX. COLOPHON -->
 <section class="colophon">
   <p class="colophon-mark" aria-hidden="true">
     <svg viewBox="0 0 12 12" width="12" height="12" style="color:var(--vermilion)">
@@ -1364,31 +1916,107 @@ const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
   });
 })();
 
-// ----- Coming-soon list -----
-// Generated from DATA.chapters where published is false, plus the
-// fixed almanac-end items (cascade plate Sun, Standings/Watch List
-// Fri, etc). When a chapter flips to published:true, it disappears
-// from the list and appears as a chapter on the page above.
+// ----- The Standings (appendix table) -----
+// Sort all measures by severity (descending) and render as table.
 (function(){
-  const list = document.getElementById('coming-list');
-  if(!list) return;
+  const body = document.getElementById('standings-body');
+  if(!body) return;
   const ROMAN = ['','I','II','III','IV','V','VI','VII','VIII'];
-  const fixedHead = [
-    { title: "The cascade plate, this week's strongest arrows", day: 'Sun' },
-  ];
-  const fixedTail = [
-    { title: 'The Standings, the Watch List, the Outlook', day: 'Fri' },
-    { title: 'Predictions, methodology, sources',          day: 'Fri' },
-    { title: 'Small Graces, a poem, the colophon',         day: 'Fri' },
-  ];
-  const chapterRows = upcomingChapters().map(c => ({
-    title: c.title,
-    day: c.day,
-  }));
-  const rows = [...fixedHead, ...chapterRows, ...fixedTail];
-  list.innerHTML = rows.map(r => (
-    '<li>' + r.title + ' <span>' + r.day + '</span></li>'
-  )).join('');
+  const sorted = [...DATA.measures].sort((a, b) => b.value - a.value);
+  body.innerHTML = sorted.map((m, i) => {
+    const ch = findChapter(m.chapterId);
+    let tier = 'mid';
+    if(m.value >= 80) tier = 'high';
+    else if(m.value < 65) tier = 'low';
+    return '<tr>' +
+      '<td class="standings-rank">' + (i + 1) + '</td>' +
+      '<td>' + m.label + (m.outcome ? ' ◇' : '') + '</td>' +
+      '<td><span class="standings-reading">' + m.reading + '</span></td>' +
+      '<td class="standings-chapter">' + (ch ? ROMAN[ch.number] + '. ' + ch.title : '') + '</td>' +
+      '<td class="right"><span class="severity-dot severity-' + tier + '" title="' + m.value + ' of 100"></span></td>' +
+    '</tr>';
+  }).join('');
+})();
+
+// ----- The Cascade Plate -----
+// 23 measures placed around a circle. Vermilion arcs trace the
+// strongest cause edges this week (DATA.edges). Tier and outcome
+// flag drive node styling. Pure SVG, no library.
+(function(){
+  const edgeG  = document.getElementById('plate-edges');
+  const nodeG  = document.getElementById('plate-nodes');
+  const labelG = document.getElementById('plate-labels');
+  if(!edgeG || !nodeG || !labelG) return;
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const R = 250;        // node ring
+  const labelR = 305;   // label ring
+  const measures = DATA.measures;
+  const N = measures.length;
+
+  // Position each measure around the circle (start at top, clockwise).
+  const pos = {};
+  measures.forEach((m, i) => {
+    const angle = (i / N) * Math.PI * 2 - Math.PI / 2;
+    pos[m.id] = {
+      x: Math.cos(angle) * R,
+      y: Math.sin(angle) * R,
+      lx: Math.cos(angle) * labelR,
+      ly: Math.sin(angle) * labelR,
+      angle,
+    };
+  });
+
+  // Edges: quadratic curve through centre.
+  DATA.edges.forEach(([fromId, toId]) => {
+    const a = pos[fromId], b = pos[toId];
+    if(!a || !b) return;
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', 'M ' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + ' Q 0 0 ' + b.x.toFixed(1) + ' ' + b.y.toFixed(1));
+    path.setAttribute('class', 'plate-edge');
+    edgeG.appendChild(path);
+  });
+
+  // Nodes.
+  measures.forEach(m => {
+    const p = pos[m.id];
+    let tier = 'mid';
+    if(m.value >= 80) tier = 'high';
+    else if(m.value < 65) tier = 'low';
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('cx', p.x.toFixed(1));
+    c.setAttribute('cy', p.y.toFixed(1));
+    c.setAttribute('r', m.outcome ? 7 : 5);
+    c.setAttribute('class', 'plate-node plate-node-' + tier + (m.outcome ? ' plate-node-outcome' : ''));
+    nodeG.appendChild(c);
+    if(m.outcome){
+      const inner = document.createElementNS(NS, 'circle');
+      inner.setAttribute('cx', p.x.toFixed(1));
+      inner.setAttribute('cy', p.y.toFixed(1));
+      inner.setAttribute('r', 2);
+      inner.setAttribute('class', 'plate-outcome-mark');
+      nodeG.appendChild(inner);
+    }
+  });
+
+  // Labels.
+  measures.forEach(m => {
+    const p = pos[m.id];
+    const text = document.createElementNS(NS, 'text');
+    text.setAttribute('x', p.lx.toFixed(1));
+    text.setAttribute('y', p.ly.toFixed(1));
+    text.setAttribute('class', 'plate-label');
+    let anchor = 'middle';
+    if(p.lx > 30) anchor = 'start';
+    else if(p.lx < -30) anchor = 'end';
+    let dy = '0.35em';
+    if(p.ly < -200) dy = '0';
+    else if(p.ly > 200) dy = '0.7em';
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dy', dy);
+    text.textContent = m.label;
+    labelG.appendChild(text);
+  });
 })();
 </script>
 </body>
