@@ -92,12 +92,15 @@ The reader should walk away with: **where we were · where we are · what's next
 ### Phase 3 — Real data infrastructure (the Cascade Data Fetcher MCP)
 **Build:** A TypeScript MCP server with one tool per measure + a `fetch_all` tool. Output: structured JSON matching DATA.measures schema. Saturday command: "Run the Cascade fetcher" → fresh values, deltas computed against last Issue.
 
-- [ ] Scaffold MCP server (`/Users/Jen/claudecode/cascade-data-fetcher`)
-- [ ] Free-API fetchers (~14 measures): FRED (BLS, US wages/rent), Bank of England, ONS, NASA GISTEMP, FAO, NHS RTT, Caldara-Iacoviello GPR, EIA Brent, U-Mich sentiment, UNHCR
-- [ ] Scrape/PDF fetchers: Layoffs.fyi (HTML scrape), Edelman (annual PDF), Hormuz status (CENTCOM press releases + MarineTraffic freemium API), Anthropic Economic Index (check internal access)
-- [ ] Schema validator — flag drift when source format changes
+- [x] **SPEC** — `/Users/Jen/claudecode/cascade-data-fetcher/SPEC.md`
+- [x] **Scaffold** MCP server with stdio transport, four tools (list_measures, fetch_one, fetch_all, validate), Fetcher interface, registry pattern
+- [x] **First fetcher: FAO Food Price Index** — verified end-to-end (returns 128.5 March 2026, matches Issue 04)
+- [ ] Free-API fetchers next (Tier A): NASA GISTEMP, EIA Brent, BoE rates, FRED (BLS, U-Mich), ONS (rent, life, wages), Caldara-Iacoviello GPR, UNHCR
+- [ ] Scrape fetchers (Tier B): Layoffs.fyi, NHS Excel, GfK press release, Trussell, CENTCOM
+- [ ] Tier C deferred: Anthropic Economic Index, Edelman annual PDF, Lloyd's (paid)
+- [ ] `compare_to_last` tool — computes real WoW deltas from stored prior issue
 - [ ] Storage: Cloudflare KV namespace `CASCADE_ISSUES` keyed by `issue-NN.json`
-- [ ] Tools available to Claude in any session
+- [ ] MCP registered in `~/.claude/mcp.json` so tools are available in any session
 
 ### Phase 4 — Weekly publish automation
 - [ ] Friday-morning cron (CF Worker or `mcp__scheduled-tasks` task)
