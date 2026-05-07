@@ -95,12 +95,20 @@ The reader should walk away with: **where we were · where we are · what's next
 - [x] **SPEC** — `/Users/Jen/claudecode/cascade-data-fetcher/SPEC.md`
 - [x] **Scaffold** MCP server with stdio transport, four tools (list_measures, fetch_one, fetch_all, validate), Fetcher interface, registry pattern
 - [x] **First fetcher: FAO Food Price Index** — verified end-to-end (returns 128.5 March 2026, matches Issue 04)
-- [ ] Free-API fetchers next (Tier A): NASA GISTEMP, EIA Brent, BoE rates, FRED (BLS, U-Mich), ONS (rent, life, wages), Caldara-Iacoviello GPR, UNHCR
-- [ ] Scrape fetchers (Tier B): Layoffs.fyi, NHS Excel, GfK press release, Trussell, CENTCOM
-- [ ] Tier C deferred: Anthropic Economic Index, Edelman annual PDF, Lloyd's (paid)
-- [ ] `compare_to_last` tool — computes real WoW deltas from stored prior issue
-- [ ] Storage: Cloudflare KV namespace `CASCADE_ISSUES` keyed by `issue-NN.json`
-- [ ] MCP registered in `~/.claude/mcp.json` so tools are available in any session
+- [x] **NASA GISTEMP** — global temperature anomaly (+1.28°C March 2026 vs 1951–80)
+- [x] **U-Mich consumer sentiment** — via FRED UMCSENT (53.3 March 2026 final)
+- [x] **Brent crude** — via FRED DCOILBRENTEU ($118 1 May close)
+- [x] **ONS UK private rent** — scrapes /latest bulletin (+3.4% YoY 12 mo to March)
+- [x] **ONS UK real wages** — scrapes /latest bulletin (+0.2% real, regular pay, CPIH-adjusted)
+- [x] **Trussell Trust** — scrapes end-of-year stats (2.6m parcels in 2025)
+- [x] **BoE 5-year fixed** — pulls series IUMBV45 from BoE CSV endpoint (4.82% March 2026, 75% LTV)
+- [x] **Local JSON storage** at `~/.cascade/issues/issue-NN.json`
+- [x] **Tools shipped:** list_measures · fetch_one · fetch_all · validate · save_issue · list_issues · compare_to_last
+- [ ] Remaining tier-A: ONS life expectancy, Caldara-Iacoviello GPR, UNHCR
+- [ ] Tier-B scrapers: Layoffs.fyi, NHS Excel, GfK / NIQ press release, CENTCOM
+- [ ] Tier-C deferred: Anthropic Economic Index, Edelman annual PDF, Lloyd's (paid)
+- [ ] Storage swap: local JSON → Cloudflare KV namespace `CASCADE_ISSUES`
+- [ ] MCP registered in `~/.claude/mcp.json` (Jen runs `npm install && npm run build` then adds the entry)
 
 ### Phase 4 — Weekly publish automation
 - [ ] Friday-morning cron (CF Worker or `mcp__scheduled-tasks` task)
