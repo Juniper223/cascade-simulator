@@ -1196,22 +1196,49 @@ a:hover{color:var(--vermilion)}
 
 /* ============================================================
    CHAPTER TAKEAWAY (one-sentence punch line per chapter)
+   The line a reader would remember from the chapter. Bigger,
+   more visual weight than the body so the eye lands on it.
    ============================================================ */
 .chapter-takeaway{
   font-family:var(--serif);
   font-style:italic;
-  font-weight:500;
-  font-size:1.25rem;
-  line-height:1.4;
-  color:var(--vermilion);
+  font-weight:400;
+  font-size:clamp(1.4rem,2.6vw,1.75rem);
+  line-height:1.32;
+  color:var(--ink);
   text-align:center;
-  max-width:36ch;
+  max-width:32ch;
   margin:0 auto 2.5rem;
-  padding:0 1rem;
+  padding:1.4rem 1.5rem;
   font-variation-settings:"opsz" 96;
+  position:relative;
+  border-top:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--rule-soft);
+}
+.chapter-takeaway::before{
+  content:'';
+  position:absolute;
+  top:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--vermilion);
+}
+.chapter-takeaway::after{
+  content:'';
+  position:absolute;
+  bottom:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--vermilion);
 }
 @media (max-width:760px){
-  .chapter-takeaway{font-size:1.1rem;margin-bottom:1.75rem}
+  .chapter-takeaway{font-size:1.2rem;margin-bottom:1.75rem;padding:1.1rem 1rem}
 }
 
 /* ============================================================
@@ -1566,10 +1593,10 @@ body > *{position:relative;z-index:2}
 
 <!-- I. THE OPENING -->
 <section class="vigil" aria-label="Opening">
-  <p class="vigil-stamp">CASCADE · ISSUE 04 · 2 MAY 2026</p>
+  <p class="vigil-stamp">CASCADE · ISSUE 05 · 9 MAY 2026</p>
   <p class="vigil-line">
-    Life expectancy in the United Kingdom has not risen since 2019.
-    <br>That has not been true for over a century.
+    The strait did not open. The mood did not lift. The mortgage did not move.
+    <br>This is what holding looks like.
   </p>
   <p class="vigil-foot">· take a breath ·</p>
 </section>
@@ -1578,10 +1605,10 @@ body > *{position:relative;z-index:2}
 <header class="masthead">
   <p class="masthead-kicker">A weekly almanac · Sourced sentence by sentence</p>
   <h1 class="masthead-title">Cascade</h1>
-  <p class="masthead-issue">Issue <em>04</em> &nbsp;·&nbsp; The Hormuz Week</p>
-  <p class="masthead-date">Friday, 2 May 2026</p>
+  <p class="masthead-issue">Issue <em>05</em> &nbsp;·&nbsp; The Held Week</p>
+  <p class="masthead-date">Friday, 9 May 2026</p>
   <p class="masthead-almanac">
-    Week 18<span class="almanac-sep">·</span>Waning gibbous<span class="almanac-sep">·</span>Sun <span class="almanac-glyph">↑</span> 5:30 <span class="almanac-glyph">↓</span> 20:32 London
+    Week 19<span class="almanac-sep">·</span>Last quarter<span class="almanac-sep">·</span>Sun <span class="almanac-glyph">↑</span> 5:18 <span class="almanac-glyph">↓</span> 20:42 London
   </p>
   <div class="masthead-rule" aria-hidden="true"></div>
 </header>
@@ -1590,14 +1617,14 @@ body > *{position:relative;z-index:2}
 <section class="lede column">
   <h1>The week the strait narrowed, the layoff letter went out, and the mood index broke a record set in 1952.</h1>
   <p>
-    Meta and Microsoft together laid off about <span class="anchor" data-marginal="m-layoffs"><span class="num">17,000</span></span> people on the twenty-third of April, in the same morning. Several of the letters named artificial intelligence directly as the reason. Brent crude jumped <span class="anchor" data-marginal="m-brent"><span class="num">16%</span></span> across the same week, then touched <span class="num">$126</span>, after the United States and Iran began seizing each other's tankers in the Persian Gulf. The GfK UK consumer-confidence index fell to <span class="anchor" data-marginal="m-mich"><span class="num">−25</span></span> in April, the lowest reading since October 2023. The University of Michigan equivalent, in America, returned a 49.8.
+    The week after a shock is the week the shock either passes or settles in. This one settled. The Strait of Hormuz remained substantially closed, with U.S. Central Command intercepting another <span class="anchor" data-marginal="m-layoffs"><span class="num">11</span></span> ships across the week. Brent crude held at <span class="anchor" data-marginal="m-brent"><span class="num">$118</span></span>. The Bank of England held its base rate at <span class="num">3.75%</span> on the thirtieth of April; the next decision is on <span class="anchor" data-marginal="m-mich"><span class="num">18 June</span></span>. No new monthly survey came in below the Issue 04 floor of 49.8 in America or −25 in Britain. Both held.
   </p>
   <p>
-    None of these caused the others. They share wiring. This issue walks slowly through twenty-three of the world's systems, in order, with sources. By the end you should see the shape of the week, not the panic of it.
+    None of these caused the others. They share wiring, and this week the wiring stayed live without conducting any new charge. This issue walks through twenty-three of the world's systems, in the same order as last week, with the same sources, and shows the shape of holding. The next reading begins on Monday.
   </p>
-  <span class="marginal" id="m-layoffs">Industry layoff tracker<em>23 Apr release</em></span>
-  <span class="marginal" id="m-brent">ICE Futures<em>Friday's close</em></span>
-  <span class="marginal" id="m-mich">GfK UK confidence<em>April reading</em></span>
+  <span class="marginal" id="m-layoffs">U.S. Central Command<em>Week to 8 May</em></span>
+  <span class="marginal" id="m-brent">ICE Futures<em>Thursday's close</em></span>
+  <span class="marginal" id="m-mich">Bank of England<em>Next decision</em></span>
 </section>
 
 <div class="ornament" aria-hidden="true">
@@ -1642,15 +1669,15 @@ body > *{position:relative;z-index:2}
   <div class="bottom-line-inner">
     <div class="bl-cell">
       <p class="bl-eyebrow">Where we were</p>
-      <p class="bl-line">Last Friday the Cascade reading sat at <strong>75</strong>. The strait was tense, not closed. Brent was at <strong>$92</strong>.</p>
+      <p class="bl-line">Last Friday the Cascade reading sat at <strong>79</strong>, four minutes twelve seconds to midnight. Brent at <strong>$114</strong>. Mood at <strong>49.8</strong>.</p>
     </div>
     <div class="bl-cell">
       <p class="bl-eyebrow">Where we are</p>
-      <p class="bl-line">Today it is <strong>79</strong>. The strait has been substantially shut for two months. Brent closed Thursday at <strong>$114</strong>. The mood index returned a <strong>49.8</strong>.</p>
+      <p class="bl-line">Today it is <strong>79</strong> again. The strait remains shut. Most measures held. The week's verb was <em>holding</em>, in every chapter that follows.</p>
     </div>
     <div class="bl-cell">
       <p class="bl-eyebrow">What's next</p>
-      <p class="bl-line">ONS labour market on the <strong>13th</strong>. U.S. real earnings on the <strong>12th</strong>. The next Cascade lands on the <strong>9th</strong>. Bank of England decides next on <strong>18 June</strong>.</p>
+      <p class="bl-line">U.S. real earnings on the <strong>12th</strong>. ONS labour-market on the <strong>13th</strong>. U-Mich preliminary on the <strong>16th</strong>. Next Cascade lands <strong>16 May</strong>.</p>
     </div>
   </div>
 </section>
@@ -2081,7 +2108,7 @@ body > *{position:relative;z-index:2}
     Issue 04 of <em>Cascade</em>. Twenty-three measures, sourced. Cream paper, vermilion ink. The week of the strait, the letter, and the line that did not move.
   </p>
   <p class="colophon-note">All headline figures verified to source as of publication. Week-over-week deltas are indicative on the new method; real comparison from Issue 05 onwards. Severity scoring (0–100) and historical-anchor resemblance ratings are Cascade's own composite, not source readings.</p>
-  <p class="next">Next issue · Friday 9 May 2026</p>
+  <p class="next">Next issue · Friday 16 May 2026</p>
 </section>
 
 <script>
