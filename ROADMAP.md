@@ -121,10 +121,13 @@ cd /Users/Jen/claudecode/cascade-data-fetcher && npm run publish-issue \
 - [ ] Email notification when issue lands (Resend or Buttondown later)
 - [ ] Drift-checker — if any source returned wrong shape, email instead of pushing
 
-### Phase 5 — Editorial AI assist
-- [ ] Once data fetched, Claude prompted (with brand voice and shape constraints from this roadmap) to draft the writable parts: vigil opener, lede, 8 chapter takeaways + 2-paragraph bodies, watch list, outlook, predictions, small graces, poem
-- [ ] Human review/edit pass before publish
-- [ ] One-click ship
+### Phase 5 — Editorial AI assist — done
+
+- [x] **Draft generator** (`src/draft.ts`) — reads latest fetched issue + prior issue + brand voice rules, emits structured prompt to `drafts/issue-NN-prompt.md`. Includes the full measure table with sources, deltas, periods, and a strict JSON output schema.
+- [x] **Draft applier** (`src/apply-draft.ts`) — parses the LLM's JSON response and patches every prose section in `cascade-simulator-deploy/index.html`: vigil, bottom-line, 8 chapter takeaways + bodies, watch list, outlook, predictions, small graces, poem.
+- [x] **Three-command weekly loop** documented in WORKFLOW.md
+- [ ] One open caveat: the lede paragraphs contain embedded marginalia spans, so the applier surfaces the drafted lede prose for manual paste rather than auto-patching. A future iteration could have the LLM emit anchored figures alongside prose.
+- [ ] Optional: register with Anthropic API key directly so `npm run draft-issue --auto` calls Claude and writes the JSON without manual paste.
 
 ### Phase 6 — Add new measures (priority order)
 Each goes in DATA.measures with chapter assignment, fetcher in MCP. Drop existing low-value ones if 23 cap matters.
