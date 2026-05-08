@@ -111,11 +111,15 @@ The reader should walk away with: **where we were · where we are · what's next
 - [ ] MCP registered in `~/.claude/mcp.json` (Jen runs `npm install && npm run build` then adds the entry)
 
 ### Phase 4 — Weekly publish automation
-- [ ] Friday-morning cron (CF Worker or `mcp__scheduled-tasks` task)
-- [ ] Pipeline: fetch → diff against last issue → render new index.html → commit → push
-- [ ] Cloudflare Pages picks up the push and deploys
+The pipeline is now a single shell command. All that's missing is a cron.
+```
+cd /Users/Jen/claudecode/cascade-data-fetcher && npm run publish-issue \
+  && cd /Users/Jen/cascade-simulator-deploy && git commit -am "Issue NN data refresh" && git push
+```
+- [ ] Wrap that in a shell script
+- [ ] Schedule weekly via GitHub Actions (cleanest) or local launchd / `mcp__scheduled-tasks`
 - [ ] Email notification when issue lands (Resend or Buttondown later)
-- [ ] Drift-checker email if any source returned wrong shape
+- [ ] Drift-checker — if any source returned wrong shape, email instead of pushing
 
 ### Phase 5 — Editorial AI assist
 - [ ] Once data fetched, Claude prompted (with brand voice and shape constraints from this roadmap) to draft the writable parts: vigil opener, lede, 8 chapter takeaways + 2-paragraph bodies, watch list, outlook, predictions, small graces, poem
