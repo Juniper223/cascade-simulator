@@ -1004,6 +1004,82 @@ a:hover{color:var(--vermilion)}
 }
 
 /* ============================================================
+   WHAT MOVED THIS WEEK (top 3 deltas)
+   ============================================================ */
+.movers{
+  max-width:720px;
+  margin:0 auto;
+  padding:3rem 24px 2.75rem;
+}
+.movers-eyebrow{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  text-align:center;
+  margin:0 0 1.5rem;
+}
+.movers-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.mover{
+  display:grid;
+  grid-template-columns:1.6em 1fr auto;
+  column-gap:1rem;
+  align-items:baseline;
+  padding:.85rem 0;
+  border-top:1px solid var(--rule-soft);
+}
+.mover:last-child{border-bottom:1px solid var(--rule-soft)}
+.mover-arrow{
+  font-family:var(--serif);
+  font-size:1.4rem;
+  font-weight:500;
+  line-height:1;
+  text-align:center;
+  font-variation-settings:"opsz" 96;
+}
+.mover-arrow.up{color:var(--vermilion)}
+.mover-arrow.down{color:#6B7A4F}
+.mover-arrow.flat{color:var(--muted-2)}
+.mover-body{display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.mover-label{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:500;
+  color:var(--ink);
+  font-variation-settings:"opsz" 36;
+}
+.mover-detail{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.mover-delta{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-align:right;
+  white-space:nowrap;
+  font-feature-settings:"tnum" 1;
+}
+.mover-delta.up{color:var(--vermilion)}
+.mover-delta.down{color:#6B7A4F}
+.mover-delta.flat{color:var(--muted-2)}
+@media (max-width:760px){
+  .movers{padding:2.25rem 18px 2.25rem}
+  .mover{grid-template-columns:1.4em 1fr auto;column-gap:.7rem}
+  .mover-label{font-size:.98rem;line-height:1.25}
+  .mover-detail{font-size:.55rem}
+  .mover-delta{font-size:.65rem}
+}
+
+/* ============================================================
    AT-A-GLANCE GRID (every measure as one cell)
    ============================================================ */
 .glance{
@@ -1692,6 +1768,18 @@ body > *{position:relative;z-index:2}
     </div>
   </div>
 </section>
+
+<!-- IV.A.II WHAT MOVED THIS WEEK -->
+<section class="movers" aria-labelledby="movers-heading">
+  <p class="movers-eyebrow" id="movers-heading">What moved this week</p>
+  <ol class="movers-list" id="movers-list" aria-live="polite"></ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
 
 <!-- IV.B AT A GLANCE -->
 <section class="glance" id="glance" aria-labelledby="glance-heading">
@@ -2484,6 +2572,48 @@ const deltaArrow = (cur, prev) => cur > prev ? '▲' : (cur < prev ? '▼' : '·
       );
     }).join('');
   });
+})();
+
+// ----- What moved this week -----
+// Ranks measures by absolute severity delta, picks the top three,
+// renders them as a small "headline" panel between the Bottom Line
+// and the At-a-glance grid. Helps a reader who only reads the top
+// of the issue still leave with the punch.
+(function(){
+  const list = document.getElementById('movers-list');
+  if(!list) return;
+  const seeded = seededMeasures();
+  const ranked = seeded
+    .map(m => Object.assign({}, m, { delta: m.value - m.prevValue, abs: Math.abs(m.value - m.prevValue) }))
+    .sort((a, b) => b.abs - a.abs);
+  // Tie-breaker: if all abs deltas are zero, fall back to empty state.
+  const top = ranked.filter(m => m.abs > 0).slice(0, 3);
+  if(!top.length){
+    list.innerHTML = '<li class="mover"><span class="mover-arrow flat" aria-hidden="true">·</span>'
+      + '<span class="mover-body"><span class="mover-label">Quiet week</span>'
+      + '<span class="mover-detail">No measure moved</span></span>'
+      + '<span class="mover-delta flat">unchanged</span></li>';
+    return;
+  }
+  list.innerHTML = top.map(m => {
+    const dir = m.delta > 0 ? 'up' : (m.delta < 0 ? 'down' : 'flat');
+    const arrow = m.delta > 0 ? '↑' : (m.delta < 0 ? '↓' : '·');
+    const ch = findChapter(m.chapterId);
+    const chapterName = ch ? ch.title : '';
+    const reading = m.prevReading
+      ? m.prevReading + ' → ' + m.reading
+      : m.reading;
+    return (
+      '<li class="mover">' +
+        '<span class="mover-arrow ' + dir + '" aria-hidden="true">' + arrow + '</span>' +
+        '<span class="mover-body">' +
+          '<span class="mover-label">' + m.label + '</span>' +
+          '<span class="mover-detail">' + chapterName + ' · ' + reading + '</span>' +
+        '</span>' +
+        '<span class="mover-delta ' + dir + '">' + m.deltaText + '</span>' +
+      '</li>'
+    );
+  }).join('');
 })();
 
 // ----- At-a-glance grid -----
