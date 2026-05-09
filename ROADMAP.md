@@ -153,9 +153,9 @@ Each goes in DATA.measures with chapter assignment, fetcher in MCP. Drop existin
 
 ### Phase 8 — Distribution
 - [x] **`/feed.xml` RSS** — `cascade-data-fetcher/src/regenerate-feed.ts` reads `~/.cascade/issues/` and writes the file. Latest item pulls title + description from the live `index.html`. `bin/publish-weekly.sh` calls it automatically each Saturday. `<link rel="alternate" type="application/rss+xml">` in `<head>` for feed-reader discovery.
+- [x] **OG share card** (static `og.svg` 1200x630, hand-authored). Wired `og:image`, `twitter:card`, `twitter:image`. Slack/Discord/iMessage render SVG; Twitter falls back to summary card. Per-issue dynamic OG (PNG via CF Worker) tracked under Phase 7+.
 - [ ] Email subscribe (Resend)
-- [ ] Share-card image generator (Cascade Clock + headline takeaway → PNG)
-- [ ] OG image per issue
+- [ ] Per-issue dynamic OG PNG (CF Worker SVG-to-PNG pipeline)
 - [ ] "Email this issue" share button
 
 ### Phase 9 — Beyond a single issue
