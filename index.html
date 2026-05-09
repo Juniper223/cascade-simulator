@@ -1191,7 +1191,12 @@ a:hover{color:var(--vermilion)}
   .glance-cell{min-height:84px;padding:.65rem .55rem}
 }
 @media (max-width:380px){
-  .glance-grid{grid-template-columns:repeat(2,1fr)}
+  .glance-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  /* 2-col gives more horizontal room per cell, so the inside can breathe a bit */
+  .cell-label{font-size:.62rem;line-height:1.25}
+  .cell-reading{font-size:1.15rem}
+  .cell-delta{font-size:.6rem;margin-top:.5rem}
+  .glance-cell{min-height:96px;padding:.8rem .7rem}
 }
 
 /* ============================================================
