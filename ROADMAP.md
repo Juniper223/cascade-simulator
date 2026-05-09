@@ -104,11 +104,13 @@ The reader should walk away with: **where we were · where we are · what's next
 - [x] **BoE 5-year fixed** — pulls series IUMBV45 from BoE CSV endpoint (4.82% March 2026, 75% LTV)
 - [x] **Local JSON storage** at `~/.cascade/issues/issue-NN.json`
 - [x] **Tools shipped:** list_measures · fetch_one · fetch_all · validate · save_issue · list_issues · compare_to_last
-- [ ] Remaining tier-A: ONS life expectancy, Caldara-Iacoviello GPR, UNHCR
-- [ ] Tier-B scrapers: Layoffs.fyi, NHS Excel, GfK / NIQ press release, CENTCOM
-- [ ] Tier-C deferred: Anthropic Economic Index, Edelman annual PDF, Lloyd's (paid)
+- [x] **NHS RTT** (Tier-B, May 2026) — discovers latest Full Time Series xlsx, parses with SheetJS, pulls "Total waiting (with estimates)" col W. Live: 7.22m Feb 2026.
+- [x] **Layoffs.fyi** (Tier-B, May 2026) — homepage SEO summary "X tech employees laid off" pairs with year labels, no headless browser needed. Live: 102k 2026 YTD.
+- [ ] Tier-A annual / quarterly: ONS life expectancy, Edelman Trust (7 measures), UNHCR Global Trends, ONS housing affordability, Anthropic Economic Index. These move once a year so they're hand-refreshed, not on the weekly fetcher.
+- [ ] Editorial-only (no clean numeric source): Hormuz strait state, supply-stress (ships diverted, needs paid AIS feed). Set by editor each issue.
+- [ ] Caldara-Iacoviello GPR (xlsx-only, deferrable now that we have SheetJS).
 - [ ] Storage swap: local JSON → Cloudflare KV namespace `CASCADE_ISSUES`
-- [ ] MCP registered in `~/.claude/mcp.json` (Jen runs `npm install && npm run build` then adds the entry)
+- [ ] MCP registered in `~/.claude/mcp.json` (Jennifer runs `npm install && npm run build` then adds the entry)
 
 ### Phase 4 — Weekly publish automation
 The pipeline is now a single shell command. All that's missing is a cron.
@@ -131,11 +133,13 @@ cd /Users/Jen/claudecode/cascade-data-fetcher && npm run publish-issue \
 
 ### Phase 6 — Add new measures (priority order)
 Each goes in DATA.measures with chapter assignment, fetcher in MCP. Drop existing low-value ones if 23 cap matters.
-- [ ] **Trussell Trust food-bank parcels** (UK, monthly) — household stress, hits the chapter-II story sharply
+- [x] **Trussell Trust food-bank parcels** (UK, monthly) — household stress, hits the chapter-II story sharply
+- [x] **GfK UK Consumer Confidence** (monthly) — chapter VIII
+- [x] **NHS RTT waiting list** (monthly xlsx) — chapter III, headline figure with estimates for missing trusts
+- [x] **Layoffs.fyi running total** (live, no headless) — chapter I, YTD cumulative
 - [ ] **National Grid live carbon intensity** (UK real-time API) — chapter V, gives 24-hour window not just monthly
 - [ ] **ACLED political violence dataset** (daily) — chapter VI, concrete event count
 - [ ] **UK Home Office Channel crossings** (daily) — chapter VIII, paired with UNHCR's slow global figure
-- [ ] **GfK UK Consumer Confidence** (already in phase 2)
 - [ ] **EU ETS carbon allowance price** — chapter V
 - [ ] **YouGov UK political polling** (weekly) — chapter VII
 - [ ] **Bond breakeven inflation 5y5y** — chapter VIII, what markets expect
