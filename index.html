@@ -1027,14 +1027,22 @@ a:hover{color:var(--vermilion)}
   padding:0;
 }
 .mover{
+  border-top:1px solid var(--rule-soft);
+}
+.mover:last-child{border-bottom:1px solid var(--rule-soft)}
+.mover-link{
   display:grid;
   grid-template-columns:1.6em 1fr auto;
   column-gap:1rem;
   align-items:baseline;
   padding:.85rem 0;
-  border-top:1px solid var(--rule-soft);
+  color:inherit;
+  text-decoration:none;
+  transition:color .15s ease;
 }
-.mover:last-child{border-bottom:1px solid var(--rule-soft)}
+.mover-link:hover{color:var(--vermilion)}
+.mover-link:hover .mover-label{color:var(--vermilion)}
+.mover-link:focus-visible{outline:2px solid var(--vermilion);outline-offset:4px;border-radius:2px}
 .mover-arrow{
   font-family:var(--serif);
   font-size:1.4rem;
@@ -1074,7 +1082,7 @@ a:hover{color:var(--vermilion)}
 .mover-delta.flat{color:var(--muted-2)}
 @media (max-width:760px){
   .movers{padding:2.25rem 18px 2.25rem}
-  .mover{grid-template-columns:1.4em 1fr auto;column-gap:.7rem}
+  .mover-link{grid-template-columns:1.4em 1fr auto;column-gap:.7rem}
   .mover-label{font-size:.98rem;line-height:1.25}
   .mover-detail{font-size:.55rem}
   .mover-delta{font-size:.65rem}
@@ -2612,12 +2620,14 @@ const deltaArrow = (cur, prev) => cur > prev ? '▲' : (cur < prev ? '▼' : '·
       : m.reading;
     return (
       '<li class="mover">' +
-        '<span class="mover-arrow ' + dir + '" aria-hidden="true">' + arrow + '</span>' +
-        '<span class="mover-body">' +
-          '<span class="mover-label">' + m.label + '</span>' +
-          '<span class="mover-detail">' + chapterName + ' · ' + reading + '</span>' +
-        '</span>' +
-        '<span class="mover-delta ' + dir + '">' + m.deltaText + '</span>' +
+        '<a class="mover-link" href="#ch-' + m.chapterId + '" aria-label="Read more in ' + chapterName + '">' +
+          '<span class="mover-arrow ' + dir + '" aria-hidden="true">' + arrow + '</span>' +
+          '<span class="mover-body">' +
+            '<span class="mover-label">' + m.label + '</span>' +
+            '<span class="mover-detail">' + chapterName + ' · ' + reading + '</span>' +
+          '</span>' +
+          '<span class="mover-delta ' + dir + '">' + m.deltaText + '</span>' +
+        '</a>' +
       '</li>'
     );
   }).join('');
