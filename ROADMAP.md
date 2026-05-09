@@ -152,7 +152,7 @@ Each goes in DATA.measures with chapter assignment, fetcher in MCP. Drop existin
 - [ ] Real WoW deltas from real prior values (drop the "indicative" caveat)
 
 ### Phase 8 — Distribution
-- [ ] `/feed.xml` RSS
+- [x] **`/feed.xml` RSS** — `cascade-data-fetcher/src/regenerate-feed.ts` reads `~/.cascade/issues/` and writes the file. Latest item pulls title + description from the live `index.html`. `bin/publish-weekly.sh` calls it automatically each Saturday. `<link rel="alternate" type="application/rss+xml">` in `<head>` for feed-reader discovery.
 - [ ] Email subscribe (Resend)
 - [ ] Share-card image generator (Cascade Clock + headline takeaway → PNG)
 - [ ] OG image per issue
