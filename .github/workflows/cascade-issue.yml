@@ -1,0 +1,106 @@
+name: Cascade monthly issue
+
+# Fetches fresh data, drafts the next issue on a branch and opens a pull
+# request. Cloudflare Pages builds a preview of the branch; merging the PR
+# publishes the issue. Nothing reaches the live site without a review.
+on:
+  schedule:
+    - cron: '0 7 24 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: cascade-issue
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      HAS_CLAUDE: ${{ secrets.ANTHROPIC_API_KEY != '' || secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Work out the next issue number
+        id: next
+        run: |
+          last=$(ls data/issues | grep -E '^issue-[0-9]+\.json$' | sort | tail -1 | grep -oE '[0-9]+')
+          next=$(printf '%02d' $((10#$last + 1)))
+          echo "number=$next" >> "$GITHUB_OUTPUT"
+          echo "branch=issue-$next-draft" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch data and write the draft
+        run: |
+          git checkout -B "${{ steps.next.outputs.branch }}"
+          node pipeline/build.mjs draft "$(date -u +%F)"
+
+      - name: Commit the draft data
+        run: |
+          git config user.name "cascade-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html data/
+          git commit -m "Issue ${{ steps.next.outputs.number }}: draft data $(date -u +%F)"
+          git push --force-with-lease -u origin "${{ steps.next.outputs.branch }}"
+
+      - name: Draft the prose with Claude
+        if: env.HAS_CLAUDE == 'true'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            You are drafting Issue ${{ steps.next.outputs.number }} of Cascade, a monthly UK almanac, on branch
+            ${{ steps.next.outputs.branch }}. The data in index.html (the DATA object) has just been refreshed;
+            data/REPORT.md summarises what moved. Read ROADMAP.md first, especially "Direction reset" and
+            "Locked decisions" (no em dashes, two-paragraph chapters with a one-line takeaway, no beat labels).
+
+            1. Update the hand-kept measures in data/manual.json that the report marks stale, using WebSearch to
+               find the latest official figure. Every number needs a real source URL; if you cannot verify one,
+               leave it unchanged and say so. Then re-run: node pipeline/build.mjs draft "$(date -u +%F)"
+            2. Rewrite the prose in index.html to match the data: vigil, masthead (issue number, title, date,
+               week, moon, sunrise and sunset for London), lede and its marginalia, bottom line, all eight
+               chapters, watch list, outlook, predictions (score the previous issue's calls honestly, then make
+               five new ones), small graces, poem, colophon, and the Issue meta tags. Keep the design untouched.
+            3. Never invent a figure. Any number in the prose must appear in DATA or come from a page you fetched.
+            4. Set DATA.issue.title and remove "draft": true, then run: node pipeline/build.mjs snapshot
+            5. Commit to the current branch with a clear message and push.
+          claude_args: |
+            --max-turns 120
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebSearch,WebFetch,Bash(node pipeline/build.mjs:*),Bash(git add:*),Bash(git commit:*),Bash(git push:*),Bash(git status:*),Bash(git diff:*)"
+
+      - name: Open the pull request
+        run: |
+          git fetch origin "${{ steps.next.outputs.branch }}"
+          {
+            cat data/REPORT.md
+            echo
+            if [ "$HAS_CLAUDE" = "true" ]; then
+              echo "_Prose drafted by Claude. Check every figure against its source before merging._"
+            else
+              echo "_Prose not drafted automatically (no Claude secret set). Ask Claude to draft it on this branch._"
+            fi
+            echo
+            echo "Preview: Cloudflare Pages builds this branch automatically. Merging publishes the issue."
+          } > /tmp/pr-body.md
+          existing=$(gh pr list --head "${{ steps.next.outputs.branch }}" --json number -q '.[0].number')
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --body-file /tmp/pr-body.md
+          else
+            gh pr create --base main --head "${{ steps.next.outputs.branch }}" \
+              --title "Cascade Issue ${{ steps.next.outputs.number }} (draft for review)" \
+              --body-file /tmp/pr-body.md
+          fi

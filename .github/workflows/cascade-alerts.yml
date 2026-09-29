@@ -1,0 +1,41 @@
+name: Cascade weekly alerts
+
+# Checks the automated measures every Monday. If any has moved sharply since
+# the last published issue (or a source has broken), it opens a GitHub issue,
+# which GitHub emails to the repository owner.
+on:
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Compare with the last issue
+        id: alerts
+        run: node pipeline/build.mjs alerts
+
+      - name: Raise or update the alert
+        if: steps.alerts.outputs.alert == 'true'
+        run: |
+          title="Cascade alert: $(date -u +'%-d %B %Y')"
+          open=$(gh issue list --state open --search "Cascade alert in:title" --json number -q '.[0].number')
+          if [ -n "$open" ]; then
+            gh issue comment "$open" --body-file data/ALERTS.md
+          else
+            gh issue create --title "$title" --body-file data/ALERTS.md
+          fi
