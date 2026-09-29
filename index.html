@@ -3,922 +3,2820 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CASCADE // Weekly Intelligence Briefing</title>
+<title>CASCADE: A weekly almanac</title>
+<meta name="description" content="A weekly almanac for orienting yourself: 23 interconnected risks and outcomes, sourced sentence by sentence.">
+<meta name="theme-color" content="#F4EFE6">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Cascade · Issue 05 · The Held Week">
+<meta property="og:description" content="A weekly almanac. Eight chapters. Twenty-three measures. The shape of the world this week.">
+<meta property="og:url" content="https://cascade-simulator.pages.dev/">
+<meta property="og:image" content="https://cascade-simulator.pages.dev/og.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="The Cascade">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Cascade · Issue 05 · The Held Week">
+<meta name="twitter:description" content="A weekly almanac. Eight chapters. Twenty-three measures. The shape of the world this week.">
+<meta name="twitter:image" content="https://cascade-simulator.pages.dev/og.svg">
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE6'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='400' font-size='22' fill='%23C8431C'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="alternate" type="application/rss+xml" title="The Cascade" href="/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+DW+Pica+SC&family=Cinzel+Decorative:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* Self-hosted display fonts (free for personal use) */
+@font-face{
+  font-family:'Woodgod';
+  src:url('fonts/woodgod.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Camelot Caps';
+  src:url('fonts/CamelotCaps.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:#0a0a0a;
-  --panel:#111;
-  --panel2:#161616;
-  --border:#222;
-  --border2:#2a2a2a;
-  --amber:#f59e0b;
-  --red:#ef4444;
-  --green:#22c55e;
-  --muted:#666;
-  --muted2:#888;
-  --text:#d4d4d4;
-  --text2:#aaa;
-  --mono:'JetBrains Mono','Courier New',monospace;
-  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --paper:#F4EFE6;
+  --paper-warm:#EFE9DC;
+  --ink:#1A1714;
+  --ink-soft:#2C2620;
+  --muted:#6B6357;
+  --muted-2:#8A8275;
+  --rule:#D9D1C2;
+  --rule-soft:#E8E1D1;
+  --vermilion:#C8431C;
+  --vermilion-soft:rgba(200,67,28,0.08);
+  --sev-low:#6B7A4F;
+  --sev-mid:#B88A2C;
+  --sev-high:#A23217;
+  --link:#3D5A6C;
+  --vigil:#14110E;
+  --serif:'Fraunces','Iowan Old Style','Hoefler Text',Georgia,serif;
+  --mono:'IM Fell DW Pica SC','IM Fell DW Pica','IBM Plex Mono','SF Mono',Menlo,monospace;
+  --display:'Woodgod','MedievalSharp',var(--serif);
+  --illuminated:'Camelot Caps','MedievalSharp',var(--serif);
+  --display-num:'Cinzel Decorative','Fraunces',serif;
 }
 
-html{font-size:14px;scroll-behavior:smooth;scroll-padding-top:72px}
+html{
+  font-size:16px;
+  scroll-behavior:smooth;
+  scroll-padding-top:8px;
+  background:var(--paper);
+}
 body{
-  background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;
-  background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 59px,#111 59px,#111 60px),
-    repeating-linear-gradient(90deg,transparent,transparent 59px,#111 59px,#111 60px);
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.0625rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"kern","liga","onum","pnum";
+  font-variant-numeric:oldstyle-nums proportional-nums;
 }
 
-.mono{font-family:var(--mono)}
-.label{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted2)}
+::selection{background:var(--vermilion);color:var(--paper)}
 
-/* ---- CLASSIFICATION BANNER ---- */
-.class-banner{
-  background:var(--amber);color:#0a0a0a;
-  font-family:var(--mono);font-size:.62rem;font-weight:700;
-  letter-spacing:.18em;text-transform:uppercase;
-  text-align:center;padding:5px 20px;
-  position:sticky;top:0;z-index:1000;
-}
+a{color:var(--link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{color:var(--vermilion)}
 
-/* ---- NAV ---- */
-.site-nav{
-  position:sticky;top:28px;z-index:100;
-  background:rgba(10,10,10,.94);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-}
-.nav-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;height:44px;
-}
-.nav-brand{
-  font-family:var(--mono);font-size:.75rem;font-weight:700;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);
-  text-decoration:none;
-}
-.nav-links{display:flex}
-.nav-link{
-  font-family:var(--mono);font-size:.6rem;text-transform:uppercase;
-  letter-spacing:.12em;color:var(--muted2);text-decoration:none;
-  padding:0 14px;height:44px;display:flex;align-items:center;
-  border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
-}
-.nav-link:hover,.nav-link.active{color:var(--amber);border-bottom-color:var(--amber)}
-@media(max-width:560px){.nav-links{display:none}}
-
-/* ---- FADE IN ---- */
-.fade-in{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
-.fade-in.visible{opacity:1;transform:none}
-
-/* ---- SECTION HEADERS ---- */
-.section-hdr{margin-bottom:48px}
-.section-eyebrow{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.22em;color:var(--amber);margin-bottom:8px}
-.section-title{font-family:var(--mono);font-size:1.35rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
-.section-sub{font-family:var(--sans);font-size:.82rem;color:var(--muted2);margin-top:5px}
+.column{max-width:640px;margin:0 auto;padding:0 24px}
+.canvas{max-width:1100px;margin:0 auto;padding:0 24px}
+.label{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
 
 /* ============================================================
-   SECTION 1 — BRIEFING
+   THE PROGRESS RULE
    ============================================================ */
-#briefing{
-  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
-  position:relative;overflow:hidden;
-}
-.briefing-inner{max-width:1200px;margin:0 auto;padding:64px 24px;width:100%}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:rgba(26,23,20,.06);z-index:50;pointer-events:none}
+.progress > span{display:block;height:100%;background:var(--vermilion);width:0;transition:width .15s linear}
 
-.briefing-head{
-  padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:32px;
+/* ============================================================
+   THE VIGIL OPENER
+   ============================================================ */
+.vigil{
+  background:var(--vigil);
+  color:var(--paper);
+  min-height:88vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:14vh 24px;
+  text-align:center;
   position:relative;
 }
-.briefing-head::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(
-    0deg,transparent,transparent 3px,
-    rgba(245,158,11,.012) 3px,rgba(245,158,11,.012) 4px
-  );
+.vigil-stamp{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(244,239,230,.42);
+  margin-bottom:5rem;
 }
-
-.briefing-title{
-  font-family:var(--mono);font-size:clamp(1.6rem,4vw,2.8rem);
-  font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--text);line-height:1.1;margin-bottom:8px;
+.vigil-line{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(1.45rem,3.2vw,2.4rem);
+  line-height:1.45;
+  letter-spacing:.005em;
+  max-width:32ch;
+  margin:0 auto;
+  color:rgba(244,239,230,.93);
 }
-.briefing-title em{color:var(--amber);font-style:normal}
-
-.briefing-subtitle{font-family:var(--sans);font-size:.88rem;color:var(--muted2);margin-bottom:18px}
-
-.briefing-week{
-  font-family:var(--mono);font-size:.95rem;font-weight:600;
-  color:var(--amber);letter-spacing:.16em;text-transform:uppercase;
+.vigil-foot{
+  position:absolute;
+  bottom:3rem;
+  left:50%;transform:translateX(-50%);
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:rgba(244,239,230,.32);
 }
-
-.briefing-story{max-width:740px;margin-bottom:40px}
-.briefing-story p{
-  font-family:var(--sans);font-size:.93rem;line-height:1.78;
-  color:var(--text2);margin-bottom:16px;
-}
-.briefing-story p:last-child{margin-bottom:0}
-.briefing-story strong{color:var(--text);font-weight:600}
-
-/* KEY NUMBERS */
-.key-numbers{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);border:1px solid var(--border);
-}
-@media(max-width:680px){.key-numbers{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:360px){.key-numbers{grid-template-columns:1fr}}
-
-.kn{background:var(--panel);padding:18px 22px}
-.kn-val{
-  font-family:var(--mono);font-size:1.9rem;font-weight:700;
-  color:var(--text);line-height:1;margin-bottom:5px;
-}
-.kn-val.danger{color:var(--red)}
-.kn-lbl{font-family:var(--sans);font-size:.72rem;color:var(--muted2);margin-bottom:7px}
-.kn-chg{font-family:var(--mono);font-size:.68rem;font-weight:600;display:flex;align-items:center;gap:4px}
-.kn-chg.danger{color:var(--red)}
 
 /* ============================================================
-   SECTION 2 — DATA
+   THE MASTHEAD
    ============================================================ */
-.data-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
-
-.crisis-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--border);border:1px solid var(--border);
+.masthead{
+  text-align:center;
+  padding:8rem 24px 5rem;
+  border-bottom:1px solid var(--rule);
+  position:relative;
 }
-@media(max-width:680px){.crisis-grid{grid-template-columns:1fr}}
-
-.ccard{
-  background:var(--panel);padding:20px 22px;
-  cursor:pointer;transition:background .18s;
+.masthead-kicker{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:1.5rem;
 }
-.ccard:hover{background:var(--panel2)}
-
-.ccard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.ccard-name{
-  font-family:var(--mono);font-size:.68rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--amber);flex:1;padding-right:6px;
+.masthead-title{
+  font-family:var(--display);
+  font-weight:400;
+  font-style:normal;
+  font-size:clamp(3.4rem,10vw,7.2rem);
+  line-height:1;
+  letter-spacing:.01em;
+  color:var(--ink);
+  margin:0 0 1.5rem;
 }
-.ccard-badges{display:flex;gap:5px;align-items:center;flex-shrink:0}
-
-.badge-upd{
-  font-family:var(--mono);font-size:.54rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;
-  background:rgba(245,158,11,.12);color:var(--amber);
-  padding:2px 5px;border:1px solid rgba(245,158,11,.3);
+.masthead-issue{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:1.25rem;
+  line-height:1.4;
+  color:var(--ink-soft);
+  margin-bottom:.75rem;
 }
-.badge-trend{font-family:var(--mono);font-size:.88rem;line-height:1}
-.badge-trend.down{color:var(--red)}
-.badge-trend.up{color:var(--green)}
-.badge-trend.stable{color:var(--muted2)}
-
-.sev-bar{height:2px;background:var(--border2);margin-bottom:13px}
-.sev-fill{height:100%;transition:width .9s ease}
-
-.ccard-stat{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:7px}
-.ccard-val{font-family:var(--mono);font-size:1.55rem;font-weight:700;line-height:1}
-.ccard-val.danger{color:var(--red)}
-.ccard-val.warn{color:var(--amber)}
-.ccard-val.ok{color:var(--green)}
-
-.ccard-lbl{font-family:var(--sans);font-size:.7rem;color:var(--muted2);margin-bottom:5px}
-.ccard-chg{font-family:var(--mono);font-size:.63rem;font-weight:600}
-.ccard-chg.down{color:var(--red)}
-.ccard-chg.up{color:var(--green)}
-.ccard-chg.stable{color:var(--muted2)}
+.masthead-issue em{
+  font-style:normal;
+  color:var(--vermilion);
+}
+.masthead-date{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.masthead-rule{
+  width:48px;height:1px;background:var(--vermilion);
+  margin:2.5rem auto 0;
+}
 
 /* ============================================================
-   SECTION 3 — CASCADE GRAPH
+   THE LEDE
    ============================================================ */
-.cascade-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
-
-.cascade-layout{display:flex;gap:20px;align-items:flex-start}
-@media(max-width:860px){.cascade-layout{flex-direction:column}}
-
-.graph-panel{
-  flex:1;min-width:0;
-  background:var(--panel);border:1px solid var(--border);
-  padding:10px;
+.lede{
+  padding:5rem 24px 3rem;
 }
-.graph-panel svg{display:block;width:100%;height:auto}
-
-.detail-panel{
-  width:300px;flex-shrink:0;
-  background:var(--panel);border:1px solid var(--border);
-  font-size:.78rem;min-height:300px;
+.lede h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-style:italic;
+  font-size:clamp(1.7rem,3.4vw,2.4rem);
+  line-height:1.18;
+  letter-spacing:-.012em;
+  color:var(--ink);
+  margin-bottom:2rem;
+  font-variation-settings:"opsz" 96,"SOFT" 30;
 }
-@media(max-width:860px){.detail-panel{width:100%}}
-
-.dp-empty{
-  padding:40px 24px;text-align:center;
-  font-family:var(--mono);font-size:.65rem;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.12em;line-height:2;
+.lede p{
+  font-family:var(--serif);
+  font-size:1.15rem;
+  line-height:1.62;
+  color:var(--ink-soft);
+  margin-bottom:1.15rem;
 }
-.dp-body{display:none;padding:18px 20px}
-.dp-body.on{display:block}
-
-.dp-name{
-  font-family:var(--mono);font-size:.7rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--amber);
-  padding-bottom:11px;border-bottom:1px solid var(--border);margin-bottom:13px;
+.lede p:first-of-type::first-letter,
+.illuminated-cap{
+  font-family:var(--illuminated);
+  font-weight:400;
+  font-size:5em;
+  float:left;
+  line-height:.85;
+  margin:0.05em 0.12em -0.08em 0;
+  color:var(--vermilion);
 }
-.dp-bigval{font-family:var(--mono);font-size:1.75rem;font-weight:700;color:var(--red);line-height:1;margin-bottom:3px}
-.dp-vallbl{font-family:var(--sans);font-size:.7rem;color:var(--muted2)}
-.dp-chg{font-family:var(--mono);font-size:.62rem;color:var(--red);margin-top:3px;margin-bottom:12px}
-.dp-desc{
-  font-family:var(--sans);font-size:.76rem;line-height:1.6;
-  color:var(--text2);margin-bottom:12px;
-  padding-bottom:12px;border-bottom:1px solid var(--border);
+.lede strong{font-weight:600;color:var(--ink);font-style:normal}
+.num{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:.94em;
+  font-style:normal;
+  letter-spacing:0;
+  color:var(--ink);
 }
-.dp-lbl{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:5px}
-.dp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
-.dp-tag-out{
-  font-family:var(--mono);font-size:.58rem;text-transform:uppercase;
-  letter-spacing:.06em;padding:2px 5px;cursor:pointer;
-  background:rgba(245,158,11,.1);color:var(--amber);
-  border:1px solid rgba(245,158,11,.2);
-}
-.dp-tag-out:hover{background:rgba(245,158,11,.22)}
-.dp-tag-in{
-  font-family:var(--mono);font-size:.58rem;text-transform:uppercase;
-  letter-spacing:.06em;padding:2px 5px;cursor:pointer;
-  background:rgba(239,68,68,.1);color:var(--red);
-  border:1px solid rgba(239,68,68,.2);
-}
-.dp-proj{
-  background:var(--panel2);border:1px solid var(--border);
-  padding:10px 12px;margin-top:12px;
-}
-.dp-proj .dp-lbl{margin-bottom:5px}
-.dp-proj p{font-family:var(--sans);font-size:.7rem;color:var(--text2);line-height:1.55}
 
 /* ============================================================
-   SECTION 4 — PERSONAL
+   THE CASCADE CLOCK
    ============================================================ */
-.personal-wrap{max-width:1200px;margin:0 auto;padding:80px 24px}
+.clock{
+  text-align:center;
+  padding:4rem 24px 5rem;
+}
+.clock-label{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:2.75rem;
+}
+.clock-number{
+  font-family:var(--display-num);
+  font-weight:400;
+  font-size:clamp(5.5rem,15vw,10rem);
+  line-height:.95;
+  letter-spacing:.005em;
+  color:var(--ink);
+}
+.clock-scale{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:1rem;
+}
+.clock-divider{
+  width:32px;
+  height:1px;
+  background:var(--vermilion);
+  margin:2.5rem auto;
+}
+.clock-midnight{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.2rem,2.6vw,1.6rem);
+  line-height:1.4;
+  color:var(--ink-soft);
+  font-variation-settings:"opsz" 96;
+}
+.clock-midnight .clock-time-label{
+  color:var(--muted);
+}
+.clock-explain{
+  font-family:var(--serif);
+  font-size:1rem;
+  line-height:1.6;
+  color:var(--muted);
+  max-width:46ch;
+  margin:2rem auto 0;
+}
 
-.risk-top{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-bottom:36px}
+/* Scale of contributing signals (calm 0 to midnight 100) */
+.clock-scale{
+  max-width:380px;
+  margin:2.5rem auto 0;
+  padding:0 8px;
+}
+.clock-scale-track{
+  position:relative;
+  height:28px;
+}
+.scale-rule{
+  position:absolute;
+  top:50%;
+  left:0;right:0;
+  height:1px;
+  background:var(--rule);
+  transform:translateY(-50%);
+}
+.scale-pip{
+  position:absolute;
+  top:50%;
+  width:5px;
+  height:5px;
+  background:var(--vermilion);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  opacity:.7;
+}
+.scale-stem{
+  position:absolute;
+  top:50%;
+  width:1.5px;
+  height:18px;
+  background:var(--vermilion);
+  transform:translate(-50%,-50%);
+}
+.scale-stem::after{
+  content:attr(data-label);
+  position:absolute;
+  top:-1.4em;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.13em;
+  color:var(--vermilion);
+}
+.clock-scale-labels{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin-top:.6rem;
+}
+.clock-scale-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.92rem;
+  color:var(--muted);
+  text-align:center;
+  margin-bottom:1rem;
+  max-width:38ch;
+  margin-left:auto;
+  margin-right:auto;
+}
 
-.score-block{
-  background:var(--panel);border:1px solid var(--border);
-  padding:22px 28px;flex-shrink:0;
+/* ============================================================
+   CHAPTERS
+   Each chapter follows the five-beat rhythm: question, state,
+   long view, what to watch, the cascade. Three measures footer.
+   ============================================================ */
+.chapter{
+  padding:5rem 24px 4rem;
 }
-.score-lbl{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted2);margin-bottom:5px}
-.score-val{font-family:var(--mono);font-size:3.2rem;font-weight:700;color:var(--amber);line-height:1}
-.score-denom{font-family:var(--mono);font-size:1.1rem;color:var(--muted2)}
-.score-delta{font-family:var(--mono);font-size:.68rem;color:var(--red);margin-top:5px}
-.score-drivers{font-family:var(--sans);font-size:.74rem;color:var(--text2);margin-top:7px;max-width:260px;line-height:1.55}
+.chapter-eyebrow{
+  text-align:center;
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.5rem;
+}
+.chapter-glyph{
+  display:block;
+  margin:0 auto 1.25rem;
+  width:42px;
+  height:42px;
+  color:var(--vermilion);
+}
+.chapter-glyph svg{display:block;width:100%;height:100%}
+@media (max-width:760px){
+  .chapter-glyph{width:36px;height:36px;margin-bottom:1rem}
+}
+.chapter-title{
+  text-align:center;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.7rem,3.4vw,2.3rem);
+  line-height:1.22;
+  color:var(--ink);
+  margin:0 auto 3rem;
+  max-width:24ch;
+  font-variation-settings:"opsz" 96;
+}
+.chapter-body{
+  max-width:640px;
+  margin:0 auto;
+}
+.chapter-body p{
+  font-family:var(--serif);
+  font-size:1.08rem;
+  line-height:1.65;
+  color:var(--ink-soft);
+  margin-bottom:1.5rem;
+}
+.chapter-body p:first-of-type::first-letter{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:5em;
+  float:left;
+  line-height:.85;
+  margin:.04em .08em -.06em 0;
+  color:var(--vermilion);
+  font-variation-settings:"opsz" 144;
+}
+.chapter-measures{
+  margin-top:3.5rem;
+  padding-top:1.75rem;
+  border-top:1px solid var(--rule);
+}
+.measures-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1rem;
+  text-align:center;
+}
+.measures-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.measures-list li{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:1rem;
+  padding:.75rem 0;
+  border-bottom:1px solid var(--rule-soft);
+  align-items:baseline;
+  font-family:var(--serif);
+  font-size:.96rem;
+}
+.measures-list li:last-child{border-bottom:none}
+.measure-label{color:var(--ink)}
+.measure-reading{
+  font-family:var(--mono);
+  font-size:.9em;
+  color:var(--ink);
+  font-weight:500;
+}
+.measure-source{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  white-space:nowrap;
+}
 
-.risk-dims{flex:1;min-width:260px}
-.rdim{margin-bottom:14px}
-.rdim-hdr{display:flex;justify-content:space-between;margin-bottom:4px}
-.rdim-name{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2)}
-.rdim-score{font-family:var(--mono);font-size:.62rem;font-weight:700;color:var(--amber)}
-.rdim-bar{height:2px;background:var(--border2)}
-.rdim-fill{height:100%;background:var(--amber);transition:width .9s ease}
-.rdim-fill.danger{background:var(--red)}
-.rdim-fill.ok{background:var(--green)}
+/* ============================================================
+   THE CASCADE PLATE (almanac chart)
+   23 nodes around a circle, vermilion arcs through the centre
+   for this week's strongest cause edges. Color tier by severity,
+   inner mark for outcome measures. Rendered from DATA in JS.
+   ============================================================ */
+.plate{
+  text-align:center;
+  padding:5rem 24px 4rem;
+}
+.plate-eyebrow{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+}
+.plate-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.6rem,3.2vw,2.1rem);
+  color:var(--ink);
+  margin:0 auto 1.25rem;
+  max-width:32ch;
+  font-variation-settings:"opsz" 96;
+}
+.plate-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--muted);
+  max-width:42ch;
+  margin:0 auto 2.5rem;
+  line-height:1.55;
+}
+.plate-svg{
+  display:block;
+  width:100%;
+  max-width:680px;
+  height:auto;
+  margin:0 auto;
+}
+.plate-edge{
+  fill:none;
+  stroke:var(--vermilion);
+  stroke-width:.8;
+  opacity:.45;
+  stroke-linecap:round;
+}
+.plate-node{
+  stroke:var(--ink);
+  stroke-width:.6;
+  opacity:.92;
+}
+.plate-node-low{fill:#9CA98F}
+.plate-node-mid{fill:#D8A33A}
+.plate-node-high{fill:var(--vermilion)}
+.plate-outcome-mark{
+  fill:var(--paper);
+  pointer-events:none;
+}
+.plate-center{
+  fill:var(--vermilion);
+  opacity:.7;
+}
+.plate-label{
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.04em;
+  fill:var(--muted);
+}
+.plate-key{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:2.5rem auto 0;
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  max-width:50ch;
+}
+.key-item{display:inline-flex;align-items:center;gap:.45em}
+.key-dot{display:inline-block;width:8px;height:8px;border-radius:50%;border:1px solid var(--ink)}
+.key-low{background:#9CA98F}
+.key-mid{background:#D8A33A}
+.key-high{background:var(--vermilion)}
+.key-mark{color:var(--vermilion);font-size:1.1em}
 
-.controls-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:28px;
+/* ============================================================
+   APPENDICES (Standings, Watch List, Outlook, Predictions,
+   Small Graces, Poem)
+   ============================================================ */
+.appendix{
+  padding:4.5rem 24px 3rem;
 }
-.ctrl{
-  background:var(--panel);padding:14px 18px;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
+.appendix-eyebrow{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+  text-align:center;
 }
-.ctrl-lbl{font-family:var(--sans);font-size:.78rem;color:var(--text2)}
-.ctrl-sub{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:2px}
+.appendix-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.6rem,3.2vw,2.1rem);
+  line-height:1.22;
+  color:var(--ink);
+  text-align:center;
+  margin:0 auto 1.5rem;
+  max-width:32ch;
+  font-variation-settings:"opsz" 96;
+}
+.appendix-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--muted);
+  max-width:46ch;
+  margin:0 auto 2.5rem;
+  line-height:1.55;
+  text-align:center;
+}
 
-.toggle{position:relative;width:34px;height:19px;flex-shrink:0}
-.toggle input{opacity:0;width:0;height:0}
-.tslider{position:absolute;inset:0;background:var(--border2);cursor:pointer;transition:.2s}
-.tslider::before{
-  content:'';position:absolute;height:13px;width:13px;
-  left:3px;bottom:3px;background:#555;transition:.2s;
+/* The Standings */
+.standings-table{
+  width:100%;
+  max-width:640px;
+  margin:0 auto;
+  border-collapse:collapse;
+  font-family:var(--serif);
+  font-size:.96rem;
 }
-.toggle input:checked+.tslider{background:rgba(245,158,11,.28)}
-.toggle input:checked+.tslider::before{transform:translateX(15px);background:var(--amber)}
+.standings-table th{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:var(--muted);
+  padding:.6rem .5rem 1rem;
+  text-align:left;
+  border-bottom:1px solid var(--rule);
+}
+.standings-table th.right{text-align:right}
+.standings-table td{
+  padding:.7rem .5rem;
+  border-bottom:1px solid var(--rule-soft);
+  vertical-align:baseline;
+}
+.standings-table td.right{text-align:right}
+.standings-rank{
+  font-family:var(--mono);
+  font-size:.65rem;
+  letter-spacing:.13em;
+  color:var(--muted-2);
+  width:3rem;
+}
+.standings-reading{
+  font-family:var(--mono);
+  font-size:.85em;
+  color:var(--ink);
+  font-weight:500;
+}
+.standings-chapter{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+}
+.severity-dot{
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  border:1px solid var(--ink);
+  margin-right:.4em;
+  vertical-align:-1px;
+}
+.severity-low{background:#9CA98F}
+.severity-mid{background:#D8A33A}
+.severity-high{background:var(--vermilion)}
 
-.ctrl-select{
-  background:var(--panel2);border:1px solid var(--border2);
-  color:var(--text2);font-family:var(--mono);font-size:.68rem;
-  padding:4px 7px;cursor:pointer;outline:none;
+/* Watch List */
+.watch-list-items{
+  list-style:none;
+  max-width:640px;
+  margin:0 auto;
+  padding:0;
+  counter-reset:wl;
 }
-.ctrl-select:focus{border-color:var(--amber)}
+.watch-list-items > li{
+  padding:1.5rem 0 1.5rem 3rem;
+  border-bottom:1px solid var(--rule-soft);
+  position:relative;
+  counter-increment:wl;
+}
+.watch-list-items > li:last-child{border-bottom:none}
+.watch-list-items > li::before{
+  content:counter(wl, upper-roman);
+  position:absolute;
+  left:0;
+  top:1.65rem;
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.16em;
+  color:var(--vermilion);
+}
+.watch-list-items h3{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:1.1rem;
+  color:var(--ink);
+  margin:0 0 .55rem;
+  font-variation-settings:"opsz" 72;
+}
+.watch-list-items p{
+  font-family:var(--serif);
+  font-size:1rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+  margin:0;
+}
 
-.rec-box{
-  background:var(--panel);border:1px solid var(--border);
-  padding:22px;margin-bottom:20px;
+/* Outlook */
+.outlook-horizon{
+  max-width:640px;
+  margin:0 auto 2.5rem;
 }
-.rec-title{
-  font-family:var(--mono);font-size:.68rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.16em;color:var(--amber);margin-bottom:14px;
+.outlook-horizon:last-child{margin-bottom:0}
+.outlook-horizon h3{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin:0 0 .85rem;
+  text-align:center;
 }
-.rec-list{list-style:none}
-.rec-li{
-  font-family:var(--sans);font-size:.78rem;color:var(--text2);
-  padding:8px 0;border-bottom:1px solid var(--border);
-  display:flex;gap:9px;align-items:flex-start;line-height:1.55;
+.outlook-horizon p{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  line-height:1.62;
+  color:var(--ink-soft);
 }
-.rec-li:last-child{border-bottom:none}
-.rec-li.done{opacity:.45}
-.rec-li.done span:last-child{text-decoration:line-through;text-decoration-color:var(--muted)}
-.rec-done-tag{
-  font-family:var(--mono);font-size:.54rem;font-weight:700;
-  letter-spacing:.12em;color:var(--green);
-  border:1px solid rgba(34,197,94,.35);background:rgba(34,197,94,.08);
-  padding:2px 5px;flex-shrink:0;margin-top:1px;
-}
-.rec-pri{
-  font-family:var(--mono);font-size:.58rem;font-weight:700;
-  padding:2px 4px;flex-shrink:0;margin-top:1px;
-}
-.rec-pri.high{background:rgba(239,68,68,.14);color:var(--red);border:1px solid rgba(239,68,68,.28)}
-.rec-pri.med{background:rgba(245,158,11,.14);color:var(--amber);border:1px solid rgba(245,158,11,.28)}
-.rec-pri.low{background:rgba(100,100,100,.18);color:var(--muted2);border:1px solid var(--border)}
 
-.proj-box{
-  background:var(--panel);border:1px solid var(--border);
-  padding:18px 22px;
+/* Predictions */
+.predictions-list{
+  list-style:none;
+  max-width:640px;
+  margin:0 auto;
+  padding:0;
 }
-.proj-eyebrow{
-  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;
-  letter-spacing:.16em;color:var(--amber);margin-bottom:9px;
+.predictions-list > li{
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--rule-soft);
 }
-.proj-text{font-family:var(--sans);font-size:.8rem;color:var(--text2);line-height:1.65}
-.proj-text strong{color:var(--red);font-family:var(--mono)}
+.predictions-list > li:last-child{border-bottom:none}
+.prediction-text{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  line-height:1.55;
+  color:var(--ink);
+  margin:0 0 .5rem;
+}
+.prediction-meta{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin:0;
+}
 
-/* ---- FOOTER ---- */
-footer{background:var(--panel);border-top:1px solid var(--border);padding:28px 24px}
-.foot-inner{max-width:1200px;margin:0 auto}
-.foot-title{font-family:var(--mono);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:12px}
-.foot-text{font-family:var(--sans);font-size:.7rem;color:var(--muted2);line-height:1.75;max-width:780px}
-.foot-meta{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-top:14px;letter-spacing:.05em}
-.foot-sep{margin:0 8px;color:var(--border2)}
+/* Small Graces */
+.graces-list{
+  list-style:none;
+  max-width:560px;
+  margin:0 auto;
+  padding:0;
+  counter-reset:graces;
+}
+.graces-list li{
+  padding:1.25rem 0 1.25rem 2.5rem;
+  position:relative;
+  counter-increment:graces;
+  border-bottom:1px solid var(--rule-soft);
+}
+.graces-list li:last-child{border-bottom:none}
+.graces-list li::before{
+  content:counter(graces);
+  position:absolute;
+  left:0;
+  top:1.4rem;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--vermilion);
+}
+.graces-list p{
+  font-family:var(--serif);
+  font-size:1.02rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+  margin:0;
+}
 
-#trend-charts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-#trend-charts svg{display:block;width:100%;height:auto;background:#111;border:none}
-@media(max-width:680px){#trend-charts{grid-template-columns:1fr}}
+/* Poem */
+.poem{
+  background:var(--paper-warm);
+  padding:5rem 24px;
+}
+.poem-body{
+  max-width:520px;
+  margin:0 auto;
+  text-align:center;
+}
+.poem-body p{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.1rem;
+  line-height:1.75;
+  color:var(--ink-soft);
+  margin:0;
+  font-variation-settings:"opsz" 96;
+}
 
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2)}
+/* ============================================================
+   COMING SOON STRIP
+   ============================================================ */
+.coming{
+  border-bottom:1px solid var(--rule);
+  padding:5rem 24px;
+  background:var(--paper-warm);
+  text-align:center;
+  margin-top:3rem;
+}
+.coming-label{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+}
+.coming h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.5rem;
+  line-height:1.3;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin-bottom:1.5rem;
+  max-width:32ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+.coming-list{
+  list-style:none;
+  max-width:38ch;
+  margin:1.5rem auto 0;
+  text-align:left;
+}
+.coming-list li{
+  font-family:var(--serif);
+  font-size:.95rem;
+  line-height:1.7;
+  color:var(--muted);
+  padding:.4rem 0;
+  border-bottom:1px solid var(--rule-soft);
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.coming-list li::before{
+  content:counter(coming-counter, upper-roman);
+  counter-increment:coming-counter;
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.16em;
+  color:var(--vermilion);
+  margin-right:1rem;
+  min-width:3em;
+}
+.coming-list li span{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--muted-2)}
+.coming-list{counter-reset:coming-counter}
+
+/* ============================================================
+   COLOPHON STRIP (temporary)
+   ============================================================ */
+.colophon{
+  text-align:center;
+  padding:4rem 24px 3rem;
+}
+.colophon-mark{
+  display:flex;
+  justify-content:center;
+  margin-bottom:1.5rem;
+}
+.colophon p{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.92rem;
+  color:var(--muted);
+  max-width:48ch;
+  margin:0 auto 1rem;
+  line-height:1.6;
+}
+.colophon p.next{
+  font-family:var(--mono);
+  font-style:normal;
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin-top:2rem;
+}
+.colophon p.colophon-note{
+  font-family:var(--serif);
+  font-style:normal;
+  font-size:.78rem;
+  line-height:1.55;
+  color:var(--muted-2);
+  max-width:54ch;
+  margin:1.5rem auto 0;
+  padding-top:1.25rem;
+  border-top:1px solid var(--rule-soft);
+}
+.colophon-link{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin-top:1rem;
+  display:inline-block;
+}
+
+/* ============================================================
+   STICKY TABLE OF CONTENTS
+   Appears once the reader scrolls past the masthead.
+   ============================================================ */
+.toc-nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:55;
+  background:rgba(244,239,230,.94);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+  padding:.6rem 18px;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted);
+  transform:translateY(-110%);
+  transition:transform .35s cubic-bezier(.2,.6,.2,1);
+}
+.toc-nav.is-visible{transform:translateY(0)}
+.toc-list{
+  list-style:none;
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  margin:0;
+  padding:0;
+}
+.toc-list a{
+  text-decoration:none;
+  color:var(--muted);
+  padding:.2rem .15rem;
+  white-space:nowrap;
+  transition:color .15s ease;
+}
+.toc-list a:hover{color:var(--vermilion)}
+.toc-sep{color:var(--rule);user-select:none}
+@media (max-width:760px){
+  .toc-list{gap:.55rem;font-size:.5rem;letter-spacing:.1em}
+  .toc-sep{display:none}
+}
+
+/* ============================================================
+   THE BOTTOM LINE (orientation panel after Clock)
+   Three sentences: where we were, where we are, what's next.
+   ============================================================ */
+.bottom-line{
+  background:var(--paper-warm);
+  padding:3rem 24px;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.bottom-line-inner{
+  max-width:720px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.75rem;
+}
+.bl-cell{
+  text-align:left;
+}
+.bl-eyebrow{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:.6rem;
+}
+.bl-line{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.05rem;
+  line-height:1.55;
+  color:var(--ink);
+  font-variation-settings:"opsz" 96;
+}
+.bl-line strong{
+  font-style:normal;
+  color:var(--vermilion);
+  font-weight:500;
+}
+@media (max-width:760px){
+  .bottom-line{padding:2rem 22px}
+  .bottom-line-inner{grid-template-columns:1fr;gap:1.25rem}
+  .bl-line{font-size:1rem}
+}
+
+/* ============================================================
+   WHAT MOVED THIS WEEK (top 3 deltas)
+   ============================================================ */
+.movers{
+  max-width:720px;
+  margin:0 auto;
+  padding:3rem 24px 2.75rem;
+}
+.movers-eyebrow{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  text-align:center;
+  margin:0 0 1.5rem;
+}
+.movers-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.mover{
+  border-top:1px solid var(--rule-soft);
+}
+.mover:last-child{border-bottom:1px solid var(--rule-soft)}
+.mover-link{
+  display:grid;
+  grid-template-columns:1.6em 1fr auto;
+  column-gap:1rem;
+  align-items:baseline;
+  padding:.85rem 0;
+  color:inherit;
+  text-decoration:none;
+  transition:color .15s ease;
+}
+.mover-link:hover{color:var(--vermilion)}
+.mover-link:hover .mover-label{color:var(--vermilion)}
+.mover-link:focus-visible{outline:2px solid var(--vermilion);outline-offset:4px;border-radius:2px}
+.mover-arrow{
+  font-family:var(--serif);
+  font-size:1.4rem;
+  font-weight:500;
+  line-height:1;
+  text-align:center;
+  font-variation-settings:"opsz" 96;
+}
+.mover-arrow.up{color:var(--vermilion)}
+.mover-arrow.down{color:#6B7A4F}
+.mover-arrow.flat{color:var(--muted-2)}
+.mover-body{display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.mover-label{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:500;
+  color:var(--ink);
+  font-variation-settings:"opsz" 36;
+}
+.mover-detail{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.mover-delta{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-align:right;
+  white-space:nowrap;
+  font-feature-settings:"tnum" 1;
+}
+.mover-delta.up{color:var(--vermilion)}
+.mover-delta.down{color:#6B7A4F}
+.mover-delta.flat{color:var(--muted-2)}
+@media (max-width:760px){
+  .movers{padding:2.25rem 18px 2.25rem}
+  .mover-link{grid-template-columns:1.4em 1fr auto;column-gap:.7rem}
+  .mover-label{font-size:.98rem;line-height:1.25}
+  .mover-detail{font-size:.55rem}
+  .mover-delta{font-size:.65rem}
+}
+
+/* ============================================================
+   AT-A-GLANCE GRID (every measure as one cell)
+   ============================================================ */
+.glance{
+  padding:5rem 24px 4rem;
+  text-align:center;
+}
+.glance-eyebrow{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin-bottom:1.25rem;
+}
+.glance-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.6rem,3.2vw,2.1rem);
+  color:var(--ink);
+  margin:0 auto 1.25rem;
+  max-width:32ch;
+  font-variation-settings:"opsz" 96;
+}
+.glance-intro{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1rem;
+  color:var(--muted);
+  max-width:42ch;
+  margin:0 auto 2.5rem;
+  line-height:1.55;
+}
+.glance-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  max-width:840px;
+  margin:0 auto;
+  text-align:left;
+}
+.glance-cell{
+  display:flex;
+  flex-direction:column;
+  padding:.85rem .7rem .8rem;
+  border:1px solid var(--rule);
+  border-left-width:3px;
+  border-radius:2px;
+  background:var(--paper);
+  text-decoration:none;
+  color:inherit;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  min-height:96px;
+}
+.glance-cell:hover{
+  transform:translateY(-1px);
+  box-shadow:0 2px 8px rgba(26,23,20,.08);
+  background:#fafafa;
+}
+.glance-cell.tier-low{border-left-color:#9CA98F}
+.glance-cell.tier-mid{border-left-color:#D8A33A}
+.glance-cell.tier-high{border-left-color:var(--vermilion)}
+.cell-label{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--muted);
+  line-height:1.4;
+  margin-bottom:.5rem;
+}
+.cell-reading{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1rem;
+  color:var(--ink);
+  letter-spacing:-.005em;
+  line-height:1.1;
+  font-variation-settings:"opsz" 36;
+}
+.cell-delta{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  margin-top:.4rem;
+  color:var(--muted-2);
+}
+.delta-up{color:var(--vermilion)}
+.delta-down{color:#6B7A4F}
+.delta-flat{color:var(--muted-2)}
+.glance-key{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:2rem auto 0;
+  display:flex;
+  justify-content:center;
+  gap:1.25rem;
+  flex-wrap:wrap;
+}
+@media (max-width:760px){
+  .glance{padding:3.5rem 16px 2.5rem}
+  .glance-grid{grid-template-columns:repeat(3,1fr);gap:6px;padding:0 6px}
+  .cell-label{font-size:.5rem;line-height:1.3}
+  .cell-reading{font-size:1rem}
+  .cell-delta{font-size:.52rem}
+  .glance-cell{min-height:84px;padding:.65rem .55rem}
+}
+@media (max-width:380px){
+  .glance-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  /* 2-col gives more horizontal room per cell, so the inside can breathe a bit */
+  .cell-label{font-size:.62rem;line-height:1.25}
+  .cell-reading{font-size:1.15rem}
+  .cell-delta{font-size:.6rem;margin-top:.5rem}
+  .glance-cell{min-height:96px;padding:.8rem .7rem}
+}
+
+/* ============================================================
+   HISTORICAL ANCHORS (where have we seen this before)
+   ============================================================ */
+.anchors{
+  background:var(--paper-warm);
+  padding:5rem 24px 4rem;
+  text-align:center;
+}
+.anchors-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  max-width:1000px;
+  margin:0 auto;
+  text-align:left;
+}
+.anchor-card{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  padding:1.75rem 1.5rem;
+  display:flex;
+  flex-direction:column;
+}
+.anchor-year{
+  font-family:var(--display-num);
+  font-size:2.4rem;
+  color:var(--vermilion);
+  line-height:1;
+  margin-bottom:.85rem;
+  letter-spacing:.005em;
+}
+.anchor-headline{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:500;
+  font-size:1.1rem;
+  line-height:1.3;
+  color:var(--ink);
+  margin:0 0 .85rem;
+  font-variation-settings:"opsz" 72;
+}
+.anchor-summary{
+  font-family:var(--serif);
+  font-size:.95rem;
+  line-height:1.55;
+  color:var(--ink-soft);
+  margin:0 0 1.25rem;
+}
+.anchor-similar, .anchor-different{
+  font-family:var(--serif);
+  font-size:.88rem;
+  line-height:1.5;
+  color:var(--muted);
+  margin:0 0 .55rem;
+}
+.anchor-similar strong, .anchor-different strong{
+  font-family:var(--mono);
+  font-style:normal;
+  font-weight:500;
+  text-transform:uppercase;
+  font-size:.6rem;
+  letter-spacing:.16em;
+  margin-right:.3em;
+}
+.anchor-similar strong{color:var(--vermilion)}
+.anchor-different strong{color:var(--ink)}
+.anchor-rating{
+  margin-top:auto;
+  padding-top:1rem;
+  border-top:1px solid var(--rule-soft);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+}
+.anchor-stars{color:var(--vermilion);font-size:.85rem;letter-spacing:.18em}
+@media (max-width:760px){
+  .anchors{padding:3.5rem 22px 2.5rem}
+  .anchors-grid{grid-template-columns:1fr;gap:1rem;max-width:560px}
+  .anchor-card{padding:1.5rem 1.25rem}
+  .anchor-year{font-size:2rem}
+}
+
+/* ============================================================
+   CHAPTER TAKEAWAY (one-sentence punch line per chapter)
+   The line a reader would remember from the chapter. Bigger,
+   more visual weight than the body so the eye lands on it.
+   ============================================================ */
+.chapter-takeaway{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.4rem,2.6vw,1.75rem);
+  line-height:1.32;
+  color:var(--ink);
+  text-align:center;
+  max-width:32ch;
+  margin:0 auto 2.5rem;
+  padding:1.4rem 1.5rem;
+  font-variation-settings:"opsz" 96;
+  position:relative;
+  border-top:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--rule-soft);
+}
+.chapter-takeaway::before{
+  content:'';
+  position:absolute;
+  top:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--vermilion);
+}
+.chapter-takeaway::after{
+  content:'';
+  position:absolute;
+  bottom:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--vermilion);
+}
+@media (max-width:760px){
+  .chapter-takeaway{font-size:1.2rem;margin-bottom:1.75rem;padding:1.1rem 1rem}
+}
+
+/* ============================================================
+   MEASURES TABLE - WoW deltas + source links
+   ============================================================ */
+.measure-delta{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  margin-left:.5em;
+  white-space:nowrap;
+}
+.measure-source a{
+  color:var(--muted-2);
+  text-decoration:none;
+  border-bottom:1px dotted var(--muted-2);
+  padding-bottom:1px;
+  transition:color .15s ease, border-color .15s ease;
+}
+.measure-source a:hover{
+  color:var(--vermilion);
+  border-bottom-color:var(--vermilion);
+}
+
+/* Clock WoW delta line */
+.clock-delta-line{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:.85rem;
+}
+.clock-delta-line .up{color:var(--vermilion)}
+.clock-delta-line .down{color:#6B7A4F}
+
+/* ============================================================
+   PAPER TEXTURE
+   Subtle letterpress impression on the cream paper.
+   ============================================================ */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:.42;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.36 0 0 0 0 0.28 0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+body > *{position:relative;z-index:2}
+
+/* ============================================================
+   ALMANAC LINE (week, moon, sun under the date)
+   ============================================================ */
+.masthead-almanac{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin-top:.55rem;
+  font-weight:500;
+}
+.masthead-almanac .almanac-sep{
+  color:var(--rule);
+  margin:0 .8em;
+}
+.masthead-almanac .almanac-glyph{
+  color:var(--vermilion);
+  font-style:normal;
+}
+
+/* ============================================================
+   SECTION ORNAMENTS
+   Replace plain hairline rules with a centered vermilion mark.
+   ============================================================ */
+.ornament{
+  display:flex;align-items:center;justify-content:center;
+  gap:1.4rem;
+  padding:3.5rem 24px 0;
+  margin:0 auto;
+  max-width:600px;
+  color:var(--vermilion);
+}
+.ornament-rule{
+  flex:1;
+  max-width:120px;
+  height:1px;
+  background:var(--rule);
+}
+.ornament-mark{
+  flex-shrink:0;
+  display:block;
+}
+
+/* ============================================================
+   MARGINALIA (sources beside lede figures)
+   Marginals are siblings inside .lede (not nested in .anchor) so
+   they can be positioned at the column's right edge. JS sets each
+   marginal's `top` to align with its anchor at run time.
+   ============================================================ */
+.lede{position:relative}
+.marginal{
+  position:absolute;
+  left:calc(100% + 2rem);
+  top:0;
+  width:11ch;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  line-height:1.6;
+  pointer-events:none;
+  font-weight:500;
+  opacity:0;
+  transition:opacity .8s ease;
+}
+.marginal.is-placed{opacity:1}
+.marginal::before{
+  content:'';
+  position:absolute;
+  top:.6em;
+  left:-1.4rem;
+  width:.9rem;
+  height:1px;
+  background:var(--vermilion);
+  opacity:.55;
+}
+.marginal em{
+  font-style:normal;
+  color:var(--vermilion);
+  display:block;
+  font-size:.94em;
+  margin-top:.2em;
+}
+/* On narrow viewports the side-margin doesn't have room. Stack the
+   marginalia below the lede as little footnotes with a vermilion
+   left rule. The JS-set `top` is ignored under position:static. */
+@media (max-width:980px){
+  .marginal{
+    position:static;
+    width:auto;
+    max-width:none;
+    margin:.9rem 0 0;
+    padding:.15rem 0 .15rem 1.1rem;
+    border-left:2px solid var(--vermilion);
+    opacity:1;
+    display:block;
+    font-size:.6rem;
+    letter-spacing:.13em;
+    line-height:1.65;
+  }
+  .marginal:first-of-type{margin-top:1.5rem}
+  .marginal::before{display:none}
+  .marginal em{display:inline;margin-left:.6em}
+  .marginal em::before{content:'·';color:var(--muted-2);margin-right:.5em;font-style:normal}
+}
+
+/* ============================================================
+   ANIMATION
+   - Number counts 0 → severity on scroll-into-view
+   - Divider draws 0 → 32px
+   - Clock-midnight fades up
+   - Real-time tick once visible (managed in JS)
+   Gated by .js root class so no-JS users see everything.
+   ============================================================ */
+.js .clock .clock-number{
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .9s ease, transform .9s ease;
+}
+.js .clock.in-view .clock-number{opacity:1;transform:none}
+
+.js .clock .clock-divider{
+  width:0;
+  transition:width 1s cubic-bezier(.2,.6,.2,1) .35s;
+}
+.js .clock.in-view .clock-divider{width:32px}
+
+.js .clock .clock-midnight{
+  opacity:0;
+  transition:opacity .9s ease .65s;
+}
+.js .clock.in-view .clock-midnight{opacity:1}
+
+.js .clock .clock-explain{
+  opacity:0;
+  transition:opacity 1.1s ease .9s;
+}
+.js .clock.in-view .clock-explain{opacity:1}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .js .clock .clock-number,
+  .js .clock .clock-midnight,
+  .js .clock .clock-explain{opacity:1;transform:none}
+  .js .clock .clock-divider{width:32px}
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width:760px){
+  /* Lede holds horizontal padding so text never hits the screen edge */
+  .lede{padding:3.5rem 22px 2rem}
+  .lede h1{font-size:1.5rem;line-height:1.22;margin-bottom:1.25rem}
+  .lede p{font-size:1.02rem;line-height:1.58}
+  .lede p:first-of-type::first-letter{font-size:4.2em;margin:.04em 0.06em -0.04em 0}
+
+  /* Vigil opener */
+  .vigil{padding:10vh 22px;min-height:78vh}
+  .vigil-stamp{font-size:.62rem;margin-bottom:2.5rem;letter-spacing:.18em}
+  .vigil-line{font-size:1.35rem;line-height:1.4;max-width:24ch}
+  .vigil-line br{display:none}
+  .vigil-foot{font-size:.58rem;bottom:2rem}
+
+  /* Masthead */
+  .masthead{padding:4rem 22px 3rem}
+  .masthead-kicker{font-size:.62rem;letter-spacing:.16em;margin-bottom:1.25rem;line-height:1.5}
+  .masthead-title{font-size:clamp(3rem,14vw,4.4rem);margin-bottom:1.25rem}
+  .masthead-issue{font-size:1.08rem;margin-bottom:.6rem}
+  .masthead-date{font-size:.66rem}
+  .masthead-almanac{font-size:.6rem;letter-spacing:.12em;line-height:1.7}
+  .masthead-almanac .almanac-sep{margin:0 .55em}
+  .masthead-rule{margin-top:1.75rem}
+
+  /* Section ornaments */
+  .ornament{padding:2.5rem 22px 0;gap:1rem}
+  .ornament-rule{max-width:80px}
+
+  /* Clock */
+  .clock{padding:3.5rem 22px 3rem}
+  .clock-label{margin-bottom:1.75rem;font-size:.6rem}
+  .clock-number{font-size:clamp(4.5rem,22vw,6rem)}
+  .clock-scale{margin-top:1.5rem;font-size:.62rem}
+  .clock-divider{margin:1.75rem auto}
+  .clock-midnight{font-size:1.15rem;line-height:1.45;padding:0 .5rem}
+  .clock-explain{font-size:.94rem;line-height:1.55;margin-top:1.75rem}
+
+  /* Signal scale */
+  .clock-scale-intro{font-size:.84rem;margin-bottom:.85rem;max-width:30ch}
+  .clock-scale-labels{font-size:.5rem}
+
+  /* Chapters */
+  .chapter{padding:3.5rem 22px 2.5rem}
+  .chapter-title{font-size:1.5rem;margin-bottom:2rem;max-width:18ch}
+  .chapter-body p{font-size:1rem;line-height:1.6;margin-bottom:1.25rem}
+  .chapter-body p:first-of-type::first-letter{font-size:3.6em}
+  .chapter-measures{margin-top:2.75rem}
+  .measures-list li{
+    grid-template-columns:1fr auto;
+    gap:.4rem 1rem;
+  }
+  .measure-source{
+    grid-column:1 / -1;
+    margin-top:-.25rem;
+    white-space:normal;
+  }
+
+  /* Plate */
+  .plate{padding:3.5rem 16px 2.5rem}
+  .plate-svg{max-width:100%}
+  .plate-label{font-size:7px}
+  .plate-key{font-size:.55rem;gap:1rem}
+  .plate-title{font-size:1.4rem}
+  .plate-intro{font-size:.95rem;margin-bottom:1.75rem}
+
+  /* Appendices */
+  .appendix{padding:3.5rem 22px 2.5rem}
+  .appendix-title{font-size:1.4rem;margin-bottom:1.25rem}
+  .appendix-intro{font-size:.95rem;margin-bottom:1.75rem}
+  .standings-table{font-size:.88rem}
+  .standings-table th,.standings-table td{padding:.5rem .35rem}
+  .standings-rank{font-size:.55rem;width:2rem}
+  .standings-chapter{display:none}
+  .watch-list-items > li{padding:1.25rem 0 1.25rem 2.4rem}
+  .watch-list-items h3{font-size:1rem}
+  .watch-list-items p{font-size:.95rem}
+  .outlook-horizon{margin-bottom:2rem}
+  .outlook-horizon p{font-size:1rem;line-height:1.58}
+  .prediction-text{font-size:1rem}
+  .graces-list li{padding:1rem 0 1rem 2rem}
+  .graces-list p{font-size:.98rem}
+  .poem{padding:3.5rem 22px}
+  .poem-body p{font-size:1rem;line-height:1.7}
+
+  /* Coming list */
+  .coming{padding:3.5rem 22px;margin-top:2rem}
+  .coming-label{font-size:.6rem;margin-bottom:1rem}
+  .coming h3{font-size:1.2rem;line-height:1.32;margin-bottom:1.25rem;max-width:24ch}
+  .coming-list{max-width:none;font-size:.9rem}
+  .coming-list li{font-size:.92rem;padding:.45rem 0;line-height:1.55}
+  .coming-list li::before{font-size:.62rem;margin-right:.6rem;min-width:2.4em}
+  .coming-list li span{font-size:.62rem}
+
+  /* Colophon */
+  .colophon{padding:3rem 22px 2.5rem}
+  .colophon p{font-size:.88rem;line-height:1.55}
+  .colophon p.next{font-size:.62rem;margin-top:1.5rem}
+}
+
+/* Very small phones */
+@media (max-width:380px){
+  .vigil-line{font-size:1.2rem}
+  .masthead-title{font-size:2.6rem}
+  .masthead-issue{font-size:1rem}
+  .lede h1{font-size:1.32rem}
+  .lede p{font-size:.98rem}
+  .clock-number{font-size:4rem}
+  .masthead-almanac{font-size:.55rem;letter-spacing:.1em}
+}
 </style>
 </head>
 <body>
 
-<div class="class-banner">UNCLASSIFIED // OPEN SOURCE INTELLIGENCE // CASCADE WEEKLY</div>
+<div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
 
-<nav class="site-nav">
-  <div class="nav-inner">
-    <a href="#briefing" class="nav-brand">CASCADE //</a>
-    <div class="nav-links">
-      <a href="#briefing" class="nav-link active" data-sec="briefing">Briefing</a>
-      <a href="#data" class="nav-link" data-sec="data">Assessment</a>
-      <a href="#cascade" class="nav-link" data-sec="cascade">Cascade</a>
-      <a href="#personal" class="nav-link" data-sec="personal">Personal</a>
-    </div>
-  </div>
+<nav class="toc-nav" id="toc-nav" aria-label="Table of contents">
+  <ul class="toc-list">
+    <li><a href="#cascade-clock">Clock</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#glance">At a glance</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#cascade-plate">Plate</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#anchors">Anchors</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#ch-work">I</a></li>
+    <li><a href="#ch-housing">II</a></li>
+    <li><a href="#ch-health">III</a></li>
+    <li><a href="#ch-society">IV</a></li>
+    <li><a href="#ch-environment">V</a></li>
+    <li><a href="#ch-geopolitics">VI</a></li>
+    <li><a href="#ch-governance">VII</a></li>
+    <li><a href="#ch-outcomes">VIII</a></li>
+    <li><span class="toc-sep">·</span></li>
+    <li><a href="#standings-heading">Standings</a></li>
+    <li><a href="#watchlist-heading">Watch</a></li>
+    <li><a href="#outlook-heading">Outlook</a></li>
+    <li><a href="#predictions-heading">Predictions</a></li>
+  </ul>
 </nav>
 
-<!-- S1: BRIEFING -->
-<section id="briefing">
-  <div class="briefing-inner">
-    <div class="briefing-head">
-      <div class="label" style="margin-bottom:12px">Weekly Intelligence Briefing</div>
-      <h1 class="briefing-title"><em>CASCADE</em> // WEEKLY INTELLIGENCE BRIEFING</h1>
-      <p class="briefing-subtitle">Interconnected Crisis Monitor — Open Source Analysis</p>
-      <div class="briefing-week" id="bwk"></div>
-    </div>
-    <div class="briefing-story" id="bstory"></div>
-    <div class="key-numbers" id="keynums"></div>
-  </div>
+<!-- I. THE OPENING -->
+<section class="vigil" aria-label="Opening">
+  <p class="vigil-stamp">CASCADE · ISSUE 05 · 9 MAY 2026</p>
+  <p class="vigil-line">
+    The strait did not open. The mood did not lift. The mortgage did not move.
+    <br>This is what holding looks like.
+  </p>
+  <p class="vigil-foot">· take a breath ·</p>
 </section>
 
-<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div style="max-width:1200px;margin:0 auto;padding:28px 24px">
-    <div class="trend-head" style="margin-bottom:14px">
-      <div class="section-eyebrow" style="margin-bottom:4px">Historical Context</div>
-      <div class="mono" style="font-size:.82rem;color:var(--text);letter-spacing:.08em;text-transform:uppercase">TREND ANALYSIS</div>
-    </div>
-    <div id="trend-charts"></div>
-  </div>
+<!-- II. MASTHEAD -->
+<header class="masthead">
+  <p class="masthead-kicker">A weekly almanac · Sourced sentence by sentence</p>
+  <h1 class="masthead-title">Cascade</h1>
+  <p class="masthead-issue">Issue <em>05</em> &nbsp;·&nbsp; The Held Week</p>
+  <p class="masthead-date">Friday, 9 May 2026</p>
+  <p class="masthead-almanac">
+    Week 19<span class="almanac-sep">·</span>Last quarter<span class="almanac-sep">·</span>Sun <span class="almanac-glyph">↑</span> 5:18 <span class="almanac-glyph">↓</span> 20:42 London
+  </p>
+  <div class="masthead-rule" aria-hidden="true"></div>
+</header>
+
+<!-- III. THE LEDE -->
+<section class="lede column">
+  <h1>The week the strait narrowed, the layoff letter went out, and the mood index broke a record set in 1952.</h1>
+  <p>
+    The week after a shock is the week the shock either passes or settles in. This one settled. The Strait of Hormuz remained substantially closed, with U.S. Central Command intercepting another <span class="anchor" data-marginal="m-layoffs"><span class="num">11</span></span> ships across the week. Brent crude held at <span class="anchor" data-marginal="m-brent"><span class="num">$118</span></span>. The Bank of England held its base rate at <span class="num">3.75%</span> on the thirtieth of April; the next decision is on <span class="anchor" data-marginal="m-mich"><span class="num">18 June</span></span>. No new monthly survey came in below the Issue 04 floor of 49.8 in America or −25 in Britain. Both held.
+  </p>
+  <p>
+    None of these caused the others. They share wiring, and this week the wiring stayed live without conducting any new charge. This issue walks through twenty-three of the world's systems, in the same order as last week, with the same sources, and shows the shape of holding. The next reading begins on Monday.
+  </p>
+  <span class="marginal" id="m-layoffs">U.S. Central Command<em>Week to 8 May</em></span>
+  <span class="marginal" id="m-brent">ICE Futures<em>Thursday's close</em></span>
+  <span class="marginal" id="m-mich">Bank of England<em>Next decision</em></span>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
 </div>
 
-<!-- S2: DATA -->
-<section id="data" style="padding:0">
-  <div class="data-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">Intelligence Assessment</div>
-      <h2 class="section-title">SITUATION ASSESSMENT</h2>
-      <p class="section-sub">14-sector interconnected crisis monitor — severity and trend data</p>
+<!-- IV. THE CASCADE CLOCK -->
+<section class="clock" id="cascade-clock" aria-labelledby="clock-heading">
+  <p class="clock-label" id="clock-heading">The Cascade Clock</p>
+  <p class="clock-number" id="clock-number" aria-label="Severity score">76</p>
+  <p class="clock-scale">out of one hundred</p>
+  <p class="clock-delta-line" id="clock-delta-line" aria-hidden="true"></p>
+  <div class="clock-divider" aria-hidden="true"></div>
+  <p class="clock-midnight">
+    <span id="clock-time">Four minutes, forty-eight seconds</span> <span class="clock-time-label">to midnight.</span>
+  </p>
+  <div class="clock-scale" aria-label="Where this week's measures landed">
+    <p class="clock-scale-intro">Each dot is one measure this week. The taller mark is the average.</p>
+    <div class="clock-scale-track" id="clock-scale-track" aria-hidden="true">
+      <span class="scale-rule"></span>
     </div>
-    <div class="crisis-grid" id="crisis-grid"></div>
+    <div class="clock-scale-labels" aria-hidden="true">
+      <span>calm</span>
+      <span>midnight</span>
+    </div>
+  </div>
+  <p class="clock-explain">
+    The Cascade Clock is one number that summarises how stressed the world's systems looked this week. Zero is calm. One hundred is midnight.
+  </p>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IV.A THE BOTTOM LINE -->
+<section class="bottom-line" aria-label="The bottom line">
+  <div class="bottom-line-inner">
+    <div class="bl-cell">
+      <p class="bl-eyebrow">Where we were</p>
+      <p class="bl-line">Last Friday the Cascade reading sat at <strong>79</strong>, four minutes twelve seconds to midnight. Brent at <strong>$114</strong>. Mood at <strong>49.8</strong>.</p>
+    </div>
+    <div class="bl-cell">
+      <p class="bl-eyebrow">Where we are</p>
+      <p class="bl-line">Today it is <strong>79</strong> again. The strait remains shut. Most measures held. The week's verb was <em>holding</em>, in every chapter that follows.</p>
+    </div>
+    <div class="bl-cell">
+      <p class="bl-eyebrow">What's next</p>
+      <p class="bl-line">U.S. real earnings on the <strong>12th</strong>. ONS labour-market on the <strong>13th</strong>. U-Mich preliminary on the <strong>16th</strong>. Next Cascade lands <strong>16 May</strong>.</p>
+    </div>
   </div>
 </section>
 
-<!-- S3: CASCADE -->
-<section id="cascade" style="padding:0">
-  <div class="cascade-wrap">
-    <div class="section-hdr fade-in">
-      <div class="section-eyebrow">Network Analysis</div>
-      <h2 class="section-title">CASCADE ANALYSIS // HOW CRISES FEED EACH OTHER</h2>
-      <p class="section-sub">This week's active connections highlighted — click any node for detail</p>
-    </div>
-    <div class="cascade-layout">
-      <div class="graph-panel">
-        <svg id="gsvg" viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg"></svg>
-      </div>
-      <div class="detail-panel">
-        <div class="dp-empty" id="dp-empty">// SELECT A NODE<br>TO VIEW DETAIL //</div>
-        <div class="dp-body" id="dp-body"></div>
-      </div>
+<!-- IV.A.II WHAT MOVED THIS WEEK -->
+<section class="movers" aria-labelledby="movers-heading">
+  <p class="movers-eyebrow" id="movers-heading">What moved this week</p>
+  <ol class="movers-list" id="movers-list" aria-live="polite"></ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IV.B AT A GLANCE -->
+<section class="glance" id="glance" aria-labelledby="glance-heading">
+  <p class="glance-eyebrow" id="glance-heading">At a glance</p>
+  <h2 class="glance-title">The week's twenty-three measures</h2>
+  <p class="glance-intro">Each cell, one measure. Color is severity. The arrow is the change since last Friday. Click a cell to read the chapter.</p>
+  <div class="glance-grid" id="glance-grid"></div>
+  <p class="glance-key">
+    <span class="key-item"><span class="key-dot key-low"></span> calm</span>
+    <span class="key-item"><span class="key-dot key-mid"></span> elevated</span>
+    <span class="key-item"><span class="key-dot key-high"></span> at midnight</span>
+    <span class="key-item"><span class="key-mark">◇</span> outcome</span>
+  </p>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IV.C THE CASCADE PLATE -->
+<section class="plate" id="cascade-plate" aria-labelledby="plate-heading">
+  <p class="plate-eyebrow" id="plate-heading">The cascade plate</p>
+  <h2 class="plate-title">This week's strongest arrows</h2>
+  <p class="plate-intro">Every measure in the issue placed on a single dial. The vermilion arcs trace the strongest cause arrows we tracked this week.</p>
+
+  <svg class="plate-svg" viewBox="-360 -360 720 720" role="img" aria-label="Cascade plate: 23 measures arranged on a circle with cause arrows">
+    <g class="plate-edges" id="plate-edges"></g>
+    <g class="plate-nodes" id="plate-nodes"></g>
+    <g class="plate-labels" id="plate-labels"></g>
+    <circle class="plate-center" cx="0" cy="0" r="2.4"/>
+  </svg>
+
+  <p class="plate-key">
+    <span class="key-item"><span class="key-dot key-low"></span> calm</span>
+    <span class="key-item"><span class="key-dot key-mid"></span> elevated</span>
+    <span class="key-item"><span class="key-dot key-high"></span> at midnight</span>
+    <span class="key-item"><span class="key-mark">◇</span> outcome measure</span>
+  </p>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IV.D HISTORICAL ANCHORS -->
+<section class="anchors" id="anchors" aria-labelledby="anchors-heading">
+  <p class="appendix-eyebrow" id="anchors-heading">Where we have seen this before</p>
+  <h2 class="appendix-title">Three weeks of the past century that resemble this one</h2>
+  <p class="appendix-intro">Picked for pattern, not for outcome. Each is annotated for what is alike and what is different. Use them as a frame, not as a forecast.</p>
+  <div class="anchors-grid" id="anchors-grid"></div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- V. CHAPTER I - WORK AND WAGES -->
+<section class="chapter" id="ch-work" aria-labelledby="ch-work-title">
+  <p class="chapter-eyebrow">Chapter I · Work and wages · Monday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <line x1="21" y1="6" x2="21" y2="36"/>
+      <line x1="9" y1="14" x2="33" y2="14"/>
+      <path d="M9 14 L4 26 L14 26 Z"/>
+      <path d="M33 14 L28 26 L38 26 Z"/>
+      <line x1="14" y1="36" x2="28" y2="36"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-work-title">Why does work matter?</h2>
+  <p class="chapter-takeaway">The letters now name the cause out loud.</p>
+
+  <div class="chapter-body">
+    <p>Big Tech laid off about seventeen thousand people on a Wednesday this week. Several of the letters named artificial intelligence directly as the reason for jobs that until recently were copywriting, junior code, customer support. Last year's letters from the same firms said efficiency. Tech employment has not shrunk this fast since 2001, and the cuts now come from the middle, not the bottom.</p>
+
+    <p>Three readings will say whether 17,000 is a one-week event or a new floor. The Friday count on the industry layoff tracker, which arrives weekly. The ONS UK labour-market release on 13 May, which is the first national reading that captures the April cuts in any country. And the U.S. average hourly earnings print on 12 May, where the cuts first reach wages. If wages bend, the next chapter gets harder.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-work-measures-label">
+      <p class="measures-label" id="ch-work-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="work" aria-live="polite"></ol>
     </div>
   </div>
 </section>
 
-<!-- S4: PERSONAL -->
-<section id="personal" style="padding:0">
-  <div class="personal-wrap">
-    <div class="section-hdr fade-in">
-      <h2 class="section-title">PERSONAL RISK ASSESSMENT</h2>
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- VI. CHAPTER II - HOUSING AND THE COST OF LIVING -->
+<section class="chapter" id="ch-housing" aria-labelledby="ch-housing-title">
+  <p class="chapter-eyebrow">Chapter II · Housing and the cost of living · Monday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 20 L21 8 L34 20 V36 H8 Z"/>
+      <line x1="6" y1="22" x2="36" y2="22"/>
+      <rect x="17" y="26" width="8" height="10"/>
+      <circle cx="22.5" cy="31" r="0.6" fill="currentColor"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-housing-title">How long can a mortgage hold?</h2>
+  <p class="chapter-takeaway">1.6 million British households remortgage this year into rates set by a war.</p>
+
+  <div class="chapter-body">
+    <p>The UK five-year fixed mortgage averaged 5.75 per cent in April, the highest since November and pushed up by Iran-war swap-rate volatility. A first-time buyer in London now pays roughly twelve times their salary for a starter flat. The eighties saw fifteen per cent mortgages, but wages chased rates then. They no longer do. UK private rent rose 3.4 per cent in the year to March, easing slightly from 3.6 per cent the month before. The Trussell Trust distributed 2.9 million emergency food parcels in 2024-25, twelve per cent fewer than the year before but forty-five per cent more than before the pandemic.</p>
+
+    <p>The Bank of England held rates at 3.75 per cent on 30 April and meets next on 18 June. A cut at that meeting would knock the average new offer below 5 per cent within days. A hold pushes the next remortgage cohort, who locked in below two per cent late in 2021, into a roughly doubled monthly payment. UK Finance projects around 1.6 million British households will remortgage in 2026.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-housing-measures-label">
+      <p class="measures-label" id="ch-housing-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="housing" aria-live="polite"></ol>
     </div>
-    <div class="risk-top">
-      <div class="score-block fade-in" id="score-block"></div>
-      <div class="risk-dims fade-in" id="risk-dims"></div>
-    </div>
-    <div class="controls-grid fade-in" id="controls-grid"></div>
-    <div class="rec-box fade-in">
-      <div class="rec-title">// RECOMMENDED ACTIONS</div>
-      <ul class="rec-list" id="rec-list"></ul>
-    </div>
-    <div class="proj-box fade-in" id="proj-box"></div>
   </div>
 </section>
 
-<footer>
-  <div class="foot-inner">
-    <div class="foot-title">CASCADE // Open Source Intelligence Analysis</div>
-    <p class="foot-text">Data sourced from: ONS, FRED, NHS England, Yale Budget Lab, Oxfam, OECD, WHO, University of Michigan, NY Federal Reserve + 30 additional sources. Methodology: 14-sector interconnected cascade model. Weekly data refresh. All claims sourced. Confidence levels marked.</p>
-    <div class="foot-meta" id="foot-meta"></div>
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- VII. CHAPTER III - HEALTH AND CARE -->
+<section class="chapter" id="ch-health" aria-labelledby="ch-health-title">
+  <p class="chapter-eyebrow">Chapter III · Health and care · Tuesday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 22 L13 22 L16 14 L21 30 L26 18 L29 22 L38 22"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-health-title">Are we waiting too long?</h2>
+  <p class="chapter-takeaway">We are healthier than ever and waiting longer than ever to be seen.</p>
+
+  <div class="chapter-body">
+    <p>The Office for National Statistics released this year's life-expectancy figures. Men in the United Kingdom are 79.1 years, women are 83.0. Both numbers are at or just below where they were in 2019, the first sustained pause in a hundred years. Healthy life expectancy is down by seven months, the lowest level since 2013. The current healthy-years number is now below the state pension age of sixty-six in many local authorities, particularly in the north.</p>
+
+    <p>The NHS England elective waiting list sits at 7.31 million cases this week. It peaked at 7.8 million in September 2023 and has come down by about half a million in nineteen months. The next mortality release, due in late May, will say whether 2024-2025 is a recovery year or another flat one. The slower the body, the lower the mood. The −25 confidence reading and the 49.8 across the Atlantic are partly the queue.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-health-measures-label">
+      <p class="measures-label" id="ch-health-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="health" aria-live="polite"></ol>
+    </div>
   </div>
-</footer>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- VIII. CHAPTER IV - SOCIETY AND BELONGING -->
+<section class="chapter" id="ch-society" aria-labelledby="ch-society-title">
+  <p class="chapter-eyebrow">Chapter IV · Society and belonging · Tuesday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="14" cy="20" r="6"/>
+      <circle cx="28" cy="20" r="6"/>
+      <line x1="20" y1="20" x2="22" y2="20" stroke-width="1.8"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-society-title">Who are you willing to disagree with?</h2>
+  <p class="chapter-takeaway">Seven in ten of us would not trust someone with different values.</p>
+
+  <div class="chapter-body">
+    <p>The 2026 Edelman Trust Barometer asked thirty-seven thousand people across twenty-eight countries whether they would trust someone who held different values. Seven in ten said no or hesitated. Only thirty-nine per cent said they read a news source from a different political leaning each week, six points down on a year ago. The U.S. trust gap between high and low income respondents has gone from six points in 2012 to twenty-nine.</p>
+
+    <p>Three things to watch. Whether the rate of local-newsroom closures slows in 2026 (it did not in 2025). Whether public-library funding holds in the next round of council settlements. And whether the cross-cutting friendships figure, which Pew reports each summer, comes back below 26 per cent. A society that cannot disagree cannot organise. The strait, the layoffs, the mortgage all arrived in a country that had a sixteen-point trust deficit waiting for them.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-society-measures-label">
+      <p class="measures-label" id="ch-society-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="society" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- IX. CHAPTER V - ENVIRONMENT, FOOD, SUPPLY -->
+<section class="chapter" id="ch-environment" aria-labelledby="ch-environment-title">
+  <p class="chapter-eyebrow">Chapter V · Environment, food, supply · Wednesday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="21" y1="8" x2="21" y2="36"/>
+      <path d="M21 14 Q14 14 14 20 Q14 17 21 17"/>
+      <path d="M21 14 Q28 14 28 20 Q28 17 21 17"/>
+      <path d="M21 22 Q14 22 14 28 Q14 25 21 25"/>
+      <path d="M21 22 Q28 22 28 28 Q28 25 21 25"/>
+      <path d="M21 30 Q15 30 15 35"/>
+      <path d="M21 30 Q27 30 27 35"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-environment-title">Who pays for the next bushel?</h2>
+  <p class="chapter-takeaway">All five FAO commodity indices are rising at once. The last two times were 2007 and 2022.</p>
+
+  <div class="chapter-body">
+    <p>The FAO Food Price Index sat at 128.5 in March, a second consecutive monthly rise. The April reading is due on 9 May and is likely higher: cereals and oils have moved up since the Hormuz blockade tightened. Forty-five commercial ships have been turned back from the Strait this month. Cereals are mostly weather and partly war. Oils are mostly oil. All five FAO sub-indices are rising at once for the first time since 2022, and before that, 2007. We know what came after each.</p>
+
+    <p>Two things to watch. The April FAO release on 9 May. And the Russian wheat export number, due in the second week. UK real wages are barely positive at 0.4 per cent year on year and would not survive food inflation in the high single digits. The supermarket basket marked own-brand is the canary.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-environment-measures-label">
+      <p class="measures-label" id="ch-environment-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="environment" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- X. CHAPTER VI - GEOPOLITICS AND SECURITY -->
+<section class="chapter" id="ch-geopolitics" aria-labelledby="ch-geopolitics-title">
+  <p class="chapter-eyebrow">Chapter VI · Geopolitics and security · Wednesday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="21" cy="21" r="14"/>
+      <line x1="21" y1="7" x2="21" y2="35"/>
+      <path d="M21 21 L26 13 L21 16 L16 13 Z" fill="currentColor"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-geopolitics-title">How long is a strait?</h2>
+  <p class="chapter-takeaway">The Strait of Hormuz has been substantially closed for two months.</p>
+
+  <div class="chapter-body">
+    <p>The United States seized the Iranian-flagged Touska on 19 April after firing on its engine room. Iran retaliated by taking the MSC-Francesca and the Epaminodes. Brent touched $126 mid-week and closed Thursday at $114. About a fifth of the world's oil moves through twenty-one nautical miles of water at the strait's narrowest. Saudi-American mediation has prevented every escalation here since the 1980s. This is the first quarter in forty years where it has not held. Ali Khamenei was assassinated on 28 February.</p>
+
+    <p>Three readings. The Brent close on the next Friday, the cleanest weekly read on whether the strait is open or shut. The number of vessels intercepted by U.S. Central Command, currently forty-five since 13 April. And the next IAEA signal on Iranian uranium enrichment, expected in May. War-risk insurance premiums for tankers transiting the Gulf have risen sharply since the blockade began. Watch them ease as the cleanest market signal that mediation is working.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-geopolitics-measures-label">
+      <p class="measures-label" id="ch-geopolitics-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="geopolitics" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XI. CHAPTER VII - GOVERNANCE AND TRUST -->
+<section class="chapter" id="ch-governance" aria-labelledby="ch-governance-title">
+  <p class="chapter-eyebrow">Chapter VII · Governance and trust · Thursday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12 L21 6 L34 12 L21 18 Z"/>
+      <line x1="12" y1="14" x2="12" y2="32"/>
+      <line x1="20" y1="14" x2="20" y2="32"/>
+      <line x1="22" y1="14" x2="22" y2="32"/>
+      <line x1="30" y1="14" x2="30" y2="32"/>
+      <line x1="8" y1="34" x2="34" y2="34"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-governance-title">Who is in charge of the answer?</h2>
+  <p class="chapter-takeaway">Trust in government has fallen sixteen points in five years across twenty-eight countries.</p>
+
+  <div class="chapter-body">
+    <p>Trust in national government leaders is down sixteen points across five years in the twenty-eight countries the Edelman Trust Barometer covers. Trust in major news organisations is down eleven. The places people now turn first for a real answer are their family, their neighbours, their coworkers, and the chief executive of the company they happen to work for. Sixty-five per cent worry that foreign actors are deliberately injecting falsehoods into national news to widen domestic divisions.</p>
+
+    <p>Two things to watch. Whether next month's UK local-election turnout drops below the 2024 floor of around a third. And whether the next Edelman quarterly pulse, due in early summer, shows the trust deficit widening or narrowing in the wake of the Hormuz crisis. Without trust there is no policy, no shared reality, no public out of which a response could form. The −25 GfK reading and the 49.8 across the Atlantic were always going to land where they did.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-governance-measures-label">
+      <p class="measures-label" id="ch-governance-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="governance" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XII. CHAPTER VIII - HUMAN OUTCOMES -->
+<section class="chapter" id="ch-outcomes" aria-labelledby="ch-outcomes-title">
+  <p class="chapter-eyebrow">Chapter VIII · Human outcomes · Thursday</p>
+  <span class="chapter-glyph" aria-hidden="true">
+    <svg viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="21" cy="21" r="6"/>
+      <line x1="21" y1="6" x2="21" y2="10"/>
+      <line x1="21" y1="32" x2="21" y2="36"/>
+      <line x1="6" y1="21" x2="10" y2="21"/>
+      <line x1="32" y1="21" x2="36" y2="21"/>
+      <line x1="11" y1="11" x2="13" y2="13"/>
+      <line x1="29" y1="29" x2="31" y2="31"/>
+      <line x1="11" y1="31" x2="13" y2="29"/>
+      <line x1="29" y1="13" x2="31" y2="11"/>
+    </svg>
+  </span>
+  <h2 class="chapter-title" id="ch-outcomes-title">What does this all add up to?</h2>
+  <p class="chapter-takeaway">The mood index returned 49.8 in America, −25 in Britain. Both are records of a kind.</p>
+
+  <div class="chapter-body">
+    <p>The University of Michigan consumer sentiment index returned 49.8 for April, the lowest reading in a continuous monthly series that began in 1978. The previous trough was 50 in June 2022. The British equivalent, GfK Consumer Confidence, returned −25, the lowest since October 2023 and a four-point fall in a single month. U.S. year-ahead inflation expectations rose to 4.7 per cent, the largest one-month jump since April 2025. 122 million people are forcibly displaced worldwide, the most ever recorded. UNHCR projects 136 million by year-end. Sudan alone accounts for 14.3 million, three and a half million more than a year ago.</p>
+
+    <p>Two things to watch. The U.S. April real-earnings release on 12 May, which will say whether 3.6 per cent nominal wage growth survives 4.7 per cent inflation expectations. And the U-Mich preliminary on 16 May. A 49.8 was historic. A second 49.8 would be a pattern. The strait, the letter, the mortgage, the queue, the food index: all upstream of these numbers.</p>
+
+    <div class="chapter-measures" aria-labelledby="ch-outcomes-measures-label">
+      <p class="measures-label" id="ch-outcomes-measures-label">Three measures from this chapter</p>
+      <ol class="measures-list" data-chapter-measures="outcomes" aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XIII. APPENDIX - THE STANDINGS -->
+<section class="appendix standings" aria-labelledby="standings-heading">
+  <p class="appendix-eyebrow">Appendix · The Standings</p>
+  <h2 class="appendix-title" id="standings-heading">The week's measures, ranked by severity</h2>
+  <p class="appendix-intro">Every measure in this issue, ordered by how close it sits to midnight.</p>
+
+  <table class="standings-table">
+    <thead>
+      <tr><th class="standings-rank-col">Rank</th><th>Measure</th><th>Reading</th><th class="standings-chapter">Chapter</th><th class="right">Tier</th></tr>
+    </thead>
+    <tbody id="standings-body"></tbody>
+  </table>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XIV. APPENDIX - THE WATCH LIST -->
+<section class="appendix watch-list" aria-labelledby="watchlist-heading">
+  <p class="appendix-eyebrow">Appendix · The Watch List</p>
+  <h2 class="appendix-title" id="watchlist-heading">Leading signals to keep an eye on</h2>
+  <p class="appendix-intro">Five readings due in the next two weeks, and what each one will tell us.</p>
+
+  <ol class="watch-list-items">
+    <li>
+      <h3>Brent crude, Friday close</h3>
+      <p>If above $108, the Hormuz blockade has not eased. If below, it has. The cleanest weekly read on the strait we have.</p>
+    </li>
+    <li>
+      <h3>U.S. April real earnings, 12 May</h3>
+      <p>Whether 3.5 per cent nominal wage growth survives 4.7 per cent inflation expectations. Real wage growth at or below zero confirms the household squeeze.</p>
+    </li>
+    <li>
+      <h3>U-Mich preliminary May, 16 May</h3>
+      <p>A second 49.8 turns historic into pattern. Anything above 56 says April was a spike, not a baseline.</p>
+    </li>
+    <li>
+      <h3>Bank of England, 18 June</h3>
+      <p>The MPC held at 3.75 per cent on 30 April. A cut at the next meeting takes new mortgage offers below 5 per cent within a week. A hold pushes the 1.6 million British households remortgaging this year into a roughly doubled monthly payment.</p>
+    </li>
+    <li>
+      <h3>FAO Food Price Index April, 9 May</h3>
+      <p>Whether all five commodity sub-indices are rising at once. 2007 and 2022 are the only times in living memory that has happened. We know what came after each.</p>
+    </li>
+  </ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XV. APPENDIX - THE OUTLOOK -->
+<section class="appendix outlook" aria-labelledby="outlook-heading">
+  <p class="appendix-eyebrow">Appendix · The Outlook</p>
+  <h2 class="appendix-title" id="outlook-heading">What is coming, and when</h2>
+
+  <div class="outlook-horizon">
+    <h3>Next week</h3>
+    <p>The U.S. April real-earnings release lands on the twelfth. The ONS UK labour-market release on the thirteenth. That is the first national reading that will capture the April cuts. The U-Mich preliminary on the sixteenth. Brent will close above or below $108 on Friday.</p>
+  </div>
+  <div class="outlook-horizon">
+    <h3>Next quarter</h3>
+    <p>The next Bank of England decision is 18 June; markets are split on a cut. The first U.S. unemployment release that fully captures the April layoffs is out 6 June. The next round of British remortgages starts pricing through May and June. The Q1 corporate earnings cycle, just beginning, will tell us how much of the cumulative cuts have reached profit margins.</p>
+  </div>
+  <div class="outlook-horizon">
+    <h3>Next year</h3>
+    <p>The 2027 Edelman Trust Barometer fields this winter. Refugee resettlement need is projected to fall to 2.5 million globally, with Iran for the first time leading the list. The Anthropic Economic Index will say whether AI displacement of pre-2023 white-collar work has crossed 15 per cent. The next ONS life-expectancy release will say whether 2025 brought back any of the years lost since 2014.</p>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XVI. APPENDIX - PREDICTIONS -->
+<section class="appendix predictions" aria-labelledby="predictions-heading">
+  <p class="appendix-eyebrow">Appendix · Predictions</p>
+  <h2 class="appendix-title" id="predictions-heading">Five forward calls, scored next week</h2>
+  <p class="appendix-intro">Cascade publishes its predictions a week early so they can be scored against actual outcomes. A running hit-rate appears here from Issue 05 onwards.</p>
+
+  <ol class="predictions-list">
+    <li>
+      <p class="prediction-text">Brent crude closes the week of 9 May above $108.</p>
+      <p class="prediction-meta">Scored 9 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">A Big Tech firm announces another single-day cut of 5,000 or more before 9 May.</p>
+      <p class="prediction-meta">Scored 9 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">The U.S. blockade of Iranian ports does not lift before 9 May.</p>
+      <p class="prediction-meta">Scored 9 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">The April real-earnings release on 12 May shows real wage growth at or below 0 per cent.</p>
+      <p class="prediction-meta">Scored 12 May · Pending</p>
+    </li>
+    <li>
+      <p class="prediction-text">The U-Mich preliminary on 16 May comes in below 52.</p>
+      <p class="prediction-meta">Scored 16 May · Pending</p>
+    </li>
+  </ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XVII. APPENDIX - SMALL GRACES -->
+<section class="appendix small-graces" aria-labelledby="graces-heading">
+  <p class="appendix-eyebrow">Appendix · Small Graces</p>
+  <h2 class="appendix-title" id="graces-heading">Things that improved this week</h2>
+
+  <ol class="graces-list">
+    <li><p>Trussell Trust food banks distributed twelve per cent fewer emergency parcels in 2025 than in 2024, the first sustained fall since the cost-of-living crisis began. Use is still forty-five per cent above pre-pandemic levels.</p></li>
+    <li><p>Wind set a March record at thirty-five per cent of UK electricity generation, the highest March share since records began. The rolling twelve-month zero-carbon share now sits at sixty per cent.</p></li>
+    <li><p>The NHS England elective waiting list has fallen by roughly half a million cases from its September 2023 peak. The shape of the curve is finally bending the right way.</p></li>
+    <li><p>UK private-rent inflation eased for a second consecutive month, from 3.6 per cent to 3.4 per cent year-on-year. The first sustained slowdown since the post-pandemic surge.</p></li>
+  </ol>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XVIII. APPENDIX - A POEM -->
+<section class="appendix poem" aria-labelledby="poem-heading">
+  <p class="appendix-eyebrow">Appendix · A poem</p>
+  <h2 class="appendix-title" id="poem-heading">Notes from the week</h2>
+
+  <div class="poem-body">
+    <p>At the strait, the ships do not sail and do not turn back.</p>
+    <p>At the desk, the letter says capability.</p>
+    <p>At the door, the postbox waits for the rate.</p>
+    <p>At the till, the basket is its own letter.</p>
+    <p>At the table, the longer numbers go quiet.</p>
+    <p>At the screen, we agree only with ourselves.</p>
+    <p>And in the long ledger of how long we live,</p>
+    <p>the line we drew for a hundred years</p>
+    <p>has paused to look at us.</p>
+    <p>We are the ones it is waiting for.</p>
+  </div>
+</section>
+
+<div class="ornament" aria-hidden="true">
+  <span class="ornament-rule"></span>
+  <svg class="ornament-mark" viewBox="0 0 12 12" width="10" height="10"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="currentColor"/></svg>
+  <span class="ornament-rule"></span>
+</div>
+
+<!-- XIX. COLOPHON -->
+<section class="colophon">
+  <p class="colophon-mark" aria-hidden="true">
+    <svg viewBox="0 0 12 12" width="12" height="12" style="color:var(--vermilion)">
+      <path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      <circle cx="6" cy="6" r="1" fill="currentColor"/>
+    </svg>
+  </p>
+  <p>
+    Issue 04 of <em>Cascade</em>. Twenty-three measures, sourced. Cream paper, vermilion ink. The week of the strait, the letter, and the line that did not move.
+  </p>
+  <p class="colophon-note">All headline figures verified to source as of publication. Week-over-week deltas are indicative on the new method; real comparison from Issue 05 onwards. Severity scoring (0–100) and historical-anchor resemblance ratings are Cascade's own composite, not source readings.</p>
+  <p class="next">Next issue · Friday 16 May 2026</p>
+</section>
 
 <script>
-// ================================================================
-// DATA OBJECT — edit this weekly
-// ================================================================
+// Mark JS available so animation styles activate (no-JS sees everything).
+document.documentElement.classList.add('js');
+
+// ============================================================
+// THE CASCADE DATA FRAMEWORK
+// Single source of truth for the issue. Editing measures here
+// updates the Cascade Clock, the per-chapter measures footer,
+// the Coming list, and (in time) the Standings, Watch List,
+// Outlook, and Predictions appendices. The recipe of data
+// analysis lives here, in one place.
+// ============================================================
 const DATA = {
-  meta: {
-    week: 2,
-    date: "2026-04-18",
-    prevDate: "2026-04-11",
-    nextUpdate: "2026-04-25"
+  issue: {
+    number: 4,
+    title: 'The Hormuz Week',
+    publishedAt: '2026-05-02',
+    nextIssueAt: '2026-05-09',
+    week: 18,
+    moon: 'Waning gibbous',
+    sun: { rise: '5:30', set: '20:32', city: 'London' },
   },
-  briefing: {
-    story: [
-      "Consumer confidence collapsed to a <strong>74-year low</strong> this week while equity markets hit all-time highs — the widest divergence between Wall Street and Main Street ever recorded. The disconnect suggests markets are pricing in AI-driven productivity gains that have not yet materialised for workers or consumers.",
-      "Meanwhile, the Strait of Hormuz situation deteriorated further. Iran briefly declared the strait open on April 17 before reversing within hours, sending Brent crude on a <strong>$17 swing in 48 hours</strong>. The instability is feeding directly into energy costs and fertiliser prices that will hit food shelves by autumn.",
-      "Snap became the latest company to cut staff citing AI efficiency, reducing headcount by 16%. Combined with Q1 data showing <strong>nearly half of all tech layoffs are now AI-attributed</strong>, the displacement thesis is moving from projection to documented reality."
-    ],
-    keyNumbers: [
-      { val:"50.8",  lbl:"Consumer Sentiment",  chg:"74-yr low",        arrow:"▼", danger:true  },
-      { val:"80,000",lbl:"Tech Layoffs Q1",      chg:"48% AI-attributed",arrow:"▼", danger:true  },
-      { val:"$4.12", lbl:"US Gas Price",          chg:"+50% YoY",         arrow:"▼", danger:true  },
-      { val:"6.13M", lbl:"NHS Wait List",         chg:"1 in 9 people",    arrow:"▼", danger:true  }
-    ]
-  },
-  nodes: [
-    { id:"ai-accelerant",         name:"AI ACCELERANT",              val:"~50%",    stat:"Q1 layoffs AI-attributed",            chg:"▼ Snap -16%; AI attribution rising",       trend:"down",  sev:0.72, updated:true,  col:"danger", desc:"AI adoption is the primary accelerant across all cascade nodes. Q1 2026 now shows approximately half of all tech sector layoffs directly attributed to AI efficiency gains — moving from projection to documented reality.",              proj:"At current trajectory: 0.82 severity by Q4 2026, 0.91 by Q2 2027 (high confidence).", feedsInto:["saas-collapse","white-collar-displacement","consumer-demand"],    fedBy:[] },
-    { id:"saas-collapse",         name:"SaaS COLLAPSE",              val:"80,000",  stat:"Tech layoffs Q1 2026",                chg:"▼ Record Q1; Snap, Google, Meta cutting",  trend:"down",  sev:0.68, updated:true,  col:"danger", desc:"The SaaS sector is experiencing accelerating consolidation as AI tools replace entire engineering and support teams. 80,000 tech layoffs in Q1 2026 represents the highest Q1 figure since the 2022-23 correction.",                     proj:"At current trajectory: 0.75 severity by Q4 2026, 0.82 by Q2 2027 (medium confidence).",feedsInto:["white-collar-displacement","commercial-re","consumer-demand"],   fedBy:["ai-accelerant"] },
-    { id:"white-collar-displacement",name:"WHITE-COLLAR DISPLACEMENT",val:"502,000",stat:"Projected AI cuts 2026",             chg:"▼ Projections revised upward post-Q1",     trend:"down",  sev:0.65, updated:false, col:"danger", desc:"Goldman Sachs and Oxford Economics both revised 2026 displacement projections upward following Q1 data. Knowledge workers — lawyers, analysts, copywriters, coders — are the primary affected demographic.",                              proj:"At current trajectory: 0.72 severity by Q4 2026, 0.80 by Q2 2027 (medium confidence).",feedsInto:["consumer-demand","mental-health","housing-crisis"],              fedBy:["ai-accelerant","saas-collapse"] },
-    { id:"consumer-demand",       name:"CONSUMER DEMAND",            val:"50.8",    stat:"Michigan Consumer Sentiment Index",   chg:"▼ 10.9% — 74-year low",                   trend:"down",  sev:0.78, updated:true,  col:"danger", desc:"The University of Michigan Consumer Sentiment Index fell to 50.8 — its lowest reading since 1952. The index measures consumer expectations about personal finances, business conditions, and buying conditions. The divergence from equity markets is the widest ever recorded.", proj:"At current trajectory: 0.85 severity by Q4 2026, 0.90 by Q2 2027 (high confidence).",  feedsInto:["gov-revenue","social-disintegration","mental-health"],           fedBy:["white-collar-displacement","housing-crisis","geopolitical-chaos"] },
-    { id:"commercial-re",         name:"COMMERCIAL RE",              val:"20.1%",   stat:"US office vacancy rate",              chg:"▼ New record; refinancing cliff 2026-27",   trend:"down",  sev:0.62, updated:false, col:"warn",   desc:"US office vacancy hit 20.1%, a post-war record. $900B in commercial real estate loans mature in 2026-2027. Regional banks hold ~70% of this exposure. A default cascade would dwarf the 2023 regional banking crisis.",                        proj:"At current trajectory: 0.70 severity by Q4 2026, 0.78 by Q2 2027 (medium confidence).",feedsInto:["gov-revenue","consumer-demand"],                                 fedBy:["saas-collapse","white-collar-displacement"] },
-    { id:"healthcare-failure",    name:"HEALTHCARE FAILURE",         val:"6.13M",   stat:"NHS waiting list",                    chg:"▼ 1 in 9 people waiting for treatment",    trend:"down",  sev:0.71, updated:false, col:"danger", desc:"NHS England waiting list stands at 6.13M — approximately 1 in 9 of the entire population. Wait times for cancer treatment, mental health, and elective surgery are at record highs. The system is structurally unable to clear the backlog with current funding.",  proj:"At current trajectory: 0.76 severity by Q4 2026, 0.82 by Q2 2027 (high confidence).",  feedsInto:["mental-health","birth-rate-collapse","social-disintegration"],   fedBy:["gov-revenue","consumer-demand"] },
-    { id:"housing-crisis",        name:"HOUSING CRISIS",             val:"771,480", stat:"US homeless count",                   chg:"▼ +18% YoY; UK rough sleeping +27%",       trend:"down",  sev:0.67, updated:false, col:"danger", desc:"US homeless count hit 771,480 — the highest ever recorded, up 18% year-on-year. UK rough sleeping rose 27%. Housing costs as a share of income are at multi-decade highs in both countries, driven by supply constraint, rate rises, and wage stagnation.",      proj:"At current trajectory: 0.74 severity by Q4 2026, 0.81 by Q2 2027 (medium confidence).",feedsInto:["mental-health","social-disintegration","birth-rate-collapse"],  fedBy:["consumer-demand","white-collar-displacement"] },
-    { id:"mental-health",         name:"MENTAL HEALTH",              val:"1.7M",    stat:"NHS mental health waiting list",      chg:"► Stable but critically elevated",         trend:"stable",sev:0.69, updated:false, col:"warn",   desc:"1.7M people on NHS mental health waiting lists. Anxiety and depression rates tracking at all-time highs across all age demographics. Young adult (18-25) mental health crisis now classified as a public health emergency by WHO Europe.",              proj:"At current trajectory: 0.74 severity by Q4 2026, 0.80 by Q2 2027 (medium confidence).",feedsInto:["birth-rate-collapse","social-disintegration","gov-revenue"],    fedBy:["housing-crisis","healthcare-failure","consumer-demand"] },
-    { id:"birth-rate-collapse",   name:"BIRTH RATE COLLAPSE",        val:"1.41",    stat:"UK fertility rate",                   chg:"▼ Below 1.5 threshold — generational shift",trend:"down", sev:0.58, updated:false, col:"warn",   desc:"UK fertility rate fell to 1.41 — well below the 2.1 replacement threshold and the lowest ever recorded. South Korea at 0.72 represents the extreme end of a global trend. Population decline creates compounding fiscal pressures for pension and healthcare systems.", proj:"At current trajectory: 0.65 severity by Q4 2026, 0.72 by Q2 2027 (high confidence).",  feedsInto:["gov-revenue","healthcare-failure"],                              fedBy:["mental-health","housing-crisis","social-disintegration"] },
-    { id:"gov-revenue",           name:"GOV REVENUE COLLAPSE",       val:"190,000", stat:"Excess UK deaths from austerity (est.)",chg:"► Revenue pressure; no relief in sight",  trend:"stable",sev:0.64, updated:false, col:"warn",   desc:"Structural government revenue shortfall is forcing continued austerity. Independent research estimates 190,000 excess deaths in the UK attributable to austerity cuts since 2010. The fiscal trap: cuts reduce tax revenue, which forces more cuts.",      proj:"At current trajectory: 0.70 severity by Q4 2026, 0.76 by Q2 2027 (medium confidence).",feedsInto:["healthcare-failure","housing-crisis","democratic-collapse"],    fedBy:["consumer-demand","birth-rate-collapse","commercial-re"] },
-    { id:"social-disintegration", name:"SOCIAL DISINTEGRATION",      val:"17%",     stat:"Adults with zero close friends",      chg:"▼ Loneliness epidemic accelerating",       trend:"down",  sev:0.61, updated:false, col:"warn",   desc:"17% of UK adults report having no close friends — up from 7% in 2012. The 'loneliness epidemic' is now a documented public health crisis. Social fragmentation correlates with political extremism, declining civic participation, and rising mental health demand.",   proj:"At current trajectory: 0.68 severity by Q4 2026, 0.74 by Q2 2027 (medium confidence).",feedsInto:["mental-health","democratic-collapse","birth-rate-collapse"],   fedBy:["consumer-demand","housing-crisis","mental-health"] },
-    { id:"wealth-concentration",  name:"WEALTH CONCENTRATION",       val:"$2T",     stat:"Billionaire wealth gains 2024",       chg:"▼ Gini coefficient at post-war high",      trend:"down",  sev:0.74, updated:false, col:"danger", desc:"The world's billionaires added $2T to their collective wealth in 2024 while median real wages stagnated. Oxfam's Gini coefficient analysis shows wealth inequality at its highest point since before WWII. Tax avoidance costs OECD governments an estimated $427B annually.", proj:"At current trajectory: 0.80 severity by Q4 2026, 0.87 by Q2 2027 (high confidence).",  feedsInto:["democratic-collapse","social-disintegration","gov-revenue"],    fedBy:["ai-accelerant","saas-collapse"] },
-    { id:"geopolitical-chaos",    name:"GEOPOLITICAL CHAOS",         val:"$97",     stat:"Brent crude per barrel",              chg:"▼ $17 swing in 48hrs — Hormuz instability",trend:"down",  sev:0.76, updated:true,  col:"danger", desc:"Iran reversed its Hormuz strait declaration within hours, creating unprecedented price volatility. $97 Brent crude feeds directly into fertiliser costs (autumn food price impact), transport, and energy. Trade war tariffs are compounding supply chain fragmentation.", proj:"At current trajectory: 0.82 severity by Q4 2026, 0.88 by Q2 2027 (medium confidence).",feedsInto:["consumer-demand","gov-revenue","social-disintegration"],        fedBy:[] },
-    { id:"cyber-threats",         name:"CYBER THREATS",              val:"$1.1B",   stat:"Deepfake fraud losses 2025",          chg:"▼ State attacks on infrastructure +340%",  trend:"down",  sev:0.57, updated:false, col:"warn",   desc:"AI-generated deepfake fraud hit $1.1B in losses in 2025. State-level cyberattacks on critical infrastructure increased 340% since 2022. The combination of AI-powered offensive capability and aging infrastructure creates asymmetric vulnerability.",               proj:"At current trajectory: 0.65 severity by Q4 2026, 0.73 by Q2 2027 (medium confidence).",feedsInto:["gov-revenue","democratic-collapse"],                             fedBy:["ai-accelerant","geopolitical-chaos"] },
-    { id:"democratic-collapse",   name:"DEMOCRATIC COLLAPSE",        val:"9%",      stat:"UK Government trust (all-time low)",  chg:"▼ Institutional trust collapsing globally",trend:"down",  sev:0.70, updated:false, col:"danger", desc:"UK government trust fell to 9% — the lowest ever recorded. US Congress trust at 12%. The trust deficit creates a governance crisis: institutions needed to manage cascade crises cannot mobilise public cooperation. Democratic backsliding is accelerating in 24 countries.", proj:"At current trajectory: 0.78 severity by Q4 2026, 0.85 by Q2 2027 (high confidence).",  feedsInto:["social-disintegration","healthcare-failure"],                   fedBy:["wealth-concentration","gov-revenue","social-disintegration"] }
+  chapters: [
+    { id: 'work',        number: 1, title: 'Work and wages',                day: 'Mon', published: true },
+    { id: 'housing',     number: 2, title: 'Housing and the cost of living', day: 'Mon', published: true },
+    { id: 'health',      number: 3, title: 'Health and care',                day: 'Tue', published: true },
+    { id: 'society',     number: 4, title: 'Society and belonging',          day: 'Tue', published: true },
+    { id: 'environment', number: 5, title: 'Environment, food, supply',      day: 'Wed', published: true },
+    { id: 'geopolitics', number: 6, title: 'Geopolitics and security',       day: 'Wed', published: true },
+    { id: 'governance',  number: 7, title: 'Governance and trust',           day: 'Thu', published: true },
+    { id: 'outcomes',    number: 8, title: 'Human outcomes',                 day: 'Thu', published: true },
   ],
-  connections:[
-    {from:"ai-accelerant",to:"saas-collapse",w:0.9},
-    {from:"ai-accelerant",to:"white-collar-displacement",w:0.85},
-    {from:"ai-accelerant",to:"wealth-concentration",w:0.7},
-    {from:"ai-accelerant",to:"cyber-threats",w:0.65},
-    {from:"saas-collapse",to:"white-collar-displacement",w:0.85},
-    {from:"saas-collapse",to:"commercial-re",w:0.7},
-    {from:"saas-collapse",to:"consumer-demand",w:0.6},
-    {from:"white-collar-displacement",to:"consumer-demand",w:0.8},
-    {from:"white-collar-displacement",to:"mental-health",w:0.65},
-    {from:"white-collar-displacement",to:"housing-crisis",w:0.6},
-    {from:"consumer-demand",to:"gov-revenue",w:0.75},
-    {from:"consumer-demand",to:"social-disintegration",w:0.55},
-    {from:"consumer-demand",to:"mental-health",w:0.6},
-    {from:"commercial-re",to:"gov-revenue",w:0.7},
-    {from:"healthcare-failure",to:"mental-health",w:0.8},
-    {from:"healthcare-failure",to:"birth-rate-collapse",w:0.5},
-    {from:"housing-crisis",to:"mental-health",w:0.75},
-    {from:"housing-crisis",to:"social-disintegration",w:0.65},
-    {from:"housing-crisis",to:"birth-rate-collapse",w:0.6},
-    {from:"mental-health",to:"birth-rate-collapse",w:0.55},
-    {from:"mental-health",to:"social-disintegration",w:0.7},
-    {from:"gov-revenue",to:"healthcare-failure",w:0.8},
-    {from:"gov-revenue",to:"housing-crisis",w:0.65},
-    {from:"gov-revenue",to:"democratic-collapse",w:0.7},
-    {from:"social-disintegration",to:"democratic-collapse",w:0.65},
-    {from:"social-disintegration",to:"mental-health",w:0.6},
-    {from:"wealth-concentration",to:"democratic-collapse",w:0.75},
-    {from:"wealth-concentration",to:"gov-revenue",w:0.7},
-    {from:"geopolitical-chaos",to:"consumer-demand",w:0.7},
-    {from:"geopolitical-chaos",to:"gov-revenue",w:0.55},
-    {from:"geopolitical-chaos",to:"cyber-threats",w:0.6},
-    {from:"cyber-threats",to:"gov-revenue",w:0.5},
-    {from:"cyber-threats",to:"democratic-collapse",w:0.6},
-    {from:"birth-rate-collapse",to:"gov-revenue",w:0.65},
-    {from:"democratic-collapse",to:"healthcare-failure",w:0.55}
+  // value: 0-100 contribution to severity (100 = at midnight)
+  // prevValue: Issue 03 reading (indicative; first full delta cycle)
+  // outcome: terminal measure (a thing lived) vs. signal/structural
+  // seeded: contributes to the Issue 04 Clock composite
+  // sourceUrl: clickable link to the original release page
+  measures: [
+    // Work and wages
+    { id:'tech-layoffs',     chapterId:'work',        label:'Tech-job cuts',          value:88, prevValue:75, prevReading:'~5,000', deltaText:'+12k vs week ago', reading:'17,000', unit:'in 24 hours',     source:'Industry layoff tracker',     sourceUrl:'https://layoffs.fyi',                                     readingPeriod:'23 Apr',         seeded:true,  outcome:false },
+    { id:'ai-displacement',  chapterId:'work',        label:'AI task displacement',   value:70, prevValue:65, prevReading:'~7%',    deltaText:'+1 pt',            reading:'~8%',    unit:'of pre-2023 work',source:'Anthropic Economic Index',    sourceUrl:'https://www.anthropic.com/economic-index',                readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'uk-real-wages',    chapterId:'work',        label:'UK real wages',          value:60, prevValue:58, prevReading:'+0.6%',  deltaText:'−0.2 pp',          reading:'+0.4%',  unit:'year-over-year',  source:'Office for National Stats',   sourceUrl:'https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/averageweeklyearningsingreatbritain/april2026', readingPeriod:'Apr release', seeded:true,  outcome:false },
+    // Housing and the cost of living
+    { id:'mortgage-rate',    chapterId:'housing',     label:'UK 5-year fixed',        value:78, prevValue:72, prevReading:'5.30%',  deltaText:'+45 bps',          reading:'5.75%',  unit:'mortgage rate',   source:'Bank of England average',     sourceUrl:'https://www.bankofengland.co.uk/monetary-policy',         readingPeriod:'April',          seeded:true,  outcome:false },
+    { id:'price-to-income',  chapterId:'housing',     label:'London affordability',   value:88, prevValue:85, prevReading:'11.6x',  deltaText:'+0.4x',            reading:'12x',    unit:'price-to-salary', source:'ONS housing affordability',   sourceUrl:'https://www.ons.gov.uk/peoplepopulationandcommunity/housing/bulletins/housingaffordabilityinenglandandwales/2025', readingPeriod:'Latest quarter', seeded:true,  outcome:false },
+    { id:'uk-rent',          chapterId:'housing',     label:'UK private rent',        value:62, prevValue:65, prevReading:'+3.6%',  deltaText:'−0.2 pp',          reading:'+3.4%',  unit:'year-over-year',  source:'ONS Price Index of Private Rents', sourceUrl:'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/privaterentandhousepricesuk/april2026', readingPeriod:'12 mo to Mar', seeded:true,  outcome:false },
+    { id:'food-bank-parcels',chapterId:'housing',     label:'Trussell food parcels',  value:75, prevValue:76, prevReading:'2.94m',  deltaText:'unchanged',         reading:'2.9m',  unit:'parcels (year)',  source:'Trussell Trust',              sourceUrl:'https://www.trussell.org.uk/news-and-research/latest-stats/end-of-year-stats', readingPeriod:'2024-25',         seeded:true,  outcome:false },
+    // Health and care
+    { id:'life-expectancy',  chapterId:'health',      label:'UK life expectancy',     value:70, prevValue:70, prevReading:'79.1',   deltaText:'unchanged',         reading:'79.1',   unit:'male, years',     source:'Office for National Stats',   sourceUrl:'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies', readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
+    { id:'healthy-life',     chapterId:'health',      label:'UK healthy life',        value:80, prevValue:80, prevReading:'60.7',   deltaText:'unchanged',         reading:'60.7',   unit:'male, years',     source:'ONS healthy life expectancy', sourceUrl:'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandlifeexpectancies', readingPeriod:'2022–24 cohort', seeded:true,  outcome:true  },
+    { id:'nhs-waiting-list', chapterId:'health',      label:'NHS England queue',      value:80, prevValue:82, prevReading:'7.25m',  deltaText:'−31k pathways',     reading:'7.22m',  unit:'people waiting (with estimates)', source:'NHS England RTT',             sourceUrl:'https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/', readingPeriod:'February 2026', seeded:true,  outcome:false },
+    // Society and belonging
+    { id:'trust-different',  chapterId:'society',     label:'Cross-values trust',     value:78, prevValue:76, prevReading:'31%',    deltaText:'−1 pt',             reading:'30%',    unit:'willing to trust',source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'income-trust-gap', chapterId:'society',     label:'U.S. income trust gap',  value:75, prevValue:75, prevReading:'29 pts', deltaText:'unchanged',         reading:'29 pts', unit:'high vs low',     source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    // Environment, food, supply
+    { id:'food-price-index', chapterId:'environment', label:'FAO food price',         value:70, prevValue:65, prevReading:'126.0',  deltaText:'+2.5 pts',          reading:'128.5',  unit:'index',           source:'UN Food & Agriculture Org',   sourceUrl:'https://www.fao.org/worldfoodsituation/foodpricesindex/',  readingPeriod:'March',          seeded:true,  outcome:false },
+    { id:'supply-stress',    chapterId:'environment', label:'Hormuz shipping',        value:88, prevValue:70, prevReading:'18',     deltaText:'+27 ships',         reading:'45',     unit:'ships diverted',  source:'U.S. Central Command',        sourceUrl:'https://www.centcom.mil/',                                readingPeriod:'Since 13 Apr',   seeded:true,  outcome:false },
+    { id:'climate-anomaly',  chapterId:'environment', label:'Global temperature',     value:80, prevValue:80, prevReading:'+1.4°C', deltaText:'unchanged',          reading:'+1.4°C', unit:'vs. 1951–80', source:'NASA GISTEMP',                  sourceUrl:'https://data.giss.nasa.gov/gistemp/',                     readingPeriod:'March',          seeded:true,  outcome:false },
+    // Geopolitics and security
+    { id:'hormuz-strait',    chapterId:'geopolitics', label:'Hormuz strait',          value:95, prevValue:88, prevReading:'Tense',  deltaText:'+7',                reading:'Closed', unit:'since 28 Feb',    source:'U.S. Energy Info Admin',      sourceUrl:'https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints', readingPeriod:'Live',           seeded:true,  outcome:false },
+    { id:'brent-crude',      chapterId:'geopolitics', label:'Brent crude',            value:80, prevValue:65, prevReading:'$92',    deltaText:'+$22',              reading:'$114',   unit:'per barrel',      source:'ICE Futures',                 sourceUrl:'https://www.theice.com/products/219/Brent-Crude-Futures', readingPeriod:'30 Apr close',   seeded:true,  outcome:false },
+    // Governance and trust
+    { id:'govt-trust',       chapterId:'governance',  label:'Government trust',       value:80, prevValue:80, prevReading:'−16 pts', deltaText:'unchanged',         reading:'−16 pts', unit:'5-year change', source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'foreign-fear',     chapterId:'governance',  label:'Foreign-falsehood fear', value:75, prevValue:75, prevReading:'65%',    deltaText:'unchanged',         reading:'65%',    unit:'agree concerned', source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    { id:'news-trust',       chapterId:'governance',  label:'News-org trust',         value:78, prevValue:78, prevReading:'−11 pts', deltaText:'unchanged',         reading:'−11 pts', unit:'5-year change', source:'Edelman Trust Barometer',     sourceUrl:'https://www.edelman.com/trust/2026/trust-barometer',      readingPeriod:'2026 wave',      seeded:true,  outcome:false },
+    // Human outcomes
+    { id:'uk-confidence',    chapterId:'outcomes',    label:'GfK UK confidence',      value:88, prevValue:84, prevReading:'−21',    deltaText:'−4 pts',            reading:'−25',    unit:'GfK index',       source:'GfK / NielsenIQ',             sourceUrl:'https://nielseniq.com/global/en/news-center/2026/consumer-confidence-score-down-four-points-in-april-to-25/', readingPeriod:'April',         seeded:true,  outcome:true  },
+    { id:'consumer-mood',    chapterId:'outcomes',    label:'U.S. consumer mood',     value:92, prevValue:86, prevReading:'53.3',   deltaText:'−3.5 pts',          reading:'49.8',   unit:'U-Mich index',    source:'University of Michigan',      sourceUrl:'https://data.sca.isr.umich.edu/',                         readingPeriod:'April final',    seeded:true,  outcome:true  },
+    { id:'displacement',     chapterId:'outcomes',    label:'Forcibly displaced',     value:80, prevValue:78, prevReading:'120m',   deltaText:'+2m',               reading:'122m',   unit:'people, global',  source:'UNHCR',                       sourceUrl:'https://www.unhcr.org/global-trends',                     readingPeriod:'April',          seeded:true,  outcome:true  },
   ],
-  activeThisWeek:["ai-accelerant","saas-collapse","consumer-demand","geopolitical-chaos"],
-  history:[
-    { date:"2026-04-11", nodes:{ "ai-accelerant":{sev:0.70},"saas-collapse":{sev:0.65},"white-collar-displacement":{sev:0.62},"consumer-demand":{sev:0.68},"commercial-re":{sev:0.60},"healthcare-failure":{sev:0.69},"housing-crisis":{sev:0.65},"mental-health":{sev:0.68},"birth-rate-collapse":{sev:0.56},"gov-revenue":{sev:0.62},"social-disintegration":{sev:0.59},"wealth-concentration":{sev:0.72},"geopolitical-chaos":{sev:0.65},"cyber-threats":{sev:0.54},"democratic-collapse":{sev:0.67} } },
-    { date:"2026-04-18", nodes:{ "ai-accelerant":{sev:0.72},"saas-collapse":{sev:0.68},"white-collar-displacement":{sev:0.65},"consumer-demand":{sev:0.78},"commercial-re":{sev:0.62},"healthcare-failure":{sev:0.71},"housing-crisis":{sev:0.67},"mental-health":{sev:0.69},"birth-rate-collapse":{sev:0.58},"gov-revenue":{sev:0.64},"social-disintegration":{sev:0.61},"wealth-concentration":{sev:0.74},"geopolitical-chaos":{sev:0.76},"cyber-threats":{sev:0.57},"democratic-collapse":{sev:0.70} } }
+  // Three closest historical resemblances for Issue 04. Picked for
+  // pattern, not outcome. Each notes what's similar and what's different.
+  anchors: [
+    {
+      year: 1979,
+      headline: 'Iranian Revolution and the second oil shock',
+      summary: 'The Shah fell in January, the Strait of Hormuz tightened through the spring. Brent went from $14 to $40 in a year. The UK\'s Winter of Discontent had ended weeks before. Consumer confidence sat at multi-decade lows.',
+      similar: 'Iran-driven oil shock. UK confidence at lowest in a generation. Strikes and political deadlock.',
+      different: 'Service economy did not yet exist. AI did not exist. Life expectancy was rising. The world was younger.',
+      stars: 4,
+    },
+    {
+      year: 1973,
+      headline: 'Yom Kippur War, OPEC embargo, three-day week',
+      summary: 'OPEC cut shipments in October. Oil quadrupled in twelve months. Britain went on a three-day week through the winter. Food prices rose double-digits across Europe.',
+      similar: 'Strategic chokepoint shock. UK industrial unrest. Food inflation across all commodities.',
+      different: 'Britain still had heavy industry. North Sea oil was just coming online. The Cold War was the geopolitical frame, not US-Iran.',
+      stars: 3,
+    },
+    {
+      year: 2008,
+      headline: 'Financial crisis and consumer mood at the bottom',
+      summary: 'Lehman fell in September. Michigan consumer sentiment fell to 55.3 in November, then ground further to 50 by June 2022. That was the all-time low until this April\'s 49.8. Mortgage stress led every household budget. The world\'s ten largest banks were gone, nationalised, or staring at it.',
+      similar: 'Consumer mood at multi-decade low. Mortgage and household stress. Confidence collapse.',
+      different: 'Banks were the cause, not a side effect. Oil prices fell, did not rise. Inflation went negative. AI was not a phrase.',
+      stars: 3,
+    },
   ],
-  personal:{
-    score:47, prevScore:42,
-    drivers:"Consumer demand collapse (-3pts), AI displacement acceleration (-2pts)",
-    dims:[
-      {name:"Income Stability",  score:58,col:"warn"},
-      {name:"Client Pipeline",   score:62,col:"warn"},
-      {name:"Housing Security",  score:35,col:"danger"},
-      {name:"Health Access",     score:45,col:"danger"},
-      {name:"Digital Exposure",  score:70,col:"warn"},
-      {name:"Retirement",        score:28,col:"danger"},
-      {name:"Physical Safety",   score:72,col:"ok"},
-      {name:"Social Capital",    score:55,col:"warn"}
-    ],
-    controls:[
-      {id:"ef",   lbl:"Emergency Fund (6mo)",       sub:"Liquidity buffer against income loss",         type:"toggle", def:false},
-      {id:"inc",  lbl:"Diversified Income Streams",  sub:"Multiple client types / revenue sources",      type:"toggle", def:false},
-      {id:"ski",  lbl:"AI-Proof Skills Maintained",  sub:"Active upskilling in irreplaceable domains",   type:"toggle", def:false},
-      {id:"hlt",  lbl:"Private Health Cover",        sub:"NHS wait list bypass",                         type:"toggle", def:false},
-      {id:"pen",  lbl:"Pension Contributions Active",sub:"Retirement timeline protected",                type:"toggle", def:false},
-      {id:"hse",  lbl:"Housing Owned / Secured",     sub:"Not exposed to rental market volatility",      type:"toggle", def:false},
-      {id:"loc",  lbl:"Relocation Readiness",        sub:"Prepared to move if conditions worsen",        type:"select", opts:["No contingency","EU residency viable","Canada/NZ option","Remote-first lifestyle"],def:0}
-    ],
-    recs:[
-      {pri:"high",sat:"ef", text:"Build 6-month emergency fund — consumer demand collapse and AI displacement are converging on household income. Top priority given no current buffer."},
-      {pri:"high",sat:"inc",text:"Diversify client base across sectors. AI-exposed SaaS clients now represent elevated counterparty risk. Target public sector, healthcare, or AI-native clients."},
-      {pri:"high",sat:"hlt",text:"Explore private health insurance options. NHS wait lists at 6.13M means 3-6 month delays for any non-emergency treatment — an unacceptable risk when timing matters."},
-      {pri:"med", sat:"pen",text:"Review pension contributions and increase if possible. Wealth concentration trends suggest public pension adequacy will decline. Self-funded retirement is the safer assumption."},
-      {pri:"med", sat:"loc",text:"Begin EU residency research as a contingency. Geopolitical and economic conditions are worsening on a 12-24 month view. Having options ready has low cost and high option value."},
-      {pri:"low", sat:"ski",text:"Accelerate AI tool adoption in daily work. Delivering AI-augmented output at competitive rates is the primary moat for knowledge workers in 2026-2027."}
-    ],
-    projection:"If current trends continue and no mitigation actions are taken, composite risk score reaches <strong>65 by Q4 2026</strong> and <strong>78 by Q2 2027</strong>. Implementing all recommended actions reduces Q4 2026 projection to 51 and Q2 2027 to 58."
-  }
+  // The strongest arrows for the cascade plate this week.
+  // Each [from, to] is a measured-this-issue link from one node to another.
+  edges: [
+    ['hormuz-strait','brent-crude'],
+    ['hormuz-strait','supply-stress'],
+    ['supply-stress','food-price-index'],
+    ['brent-crude','food-price-index'],
+    ['food-price-index','consumer-mood'],
+    ['tech-layoffs','consumer-mood'],
+    ['ai-displacement','tech-layoffs'],
+    ['mortgage-rate','consumer-mood'],
+    ['price-to-income','displacement'],
+    ['real-wage-growth','consumer-mood'],
+    ['nhs-waiting-list','govt-trust'],
+    ['govt-trust','consumer-mood'],
+    ['cross-news','trust-different'],
+    ['trust-different','govt-trust'],
+    ['climate-anomaly','food-price-index'],
+    ['geopolitical-risk','govt-trust'],
+    ['healthy-life','nhs-waiting-list'],
+    ['life-expectancy','consumer-mood'],
+  ],
 };
 
-// ================================================================
-// HELPERS
-// ================================================================
-function sevColor(s){ return s>=0.70?'var(--red)':s>=0.50?'var(--amber)':'var(--green)'; }
+// Tiny accessors so render code reads like English.
+const seededMeasures   = () => DATA.measures.filter(m => m.seeded);
+const measuresInChapter = (id) => DATA.measures.filter(m => m.chapterId === id);
+const findChapter      = (id) => DATA.chapters.find(c => c.id === id);
+const upcomingChapters = () => DATA.chapters.filter(c => !c.published);
 
-function sparkSVG(id,w=80,h=24){
-  const pts = DATA.history.map(h=>(h.nodes[id]||{}).sev||0);
-  if(pts.length<2) return '';
-  const p=2,iw=w-p*2,ih=h-p*2;
-  const xs=pts.map((_,i)=>p+(i/(pts.length-1))*iw);
-  const ys=pts.map(v=>p+(1-v)*ih);
-  const d=xs.map((x,i)=>`${i?'L':'M'}${x.toFixed(1)},${ys[i].toFixed(1)}`).join(' ');
-  const lx=xs[xs.length-1], ly=ys[ys.length-1];
-  const c=sevColor(pts[pts.length-1]);
-  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
-    <path d="${d}" fill="none" stroke="${c}" stroke-width="1.5" stroke-opacity=".6"/>
-    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="${c}"/>
-  </svg>`;
-}
-
-function fmtDate(s){
-  const [y,m,d]=s.split('-');
-  const mn=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  return `${parseInt(d)} ${mn[parseInt(m)-1]} ${y}`;
-}
-
-// ================================================================
-// RENDER: BRIEFING
-// ================================================================
-function renderBriefing(){
-  const {meta,briefing}=DATA;
-  document.getElementById('bwk').textContent=`WEEK ${String(meta.week).padStart(2,'0')} // ${fmtDate(meta.date)}`;
-  document.getElementById('bstory').innerHTML=briefing.story.map(p=>`<p>${p}</p>`).join('');
-  document.getElementById('keynums').innerHTML=briefing.keyNumbers.map(k=>`
-    <div class="kn">
-      <div class="kn-val${k.danger?' danger':''}">${k.val}</div>
-      <div class="kn-lbl">${k.lbl}</div>
-      <div class="kn-chg${k.danger?' danger':''}">${k.arrow} ${k.chg}</div>
-    </div>`).join('');
-}
-
-// ================================================================
-// RENDER: CRISIS GRID
-// ================================================================
-function renderGrid(){
-  document.getElementById('crisis-grid').innerHTML=DATA.nodes.map(n=>{
-    const tc=n.trend==='down'?'down':n.trend==='up'?'up':'stable';
-    const ta=n.trend==='down'?'▼':n.trend==='up'?'▲':'►';
-    return `<div class="ccard" onclick="selectNode('${n.id}')">
-      <div class="ccard-top">
-        <div class="ccard-name">${n.name}</div>
-        <div class="ccard-badges">
-          ${n.updated?'<span class="badge-upd">UPDATED</span>':''}
-          <span class="badge-trend ${tc}">${ta}</span>
-        </div>
-      </div>
-      <div class="sev-bar"><div class="sev-fill" style="width:${(n.sev*100).toFixed(0)}%;background:${sevColor(n.sev)}"></div></div>
-      <div class="ccard-stat">
-        <div class="ccard-val ${n.col}">${n.val}</div>
-        <div>${sparkSVG(n.id)}</div>
-      </div>
-      <div class="ccard-lbl">${n.stat}</div>
-      <div class="ccard-chg ${tc}">${n.chg}</div>
-    </div>`;
-  }).join('');
-}
-
-// ================================================================
-// RENDER: CASCADE GRAPH
-// ================================================================
-const NPOS={};
-function renderGraph(){
-  const svg=document.getElementById('gsvg');
-  const cx=280,cy=280,r=215;
-  const outer=DATA.nodes.filter(n=>n.id!=='ai-accelerant');
-  NPOS['ai-accelerant']={x:cx,y:cy};
-  outer.forEach((n,i)=>{
-    const a=(i/outer.length)*Math.PI*2-Math.PI/2;
-    NPOS[n.id]={x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};
-  });
-
-  const activeSet=new Set(DATA.activeThisWeek);
-  let html='';
-
-  // connections
-  DATA.connections.forEach(c=>{
-    const f=NPOS[c.from],t=NPOS[c.to];
-    if(!f||!t) return;
-    const act=activeSet.has(c.from)||activeSet.has(c.to);
-    html+=`<line x1="${f.x.toFixed(1)}" y1="${f.y.toFixed(1)}" x2="${t.x.toFixed(1)}" y2="${t.y.toFixed(1)}" stroke="${act?'var(--amber)':'#3a3a3a'}" stroke-width="${(c.w*(act?2.2:1)).toFixed(2)}" stroke-opacity="${act?.42:.18}"/>`;
-  });
-
-  // nodes
-  DATA.nodes.forEach(n=>{
-    const p=NPOS[n.id];
-    if(!p) return;
-    const isCtr=n.id==='ai-accelerant';
-    const nr=isCtr?30:8+n.sev*15;
-    const act=activeSet.has(n.id);
-    const c=sevColor(n.sev);
-    const shortLines=n.name.split(' ').reduce((acc,w,i)=>{
-      if(i===0) acc.push(w);
-      else if(acc[acc.length-1].length+w.length<11) acc[acc.length-1]+=' '+w;
-      else acc.push(w);
-      return acc;
-    },[]).slice(0,2);
-
-    html+=`<g style="cursor:pointer" onclick="selectNode('${n.id}')">
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+9).toFixed(1)}" fill="${c}" fill-opacity="${act?.3:.07}"/>
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${nr.toFixed(1)}" fill="#111" stroke="${c}" stroke-width="${act?2:1}"/>
-      ${act?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(nr+5).toFixed(1)}" fill="none" stroke="${c}" stroke-width=".7" stroke-opacity=".35" stroke-dasharray="3,3"/>`:''}
-      ${isCtr
-        ?`<text x="${p.x}" y="${p.y-3}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="${c}">AI</text><text x="${p.x}" y="${p.y+7}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="${c}">ACCELERANT</text>`
-        :shortLines.map((ln,li)=>`<text x="${p.x.toFixed(1)}" y="${(p.y+nr+11+li*9).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="${c}" fill-opacity=".88">${ln}</text>`).join('')
-      }
-    </g>`;
-  });
-  svg.innerHTML=html;
-}
-
-const EDGES={into:{},by:{}};
-function buildEdgeMaps(){
-  DATA.nodes.forEach(n=>{EDGES.into[n.id]=[];EDGES.by[n.id]=[];});
-  DATA.connections.forEach(c=>{
-    if(EDGES.into[c.from]) EDGES.into[c.from].push(c.to);
-    if(EDGES.by[c.to]) EDGES.by[c.to].push(c.from);
-  });
-}
-
-function selectNode(id){
-  const n=DATA.nodes.find(x=>x.id===id);
-  if(!n) return;
-  document.getElementById('dp-empty').style.display='none';
-  const body=document.getElementById('dp-body');
-  body.classList.add('on');
-  const makeTags=(ids,cls)=>ids.map(nid=>{
-    const nd=DATA.nodes.find(x=>x.id===nid);
-    return nd?`<span class="${cls}" onclick="selectNode('${nid}')">${nd.name}</span>`:'';
-  }).join('');
-  const feedsInto=EDGES.into[id]||[];
-  const fedBy=EDGES.by[id]||[];
-  body.innerHTML=`
-    <div class="dp-name">${n.name}</div>
-    <div class="dp-bigval">${n.val}</div>
-    <div class="dp-vallbl">${n.stat}</div>
-    <div class="dp-chg">${n.chg}</div>
-    <div class="dp-desc">${n.desc}</div>
-    ${feedsInto.length?`<div class="dp-lbl">FEEDS INTO</div><div class="dp-tags">${makeTags(feedsInto,'dp-tag-out')}</div>`:''}
-    ${fedBy.length?`<div class="dp-lbl">FED BY</div><div class="dp-tags">${makeTags(fedBy,'dp-tag-in')}</div>`:''}
-    <div class="dp-proj"><div class="dp-lbl">PROJECTION</div><p>${n.proj}</p></div>`;
-  if(window.innerWidth<860) document.getElementById('dp-body').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-// ================================================================
-// RENDER: PERSONAL
-// ================================================================
-function renderPersonal(){
-  const p=DATA.personal;
-  const diff=p.score-p.prevScore;
-  document.getElementById('score-block').innerHTML=`
-    <div class="score-lbl">Composite Risk Score</div>
-    <div class="score-val">${p.score}<span class="score-denom">/100</span></div>
-    <div class="score-delta">${diff>0?'▲':'▼'} ${Math.abs(diff)} from last week</div>
-    <div class="score-drivers">${p.drivers}</div>`;
-
-  document.getElementById('risk-dims').innerHTML=p.dims.map(d=>`
-    <div class="rdim">
-      <div class="rdim-hdr"><span class="rdim-name">${d.name}</span><span class="rdim-score">${d.score}</span></div>
-      <div class="rdim-bar"><div class="rdim-fill ${d.col}" style="width:${d.score}%"></div></div>
-    </div>`).join('');
-
-  document.getElementById('controls-grid').innerHTML=p.controls.map(c=>`
-    <div class="ctrl">
-      <div><div class="ctrl-lbl">${c.lbl}</div><div class="ctrl-sub">${c.sub}</div></div>
-      ${c.type==='toggle'
-        ?`<label class="toggle"><input type="checkbox" data-id="${c.id}" onchange="updatePersonalScores()" ${c.def?'checked':''}><span class="tslider"></span></label>`
-        :`<select class="ctrl-select" data-id="${c.id}" onchange="updatePersonalScores()">${c.opts.map((o,i)=>`<option${i===c.def?' selected':''}>${o}</option>`).join('')}</select>`
-      }
-    </div>`).join('');
-
-  renderRecs(readControlState());
-
-  document.getElementById('proj-box').innerHTML=`
-    <div class="proj-eyebrow">// PROJECTION — UNTREATED TRAJECTORY</div>
-    <p class="proj-text">${p.projection}</p>`;
-}
-
-// ================================================================
-// RENDER: FOOTER + NAV
-// ================================================================
-function renderFooter(){
-  const m=DATA.meta;
-  document.getElementById('foot-meta').innerHTML=`Last updated: ${fmtDate(m.date)}<span class="foot-sep">//</span>Next update: ${fmtDate(m.nextUpdate)}<span class="foot-sep">//</span>Week ${String(m.week).padStart(2,'0')} of ongoing analysis`;
-}
-
-function initNav(){
-  const links=document.querySelectorAll('.nav-link[data-sec]');
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active',l.dataset.sec===e.target.id));
+// ----- Marginalia placement -----
+// Marginals are siblings inside .lede; CSS pins them to the right edge
+// of the column. JS sets each one's `top` to align with its anchor.
+// If two marginals would collide (figures on adjacent lines) the later
+// one is pushed down so they stack with breathing room.
+(function(){
+  const lede = document.querySelector('.lede');
+  if(!lede) return;
+  const anchors = lede.querySelectorAll('.anchor[data-marginal]');
+  const GAP = 12;
+  function place(){
+    const ledeRect = lede.getBoundingClientRect();
+    const placed = [];
+    anchors.forEach(a => {
+      const m = document.getElementById(a.dataset.marginal);
+      if(!m) return;
+      const r = a.getBoundingClientRect();
+      let top = r.top - ledeRect.top;
+      placed.forEach(p => {
+        if(top < p.bottom + GAP) top = p.bottom + GAP;
+      });
+      m.style.top = top + 'px';
+      m.classList.add('is-placed');
+      placed.push({ top, bottom: top + m.offsetHeight });
     });
-  },{threshold:0.4});
-  ['briefing','data','cascade','personal'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
-}
-
-function initFade(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-  },{threshold:0.08});
-  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-}
-
-// ================================================================
-// PERSONAL SCORE UPDATE
-// ================================================================
-const BASE_DIM_SCORES=[58,62,35,45,70,28,72,55];
-
-function readControlState(){
-  const state={};
-  document.querySelectorAll('#controls-grid input[type="checkbox"]').forEach(el=>{state[el.dataset.id]=el.checked;});
-  const sel=document.querySelector('#controls-grid select[data-id="loc"]');
-  if(sel) state.loc=sel.selectedIndex>0;
-  return state;
-}
-
-function renderRecs(state){
-  document.getElementById('rec-list').innerHTML=DATA.personal.recs.map(r=>{
-    const done=r.sat&&state[r.sat];
-    const tag=done
-      ?`<span class="rec-done-tag">DONE</span>`
-      :`<span class="rec-pri ${r.pri}">${r.pri.toUpperCase()}</span>`;
-    return `<li class="rec-li${done?' done':''}">${tag}<span>${r.text}</span></li>`;
-  }).join('');
-}
-
-function updatePersonalScores(){
-  const toggleEffects={
-    ef: [{idx:0,delta:15},{idx:5,delta:10}],
-    inc:[{idx:0,delta:12},{idx:1,delta:15}],
-    ski:[{idx:0,delta:10},{idx:4,delta:8}],
-    hlt:[{idx:3,delta:20}],
-    pen:[{idx:5,delta:18}],
-    hse:[{idx:2,delta:25}]
-  };
-  const selectEffects={
-    1:[{idx:6,delta:5},{idx:7,delta:5}],
-    2:[{idx:6,delta:10},{idx:7,delta:8}],
-    3:[{idx:6,delta:8},{idx:7,delta:12}]
-  };
-  const scores=[...BASE_DIM_SCORES];
-  document.querySelectorAll('#controls-grid input[type="checkbox"]').forEach(el=>{
-    if(!el.checked) return;
-    (toggleEffects[el.dataset.id]||[]).forEach(({idx,delta})=>{scores[idx]=Math.min(100,scores[idx]+delta);});
-  });
-  const sel=document.querySelector('#controls-grid select[data-id="loc"]');
-  if(sel)(selectEffects[sel.selectedIndex]||[]).forEach(({idx,delta})=>{scores[idx]=Math.min(100,scores[idx]+delta);});
-  const colorOf=s=>s>=70?'ok':s>=50?'warn':'danger';
-  const dims=DATA.personal.dims;
-  dims.forEach((d,i)=>{d.score=scores[i];d.col=colorOf(scores[i]);});
-  document.getElementById('risk-dims').innerHTML=dims.map(d=>`
-    <div class="rdim">
-      <div class="rdim-hdr"><span class="rdim-name">${d.name}</span><span class="rdim-score">${d.score}</span></div>
-      <div class="rdim-bar"><div class="rdim-fill ${d.col}" style="width:${d.score}%"></div></div>
-    </div>`).join('');
-  const composite=Math.round(100-scores.reduce((a,b)=>a+b,0)/scores.length);
-  const diff=composite-DATA.personal.prevScore;
-  document.getElementById('score-block').innerHTML=`
-    <div class="score-lbl">Composite Risk Score</div>
-    <div class="score-val">${composite}<span class="score-denom">/100</span></div>
-    <div class="score-delta">${diff>0?'▲':'▼'} ${Math.abs(diff)} from last week</div>
-    <div class="score-drivers">${DATA.personal.drivers}</div>`;
-  renderRecs(readControlState());
-}
-
-// ================================================================
-// TREND CHARTS
-// ================================================================
-function buildChart(title,data){
-  const W=280,H=160,pad={top:28,right:12,bottom:22,left:36};
-  const iw=W-pad.left-pad.right,ih=H-pad.top-pad.bottom;
-  const xs=data.map(d=>d[0]),ys=data.map(d=>d[1]);
-  const xmin=Math.min(...xs),xmax=Math.max(...xs);
-  const ymin=Math.min(...ys),ymax=Math.max(...ys);
-  const yRange=ymax-ymin||1;
-  const px=x=>pad.left+((x-xmin)/(xmax-xmin||1))*iw;
-  const py=y=>pad.top+(1-(y-ymin)/yRange)*ih;
-  let grid='';
-  for(let i=0;i<=4;i++){
-    const gy=pad.top+(i/4)*ih;
-    grid+=`<line x1="${pad.left}" y1="${gy.toFixed(1)}" x2="${W-pad.right}" y2="${gy.toFixed(1)}" stroke="#1a1a1a" stroke-width="1"/>`;
-    grid+=`<text x="${pad.left-4}" y="${(gy+3).toFixed(1)}" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${(ymax-(i/4)*yRange).toFixed(0)}</text>`;
   }
-  grid+=`<text x="${pad.left}" y="${H-4}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${xmin}</text>`;
-  grid+=`<text x="${W-pad.right}" y="${H-4}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#444">${xmax}</text>`;
-  const pathD='M'+data.map(d=>`${px(d[0]).toFixed(1)},${py(d[1]).toFixed(1)}`).join(' L');
-  const lx=px(xs[xs.length-1]),ly=py(ys[ys.length-1]);
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-    <text x="${pad.left}" y="16" font-family="'JetBrains Mono',monospace" font-size="7.5" font-weight="700" fill="#f59e0b" letter-spacing="0.12em">${title}</text>
-    ${grid}
-    <path d="${pathD}" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.5" fill="#f59e0b"/>
-  </svg>`;
-}
+  function schedule(){ requestAnimationFrame(place); }
+  if(document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+})();
 
-function initTrendCharts(){
-  const charts=[
-    {title:"CONSUMER SENTIMENT",       data:[[2020,99.8],[2021,79],[2022,58.5],[2023,64.4],[2024,73.6],[2025,61.5],[2026,50.8]]},
-    {title:"AI-ATTRIBUTED LAYOFFS %",  data:[[2024.0,12],[2024.25,18],[2024.5,22],[2024.75,28],[2025.0,32],[2025.25,36],[2025.5,40],[2025.75,44],[2026.0,48]]},
-    {title:"NHS WAITING LIST (M)",     data:[[2020,4.4],[2021,5.2],[2022,6.4],[2023,7.35],[2024,6.7],[2025,6.15],[2026,6.13]]},
-    {title:"BRENT CRUDE $",            data:[[2024.0,80],[2024.42,82],[2024.92,74],[2025.42,68],[2025.92,72],[2026.0,78],[2026.08,85],[2026.17,102],[2026.25,97]]}
-  ];
-  const el=document.getElementById('trend-charts');
-  if(!el) return;
-  el.innerHTML=charts.map(c=>`<div>${buildChart(c.title,c.data)}</div>`).join('');
-}
+// ----- Reading-progress hairline -----
+(function(){
+  const fill = document.getElementById('progress-fill');
+  if(!fill) return;
+  let raf = 0;
+  function update(){
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    fill.style.width = pct.toFixed(1) + '%';
+    raf = 0;
+  }
+  window.addEventListener('scroll', () => {
+    if(!raf) raf = requestAnimationFrame(update);
+  }, {passive:true});
+  update();
+})();
 
-// ================================================================
-// BOOT
-// ================================================================
-document.addEventListener('DOMContentLoaded',()=>{
-  buildEdgeMaps();
-  renderBriefing();
-  renderGrid();
-  renderGraph();
-  renderPersonal();
-  renderFooter();
-  initNav();
-  initFade();
-  initTrendCharts();
-});
+// ----- The Cascade Clock -----
+// Pulls measures with seeded=true from the DATA framework, computes
+// the composite severity, renders the number + minutes-to-midnight +
+// signal scale. Updating DATA cascades here automatically.
+(function(){
+  const SIGNALS = seededMeasures();
+
+  const ONES  = ['','one','two','three','four','five','six','seven','eight','nine'];
+  const TEENS = ['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+  const TENS  = ['','','twenty','thirty','forty','fifty'];
+  function word(n){
+    if(n === 0) return 'zero';
+    if(n < 10) return ONES[n];
+    if(n < 20) return TEENS[n-10];
+    const t = Math.floor(n/10), r = n%10;
+    return r ? TENS[t] + '-' + ONES[r] : TENS[t];
+  }
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const plural = (n, w) => n === 1 ? w : w + 's';
+
+  const severity = Math.round(SIGNALS.reduce((a, x) => a + x.value, 0) / SIGNALS.length);
+  const totalSec = Math.round((100 - severity) / 5 * 60);
+  const minutes = Math.floor(totalSec / 60);
+  const seconds = totalSec % 60;
+  const reading = cap(word(minutes)) + ' ' + plural(minutes,'minute') + ', ' + word(seconds) + ' ' + plural(seconds,'second');
+
+  const clockEl = document.querySelector('.clock');
+  const numEl = document.getElementById('clock-number');
+  const timeEl = document.getElementById('clock-time');
+  if(!clockEl || !numEl || !timeEl) return;
+
+  numEl.setAttribute('aria-label', 'Severity ' + severity + ' of 100');
+  timeEl.textContent = reading;
+
+  // Build the signals scale: one pip per signal, one stem at the composite.
+  const track = document.getElementById('clock-scale-track');
+  if(track){
+    SIGNALS.forEach(s => {
+      const pip = document.createElement('span');
+      pip.className = 'scale-pip';
+      pip.style.left = s.value + '%';
+      pip.title = s.label + ' · ' + s.value;
+      track.appendChild(pip);
+    });
+    const stem = document.createElement('span');
+    stem.className = 'scale-stem';
+    stem.style.left = severity + '%';
+    stem.setAttribute('data-label', severity);
+    track.appendChild(stem);
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function countUp(target, duration){
+    if(reduceMotion){ numEl.textContent = target; return; }
+    numEl.textContent = '0';
+    const start = performance.now();
+    function step(now){
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      numEl.textContent = Math.round(target * eased);
+      if(t < 1) requestAnimationFrame(step);
+      else numEl.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  if('IntersectionObserver' in window){
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting && !clockEl.classList.contains('in-view')){
+          clockEl.classList.add('in-view');
+          countUp(severity, 1400);
+        }
+      });
+    }, {threshold: 0.45});
+    obs.observe(clockEl);
+  } else {
+    clockEl.classList.add('in-view');
+    numEl.textContent = severity;
+  }
+})();
+
+// ----- Helpers -----
+const tierFor = v => v >= 80 ? 'high' : (v < 65 ? 'low' : 'mid');
+const deltaClass = (cur, prev) => cur > prev ? 'delta-up' : (cur < prev ? 'delta-down' : 'delta-flat');
+const deltaArrow = (cur, prev) => cur > prev ? '▲' : (cur < prev ? '▼' : '·');
+
+// ----- Chapter measures footer -----
+// Each chapter has an empty <ol data-chapter-measures="id">. Fill it
+// from DATA so the chapter automatically reflects measure updates.
+(function(){
+  document.querySelectorAll('[data-chapter-measures]').forEach(list => {
+    const chapId = list.dataset.chapterMeasures;
+    const items = measuresInChapter(chapId);
+    if(!items.length) return;
+    list.innerHTML = items.map(m => {
+      const dCls = deltaClass(m.value, m.prevValue);
+      const dArr = deltaArrow(m.value, m.prevValue);
+      const sourceHtml = m.sourceUrl
+        ? '<a href="' + m.sourceUrl + '" target="_blank" rel="noopener">' + m.source + '</a>'
+        : m.source;
+      return (
+        '<li>' +
+          '<span class="measure-label">' + m.label + '</span>' +
+          '<span class="measure-reading">' + m.reading +
+            '<span class="measure-delta ' + dCls + '">' + dArr + ' ' + m.deltaText + '</span>' +
+          '</span>' +
+          '<span class="measure-source">' + sourceHtml + ' · ' + m.readingPeriod + '</span>' +
+        '</li>'
+      );
+    }).join('');
+  });
+})();
+
+// ----- What moved this week -----
+// Ranks measures by absolute severity delta, picks the top three,
+// renders them as a small "headline" panel between the Bottom Line
+// and the At-a-glance grid. Helps a reader who only reads the top
+// of the issue still leave with the punch.
+(function(){
+  const list = document.getElementById('movers-list');
+  if(!list) return;
+  const seeded = seededMeasures();
+  const ranked = seeded
+    .map(m => Object.assign({}, m, { delta: m.value - m.prevValue, abs: Math.abs(m.value - m.prevValue) }))
+    .sort((a, b) => b.abs - a.abs);
+  // Tie-breaker: if all abs deltas are zero, fall back to empty state.
+  const top = ranked.filter(m => m.abs > 0).slice(0, 3);
+  if(!top.length){
+    list.innerHTML = '<li class="mover"><span class="mover-arrow flat" aria-hidden="true">·</span>'
+      + '<span class="mover-body"><span class="mover-label">Quiet week</span>'
+      + '<span class="mover-detail">No measure moved</span></span>'
+      + '<span class="mover-delta flat">unchanged</span></li>';
+    return;
+  }
+  list.innerHTML = top.map(m => {
+    const dir = m.delta > 0 ? 'up' : (m.delta < 0 ? 'down' : 'flat');
+    const arrow = m.delta > 0 ? '↑' : (m.delta < 0 ? '↓' : '·');
+    const ch = findChapter(m.chapterId);
+    const chapterName = ch ? ch.title : '';
+    const reading = m.prevReading
+      ? m.prevReading + ' → ' + m.reading
+      : m.reading;
+    return (
+      '<li class="mover">' +
+        '<a class="mover-link" href="#ch-' + m.chapterId + '" aria-label="Read more in ' + chapterName + '">' +
+          '<span class="mover-arrow ' + dir + '" aria-hidden="true">' + arrow + '</span>' +
+          '<span class="mover-body">' +
+            '<span class="mover-label">' + m.label + '</span>' +
+            '<span class="mover-detail">' + chapterName + ' · ' + reading + '</span>' +
+          '</span>' +
+          '<span class="mover-delta ' + dir + '">' + m.deltaText + '</span>' +
+        '</a>' +
+      '</li>'
+    );
+  }).join('');
+})();
+
+// ----- At-a-glance grid -----
+(function(){
+  const grid = document.getElementById('glance-grid');
+  if(!grid) return;
+  grid.innerHTML = DATA.measures.map(m => {
+    const tier = tierFor(m.value);
+    const dCls = deltaClass(m.value, m.prevValue);
+    const dArr = deltaArrow(m.value, m.prevValue);
+    return (
+      '<a class="glance-cell tier-' + tier + '" href="#ch-' + m.chapterId + '" title="' + m.label + ' · ' + m.reading + '">' +
+        '<span class="cell-label">' + m.label + (m.outcome ? ' ◇' : '') + '</span>' +
+        '<span class="cell-reading">' + m.reading + '</span>' +
+        '<span class="cell-delta ' + dCls + '">' + dArr + ' ' + m.deltaText + '</span>' +
+      '</a>'
+    );
+  }).join('');
+})();
+
+// ----- Historical anchors -----
+(function(){
+  const grid = document.getElementById('anchors-grid');
+  if(!grid || !DATA.anchors) return;
+  grid.innerHTML = DATA.anchors.map(a => {
+    const stars = '★'.repeat(a.stars) + '☆'.repeat(5 - a.stars);
+    return (
+      '<article class="anchor-card">' +
+        '<p class="anchor-year">' + a.year + '</p>' +
+        '<h3 class="anchor-headline">' + a.headline + '</h3>' +
+        '<p class="anchor-summary">' + a.summary + '</p>' +
+        '<p class="anchor-similar"><strong>Similar</strong>' + a.similar + '</p>' +
+        '<p class="anchor-different"><strong>Different</strong>' + a.different + '</p>' +
+        '<div class="anchor-rating"><span class="anchor-stars">' + stars + '</span><span>' + a.stars + ' of 5 in resemblance</span></div>' +
+      '</article>'
+    );
+  }).join('');
+})();
+
+// ----- Sticky table of contents -----
+(function(){
+  const toc = document.getElementById('toc-nav');
+  const masthead = document.querySelector('.masthead');
+  if(!toc || !masthead) return;
+  let raf = 0;
+  function update(){
+    const past = window.scrollY > masthead.offsetTop + masthead.offsetHeight - 40;
+    toc.classList.toggle('is-visible', past);
+    raf = 0;
+  }
+  window.addEventListener('scroll', () => {
+    if(!raf) raf = requestAnimationFrame(update);
+  }, {passive:true});
+  update();
+})();
+
+// ----- Clock WoW delta line -----
+(function(){
+  const line = document.getElementById('clock-delta-line');
+  if(!line) return;
+  const seeded = seededMeasures();
+  const cur = Math.round(seeded.reduce((a, x) => a + x.value, 0) / seeded.length);
+  const prev = Math.round(seeded.reduce((a, x) => a + x.prevValue, 0) / seeded.length);
+  const diff = cur - prev;
+  if(diff === 0){
+    line.innerHTML = 'Unchanged from last Friday.';
+    return;
+  }
+  const curSec = Math.round((100 - cur) / 5 * 60);
+  const prevSec = Math.round((100 - prev) / 5 * 60);
+  const sec = Math.abs(curSec - prevSec);
+  const direction = diff > 0 ? 'closer to' : 'further from';
+  const cls = diff > 0 ? 'up' : 'down';
+  line.innerHTML = '<span class="' + cls + '">' + (diff > 0 ? '+' : '') + diff + ' on last Friday · ' + sec + ' seconds ' + direction + ' midnight</span>';
+})();
+
+// ----- The Standings (appendix table) -----
+// Sort all measures by severity (descending) and render as table with WoW delta.
+(function(){
+  const body = document.getElementById('standings-body');
+  if(!body) return;
+  const ROMAN = ['','I','II','III','IV','V','VI','VII','VIII'];
+  const sorted = [...DATA.measures].sort((a, b) => b.value - a.value);
+  body.innerHTML = sorted.map((m, i) => {
+    const ch = findChapter(m.chapterId);
+    const tier = tierFor(m.value);
+    const dCls = deltaClass(m.value, m.prevValue);
+    const dArr = deltaArrow(m.value, m.prevValue);
+    return '<tr>' +
+      '<td class="standings-rank">' + (i + 1) + '</td>' +
+      '<td>' + m.label + (m.outcome ? ' ◇' : '') + '<br><span class="cell-delta ' + dCls + '">' + dArr + ' ' + m.deltaText + '</span></td>' +
+      '<td><span class="standings-reading">' + m.reading + '</span></td>' +
+      '<td class="standings-chapter">' + (ch ? ROMAN[ch.number] + '. ' + ch.title : '') + '</td>' +
+      '<td class="right"><span class="severity-dot severity-' + tier + '" title="' + m.value + ' of 100"></span></td>' +
+    '</tr>';
+  }).join('');
+})();
+
+// ----- The Cascade Plate -----
+// 23 measures placed around a circle. Vermilion arcs trace the
+// strongest cause edges this week (DATA.edges). Tier and outcome
+// flag drive node styling. Pure SVG, no library.
+(function(){
+  const edgeG  = document.getElementById('plate-edges');
+  const nodeG  = document.getElementById('plate-nodes');
+  const labelG = document.getElementById('plate-labels');
+  if(!edgeG || !nodeG || !labelG) return;
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const R = 250;        // node ring
+  const labelR = 305;   // label ring
+  const measures = DATA.measures;
+  const N = measures.length;
+
+  // Position each measure around the circle (start at top, clockwise).
+  const pos = {};
+  measures.forEach((m, i) => {
+    const angle = (i / N) * Math.PI * 2 - Math.PI / 2;
+    pos[m.id] = {
+      x: Math.cos(angle) * R,
+      y: Math.sin(angle) * R,
+      lx: Math.cos(angle) * labelR,
+      ly: Math.sin(angle) * labelR,
+      angle,
+    };
+  });
+
+  // Edges: quadratic curve through centre.
+  DATA.edges.forEach(([fromId, toId]) => {
+    const a = pos[fromId], b = pos[toId];
+    if(!a || !b) return;
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', 'M ' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + ' Q 0 0 ' + b.x.toFixed(1) + ' ' + b.y.toFixed(1));
+    path.setAttribute('class', 'plate-edge');
+    edgeG.appendChild(path);
+  });
+
+  // Nodes.
+  measures.forEach(m => {
+    const p = pos[m.id];
+    let tier = 'mid';
+    if(m.value >= 80) tier = 'high';
+    else if(m.value < 65) tier = 'low';
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('cx', p.x.toFixed(1));
+    c.setAttribute('cy', p.y.toFixed(1));
+    c.setAttribute('r', m.outcome ? 7 : 5);
+    c.setAttribute('class', 'plate-node plate-node-' + tier + (m.outcome ? ' plate-node-outcome' : ''));
+    nodeG.appendChild(c);
+    if(m.outcome){
+      const inner = document.createElementNS(NS, 'circle');
+      inner.setAttribute('cx', p.x.toFixed(1));
+      inner.setAttribute('cy', p.y.toFixed(1));
+      inner.setAttribute('r', 2);
+      inner.setAttribute('class', 'plate-outcome-mark');
+      nodeG.appendChild(inner);
+    }
+  });
+
+  // Labels.
+  measures.forEach(m => {
+    const p = pos[m.id];
+    const text = document.createElementNS(NS, 'text');
+    text.setAttribute('x', p.lx.toFixed(1));
+    text.setAttribute('y', p.ly.toFixed(1));
+    text.setAttribute('class', 'plate-label');
+    let anchor = 'middle';
+    if(p.lx > 30) anchor = 'start';
+    else if(p.lx < -30) anchor = 'end';
+    let dy = '0.35em';
+    if(p.ly < -200) dy = '0';
+    else if(p.ly > 200) dy = '0.7em';
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dy', dy);
+    text.textContent = m.label;
+    labelG.appendChild(text);
+  });
+})();
 </script>
 </body>
 </html>
