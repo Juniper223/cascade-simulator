@@ -4,15 +4,22 @@
     <title>The Cascade</title>
     <link>https://cascade-simulator.pages.dev/</link>
     <atom:link href="https://cascade-simulator.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <description>A weekly almanac. Eight chapters. Twenty-three measures. The shape of the world this week.</description>
+    <description>A monthly almanac. Eight chapters. Twenty-three measures. The shape of the world this month.</description>
     <language>en-GB</language>
     <generator>cascade-data-fetcher</generator>
-    <lastBuildDate>Sat, 02 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Issue 06 · The Bill Arrives</title>
+      <link>https://cascade-simulator.pages.dev/</link>
+      <guid isPermaLink="false">cascade-issue-06</guid>
+      <pubDate>Tue, 29 Sep 2026 00:00:00 GMT</pubDate>
+      <description>The strait opened for three weeks this summer, then closed again. Everything since has been paying for it. The first monthly edition of Cascade.</description>
+    </item>
     <item>
       <title>Issue 05 · The Held Week</title>
       <link>https://cascade-simulator.pages.dev/</link>
-      <guid isPermaLink="false">cascade-issue-04</guid>
-      <pubDate>Sat, 02 May 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">cascade-issue-05</guid>
+      <pubDate>Sat, 09 May 2026 00:00:00 GMT</pubDate>
       <description>The strait did not open. The mood did not lift. The mortgage did not move. This is what holding looks like.</description>
     </item>
     <item>

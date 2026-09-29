@@ -10,6 +10,20 @@ A living document. Cross things off, add things to, link new commits in. Anyone 
 
 ---
 
+## Direction reset · 29 Sep 2026 (read this first)
+
+Cascade went 20 weeks without an issue (Issue 05, 9 May, to Issue 06, 29 Sep) because every refresh depended on the fetcher running on Jen's Mac. Decisions made on restart:
+
+- **Audience:** anyone in the UK. UK first, world where it touches the UK.
+- **Cadence:** monthly issue (last Friday-ish) plus short alert notes when a measure makes a big move. Supersedes "issue lands every Friday".
+- **Publishing:** automated fetch + drafted issue, **Jen reviews a preview, then it ships.** Nothing goes live unreviewed.
+- **Clock:** honest composite. Each measure scored against its own history so good news moves it back. Issue 06 scores by hand on that basis (May rescored the same way; both read 75). Next step: compute scores automatically from real history.
+- **Pipeline moves to the cloud:** fetchers live in this repo and run on a schedule (GitHub Actions), opening a PR per issue. Merging the PR = publishing. No dependency on any one laptop.
+- **Brent is now EIA spot via FRED** (`DCOILBRENTEU`), not ICE futures: official, free, fetchable. Spot and front-month futures diverged by $10–20 in Sept 2026.
+- Measures swapped in Issue 06: + UK unemployment, UK CPI, small-boat arrivals, UK wheat harvest, UK diesel, "wrong direction" (Ipsos). Dropped: AI displacement (no comparable series), London price-to-income (the 12x figure was wrong; ONS says 10.6x, annual), Trussell parcels (annual; now calendar-year), U.S. income trust gap, news-org trust, Hormuz ships diverted (merged into Hormuz transits).
+
+---
+
 ## What Cascade is
 
 A weekly almanac that helps a reader orient in a crisis. Twenty-three interconnected systems, sourced sentence by sentence. Issue lands every Friday. Beautiful, calm, dense. Medieval-almanac aesthetic, modern data-journalism rigour.
