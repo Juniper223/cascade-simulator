@@ -88,9 +88,9 @@ function manual(prevIssue, today) {
   return list.map(m => {
     const old = prevIssue.measures.find(x => x.id === m.id);
     const age = daysBetween(m.checkedAt, today);
-    const { checkedAt, note, ...rest } = m;
+    const { checkedAt, note, refreshDays = STALE_DAYS, ...rest } = m;
     return {
-      stale: age > STALE_DAYS, age, note,
+      stale: age > refreshDays, age, note,
       measure: {
         ...rest,
         prevValue: old ? old.value : m.value,

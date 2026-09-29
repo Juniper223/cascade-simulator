@@ -1,5 +1,5 @@
 {
-  "about": "Measures without a machine-readable source. Edit reading, value (0-100 severity, judged against the measure's own recent history), readingPeriod, sourceUrl and checkedAt when a new figure is published.",
+  "about": "Measures without a machine-readable source. Edit reading, value (0-100 severity, judged against the measure's own recent history), readingPeriod, sourceUrl and checkedAt when a new figure is published. refreshDays is how often a new figure is expected; the draft report flags anything older than that.",
   "measures": [
     {
       "id": "tech-layoffs",
@@ -14,7 +14,8 @@
       "readingPeriod": "to 10 Sep",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Layoffs.fyi running total (the live page needs a browser; take from a report citing it)"
+      "note": "Layoffs.fyi running total (the live page needs a browser; take from a report citing it)",
+      "refreshDays": 21
     },
     {
       "id": "uk-rent",
@@ -29,7 +30,8 @@
       "readingPeriod": "12 mo to Aug",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "ONS Price Index of Private Rents, monthly bulletin"
+      "note": "ONS Price Index of Private Rents, monthly bulletin",
+      "refreshDays": 21
     },
     {
       "id": "life-expectancy",
@@ -44,7 +46,8 @@
       "readingPeriod": "2022–24 · next Dec–Jan",
       "outcome": true,
       "checkedAt": "2026-09-29",
-      "note": "ONS national life tables 2023-25 due Dec 2026 to Jan 2027"
+      "note": "ONS national life tables 2023-25 due Dec 2026 to Jan 2027",
+      "refreshDays": 365
     },
     {
       "id": "healthy-life",
@@ -59,7 +62,8 @@
       "readingPeriod": "2022–24",
       "outcome": true,
       "checkedAt": "2026-09-29",
-      "note": "ONS health state life expectancies, annual"
+      "note": "ONS health state life expectancies, annual",
+      "refreshDays": 365
     },
     {
       "id": "nhs-waiting-list",
@@ -74,7 +78,8 @@
       "readingPeriod": "End July",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "NHS England RTT, monthly (second Thursday)"
+      "note": "NHS England RTT, monthly (second Thursday)",
+      "refreshDays": 21
     },
     {
       "id": "trust-different",
@@ -89,7 +94,8 @@
       "readingPeriod": "2026 wave",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Edelman Trust Barometer, annual (January)"
+      "note": "Edelman Trust Barometer, annual (January)",
+      "refreshDays": 365
     },
     {
       "id": "channel-crossings",
@@ -104,7 +110,8 @@
       "readingPeriod": "to 9 Sep",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Home Office small-boat arrivals, year to date"
+      "note": "Home Office small-boat arrivals, year to date",
+      "refreshDays": 21
     },
     {
       "id": "uk-wheat",
@@ -119,7 +126,8 @@
       "readingPeriod": "August",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "AHDB harvest data, annual (final figures in autumn)"
+      "note": "AHDB harvest data, annual (final figures in autumn)",
+      "refreshDays": 365
     },
     {
       "id": "hormuz-strait",
@@ -134,7 +142,8 @@
       "readingPeriod": "20 Sep",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Daily transits: straits.live / Lloyd's List"
+      "note": "Daily transits: straits.live / Lloyd's List",
+      "refreshDays": 7
     },
     {
       "id": "govt-trust",
@@ -149,7 +158,8 @@
       "readingPeriod": "2026 wave",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Edelman Trust Barometer, annual (January)"
+      "note": "Edelman Trust Barometer, annual (January)",
+      "refreshDays": 365
     },
     {
       "id": "foreign-fear",
@@ -164,7 +174,8 @@
       "readingPeriod": "2026 wave",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Edelman Trust Barometer, annual (January)"
+      "note": "Edelman Trust Barometer, annual (January)",
+      "refreshDays": 365
     },
     {
       "id": "wrong-track",
@@ -179,7 +190,8 @@
       "readingPeriod": "Late August",
       "outcome": false,
       "checkedAt": "2026-09-29",
-      "note": "Ipsos UK political monitor, monthly"
+      "note": "Ipsos UK political monitor, monthly",
+      "refreshDays": 21
     },
     {
       "id": "uk-confidence",
@@ -194,7 +206,8 @@
       "readingPeriod": "September",
       "outcome": true,
       "checkedAt": "2026-09-29",
-      "note": "GfK / NielsenIQ consumer confidence, monthly (late in the month)"
+      "note": "GfK / NielsenIQ consumer confidence, monthly (late in the month)",
+      "refreshDays": 21
     },
     {
       "id": "displacement",
@@ -209,7 +222,8 @@
       "readingPeriod": "End of 2025",
       "outcome": true,
       "checkedAt": "2026-09-29",
-      "note": "UNHCR Global Trends (June) and Mid-Year Trends (autumn)"
+      "note": "UNHCR Global Trends (June) and Mid-Year Trends (autumn)",
+      "refreshDays": 180
     }
   ]
 }
