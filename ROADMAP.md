@@ -20,6 +20,14 @@ Cascade went 20 weeks without an issue (Issue 05, 9 May, to Issue 06, 29 Sep) be
 - **Clock:** honest composite. Each measure scored against its own history so good news moves it back. Issue 06 scores by hand on that basis (May rescored the same way; both read 75). Next step: compute scores automatically from real history.
 - **Pipeline moves to the cloud:** fetchers live in this repo and run on a schedule (GitHub Actions), opening a PR per issue. Merging the PR = publishing. No dependency on any one laptop.
 - **Brent is now EIA spot via FRED** (`DCOILBRENTEU`), not ICE futures: official, free, fetchable. Spot and front-month futures diverged by $10–20 in Sept 2026.
+- **The pipeline (built 29 Sep 2026, replaces the Mac-only `cascade-data-fetcher`):**
+  - `pipeline/sources.mjs`: 9 automated measures (ONS unemployment MGSX, real pay A2FA, CPI D7G7; BoE 5-yr fix IUMBV45; FAO FFPI; NASA GISTEMP; Brent spot + U-Mich via FRED; DESNZ weekly diesel). No API keys, no npm deps.
+  - `data/manual.json`: the other 14 measures, edited by hand; each has `refreshDays` and the draft report flags stale ones.
+  - `data/issues/issue-NN.json`: snapshot of each published issue; the baseline for the next issue's deltas.
+  - Scoring: severity = the reading's rank within its own last 20 years (0 best, 100 worst). CPI scores distance from the 2% target. Previous readings use what had actually been *published* by the last issue's date (per-source release lags), so deltas are fair.
+  - `node pipeline/build.mjs check | draft [date] | alerts | rescore DATE | snapshot`.
+  - `.github/workflows/cascade-issue.yml` (24th monthly): draft data → optional Claude prose draft → PR. `cascade-alerts.yml` (Mondays): opens a GitHub issue if a measure moves ≥15 severity points or changes tier, or a source breaks.
+  - Review = the PR's Cloudflare preview (`<branch>.cascade-simulator.pages.dev`, alias truncated to 28 chars). Merge = publish. After merging, run `snapshot` if the Claude step didn't.
 - Measures swapped in Issue 06: + UK unemployment, UK CPI, small-boat arrivals, UK wheat harvest, UK diesel, "wrong direction" (Ipsos). Dropped: AI displacement (no comparable series), London price-to-income (the 12x figure was wrong; ONS says 10.6x, annual), Trussell parcels (annual; now calendar-year), U.S. income trust gap, news-org trust, Hormuz ships diverted (merged into Hormuz transits).
 
 ---
